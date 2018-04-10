@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.SettingFragment;
 import com.example.administrator.jiayan_project.utils.weight.NoScrollViewPager;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
@@ -80,7 +81,7 @@ public class MainFragment extends BaseFragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
 
             @Override
@@ -109,7 +110,7 @@ public class MainFragment extends BaseFragment {
                         return  new CartFragment();
                     case 3:
                     default:
-                        return new MineFragment();
+                        return new SettingFragment();
                 }
             }
 

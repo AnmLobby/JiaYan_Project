@@ -3,6 +3,7 @@ package com.example.administrator.jiayan_project;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.AppContextUtil;
 
 
@@ -21,6 +22,7 @@ public class MyApplication extends Application {
         super.onCreate();
         AppContextUtil.init(this);
         applicationContext = this;
+        new RudenessScreenHelper(this, 750).activate();
     }
 }
 
