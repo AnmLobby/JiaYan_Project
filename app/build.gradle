@@ -21,6 +21,7 @@ android {
             res.srcDirs = [
                     'src/main/res/layout/fragment',
                     'src/main/res/layout/basics',
+                    'src/main/res/mipmap-xhdpi/mine',
                     'src/main/res'
             ]
         }}

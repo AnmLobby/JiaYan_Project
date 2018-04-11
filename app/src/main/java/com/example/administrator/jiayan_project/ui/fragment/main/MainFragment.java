@@ -44,24 +44,24 @@ public class MainFragment extends BaseFragment {
         mTabSegment.setDefaultSelectedColor(selectColor);
         mTabSegment.setHasIndicator(false);
         QMUITabSegment.Tab homepage = new QMUITabSegment.Tab(
-                ContextCompat.getDrawable(getContext(), R.mipmap.homepaeg),
-                null,
-                "首页", true
+                ContextCompat.getDrawable(getContext(), R.mipmap.home),
+                ContextCompat.getDrawable(getContext(), R.mipmap.home_select),
+                "首页", false
         );
         QMUITabSegment.Tab classify = new QMUITabSegment.Tab(
                 ContextCompat.getDrawable(getContext(), R.mipmap.classify),
-                null,
-                "分类", true
+                ContextCompat.getDrawable(getContext(), R.mipmap.classify_select),
+                "分类", false
         );
         QMUITabSegment.Tab cart = new QMUITabSegment.Tab(
                 ContextCompat.getDrawable(getContext(), R.mipmap.cart),
-                null,
-                "购物车", true
+                ContextCompat.getDrawable(getContext(), R.mipmap.cart_select),
+                "购物车", false
         );
         QMUITabSegment.Tab mine = new QMUITabSegment.Tab(
                 ContextCompat.getDrawable(getContext(), R.mipmap.mine),
-                null,
-                "我的", true
+                ContextCompat.getDrawable(getContext(), R.mipmap.mine_select),
+                "我的", false
         );
         mTabSegment.addTab(homepage);
         mTabSegment.addTab(classify);
@@ -103,7 +103,7 @@ public class MainFragment extends BaseFragment {
             protected Object hydrate(ViewGroup container, int position) {
                 switch (position) {
                     case 0:
-                        return new HomePageFragment();
+                        return new MineFragment();
                     case 1:
                         return new ClassifyFragment();
                     case 2:

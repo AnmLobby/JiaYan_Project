@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -24,6 +25,8 @@ public class SettingFragment extends BaseFragment {
     QMUIGroupListView mGroupListView;
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
+
+
 
     @Override
     protected View onCreateView() {
@@ -48,6 +51,7 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startFragment(new MineFragment());
             }
         });
         QMUICommonListItemView itemWithChevron2 = mGroupListView.createItemView("版本更新");

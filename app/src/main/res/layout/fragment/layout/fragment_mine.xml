@@ -1,13 +1,72 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.main.MineFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.administrator.jiayan_project.ui.fragment.main.MineFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent">
+    <com.qmuiteam.qmui.widget.QMUIAppBarLayout
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="999" />
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400pt">
+        <ImageView
+            android:fitsSystemWindows="true"
+            android:src="@mipmap/cover_default"
+            android:id="@+id/iv_cover_bg"
+            android:layout_width="match_parent"
+            android:layout_height="200pt"
+            android:scaleType="centerCrop" />
+        <LinearLayout
+            android:layout_below="@+id/iv_cover_bg"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="200pt"/>
 
-</FrameLayout>
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+
+            android:layout_width="158pt"
+            android:layout_height="158pt"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="107pt"
+            android:src="@drawable/timg"
+            android:clickable="false"
+            android:id="@+id/iv_head"
+            app:qmui_border_color="#FFFFFF"
+            app:qmui_border_width="3px"
+            app:qmui_corner_radius="15dp"
+            app:qmui_selected_border_color="?attr/qmui_config_color_gray_4"
+            app:qmui_selected_border_width="1px"
+            app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8"/>
+        <TextView
+            android:id="@+id/name"
+            android:textSize="18sp"
+            android:layout_marginTop="10pt"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_head"
+            android:text="Yu Wo Ambrose"
+            android:textStyle="bold"
+            android:textColor="#4b484a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
+    <LinearLayout
+        android:layout_marginTop="350pt"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<include
+   layout="@layout/recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
