@@ -22,7 +22,7 @@ public class MyApplication extends Application {
         super.onCreate();
         AppContextUtil.init(this);
         applicationContext = this;
-        new RudenessScreenHelper(this, 750).activate();
+        new RudenessScreenHelper(this, 1080).activate();
     }
 }
 

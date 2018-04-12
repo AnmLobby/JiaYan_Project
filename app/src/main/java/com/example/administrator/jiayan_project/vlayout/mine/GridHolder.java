@@ -10,7 +10,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
-import com.example.administrator.jiayan_project.vlayout.homepage.VlayoutBaseHolder;
+import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseHolder;
+
 
 import butterknife.BindView;
 

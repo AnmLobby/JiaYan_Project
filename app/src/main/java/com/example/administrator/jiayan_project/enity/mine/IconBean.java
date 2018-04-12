@@ -11,6 +11,7 @@ public class IconBean {
     }
     private String name;
 
+    private int imageId;
     public String getName() {
         return name;
     }
@@ -27,6 +28,5 @@ public class IconBean {
         this.imageId = imageId;
     }
 
-    private int imageId;
 
 }

@@ -1,25 +1,34 @@
 package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
+import com.example.administrator.jiayan_project.enity.mine.TitieBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.SettingFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
+import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
-import com.example.administrator.jiayan_project.vlayout.homepage.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.mine.GridHolder;
+import com.example.administrator.jiayan_project.vlayout.mine.TitleHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +42,7 @@ public class MineFragment extends BaseFragment {
     private static final String TAG = "MineFragment";
     @BindView(R.id.recyclerview)
     RecyclerView mRecycler;
-    private VlayoutBaseAdapter gridAdapter;
+    private VlayoutBaseAdapter gridAdapter,titleAdapter;
     private DelegateAdapter delegateAdapter;
     private Context mContext;
     private IconBean[] iconBeans={new IconBean("我的收藏",R.mipmap.oo),
@@ -42,7 +51,10 @@ public class MineFragment extends BaseFragment {
             new IconBean("电话客服",R.mipmap.kefu),new IconBean("电子卡卷",R.mipmap.kajuan),
             new IconBean("分享好友",R.mipmap.fenxiang),
         };
+    private TitieBean[] titieBeans={new TitieBean("W")};
+    private  List<TitieBean> titie=new ArrayList<>();
     private  List<IconBean> iconBeanList=new ArrayList<>();
+
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
@@ -57,7 +69,14 @@ public class MineFragment extends BaseFragment {
         iconBeanList.clear();
         for (int i = 0; i <iconBeans.length ; i++) {
             iconBeanList.add(iconBeans[i]);
+
         }
+
+
+        titie.add(titieBeans[0]);
+        titleAdapter.setData(titie);
+        titleAdapter.notifyDataSetChanged();
+
 
         gridAdapter.setData(iconBeanList);
         gridAdapter.notifyDataSetChanged();
@@ -83,12 +102,28 @@ public class MineFragment extends BaseFragment {
                     public void onItemClick(View view, int position, IconBean mData) {
                        switch (String.valueOf(position)){
                            case "0":
-                               startFragment(new SettingFragment());
+                               LayoutInflater inflater=(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                               View detailcontent=inflater.inflate(R.layout.dialog_detail,null);
+                               AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(detailcontent);
+                               builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+                                     dialog.dismiss();
+                                   }
+                               });
+                               builder.show();
                                break;
                            default:
                        }
                     }
                 });
+        titleAdapter= new VlayoutBaseAdapter(mContext)
+                .setData(new ArrayList<TitieBean>())
+                .setLayout(R.layout.vlayout_mine_title)
+                .setHolder(TitleHolder.class)
+                .setTitle("常用工具")
+                .setLayoutHelper(new LinearLayoutHelper());
+        delegateAdapter.addAdapter(titleAdapter);
         delegateAdapter.addAdapter(gridAdapter);
         mRecycler.setAdapter(delegateAdapter);
     }

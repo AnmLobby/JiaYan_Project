@@ -1,4 +1,4 @@
-package com.example.administrator.jiayan_project.vlayout.homepage;
+package com.example.administrator.jiayan_project.vlayout.helper;
 
 import android.content.Context;
 import android.view.View;
@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
-
+import com.example.administrator.jiayan_project.vlayout.homepage.InflateConstants;
+import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/19.
  */
 
-public class VlayoutBaseAdapter <T> extends DelegateAdapter.Adapter<VlayoutBaseHolder<T>> {
+public class VlayoutBaseAdapter<T> extends DelegateAdapter.Adapter<VlayoutBaseHolder<T>> {
     //上下文
     private Context mContext;
     //布局文件资源ID
@@ -31,6 +32,8 @@ public class VlayoutBaseAdapter <T> extends DelegateAdapter.Adapter<VlayoutBaseH
     //回调监听
     private ItemListener mListener;
 
+    private String mText;
+
     public VlayoutBaseAdapter(Context context) {
         mContext = context;
     }
@@ -41,7 +44,7 @@ public class VlayoutBaseAdapter <T> extends DelegateAdapter.Adapter<VlayoutBaseH
      * <br/> 参数:<同上申明>
      */
     public VlayoutBaseAdapter(Context context, List<T> mDatas, int mResLayout, Class<? extends VlayoutBaseHolder> mClazz,
-                              LayoutHelper layoutHelper, ItemListener listener) {
+                              LayoutHelper layoutHelper, ItemListener listener,String text) {
         if (mClazz == null) {
             throw new RuntimeException("clazz is null,please check your params !");
         }
@@ -54,6 +57,7 @@ public class VlayoutBaseAdapter <T> extends DelegateAdapter.Adapter<VlayoutBaseH
         this.mClazz = mClazz;
         this.mListener = listener;
         this.mDatas = mDatas;
+        this.mText=text;
         //this.mLayoutParams = new VirtualLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
         // ViewGroup.LayoutParams.WRAP_CONTENT);
     }
@@ -69,6 +73,10 @@ public class VlayoutBaseAdapter <T> extends DelegateAdapter.Adapter<VlayoutBaseH
         return this;
     }
 
+    public VlayoutBaseAdapter setTitle(String text){
+            this.mText=text;
+            return  this;
+    }
     /**
      * <br/> 方法名称: setItem
      * <br/> 方法详述: 设置单个数据源
@@ -191,6 +199,7 @@ public class VlayoutBaseAdapter <T> extends DelegateAdapter.Adapter<VlayoutBaseH
     public void onBindViewHolder(VlayoutBaseHolder holder, int position) {
         holder.setListener(mListener);
         holder.setContext(mContext);
+        holder.setTitle(mText);
         holder.setData(position, mDatas.get(position));
     }
 

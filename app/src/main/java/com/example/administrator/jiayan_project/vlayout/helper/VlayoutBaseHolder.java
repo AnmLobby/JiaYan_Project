@@ -1,8 +1,10 @@
-package com.example.administrator.jiayan_project.vlayout.homepage;
+package com.example.administrator.jiayan_project.vlayout.helper;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 
 import butterknife.ButterKnife;
 
@@ -16,6 +18,7 @@ public class VlayoutBaseHolder<T> extends RecyclerView.ViewHolder {
     public View mView;
     public T mData;
     public int position;
+    public String mText;
 
     public VlayoutBaseHolder(View itemView) {
         super(itemView);
@@ -31,7 +34,9 @@ public class VlayoutBaseHolder<T> extends RecyclerView.ViewHolder {
     public void setContext(Context context) {
         mContext = context;
     }
-
+    public void setTitle(String text){
+        mText=text;
+    }
     public void setListener(ItemListener listener) {
         mListener = listener;
     }

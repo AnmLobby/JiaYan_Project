@@ -42,6 +42,7 @@ public class SettingFragment extends BaseFragment {
         View.OnClickListener onClickListener = null;
         QMUICommonListItemView itemWithChevron = mGroupListView.createItemView("安全设置");
         itemWithChevron.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        itemWithChevron.setImageDrawable(getResources().getDrawable(R.mipmap.set));
         itemWithChevron.setOrientation(QMUICommonListItemView.VERTICAL);
 
 
