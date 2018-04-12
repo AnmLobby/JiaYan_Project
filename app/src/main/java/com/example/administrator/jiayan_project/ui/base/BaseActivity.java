@@ -3,7 +3,9 @@ package com.example.administrator.jiayan_project.ui.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 
@@ -17,8 +19,10 @@ public abstract class BaseActivity extends QMUIFragmentActivity {
      * @param fragment
      * @return
      */
+    private static final String TAG = "BaseActivity";
     public int getStatusBarHeight(Fragment fragment) {
         double statusBarHeight = Math.ceil(25 * fragment.getResources().getDisplayMetrics().density);
         return (int) statusBarHeight;
     }
+
 }

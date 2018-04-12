@@ -2,28 +2,19 @@ package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.enity.mine.TitieBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
-import com.example.administrator.jiayan_project.ui.fragment.SettingFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
@@ -35,7 +26,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 public class MineFragment extends BaseFragment {

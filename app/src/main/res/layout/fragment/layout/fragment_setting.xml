@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/app_primary_color"
-    tools:context="com.example.administrator.jiayan_project.ui.fragment.SettingFragment">
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment">
     <com.qmuiteam.qmui.widget.QMUITopBar
         app:qmui_topbar_bg_color="@color/qmui_config_color_transparent"
         app:qmui_topbar_need_separator="false"

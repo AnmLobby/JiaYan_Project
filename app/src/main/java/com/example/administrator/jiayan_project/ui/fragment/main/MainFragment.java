@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.FrameLayout;
 
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
-import com.example.administrator.jiayan_project.ui.fragment.SettingFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.example.administrator.jiayan_project.utils.weight.NoScrollViewPager;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
@@ -67,6 +66,7 @@ public class MainFragment extends BaseFragment {
         mTabSegment.addTab(classify);
         mTabSegment.addTab(cart);
         mTabSegment.addTab(mine);
+
     }
 
     private void initPagers() {
@@ -133,14 +133,14 @@ public class MainFragment extends BaseFragment {
                     fragment.setMenuVisibility(false);
                     fragment.setUserVisibleHint(false);
                 }
+
             }
 
             @SuppressLint("CommitTransaction")
             @Override
             protected void destroy(ViewGroup container, int position, Object object) {
                 if (mCurrentTransaction == null) {
-                    mCurrentTransaction = getChildFragmentManager()
-                            .beginTransaction();
+                    mCurrentTransaction = getChildFragmentManager().beginTransaction();
                 }
                 mCurrentTransaction.detach((Fragment) object);
             }

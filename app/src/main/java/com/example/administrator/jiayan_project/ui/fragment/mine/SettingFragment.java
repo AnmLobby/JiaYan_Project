@@ -1,6 +1,7 @@
-package com.example.administrator.jiayan_project.ui.fragment;
+package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,7 +21,7 @@ import butterknife.Unbinder;
 
 public class SettingFragment extends BaseFragment {
 
-
+    private static final String TAG = "SettingFragment";
     @BindView(R.id.groupListView)
     QMUIGroupListView mGroupListView;
     @BindView(R.id.mtopbar)
@@ -49,6 +50,7 @@ public class SettingFragment extends BaseFragment {
         QMUICommonListItemView itemWithChevron1 = mGroupListView.createItemView("消息提醒");
         itemWithChevron1.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron1.setOrientation(QMUICommonListItemView.VERTICAL);
+        itemWithChevron1.setImageDrawable(getResources().getDrawable(R.mipmap.notif));
         itemWithChevron1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,27 +59,29 @@ public class SettingFragment extends BaseFragment {
         });
         QMUICommonListItemView itemWithChevron2 = mGroupListView.createItemView("版本更新");
         itemWithChevron2.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        itemWithChevron2.setImageDrawable(getResources().getDrawable(R.mipmap.updata));
         itemWithChevron2.setOrientation(QMUICommonListItemView.VERTICAL);
-
         itemWithChevron2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                    startFragment(new SettingFragment());
             }
         });
         QMUICommonListItemView itemWithChevron3 = mGroupListView.createItemView("关于我们");
         itemWithChevron3.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron3.setOrientation(QMUICommonListItemView.VERTICAL);
+        itemWithChevron3.setImageDrawable(getResources().getDrawable(R.mipmap.about));
         itemWithChevron3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AboutFragment aboutFragment=new AboutFragment();
+                    startFragment(aboutFragment);
             }
         });
         QMUICommonListItemView itemWithChevron4 = mGroupListView.createItemView("联系我们");
         itemWithChevron4.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron4.setOrientation(QMUICommonListItemView.VERTICAL);
-
+        itemWithChevron4.setImageDrawable(getResources().getDrawable(R.mipmap.call));
         itemWithChevron4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +91,8 @@ public class SettingFragment extends BaseFragment {
         QMUICommonListItemView itemWithChevron5 = mGroupListView.createItemView("意见反馈");
         itemWithChevron5.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron5.setOrientation(QMUICommonListItemView.VERTICAL);
-        itemWithChevron.setOnClickListener(new View.OnClickListener() {
+        itemWithChevron5.setImageDrawable(getResources().getDrawable(R.mipmap.yijian));
+        itemWithChevron5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -123,5 +128,18 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.e(TAG, "onDestroyView: " );
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume: " );
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e(TAG, "onStart: " );
     }
 }
