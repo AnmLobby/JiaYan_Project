@@ -34,8 +34,10 @@
     <color name="colorHelper_square_to_ratio_background">@color/app_color_theme_3</color>
     <color name="detail_bg2">#35000000</color>
     <color name="app_bar_color">#00FFFFFF</color>
-
     <color name="colorPrimaryTrans">#a0673AB7</color>
     <color name="colorAccentTrans">#a0009688</color>
     <color name="colorBlackTrans">#a0000000</color>
+    <color name="text_black">#000000</color>
+    <color name="text_gray">#8a8a8a</color>
+    <color name="money">#f4e757</color>
 </resources>

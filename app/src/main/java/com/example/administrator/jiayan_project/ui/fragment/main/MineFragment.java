@@ -15,6 +15,7 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.enity.mine.TitieBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
@@ -35,11 +36,11 @@ public class MineFragment extends BaseFragment {
     private VlayoutBaseAdapter gridAdapter,titleAdapter;
     private DelegateAdapter delegateAdapter;
     private Context mContext;
-    private IconBean[] iconBeans={new IconBean("我的收藏",R.mipmap.oo),
-            new IconBean("开通会员",R.mipmap.huiyuan),new IconBean("收货地址",R.mipmap.shouhuo)
-            ,new IconBean("我的评价",R.mipmap.pingjia),new IconBean("服务说明",R.mipmap.fuwu),
-            new IconBean("电话客服",R.mipmap.kefu),new IconBean("电子卡卷",R.mipmap.kajuan),
-            new IconBean("分享好友",R.mipmap.fenxiang),
+    private IconBean[] iconBeans={new IconBean("我的收藏",R.mipmap.aa),
+            new IconBean("开通会员",R.mipmap.mhuiyuan),new IconBean("收货地址",R.mipmap.mshouhuo)
+            ,new IconBean("我的评价",R.mipmap.mpingjia),new IconBean("服务说明",R.mipmap.mfuwu),
+            new IconBean("电话客服",R.mipmap.mcall),new IconBean("电子卡卷",R.mipmap.mkajuan),
+            new IconBean("分享好友",R.mipmap.mfenxiang),
         };
     private TitieBean[] titieBeans={new TitieBean("W")};
     private  List<TitieBean> titie=new ArrayList<>();
@@ -102,6 +103,9 @@ public class MineFragment extends BaseFragment {
                                    }
                                });
                                builder.show();
+                               break;
+                           case "1":
+                               startFragment(new AboutFragment());
                                break;
                            default:
                        }

@@ -2,7 +2,6 @@ package com.example.administrator.jiayan_project.http;
 
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
-import com.example.administrator.jiayan_project.enity.homepage.FistChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;

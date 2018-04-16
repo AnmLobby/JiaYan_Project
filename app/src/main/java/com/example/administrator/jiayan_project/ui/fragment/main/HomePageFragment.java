@@ -1,30 +1,25 @@
 package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
-import com.example.administrator.jiayan_project.enity.homepage.FistChooseBean;
+import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
 import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
-import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.BannerHolder;
@@ -49,7 +44,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     private VlayoutBaseAdapter banneradapter,festivalAdapter,chooseAdapter,hotAdapter,recommendAdapter,startAdapter;
     private List<BannerBean> bannerBeans=new ArrayList<>();
     private List<FestivalBean> festivalBeans=new ArrayList<>();
-    private List<FistChooseBean> fistChooseBeans=new ArrayList<>();
+    private List<FirstChooseBean> firstChooseBeans =new ArrayList<>();
     private List<HotBean> hotBeans=new ArrayList<>();
     private List<RecommendBean> recommendBeans=new ArrayList<>();
     private List<StarBean> starBeans=new ArrayList<>();
@@ -85,13 +80,13 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 });
 
         chooseAdapter = new VlayoutBaseAdapter(mContext)
-                .setData(new ArrayList<FistChooseBean>())
+                .setData(new ArrayList<FirstChooseBean>())
                 .setLayout(R.layout.vlayout_home_choose)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(ChooseHolder.class)
-                .setListener(new ItemListener<FistChooseBean>() {
+                .setListener(new ItemListener<FirstChooseBean>() {
                     @Override
-                    public void onItemClick(View view, int position, FistChooseBean mData) {
+                    public void onItemClick(View view, int position, FirstChooseBean mData) {
 
                     }
                 });
@@ -170,9 +165,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     }
 
     @Override
-    public void successFirst(FistChooseBean fistChooseBean) {
-            fistChooseBeans.add(fistChooseBean);
-            festivalAdapter.setData(fistChooseBeans);
+    public void successFirst(FirstChooseBean firstChooseBean) {
+            firstChooseBeans.add(firstChooseBean);
+            festivalAdapter.setData(firstChooseBeans);
             festivalAdapter.notifyDataSetChanged();
     }
 

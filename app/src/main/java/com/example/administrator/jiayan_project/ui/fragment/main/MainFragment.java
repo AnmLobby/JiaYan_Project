@@ -16,6 +16,7 @@ import com.example.administrator.jiayan_project.utils.weight.NoScrollViewPager;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
+import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

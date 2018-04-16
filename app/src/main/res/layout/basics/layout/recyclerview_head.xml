@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textSize="@dimen/text_large"
+        android:layout_weight="4"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:text="明星产品"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:layout_marginRight="8dp"
+        android:textColor="#8a8a8a"
+        android:id="@+id/more"
+        android:gravity="right"
+        android:textStyle="bold"
+        android:text="查看更多"
+        android:layout_weight="1" />
+</LinearLayout>

@@ -32,7 +32,6 @@ public class GridHolder extends VlayoutBaseHolder<IconBean> {
     @Override
     public void setData(int ps, IconBean data) {
         super.setData(ps, data);
-        Log.e(TAG, "setData: "+data.getName() );
         Glide.with(MyApplication.getContext())
                 .load(data.getImageId())
                 .centerCrop()

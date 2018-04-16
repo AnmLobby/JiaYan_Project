@@ -1,13 +1,17 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
+import com.example.administrator.jiayan_project.ui.activity.TwoActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -17,6 +21,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.jzvd.JZVideoPlayer;
 
 
 public class SettingFragment extends BaseFragment {
@@ -64,7 +69,9 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    startFragment(new SettingFragment());
+//                    startFragment(new SettingFragment());
+                Intent intent=new Intent(MyApplication.getContext(), TwoActivity.class);
+                startActivity(intent);
             }
         });
         QMUICommonListItemView itemWithChevron3 = mGroupListView.createItemView("关于我们");
@@ -138,8 +145,34 @@ public class SettingFragment extends BaseFragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG, "onStop: " );
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: " );
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         Log.e(TAG, "onStart: " );
+    }
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            Log.e(TAG, "onHiddenChanged: " );
+        }else {
+            Log.e(TAG, "on水水水水水" );
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e(TAG, "onDetach: " );
     }
 }

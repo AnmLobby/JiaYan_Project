@@ -45,7 +45,7 @@
             app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8"/>
         <TextView
             android:id="@+id/name"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_large"
             android:layout_marginTop="10pt"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/iv_head"
@@ -79,7 +79,7 @@
                 android:layout_gravity="center" />
             <TextView
                 android:text="余额"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -98,7 +98,7 @@
                     android:layout_gravity="center" />
                 <TextView
                     android:text="充值"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -117,7 +117,7 @@
                     android:layout_gravity="center" />
                 <TextView
                     android:text="积分"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -127,13 +127,13 @@
         <TextView
             android:text="我的订单"
             android:id="@+id/titletext"
-            android:layout_marginTop="30pt"
-            android:layout_marginLeft="30pt"
+            android:layout_marginTop="@dimen/margin_left"
+            android:layout_marginLeft="@dimen/margin_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <View
             android:background="#d9d8d8"
-            android:layout_margin="30pt"
+            android:layout_margin="@dimen/margin_left"
             android:layout_width="match_parent"
             android:layout_height="1pt"/>
         <LinearLayout
@@ -155,7 +155,7 @@
                     android:layout_gravity="center" />
                 <TextView
                     android:text="待付款"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -174,7 +174,7 @@
                     android:layout_gravity="center" />
                 <TextView
                     android:text="已支付"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -193,7 +193,7 @@
                     android:layout_gravity="center" />
                 <TextView
                     android:text="待评价"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -212,7 +212,7 @@
                     android:layout_gravity="center" />
                 <TextView
                     android:text="售后/退款"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
