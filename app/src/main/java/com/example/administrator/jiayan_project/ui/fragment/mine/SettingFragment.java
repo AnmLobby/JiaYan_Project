@@ -1,19 +1,29 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.ui.activity.TwoActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
+import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -70,7 +80,7 @@ public class SettingFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 //                    startFragment(new SettingFragment());
-                Intent intent=new Intent(MyApplication.getContext(), TwoActivity.class);
+                Intent intent = new Intent(MyApplication.getContext(), TwoActivity.class);
                 startActivity(intent);
             }
         });
@@ -81,8 +91,8 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AboutFragment aboutFragment=new AboutFragment();
-                    startFragment(aboutFragment);
+                AboutFragment aboutFragment = new AboutFragment();
+                startFragment(aboutFragment);
             }
         });
         QMUICommonListItemView itemWithChevron4 = mGroupListView.createItemView("联系我们");
@@ -102,8 +112,29 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String phone = "400-830-9328";
+                final CustomDialog selfDialog = new CustomDialog(getActivity());
+                selfDialog.setTitle("");
+                selfDialog.setMessage(phone);
+                selfDialog.setYesOnclickListener("呼叫", new CustomDialog.onYesOnclickListener() {
+                    @Override
+                    public void onYesClick() {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + phone));
+                        startActivity(intent);
+                        selfDialog.dismiss();
+                    }
+                });
+                selfDialog.setNoOnclickListener("取消", new CustomDialog.onNoOnclickListener() {
+                    @Override
+                    public void onNoClick() {
 
-            }
+                        selfDialog.dismiss();
+                    }
+                });
+                selfDialog.show();
+    }
         });
         QMUIGroupListView.newSection(getContext())
                 .setTitle("")
@@ -129,6 +160,7 @@ public class SettingFragment extends BaseFragment {
                 popBackStack();
             }
         });
+
         mTopBar.setTitle(ContantsName.SettingName);
     }
 
