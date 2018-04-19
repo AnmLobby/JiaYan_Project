@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -29,6 +29,10 @@ android {
             ]
         }
     }
+    greendao {
+        schemaVersion 4
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
@@ -49,6 +53,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.8.0'
     //recycle
     implementation 'com.jude:easyrecyclerview:4.4.2'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //rxjava+retrofit+okhttp+interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -79,4 +84,7 @@ dependencies {
     implementation 'com.hymane.expandtextview:library:1.0.2'
     implementation 'co.lujun:androidtagview:1.1.4'
     implementation 'com.sunfusheng:marqueeview:1.3.3'
+    //数据库
+    implementation 'org.greenrobot:greendao:3.2.2' // add library
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
 }

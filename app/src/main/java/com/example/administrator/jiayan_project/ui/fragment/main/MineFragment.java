@@ -16,6 +16,7 @@ import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.enity.mine.TitieBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
@@ -106,6 +107,9 @@ public class MineFragment extends BaseFragment {
                                break;
                            case "1":
                                startFragment(new AboutFragment());
+                               break;
+                           case "2":
+                               startFragment(new DeliveryFragment());
                                break;
                            default:
                        }
