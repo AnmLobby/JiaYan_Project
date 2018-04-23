@@ -36,6 +36,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 主页面，底部栏第一个
+ */
 public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresenter> implements HomeView {
     @BindView(R.id.recycler)
     FatRecyclerview mRecycler;

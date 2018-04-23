@@ -29,7 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * 我的页面，底部栏第四个
+ */
 public class MineFragment extends BaseFragment {
     private static final String TAG = "MineFragment";
     @BindView(R.id.recyclerview)

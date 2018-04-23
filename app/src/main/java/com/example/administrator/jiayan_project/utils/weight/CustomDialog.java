@@ -62,7 +62,6 @@ public class CustomDialog  extends Dialog{
         setContentView(R.layout.widget_dialog);
         //按空白处不能取消动画
         setCanceledOnTouchOutside(false);
-
         //初始化界面控件
         initView();
         //初始化界面数据

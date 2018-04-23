@@ -1,27 +1,17 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import com.example.administrator.jiayan_project.MainActivity;
-import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
-import com.example.administrator.jiayan_project.ui.activity.TwoActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -30,9 +20,10 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import cn.jzvd.JZVideoPlayer;
 
+/**
+ * 设置
+ */
 
 public class SettingFragment extends BaseFragment {
 
@@ -60,7 +51,12 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron.setImageDrawable(getResources().getDrawable(R.mipmap.set));
         itemWithChevron.setOrientation(QMUICommonListItemView.VERTICAL);
-
+        itemWithChevron.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFragment(new SettingFragment());
+            }
+        });
 
         QMUICommonListItemView itemWithChevron1 = mGroupListView.createItemView("消息提醒");
         itemWithChevron1.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
@@ -79,9 +75,8 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                    startFragment(new SettingFragment());
-                Intent intent = new Intent(MyApplication.getContext(), TwoActivity.class);
-                startActivity(intent);
+                    startFragment(new BlankOneFragment());
+
             }
         });
         QMUICommonListItemView itemWithChevron3 = mGroupListView.createItemView("关于我们");
@@ -100,16 +95,6 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron4.setOrientation(QMUICommonListItemView.VERTICAL);
         itemWithChevron4.setImageDrawable(getResources().getDrawable(R.mipmap.call));
         itemWithChevron4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        QMUICommonListItemView itemWithChevron5 = mGroupListView.createItemView("意见反馈");
-        itemWithChevron5.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-        itemWithChevron5.setOrientation(QMUICommonListItemView.VERTICAL);
-        itemWithChevron5.setImageDrawable(getResources().getDrawable(R.mipmap.yijian));
-        itemWithChevron5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String phone = "400-830-9328";
@@ -134,6 +119,17 @@ public class SettingFragment extends BaseFragment {
                     }
                 });
                 selfDialog.show();
+            }
+        });
+        QMUICommonListItemView itemWithChevron5 = mGroupListView.createItemView("意见反馈");
+        itemWithChevron5.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        itemWithChevron5.setOrientation(QMUICommonListItemView.VERTICAL);
+        itemWithChevron5.setImageDrawable(getResources().getDrawable(R.mipmap.yijian));
+        itemWithChevron5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
     }
         });
         QMUIGroupListView.newSection(getContext())

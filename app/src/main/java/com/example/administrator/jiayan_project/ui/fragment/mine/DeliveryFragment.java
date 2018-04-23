@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.adapter.adapter.AddressAdapter;
 import com.example.administrator.jiayan_project.adapter.adapter.AddressListAdapter;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
@@ -32,9 +34,11 @@ import butterknife.ButterKnife;
 public class DeliveryFragment extends BaseFragment {
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
-    private AddressListAdapter addressListAdapter =new AddressListAdapter(new ArrayList<AddressBean>());
+//    @BindView(R.id.recyclerview)
+//    RecyclerView recyclerview;
+    @BindView(R.id.lv_address)
+    ListView lv_address;
+    private AddressAdapter addressListAdapter;
     private List<AddressBean> addressBeans=new ArrayList<>();
     private static final String TAG = "ClassifyFragment";
     private  List<AddressBean> list;
@@ -43,11 +47,12 @@ public class DeliveryFragment extends BaseFragment {
         FrameLayout layout = ( FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_delivery, null);
         ButterKnife.bind(this, layout);
         initTopBar();
-        LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerview.setLayoutManager(layoutManager);
-        recyclerview.setAdapter(addressListAdapter);
 
+//        LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerview.setLayoutManager(layoutManager);
+//        recyclerview.setAdapter(addressListAdapter);
+//
         list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
                 .limit(300)//只获取结果集的前 3 个数据
@@ -59,33 +64,35 @@ public class DeliveryFragment extends BaseFragment {
         }
 //        Log.e(TAG, "onCreateView: "+list.size() +list.get(i));
         addressBeans.addAll(list);
-        addressListAdapter.setNewData(addressBeans);
-        addressListAdapter.loadMoreComplete();
-
-        addressListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-
-                //判断id
-                if (view.getId() == R.id.check) {
-                    final CheckBox checkBox=view.findViewById(R.id.check);
-                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                            List<AddressBean> lisu = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder().build().list();
-
-                        }
-                    });
-                }
-            }
-        });
-        addressListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Log.e(TAG, "onItemChildClick:888888" );
-            }
-        });
+        addressListAdapter =new AddressAdapter(MyApplication.getContext(),addressBeans);
+        lv_address.setAdapter(addressListAdapter);
+//        addressListAdapter.setNewData(addressBeans);
+//        addressListAdapter.loadMoreComplete();
+//
+//        addressListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//            @Override
+//            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+//
+//                //判断id
+//                if (view.getId() == R.id.check) {
+//                    final CheckBox checkBox=view.findViewById(R.id.check);
+//                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                        @Override
+//                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                            List<AddressBean> lisu = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder().build().list();
+//
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//        addressListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                Log.e(TAG, "onItemChildClick:888888" );
+//            }
+//        });
         return layout;
     }
 

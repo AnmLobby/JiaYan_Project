@@ -21,7 +21,7 @@ public  abstract class BaseFragment extends QMUIFragment {
 
     @Override
     protected int backViewInitOffset() {
-        return QMUIDisplayHelper.dp2px(getContext(), 0);
+        return QMUIDisplayHelper.dp2px(getContext(), 100);
     }
 
     public int getStatusBarHeight(BaseFragment fragment) {

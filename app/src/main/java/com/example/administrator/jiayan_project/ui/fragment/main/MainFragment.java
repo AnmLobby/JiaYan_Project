@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.example.administrator.jiayan_project.utils.weight.NoScrollViewPager;
 import com.qmuiteam.qmui.util.QMUIResHelper;
@@ -21,6 +22,9 @@ import com.qmuiteam.qmui.widget.QMUIViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 主界面，进来的第一个fragment
+ */
 
 public class MainFragment extends BaseFragment {
 
@@ -108,7 +112,8 @@ public class MainFragment extends BaseFragment {
                     case 1:
                         return new ClassifyFragment();
                     case 2:
-                        return  new CartFragment();
+//                        return  new CartFragment();
+                        return  new BlankOneFragment();
                     case 3:
                     default:
                         return new SettingFragment();

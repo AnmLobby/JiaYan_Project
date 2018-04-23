@@ -9,6 +9,7 @@ import com.example.administrator.jiayan_project.db.bean.DaoSession;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.AppContextUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 /**
@@ -32,6 +33,7 @@ public class MyApplication extends Application {
         AppContextUtil.init(this);
         applicationContext = this;
         new RudenessScreenHelper(this, 1080).activate();
+        Fresco.initialize(this);
         GreenDaoManager.getInstance();
     }
 

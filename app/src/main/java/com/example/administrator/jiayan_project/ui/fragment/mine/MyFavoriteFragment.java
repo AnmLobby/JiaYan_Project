@@ -10,7 +10,9 @@ import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 
 import butterknife.ButterKnife;
 
-
+/**
+ * 我所喜欢的，收藏fragment
+ */
 public class MyFavoriteFragment extends BaseFragment {
 
 

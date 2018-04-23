@@ -20,7 +20,22 @@ import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 public class FragmentController {
     private FragmentController mHomeControlListener;
-    public void startEditAddressActivityWithAddress(QMUIFragmentActivity context, AddressBean address) {
+
+    public static volatile FragmentController activityController;
+
+    public static FragmentController getInstance() {
+        if (activityController == null) {
+            synchronized (FragmentController.class) {
+                if (activityController == null) {
+                    activityController = new FragmentController();
+                }
+            }
+        }
+        return activityController;
+    }
+    
+    
+    public void startEditAddressActivityWithAddress(Context context, AddressBean address) {
         SettingFragment settingFragment=new SettingFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("address", address);

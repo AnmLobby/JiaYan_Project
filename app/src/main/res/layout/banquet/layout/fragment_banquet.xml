@@ -1,0 +1,307 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment">
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="150pt">
+<FrameLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.youth.banner.Banner
+        app:delay_time="3000"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="650pt"/>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_marginTop="650pt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:layout_marginTop="330pt"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:paddingLeft="45pt"
+    android:paddingRight="30pt"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="150pt">
+    <TextView
+        android:layout_gravity="center"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_six"
+        android:text="已选择"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginLeft="130pt"
+        android:text="99桌"
+        android:textSize="@dimen/text_large"
+        android:textColor="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginLeft="100pt"
+        android:text="10人"
+        android:textSize="@dimen/text_large"
+        android:textColor="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_gravity="center"
+        android:text=" /桌"
+        android:textSize="@dimen/text_six"
+        android:textColor="@color/text_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_marginLeft="240pt"
+        android:src="@mipmap/banque_moret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+<include
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    layout="@layout/base_view"/>
+    <LinearLayout
+        android:paddingLeft="45pt"
+        android:paddingRight="30pt"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150pt">
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_six"
+            android:text="布草摆设"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginLeft="82pt"
+            android:text="普通红色"
+            android:textSize="@dimen/text_large"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="430pt"
+            android:src="@mipmap/banque_moret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+
+    </RelativeLayout>
+<com.qmuiteam.qmui.layout.QMUILinearLayout
+    android:background="@color/white"
+    android:layout_marginTop="610pt"
+    android:id="@+id/qmui_layout"
+    android:orientation="vertical"
+    android:layout_marginLeft="30pt"
+    android:layout_marginRight="30pt"
+    android:layout_width="match_parent"
+    android:layout_height="320pt">
+<com.qmuiteam.qmui.layout.QMUILinearLayout
+    android:id="@+id/twolayout"
+    android:layout_margin="15pt"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginLeft="30pt"
+        android:layout_weight="3"
+        android:ellipsize="end"
+        android:maxEms="12"
+        android:singleLine="true"
+        android:text="东莞佛跳墙东墙"
+
+        android:textSize="@dimen/text_large"
+        android:id="@+id/dishes_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+<TextView
+    android:textColor="@color/banquet_text"
+    android:textSize="@dimen/text_six"
+    android:text="   分享有礼"
+    android:id="@+id/dishes_share"
+    android:drawableLeft="@mipmap/banquet_share"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+</com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+    <LinearLayout
+        android:layout_margin="15pt"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/banquet_money"
+            android:layout_marginLeft="30pt"
+            android:text="现价："
+            android:textSize="@dimen/text_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/banquet_money"
+            android:text="¥ "
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/buy_money"
+            android:textColor="@color/banquet_money"
+            android:text="1666"
+            android:textSize="@dimen/text_tem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/banquet_money"
+            android:text=" /套"
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="15pt"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="15"
+            android:id="@+id/money_before"
+            android:layout_marginLeft="30pt"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="180pt"
+            android:text="已销售：999 笔"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+</FrameLayout>
+
+</android.support.v4.widget.NestedScrollView>
+<LinearLayout
+    android:layout_gravity="bottom"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="150pt">
+    <LinearLayout
+        android:layout_marginTop="15pt"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@mipmap/banquet_kefu"
+            android:layout_centerInParent="true"
+            android:id="@+id/kefuimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/text_small"
+            android:layout_gravity="center"
+            android:text="客服"
+            android:textColor="@color/text_gray"
+            android:layout_below="@+id/kefuimg"
+            android:id="@+id/kefu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="15pt"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@mipmap/banquet_like"
+            android:layout_centerInParent="true"
+            android:id="@+id/likeimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/text_small"
+            android:layout_gravity="center"
+            android:text="收藏"
+            android:textColor="@color/text_gray"
+            android:layout_below="@+id/likeimg"
+            android:id="@+id/like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="@color/app_color_theme_3"
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<TextView
+    android:text="加入购物车"
+    android:layout_centerInParent="true"
+    android:textColor="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/buy"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="立即购买"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>
+
+</FrameLayout>

@@ -1,8 +1,7 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,9 @@ import com.qmuiteam.qmui.widget.QMUITopBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 关于宴万家fragment
+ */
 
 public class AboutFragment extends BaseFragment {
     @BindView(R.id.mtopbar)

@@ -20,7 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
+/**
+ * 购物车fragment，底部栏第三个
+ */
 public class CartFragment extends BaseFragment {
     @BindView(R.id.one)
     Button one;
