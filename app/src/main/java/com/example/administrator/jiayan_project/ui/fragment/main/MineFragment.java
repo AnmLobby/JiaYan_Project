@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
@@ -17,6 +18,8 @@ import com.example.administrator.jiayan_project.enity.mine.TitieBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
+import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
@@ -28,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 我的页面，底部栏第四个
@@ -36,18 +40,24 @@ public class MineFragment extends BaseFragment {
     private static final String TAG = "MineFragment";
     @BindView(R.id.recyclerview)
     RecyclerView mRecycler;
-    private VlayoutBaseAdapter gridAdapter,titleAdapter;
+    @BindView(R.id.yuelayout)
+    LinearLayout yuelayout;
+    @BindView(R.id.chongzhilayout)
+    LinearLayout chongzhilayout;
+    @BindView(R.id.jifenlayout)
+    LinearLayout jifenlayout;
+    private VlayoutBaseAdapter gridAdapter, titleAdapter;
     private DelegateAdapter delegateAdapter;
     private Context mContext;
-    private IconBean[] iconBeans={new IconBean("我的收藏",R.mipmap.aa),
-            new IconBean("开通会员",R.mipmap.mhuiyuan),new IconBean("收货地址",R.mipmap.mshouhuo)
-            ,new IconBean("我的评价",R.mipmap.mpingjia),new IconBean("服务说明",R.mipmap.mfuwu),
-            new IconBean("电话客服",R.mipmap.mcall),new IconBean("电子卡卷",R.mipmap.mkajuan),
-            new IconBean("分享好友",R.mipmap.mfenxiang),
-        };
-    private TitieBean[] titieBeans={new TitieBean("W")};
-    private  List<TitieBean> titie=new ArrayList<>();
-    private  List<IconBean> iconBeanList=new ArrayList<>();
+    private IconBean[] iconBeans = {new IconBean("我的收藏", R.mipmap.aa),
+            new IconBean("开通会员", R.mipmap.mhuiyuan), new IconBean("收货地址", R.mipmap.mshouhuo)
+            , new IconBean("我的评价", R.mipmap.mpingjia), new IconBean("服务说明", R.mipmap.mfuwu),
+            new IconBean("电话客服", R.mipmap.mcall), new IconBean("电子卡卷", R.mipmap.mkajuan),
+            new IconBean("分享好友", R.mipmap.mfenxiang),
+    };
+    private TitieBean[] titieBeans = {new TitieBean("W")};
+    private List<TitieBean> titie = new ArrayList<>();
+    private List<IconBean> iconBeanList = new ArrayList<>();
 
     @Override
     protected View onCreateView() {
@@ -61,7 +71,7 @@ public class MineFragment extends BaseFragment {
 
     private void initBean() {
         iconBeanList.clear();
-        for (int i = 0; i <iconBeans.length ; i++) {
+        for (int i = 0; i < iconBeans.length; i++) {
             iconBeanList.add(iconBeans[i]);
 
         }
@@ -85,6 +95,7 @@ public class MineFragment extends BaseFragment {
         viewPool.setMaxRecycledViews(5, 20);
         delegateAdapter = new DelegateAdapter(virtualLayoutManager, false);
     }
+
     private void initVlayout() {
         gridAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<IconBean>())
@@ -94,30 +105,30 @@ public class MineFragment extends BaseFragment {
                 .setListener(new ItemListener<IconBean>() {
                     @Override
                     public void onItemClick(View view, int position, IconBean mData) {
-                       switch (String.valueOf(position)){
-                           case "0":
-                               LayoutInflater inflater=(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                               View detailcontent=inflater.inflate(R.layout.dialog_detail,null);
-                               AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(detailcontent);
-                               builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                                   @Override
-                                   public void onClick(DialogInterface dialog, int which) {
-                                     dialog.dismiss();
-                                   }
-                               });
-                               builder.show();
-                               break;
-                           case "1":
-                               startFragment(new AboutFragment());
-                               break;
-                           case "2":
-                               startFragment(new DeliveryFragment());
-                               break;
-                           default:
-                       }
+                        switch (String.valueOf(position)) {
+                            case "0":
+                                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                View detailcontent = inflater.inflate(R.layout.dialog_detail, null);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(detailcontent);
+                                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builder.show();
+                                break;
+                            case "1":
+                                startFragment(new CookRegisterFragment());
+                                break;
+                            case "2":
+                                startFragment(new DeliveryFragment());
+                                break;
+                            default:
+                        }
                     }
                 });
-        titleAdapter= new VlayoutBaseAdapter(mContext)
+        titleAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<TitieBean>())
                 .setLayout(R.layout.vlayout_mine_title)
                 .setHolder(TitleHolder.class)
@@ -136,5 +147,18 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @OnClick({R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.yuelayout:
+                break;
+            case R.id.chongzhilayout:
+                break;
+            case R.id.jifenlayout:
+                startFragment(new JifenFragment());
+                break;
+        }
     }
 }

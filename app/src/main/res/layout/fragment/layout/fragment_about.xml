@@ -1,4 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,11 +9,31 @@
     tools:context="com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment">
 
     <com.qmuiteam.qmui.widget.QMUITopBar
-        app:qmui_topbar_bg_color="@color/qmui_config_color_transparent"
-        app:qmui_topbar_need_separator="false"
         app:qmui_topbar_title_color="@color/white"
         android:id="@+id/mtopbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height"/>
-
+    <LinearLayout
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<ImageView
+    android:src="@drawable/about"
+    android:layout_width="match_parent"
+    android:layout_height="500pt" />
+    <TextView
+        android:text="《广东宴万家餐饮供应链有限公司》"
+        android:textSize="@dimen/text_large"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="@dimen/text_six"
+        android:layout_margin="30pt"
+        android:text="\u3000\u3000新世纪以来，尽管出版业慢慢进入平缓发展期，但励志书的出版却越来越膨胀。一个细分门类的励志书火了，所有的出版商都会蜂拥而上，在这个门类挖掘各式选题，直到“做绝”、“做死”才罢手。当当网店本月的数据显示，“自我实现/励志”类细分门类的动销品种为40636种。2012年全年中国图书出版品种为40多万种，仅当当的励志书动销品种就占年出版品种的十分之一。以每个人一年读书100本计算，一人读完当当目前动销的励志书需要400年。励志图书品种的泛滥已经不仅是出版行业的问题，也是中国的社会问题。杭州书店将励志书论斤贱卖正是品种泛滥、质量下降的体现，也折射了零售商对这类书的态度。 "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
 </FrameLayout>

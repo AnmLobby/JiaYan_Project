@@ -35,6 +35,7 @@ android {
                     'src/main/res/mipmap-xhdpi/mine',
                     'src/main/res/mipmap-xhdpi/main',
                     'src/main/res/mipmap-xhdpi/banquet',
+                    'src/main/res/mipmap-xhdpi/cook',
                     'src/main/res'
             ]
         }
