@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_margin="15dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="85dp">
+    <ImageView
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        android:src="@mipmap/cover_default"
+        android:layout_width="70dp"
+        android:layout_height="80dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:text="有年会名称"
+            android:id="@+id/y_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+<LinearLayout
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textColor="@color/banquet_money"
+
+        android:text="现价："
+        android:textSize="@dimen/text_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@color/banquet_money"
+        android:text="¥ "
+        android:textSize="@dimen/text_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/buy_to_money"
+        android:textColor="@color/banquet_money"
+        android:text="1666"
+        android:textSize="@dimen/text_tem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@color/banquet_money"
+        android:text=" /套"
+        android:textSize="@dimen/text_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+        <TextView
+            android:text="666"
+            android:id="@+id/money_to_before"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
+    <View
+        android:background="#ded7d7"
+        android:layout_width="match_parent"
+        android:layout_height="10px"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/text_six"
+            android:text="填写数量"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/text_gray"
+            android:textSize="10sp"
+            android:text="最少10桌起订 （酒席宴席类）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="#ded7d7"
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/text_small"
+                android:text="服务人数："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:background="@drawable/edittext_style"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/text_gray"
+                android:textSize="10sp"
+                android:text="/桌"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="25dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/text_small"
+                android:text="桌数："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:background="@drawable/edittext_style"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/text_gray"
+                android:textSize="10sp"
+                android:text="桌"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/text_small"
+            android:text="服务天数："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:background="@drawable/edittext_style"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/text_gray"
+            android:textSize="10sp"
+            android:text="/天"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/text_gray"
+            android:text="服务说明："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_gray"
+            android:text="最大的能接2000桌，最少10桌起订(酒席宴席类)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
