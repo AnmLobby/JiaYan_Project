@@ -5,9 +5,11 @@ import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
+import com.example.administrator.jiayan_project.enity.login.UserBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 /**
  * Created by 鱼握拳 on 2018/3/31.
@@ -34,5 +36,12 @@ public interface Api {
     /***节日盛宴*/
     @GET("")
     Observable<FestivalBean>    getFestival();
+
+    /**
+     * 登陆
+     * @return
+     */
+    @POST("")
+    Observable<UserBean>  postUser();
 
 }
