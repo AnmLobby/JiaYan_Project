@@ -16,10 +16,12 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.enity.mine.TitieBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
+import com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
@@ -123,6 +125,15 @@ public class MineFragment extends BaseFragment {
                                 break;
                             case "2":
                                 startFragment(new DeliveryFragment());
+                                break;
+                            case "3":
+                                startFragment(new BookSuccessFragment());
+                                break;
+                            case"4":
+                                startFragment(new TestRecycleFragment());
+                                break;
+                            case"5":
+                                startFragment(new TestRecycleFragment());
                                 break;
                             default:
                         }

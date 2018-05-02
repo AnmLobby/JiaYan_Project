@@ -21,14 +21,23 @@
         android:layout_weight="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
+<RelativeLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <TextView
-
-            android:text="有年会名称"
-            android:id="@+id/y_name"
+            android:id="@+id/dialog_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+    <ImageView
+        android:layout_marginRight="15dp"
+        android:id="@+id/close_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/dialog_close" />
+</RelativeLayout>
 <LinearLayout
     android:layout_marginTop="10dp"
     android:orientation="horizontal"
@@ -49,9 +58,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/buy_to_money"
+        android:id="@+id/dialog_buy_money"
         android:textColor="@color/banquet_money"
-        android:text="1666"
+        android:text=""
         android:textSize="@dimen/text_tem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -63,8 +72,8 @@
         android:layout_height="wrap_content" />
 </LinearLayout>
         <TextView
-            android:text="666"
-            android:id="@+id/money_to_before"
+            android:text=""
+            android:id="@+id/dialog_money_before"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_four"
             android:layout_width="wrap_content"
@@ -75,7 +84,7 @@
     <View
         android:background="#ded7d7"
         android:layout_width="match_parent"
-        android:layout_height="10px"/>
+        android:layout_height="2px"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_margin="15dp"
@@ -94,10 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <View
-        android:background="#ded7d7"
-        android:layout_width="match_parent"
-        android:layout_height="2px"/>
+
     <LinearLayout
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
@@ -111,10 +117,12 @@
             android:layout_height="wrap_content">
             <TextView
                 android:textSize="@dimen/text_small"
-                android:text="服务人数："
+                android:text="每桌人数："
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:numeric="integer"
+                android:id="@+id/num_people"
                 android:background="@drawable/edittext_style"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content" />
@@ -139,6 +147,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:numeric="integer"
+                android:id="@+id/num_zhuoshu"
                 android:background="@drawable/edittext_style"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content" />

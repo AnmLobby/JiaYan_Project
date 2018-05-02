@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/app_primary_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleFragment">
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/text_black"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+    <LinearLayout
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_left"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_right"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:background="#F7F8F9"/>
+    </LinearLayout>
+</FrameLayout>

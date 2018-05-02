@@ -152,7 +152,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_marginRight="45pt"
-                android:layout_toLeftOf="@id/wx"
+                android:layout_toLeftOf="@+id/wx"
                 android:background="@mipmap/weibo_icon"
                 android:id="@+id/wb"
                 android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content" />
             <ImageView
                 android:layout_marginLeft="45pt"
-                android:layout_toRightOf="@id/wx"
+                android:layout_toRightOf="@+id/wx"
                 android:background="@mipmap/qq_icon"
                 android:id="@+id/qq"
                 android:layout_width="wrap_content"
