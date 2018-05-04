@@ -9,6 +9,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
         <!-- 配置Android提供的theme -->
+        <!--<item name="android:windowSoftInputMode">stateVisible</item>//禁止自动弹出键盘-->
         <item name="android:textAppearanceListItemSmall">@style/QDTextAppearanceListItemSmall</item>
         <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
         <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>

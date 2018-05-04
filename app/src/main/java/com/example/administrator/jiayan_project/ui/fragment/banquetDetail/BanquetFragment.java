@@ -1,29 +1,42 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
+import com.example.administrator.jiayan_project.adapter.adapter.TimeAdapter;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
+import com.example.administrator.jiayan_project.utils.util.DateUtils;
+import com.example.administrator.jiayan_project.utils.util.UtilsHelp;
 import com.qmuiteam.qmui.layout.QMUILayoutHelper;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -52,7 +65,6 @@ public class BanquetFragment extends BaseFragment {
     //原价格
     @BindView(R.id.money_before)
     TextView moneyBefore;
-
     //布草布局
     @BindView(R.id.yanseLayout)
     RelativeLayout yanseLayout;
@@ -71,7 +83,6 @@ public class BanquetFragment extends BaseFragment {
     //使用积分优惠
     @BindView(R.id.use_jifen)
     TextView useJifen;
-
     @BindView(R.id.dinggou)
     TextView dinggou;
     @BindView(R.id.baozhang)
@@ -92,14 +103,43 @@ public class BanquetFragment extends BaseFragment {
     ImageView likeimg;
     @BindView(R.id.like)
     TextView like;
+    @BindView(R.id.tip)
+    TextView tip;
     @BindView(R.id.bucao_color)
     TextView bucaoColor;
+    //开始时间
+    @BindView(R.id.start_time)
+    TextView startTime;
+    //开始日期
+    @BindView(R.id.start_date)
+    TextView startDate;
+    //结束时间
+    @BindView(R.id.end_time)
+    TextView endTime;
+    //结束日期
+    @BindView(R.id.end_date)
+    TextView endDate;
+    //日期结束布局
+    @BindView(R.id.layout_end)
+    LinearLayout layoutEnd;
+    //日期开始布局
+    @BindView(R.id.layout_start)
+    LinearLayout layoutStart;
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 5;
     private int mRadius;
     List<String> listImage = new ArrayList<>();
     private static final String TAG = "BanquetFragment";
-
+    private List<String> leftData;
+    private List<String> rightData;
+    //时间dialog
+    private DateAdapter mRVLeftAdapter;
+    private TimeAdapter mRVRightAdapter;
+    private boolean needMove = false;
+    private int movePosition;
+    private boolean isChangeByLeftClick = false;
+    private String[] strList=new String[]{"10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00",
+            "16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"};
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
@@ -107,15 +147,32 @@ public class BanquetFragment extends BaseFragment {
         initBanner();
         initQmuiLayout();
         initTextViewMoney();
+        leftData = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
+            leftData.add(str.substring(5,10)+"\n"+str.substring(10,12));
+        }
+        rightData= new ArrayList<>();
+        for (int i = 0; i <strList.length ; i++) {
+            rightData.add(strList[i]);
+        }
         return layout;
     }
 
+    //设置取消textview
     private void initTextViewMoney() {
         moneyBefore.setText("原价：¥ 666 /套");
         moneyBefore.getPaint().setFlags(
                 Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+        String str = bucaoColor.getText().toString();
+        if (str.contains("普通")) {
+            tip.setVisibility(View.GONE);
+        } else {
+            tip.setVisibility(View.VISIBLE);
+        }
     }
 
+    //初始化QmuiLinearlayout
     private void initQmuiLayout() {
 
         mRadius = QMUIDisplayHelper.dp2px(getContext(), 10);
@@ -130,6 +187,7 @@ public class BanquetFragment extends BaseFragment {
 
     }
 
+    //banner图
     private void initBanner() {
         listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
         listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
@@ -158,13 +216,82 @@ public class BanquetFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.yanseLayout})
+    //选择布草颜色
+    @OnClick({R.id.yanseLayout,R.id.layout_end, R.id.layout_start})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.yanseLayout:
                 showSimpleBottomSheetList();
                 break;
+            case R.id.layout_end:
+                initEndTimeDialog(endDate,endTime);
+
+                break;
+            case R.id.layout_start:
+                initEndTimeDialog(startDate,startTime);
+
+                break;
         }
+    }
+//选择结束时间dialog
+    private void initEndTimeDialog(final TextView enate, final TextView enime) {
+//        HideSoftKeyBoardDialog(getActivity());
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppTheme).create();
+        View view = View.inflate(getActivity(), R.layout.endtime_dialog, null);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //window.setWindowAnimations(R.style.dialogStyle);
+//        window.getDecorView().setPadding(0, 0, 0, 0);
+        //设置dialog弹出后会点击屏幕或物理返回键，dialog不消失
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        window.setContentView(view);
+        //获得window窗口的属性
+        WindowManager.LayoutParams params = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
+        //设置窗口高度为包裹内容
+        DisplayMetrics d = MyApplication.getContext().getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        params.height =  (int) (d.heightPixels * 0.65);
+//        params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
+        params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致window后所有的东西都成暗淡
+        params.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
+        window.setAttributes(params);
+        RecyclerView mRvLeft=view.findViewById(R.id.rv_left);
+        RecyclerView mRvRight=view.findViewById(R.id.rv_right);
+        QMUITopBar mTopBar=view.findViewById(R.id.mtopbar);
+        mTopBar.setTitle("选择服务时间");
+        mTopBar.addRightImageButton(R.mipmap.dialog_close, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        mTopBar.setBackgroundDividerEnabled(false);//取消设置分割线
+
+        mRvLeft.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
+
+        mRvLeft.setAdapter(mRVLeftAdapter = new DateAdapter(leftData));
+        mRVLeftAdapter.setOnLeftItemClickListener(new DateAdapter.OnLeftItemClickListener() {
+            @Override
+            public void onLeftItemClick(int position) {
+
+                String d_time= mRVLeftAdapter.getData().get(position);
+                enate.setText(d_time.substring(0,5));
+
+            }
+        });
+        //右边的recycleview
+        mRvRight.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
+        mRvRight.setAdapter(mRVRightAdapter = new TimeAdapter(rightData));
+        mRVRightAdapter.setOnLeftItemClickListener(new TimeAdapter.OnLeftItemClickListener() {
+            @Override
+            public void onLeftItemClick(int position) {
+                String o_time= mRVRightAdapter.getData().get(position);
+                enime.setText(o_time);
+            }
+        });
     }
 
     @OnClick(R.id.zhuoshuLayout)
@@ -178,13 +305,24 @@ public class BanquetFragment extends BaseFragment {
     private void showSimpleBottomSheetList() {
         new QMUIBottomSheet.BottomListSheetBuilder(getActivity())
                 .addItem("普通红色")
-                .addItem("普通白色")
+                .addItem("普通蓝色")
                 .addItem("普通黄色")
+                .addItem("豪华红色")
+                .addItem("豪华紫色")
+                .addItem("豪华蓝色")
+                .addItem("豪华黄色")
                 .setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
                     @Override
                     public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
                         dialog.dismiss();
                         bucaoColor.setText(tag);
+
+                        String str = bucaoColor.getText().toString();
+                        if (str.contains("普通")) {
+                            tip.setVisibility(View.GONE);
+                        } else {
+                            tip.setVisibility(View.VISIBLE);
+                        }
                     }
                 })
                 .build()
@@ -219,7 +357,7 @@ public class BanquetFragment extends BaseFragment {
 
         EditText people = (EditText) view.findViewById(R.id.num_people);
         EditText zhuoshu = (EditText) view.findViewById(R.id.num_zhuoshu);
-        ImageView dialo_close=view.findViewById(R.id.close_dialog);
+        ImageView dialo_close = view.findViewById(R.id.close_dialog);
         TextView dialog_name = view.findViewById(R.id.dialog_name);
         TextView dialog_now = view.findViewById(R.id.dialog_buy_money);
         TextView dialog_before = view.findViewById(R.id.dialog_money_before);
@@ -266,6 +404,15 @@ public class BanquetFragment extends BaseFragment {
                 renshu.setText(editable);
             }
         });
+    }
+    public static void  HideSoftKeyBoardDialog(Activity activity){
+        try{
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+        }
+        catch(Exception ex){
+            Log.e(TAG, "HideSoftKeyBoardDialog: "+ex );
+        }
     }
 
 }

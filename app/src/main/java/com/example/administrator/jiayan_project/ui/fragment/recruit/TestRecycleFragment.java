@@ -77,7 +77,7 @@ public class TestRecycleFragment extends BaseFragment {
         mRVRightAdapter.setOnLeftItemClickListener(new TimeAdapter.OnLeftItemClickListener() {
             @Override
             public void onLeftItemClick(int position) {
-                Log.e(TAG, "onLeftItemClick: " +position);
+
             }
         });
 //        mRvRight.setAdapter(mRVRightAdapter = new LinkedRVRightAdapter(rightData));

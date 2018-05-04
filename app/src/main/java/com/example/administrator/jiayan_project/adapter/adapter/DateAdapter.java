@@ -49,7 +49,7 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(DateAdapter.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.tv_item.setText(data.get(position));
-        holder.tv_item.setTextColor(selectedPosition == position ? 0xff3dbcc6 : 0xff333333);
+        holder.tv_item.setTextColor(selectedPosition == position ? 0xff000000 : 0xffb5b6b2);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
