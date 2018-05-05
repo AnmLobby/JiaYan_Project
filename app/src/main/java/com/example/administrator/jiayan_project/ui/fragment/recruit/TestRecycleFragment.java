@@ -30,7 +30,10 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * 时间dialog.已经没用到了.可以取消
+ * 代码用在banquetFragment
+ */
 public class TestRecycleFragment extends BaseFragment {
     @BindView(R.id.rv_left)
     RecyclerView mRvLeft;

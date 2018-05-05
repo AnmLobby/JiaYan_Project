@@ -1,56 +1,62 @@
-package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
-
+package com.example.administrator.jiayan_project.ui.fragment.yan_news;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetCommentFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment;
 import com.qmuiteam.qmui.util.QMUIResHelper;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * 高级宴会菜单切换fragment
- */
-public class BlankOneFragment extends BaseFragment {
-    @BindView(R.id.pager)
-    QMUIViewPager mViewPager;
+
+public class YanNewsMainFragment extends BaseFragment {
+    @BindView(R.id.mtopbar)
+    QMUITopBar mTopBar;
     @BindView(R.id.tabs)
     QMUITabSegment mTabSegment;
-    @BindView(R.id.toolbar)
-    ImageView toolbar;
+    @BindView(R.id.pager)
+    QMUIViewPager mViewPager;
 
     @Override
     protected View onCreateView() {
-        FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_blank, null);
+       LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_yan_news_main, null);
         ButterKnife.bind(this, layout);
-        QMUIStatusBarHelper.setStatusBarLightMode(getBaseFragmentActivity());
-        initTabs();
-        initPagers();
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        mTopBar.setTitle("宴快报");
+        mTopBar.setBackgroundDividerEnabled(false);//取消设置分割线
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popBackStack();
             }
         });
+        initTabs();
+        initPagers();
+        initTopBar();
         return layout;
     }
+    private void initTopBar() {
 
+    }
     private void initTabs() {
         int normalColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_black);
         int selectColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_blue);
@@ -73,19 +79,23 @@ public class BlankOneFragment extends BaseFragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return 5;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position) {
                     case 0:
-                        return "商品";
+                        return "资讯";
                     case 1:
-                        return "详情";
+                        return "视频";
                     case 2:
+                        return "活动";
+                    case 3:
+                        return "商学院";
+                    case 4:
                     default:
-                        return "评价";
+                        return "宴万家";
                 }
             }
 
@@ -93,13 +103,16 @@ public class BlankOneFragment extends BaseFragment {
             protected Object hydrate(ViewGroup container, int position) {
                 switch (position) {
                     case 0:
-                        return new BanquetFragment();
+                        return new NewsFragment();
                     case 1:
-                        return new BanquetDetailFragment();
+                        return new ViedeoFragment();
                     case 2:
+                        return new YanActivityFragment();
+                    case 3:
+                        return new ShangxueyuanFragment();
+                    case 4:
                     default:
-                        return new BanquetCommentFragment();
-
+                        return new YanWanJiaFragment();
                 }
             }
 
@@ -174,9 +187,7 @@ public class BlankOneFragment extends BaseFragment {
         mTabSegment.setupWithViewPager(mViewPager);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        QMUIStatusBarHelper.setStatusBarDarkMode(getBaseFragmentActivity());
-    }
 }
+
+
+

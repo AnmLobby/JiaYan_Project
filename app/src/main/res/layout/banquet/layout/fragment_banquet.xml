@@ -509,12 +509,15 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:background="@color/app_color_theme_3"
+    android:background="@color/app_color_theme_3"
     android:layout_weight="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 <TextView
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:text="加入购物车"
     android:layout_centerInParent="true"
     android:textColor="@color/white"
@@ -527,6 +530,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="立即购买"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
