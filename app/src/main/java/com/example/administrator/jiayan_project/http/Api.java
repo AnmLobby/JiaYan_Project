@@ -20,19 +20,24 @@ public interface Api {
      * 主页
      */
     /**首页轮播图*/
-    @GET("")
+    @GET("index.php/api/index/ad")
     Observable<BannerBean> getBanner();
+
     /**超值首选*/
     Observable<FestivalBean> getFirst();
+
     /**新品推荐*/
     @GET("")
     Observable<RecommendBean> getRecommend();
+
     /*** 明星推荐*/
     @GET("")
     Observable<StarBean>   getStar();
+
     /**热门产品*/
     @GET("")
     Observable<HotBean> getHot();
+
     /***节日盛宴*/
     @GET("")
     Observable<FestivalBean>    getFestival();

@@ -108,7 +108,8 @@ public class MainFragment extends BaseFragment {
             protected Object hydrate(ViewGroup container, int position) {
                 switch (position) {
                     case 0:
-                        return new MineFragment();
+                        return  new HomePageFragment();
+//                        return new MineFragment();
                     case 1:
                         return new ClassifyFragment();
                     case 2:

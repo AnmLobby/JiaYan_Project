@@ -8,6 +8,8 @@ import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.mvp.base.IMvpBaseView;
 
+import java.util.List;
+
 /**
  * Created by 鱼握拳 on 2018/4/11.
  */
@@ -28,7 +30,7 @@ public interface HomeView extends IMvpBaseView {
      * 加载轮播图
      * @param
      */
-    void    successBanner(BannerBean bannerBean);
+    void    successBanner(List<BannerBean> bannerBean);
 
     /**
      * 超值首选

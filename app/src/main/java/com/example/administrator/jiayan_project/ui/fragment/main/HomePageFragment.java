@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -51,12 +52,15 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     private List<HotBean> hotBeans=new ArrayList<>();
     private List<RecommendBean> recommendBeans=new ArrayList<>();
     private List<StarBean> starBeans=new ArrayList<>();
+    private static final String TAG = "HomePageFragment";
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home_page, null);
         ButterKnife.bind(this, layout);
+        getPresenter().clickRequest();
         initRecycleview();
         initVlayout();
+
         return layout;
     }
 
@@ -141,7 +145,8 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
                     }
                 });
-
+        delegateAdapter.addAdapter(banneradapter);
+        mRecycler.setAdapter(delegateAdapter);
 
     }
 
@@ -157,15 +162,18 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
     @Override
     public void resultFailure(String result) {
-
+        Log.e(TAG, "resultFailure: "+result );
     }
 
     @Override
-    public void successBanner(BannerBean bannerBean) {
-            bannerBeans.add(bannerBean);
-            banneradapter.setData(bannerBeans);
-            banneradapter.notifyDataSetChanged();
+    public void successBanner(List<BannerBean> bannerBean) {
+//        bannerBeans.add(bannerBean);
+        Log.e(TAG, "successBanner: "+bannerBean.size() );
+        banneradapter.setData(bannerBean);
+        banneradapter.notifyDataSetChanged();
     }
+
+
 
     @Override
     public void successFirst(FirstChooseBean firstChooseBean) {

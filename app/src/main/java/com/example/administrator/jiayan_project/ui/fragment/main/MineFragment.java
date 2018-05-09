@@ -25,6 +25,7 @@ import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegister
 import com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
+import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 import com.example.administrator.jiayan_project.vlayout.mine.GridHolder;
@@ -43,7 +44,7 @@ import butterknife.OnClick;
 public class MineFragment extends BaseFragment {
     private static final String TAG = "MineFragment";
     @BindView(R.id.recyclerview)
-    RecyclerView mRecycler;
+    FatRecyclerview mRecycler;
     @BindView(R.id.yuelayout)
     LinearLayout yuelayout;
     @BindView(R.id.chongzhilayout)
@@ -141,7 +142,7 @@ public class MineFragment extends BaseFragment {
                                 startFragment(new BanquetOrderFragment());
                                 break;
                             case "7":
-
+                                startFragment(new SearchFragment());
                                 break;
                             default:
                         }
@@ -164,6 +165,11 @@ public class MineFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
@@ -180,4 +186,19 @@ public class MineFragment extends BaseFragment {
                 break;
         }
     }
+
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        super.onDetachedFromWindow();
+//        if (mItemAnimator != null) {
+//            mItemAnimator.endAnimations();
+//        }
+//        mFirstLayoutComplete = false;
+//        stopScroll();
+//        mIsAttached = false;
+//        if (mLayout != null) {
+//            mLayout.onDetachedFromWindow(this, mRecycler);
+//        }
+//        removeCallbacks(mItemAnimatorRunner);
+//    }
 }

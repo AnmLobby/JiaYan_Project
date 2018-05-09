@@ -10,8 +10,15 @@ import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
+import com.example.administrator.jiayan_project.mvp.base.IBaseListCallBack;
+import com.example.administrator.jiayan_project.mvp.base.IBaseRequestCallBack;
 
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 /**
@@ -33,6 +40,23 @@ public class HomeModel  extends BaseModel{
         context = mContext;
         api = retrofitManager.getService();
         mcompositeDisposable = new CompositeDisposable();
+    }
+    public void RequestBanner( final IBaseListCallBack<BannerBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getBanner()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<BannerBean>() {
+                    @Override
+                    public void accept(BannerBean bannerBean) throws Exception {
+
+                        iBaseRequestCallBack.requestSuccess((List<BannerBean>) bannerBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
     }
     public void interruptHttp(){
         if(bannerBeanCall != null && !bannerBeanCall.isCanceled()){

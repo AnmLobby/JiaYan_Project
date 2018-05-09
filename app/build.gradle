@@ -30,10 +30,12 @@ android {
                     'src/main/res/layout/basics',
                     'src/main/res/layout/homepage',
                     'src/main/res/layout/mine',
+                    'src/main/res/layout/news',
                     'src/main/res/layout/banquet',
                     'src/main/res/layout/classify',
                     'src/main/res/mipmap-xhdpi/mine',
                     'src/main/res/mipmap-xhdpi/main',
+                    'src/main/res/mipmap-xhdpi/home',
                     'src/main/res/mipmap-xhdpi/banquet',
                     'src/main/res/mipmap-xhdpi/cook',
                     'src/main/res'

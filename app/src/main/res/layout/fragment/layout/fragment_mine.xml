@@ -222,9 +222,13 @@
                     android:layout_marginTop="10pt"/>
             </LinearLayout>
         </LinearLayout>
-<include
-   layout="@layout/recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        <com.example.administrator.jiayan_project.utils.weight.FatRecyclerview
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.example.administrator.jiayan_project.utils.weight.FatRecyclerview>
+<!--<include-->
+   <!--layout="@layout/recyclerview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -5,6 +5,6 @@ package com.example.administrator.jiayan_project.http;
  */
 
 public class Constants {
-    public static  final String JiaYan="http://api.fir.im/apps/latest/";
-    public static  final String FirUrl="http://api.fir.im/apps/latest/";
+    public static  final String JiaYan="http://jiayan.didi0769.com/";
+    public static  final String BaseUrl="http://jiayan.didi0769.com";
 }
