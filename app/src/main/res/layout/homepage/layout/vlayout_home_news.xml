@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="#f9f7f7"
+    android:layout_marginTop="50pt"
+    android:layout_marginBottom="30pt"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<TextView
+    android:layout_marginLeft="80pt"
+    android:text="宴快报"
+    android:textStyle="bold"
+    android:textColor="@color/text_black"
+    android:textSize="@dimen/text_large"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <com.sunfusheng.marqueeview.MarqueeView
+        android:id="@+id/mar"
+        android:layout_marginLeft="60pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mvAnimDuration="1000"
+        app:mvDirection="bottom_to_top"
+        app:mvInterval="3000"
+        app:mvTextColor="#403f3f"
+        app:mvTextSize="14sp"
+        app:mvSingleLine="true"/>
+</LinearLayout>

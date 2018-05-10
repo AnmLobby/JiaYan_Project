@@ -8,6 +8,7 @@ import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
+import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.http.Api;
@@ -34,6 +35,7 @@ public class HomeModel  extends BaseModel{
     private Call<HotBean> hotBeanCall;
     private Call<RecommendBean> recommendBeanCall;
     private Call<StarBean> starBeanCall;
+    private Call<NewsBean>  newsBeanCall;
     private CompositeDisposable mcompositeDisposable;
     private Context context;
     private Api api;
@@ -145,6 +147,23 @@ public class HomeModel  extends BaseModel{
                     }
                 }));
     }
+    public void RequestNews( final IBaseRequestCallBack<NewsBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getNews()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<NewsBean>() {
+                    @Override
+                    public void accept(NewsBean newsBean) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(newsBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
     public void interruptHttp(){
         if(bannerBeanCall != null && !bannerBeanCall.isCanceled()){
             bannerBeanCall.cancel();
@@ -163,6 +182,9 @@ public class HomeModel  extends BaseModel{
         }
         if (starBeanCall!=null&&!starBeanCall.isCanceled()){
             starBeanCall.cancel();
+        }
+        if (newsBeanCall!=null&&!newsBeanCall.isCanceled()){
+            newsBeanCall.cancel();
         }
     }
 }

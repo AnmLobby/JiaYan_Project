@@ -117,7 +117,8 @@ public class MainFragment extends BaseFragment {
                         return  new BlankOneFragment();
                     case 3:
                     default:
-                        return new SettingFragment();
+                        return  new MineFragment();
+//                        return new SettingFragment();
                 }
             }
 

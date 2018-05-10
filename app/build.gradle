@@ -105,4 +105,6 @@ dependencies {
     // add library
     implementation 'org.greenrobot:greendao-generator:3.2.2'
     implementation 'com.facebook.fresco:fresco:1.9.0'
+
+    implementation 'com.sunfusheng:marqueeview:1.2.0'
 }

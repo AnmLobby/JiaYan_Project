@@ -24,7 +24,7 @@ import butterknife.BindView;
 public class ChooseHolder  extends VlayoutBaseHolder<FirstChooseBean>{
     @BindView(R.id.easycyclerview)
     EasyRecyclerView easyRecyclerView;
-    private List<FirstChooseBean.DataBean> firstChooseBeans=new ArrayList<>();
+    private List<FirstChooseBean.DataBean> firstChooseBeans;
     private static final String TAG = "ChooseHolder";
     private HomeChooseAdapter homeChooseAdapter=new HomeChooseAdapter(MyApplication.getContext());
     public ChooseHolder(View itemView) {

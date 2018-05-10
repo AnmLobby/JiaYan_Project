@@ -12,5 +12,5 @@
         app:qmui_is_circle="false"
         android:layout_width="580pt"
         android:layout_height="400pt"
-        android:src="@drawable/bg_people"/>
+       />
 </RelativeLayout>

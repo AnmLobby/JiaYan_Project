@@ -8,6 +8,7 @@ import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
+import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
@@ -124,6 +125,21 @@ public class HomePresenter extends AbstractMvpPersenter<HomeView> {
                     public void requestSuccess(StarBean callBack) {
                         if(getmMvpView() != null){
                             getmMvpView().successStar(callBack);
+                        }
+                    }
+                });
+                homeModel.RequestNews(new IBaseRequestCallBack<NewsBean>() {
+                    @Override
+                    public void requestError(Throwable throwable) {
+                        if(getmMvpView() != null){
+                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                        }
+                    }
+
+                    @Override
+                    public void requestSuccess(NewsBean callBack) {
+                        if(getmMvpView() != null){
+                            getmMvpView().successNews(callBack);
                         }
                     }
                 });

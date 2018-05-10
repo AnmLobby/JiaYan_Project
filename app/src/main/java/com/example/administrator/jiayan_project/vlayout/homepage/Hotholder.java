@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.vlayout.homepage;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.jiayan_project.MyApplication;
@@ -25,8 +26,9 @@ import butterknife.BindView;
 public class Hotholder extends VlayoutBaseHolder<HotBean> {
     @BindView(R.id.easycyclerview)
     EasyRecyclerView easyRecyclerView;
-    private List<HotBean.DataBean> hotbean=new ArrayList<>();
-    private HotAdapter hotAdapter=new HotAdapter(MyApplication.getContext());
+    private List<HotBean.DataBean> hotbean;
+    private HotAdapter hotAdapter;
+    private static final String TAG = "Hotholder";
     public Hotholder(View itemView) {
         super(itemView);
     }
@@ -34,11 +36,13 @@ public class Hotholder extends VlayoutBaseHolder<HotBean> {
     @Override
     public void setData(int ps, HotBean hData) {
         super.setData(ps, hData);
+        hotAdapter=new HotAdapter(MyApplication.getContext());
         LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         easyRecyclerView.setLayoutManager(layoutManager);
 //        hotbean.add(hData);
         hotbean=hData.getData();
+        Log.e(TAG, "setDataaaaaaaaaaaaaaaaaaaaaaaaa: "+hotbean.size() );
        hotAdapter.addAll(hotbean);
         easyRecyclerView.setAdapter(hotAdapter);
         hotAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {

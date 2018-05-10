@@ -4,6 +4,7 @@ import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
+import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
@@ -23,6 +24,12 @@ public interface Api {
     /**首页轮播图*/
     @GET("index.php/api/index/ad")
     Observable<BannerBean> getBanner();
+
+    /**
+     * 快报
+     */
+    @GET("index.php/api/index/news")
+    Observable<NewsBean> getNews();
 
     /**超值首选*/
     @GET("index.php/api/index/huasuan")
@@ -50,5 +57,7 @@ public interface Api {
      */
     @POST("")
     Observable<UserBean>  postUser();
+
+
 
 }

@@ -27,7 +27,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * 积分兑换页面
+ */
 public class JifenFragment extends BaseFragment{
     @BindView(R.id.recyclerview)
     RecyclerView mRecycler;

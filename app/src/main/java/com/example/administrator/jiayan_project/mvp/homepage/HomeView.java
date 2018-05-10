@@ -4,6 +4,7 @@ import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
+import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.mvp.base.IMvpBaseView;
@@ -61,4 +62,10 @@ public interface HomeView extends IMvpBaseView {
      * @param festivalBean
      */
     void    successFestival(FestivalBean festivalBean);
+
+    /**
+     * 快报
+     * @param newsBean
+     */
+    void    successNews(NewsBean newsBean);
 }
