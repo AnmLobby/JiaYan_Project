@@ -1,5 +1,12 @@
 package com.example.administrator.jiayan_project.mvp.base;
 
+import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
+import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
+import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
+import com.example.administrator.jiayan_project.enity.homepage.HotBean;
+import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
+import com.example.administrator.jiayan_project.enity.homepage.StarBean;
+
 import java.util.List;
 
 /**
@@ -14,6 +21,18 @@ public interface IBaseListCallBack<T> {
 
     /**
      * @descriptoin	请求成功
+     * @param
      */
-    void requestSuccess(List<T> callBack);
+    void requestBannerSuccess(List<BannerBean> callBack);
+
+
+
+
+
+
+
+
+
+
 }
+

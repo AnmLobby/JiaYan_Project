@@ -1,162 +1,177 @@
 package com.example.administrator.jiayan_project.enity.homepage;
 
+import java.util.List;
+
 /**
  * Created by 鱼握拳 on 2018/4/11.
  */
 
 public class BannerBean {
 
-    /**
-     * id : 2
-     * pid : 1
-     * mediatype : 0
-     * adname : 首页banner轮播2
-     * adlink : /uploads/banner2.jpg
-     * adcode : 2.jpg
-     * starttime : 1443542400
-     * endtime : 1601481600
-     * linkman :
-     * linkemail :
-     * linkphone :
-     * clickcount : 0
-     * enabled : 1
-     * orderby : 50
-     * target : 0
-     */
 
-    private int id;
-    private int pid;
-    private int mediatype;
-    private String adname;
-    private String adlink;
-    private String adcode;
-    private int starttime;
-    private int endtime;
-    private String linkman;
-    private String linkemail;
-    private String linkphone;
-    private int clickcount;
-    private int enabled;
-    private int orderby;
-    private int target;
+    private List<DataBean> data;
 
-    public int getId() {
-        return id;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public int getPid() {
-        return pid;
-    }
+    public static class DataBean {
+        /**
+         * id : 2
+         * pid : 1
+         * mediatype : 0
+         * adname : 首页banner轮播2
+         * adlink : /uploads/banner2.jpg
+         * adcode : 2.jpg
+         * starttime : 1443542400
+         * endtime : 1601481600
+         * linkman :
+         * linkemail :
+         * linkphone :
+         * clickcount : 0
+         * enabled : 1
+         * orderby : 50
+         * target : 0
+         */
 
-    public void setPid(int pid) {
-        this.pid = pid;
-    }
+        private int id;
+        private int pid;
+        private int mediatype;
+        private String adname;
+        private String adlink;
+        private String adcode;
+        private int starttime;
+        private int endtime;
+        private String linkman;
+        private String linkemail;
+        private String linkphone;
+        private int clickcount;
+        private int enabled;
+        private int orderby;
+        private int target;
 
-    public int getMediatype() {
-        return mediatype;
-    }
+        public int getId() {
+            return id;
+        }
 
-    public void setMediatype(int mediatype) {
-        this.mediatype = mediatype;
-    }
+        public void setId(int id) {
+            this.id = id;
+        }
 
-    public String getAdname() {
-        return adname;
-    }
+        public int getPid() {
+            return pid;
+        }
 
-    public void setAdname(String adname) {
-        this.adname = adname;
-    }
+        public void setPid(int pid) {
+            this.pid = pid;
+        }
 
-    public String getAdlink() {
-        return adlink;
-    }
+        public int getMediatype() {
+            return mediatype;
+        }
 
-    public void setAdlink(String adlink) {
-        this.adlink = adlink;
-    }
+        public void setMediatype(int mediatype) {
+            this.mediatype = mediatype;
+        }
 
-    public String getAdcode() {
-        return adcode;
-    }
+        public String getAdname() {
+            return adname;
+        }
 
-    public void setAdcode(String adcode) {
-        this.adcode = adcode;
-    }
+        public void setAdname(String adname) {
+            this.adname = adname;
+        }
 
-    public int getStarttime() {
-        return starttime;
-    }
+        public String getAdlink() {
+            return adlink;
+        }
 
-    public void setStarttime(int starttime) {
-        this.starttime = starttime;
-    }
+        public void setAdlink(String adlink) {
+            this.adlink = adlink;
+        }
 
-    public int getEndtime() {
-        return endtime;
-    }
+        public String getAdcode() {
+            return adcode;
+        }
 
-    public void setEndtime(int endtime) {
-        this.endtime = endtime;
-    }
+        public void setAdcode(String adcode) {
+            this.adcode = adcode;
+        }
 
-    public String getLinkman() {
-        return linkman;
-    }
+        public int getStarttime() {
+            return starttime;
+        }
 
-    public void setLinkman(String linkman) {
-        this.linkman = linkman;
-    }
+        public void setStarttime(int starttime) {
+            this.starttime = starttime;
+        }
 
-    public String getLinkemail() {
-        return linkemail;
-    }
+        public int getEndtime() {
+            return endtime;
+        }
 
-    public void setLinkemail(String linkemail) {
-        this.linkemail = linkemail;
-    }
+        public void setEndtime(int endtime) {
+            this.endtime = endtime;
+        }
 
-    public String getLinkphone() {
-        return linkphone;
-    }
+        public String getLinkman() {
+            return linkman;
+        }
 
-    public void setLinkphone(String linkphone) {
-        this.linkphone = linkphone;
-    }
+        public void setLinkman(String linkman) {
+            this.linkman = linkman;
+        }
 
-    public int getClickcount() {
-        return clickcount;
-    }
+        public String getLinkemail() {
+            return linkemail;
+        }
 
-    public void setClickcount(int clickcount) {
-        this.clickcount = clickcount;
-    }
+        public void setLinkemail(String linkemail) {
+            this.linkemail = linkemail;
+        }
 
-    public int getEnabled() {
-        return enabled;
-    }
+        public String getLinkphone() {
+            return linkphone;
+        }
 
-    public void setEnabled(int enabled) {
-        this.enabled = enabled;
-    }
+        public void setLinkphone(String linkphone) {
+            this.linkphone = linkphone;
+        }
 
-    public int getOrderby() {
-        return orderby;
-    }
+        public int getClickcount() {
+            return clickcount;
+        }
 
-    public void setOrderby(int orderby) {
-        this.orderby = orderby;
-    }
+        public void setClickcount(int clickcount) {
+            this.clickcount = clickcount;
+        }
 
-    public int getTarget() {
-        return target;
-    }
+        public int getEnabled() {
+            return enabled;
+        }
 
-    public void setTarget(int target) {
-        this.target = target;
+        public void setEnabled(int enabled) {
+            this.enabled = enabled;
+        }
+
+        public int getOrderby() {
+            return orderby;
+        }
+
+        public void setOrderby(int orderby) {
+            this.orderby = orderby;
+        }
+
+        public int getTarget() {
+            return target;
+        }
+
+        public void setTarget(int target) {
+            this.target = target;
+        }
     }
 }

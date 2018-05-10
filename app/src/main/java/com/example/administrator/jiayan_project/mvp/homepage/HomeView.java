@@ -30,7 +30,7 @@ public interface HomeView extends IMvpBaseView {
      * 加载轮播图
      * @param
      */
-    void    successBanner(List<BannerBean> bannerBean);
+    void    successBanner(BannerBean bannerBean);
 
     /**
      * 超值首选

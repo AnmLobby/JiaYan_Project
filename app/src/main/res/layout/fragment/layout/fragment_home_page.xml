@@ -1,7 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/app_color_blue"
     android:descendantFocusability="blocksDescendants"
     tools:context="com.example.administrator.jiayan_project.ui.fragment.main.HomePageFragment">
@@ -40,10 +41,10 @@
             android:layout_height="match_parent" />
     </LinearLayout>
     <com.example.administrator.jiayan_project.utils.weight.FatRecyclerview
-        android:layout_marginTop="?attr/qmui_topbar_height"
+
         android:id="@+id/recycler"
         android:background="@color/white"
         android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</FrameLayout>
+</LinearLayout>

@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+
         android:text="超值首选"
         android:textSize="@dimen/text_large"
-        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginLeft="50pt"
+        android:layout_marginBottom="30pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 <include
+    android:layout_marginLeft="30pt"
     layout="@layout/easyrecyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

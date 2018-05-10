@@ -13,7 +13,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by 鱼握拳 on 2018/4/16.
  */
 
-public class HotAdapter extends RecyclerArrayAdapter<HotBean> {
+public class HotAdapter extends RecyclerArrayAdapter<HotBean.DataBean> {
     public HotAdapter(Context context) {
         super(context);
     }

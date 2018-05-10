@@ -1,11 +1,19 @@
 package com.example.administrator.jiayan_project.vlayout.homepage;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
+import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseHolder;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -16,7 +24,13 @@ import butterknife.BindView;
 public class RecommendHolder extends VlayoutBaseHolder<RecommendBean>{
     @BindView(R.id.image)
     QMUIRadiusImageView imageView;
-
+    @BindView(R.id.name)
+    TextView   name;
+    @BindView(R.id.liangdian)
+    TextView   liangdian;
+    @BindView(R.id.money)
+    TextView   money;
+    private static final String TAG = "RecommendHolder";
     public RecommendHolder(View itemView) {
         super(itemView);
     }
@@ -24,5 +38,15 @@ public class RecommendHolder extends VlayoutBaseHolder<RecommendBean>{
     @Override
     public void setData(int ps, RecommendBean rData) {
         super.setData(ps, rData);
+
+
+//        for (int i = 0; i < sta.size(); i++) {
+//            Log.e(TAG, "setData:水水水水水水水水水水水"+Constants.JiaYan+rData.getData().get(i).getOriginalimg());
+//            Glide.with(MyApplication.getContext()).load(Constants.JiaYan+rData.getData().get(i).getOriginalimg()).into(imageView);
+//            name.setText(rData.getData().get(i).getDinnername());
+//            liangdian.setText(rData.getData().get(i).getSubname());
+//            money.setText("¥"+rData.getData().get(i).getPrice());
+//        }
+
     }
 }

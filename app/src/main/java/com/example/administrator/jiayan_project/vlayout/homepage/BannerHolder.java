@@ -21,46 +21,36 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2018/1/11.
  */
-
+//轮播图   http://jiayan.didi0769.com/index.php/api/index/huasuan
 public class BannerHolder extends VlayoutBaseHolder<BannerBean> {
     @BindView(R.id.banner)
     Banner banner;
+
     private static final String TAG = "BannerHolder";
     public BannerHolder(View itemView) {
         super(itemView);
-
     }
-
     @Override
     public void setData(int ps, BannerBean tData) {
         super.setData(ps, tData);
-        Log.e(TAG, "setData: "+tData.getAdlink() );
-//        if (tData.getIssueList() != null) {
-            List<String> listImage = new ArrayList<>();
-            listImage.add(Constants.BaseUrl+tData.getAdlink());
-//            List<String> listTitle = new ArrayList<>();
-//            for (int i =0; i <tData.getIssueList().get(0).getItemList().size(); i++) {
-//                    if (tData.getIssueList().get(0).getItemList().get(i).getType().equals("video")) {
-//                        listImage.add(tData.getIssueList().get(0).getItemList().get(i).getData().getCover().getFeed());
-//                        listTitle.add(tData.getIssueList().get(0).getItemList().get(i).getData().getTitle());
-//                    } else {
-//
-//                        Log.e(TAG, "出错了");
-//                }
-//            }
-        Log.e(TAG, "set88 "+listImage.size() );
-        Log.e(TAG, "setData: "+Constants.BaseUrl+tData.getAdlink() );
-            banner.setImages((List<?>) listImage)
-                    .setImageLoader(new GlideImageLoader())
-                    .setBannerStyle(BannerConfig.CENTER)
-                    .isAutoPlay(true);
-            banner.setOnBannerListener(new OnBannerListener() {
-                @Override
-                public void OnBannerClick(int position) {
-                    mListener.onItemClick(mView, position, mData);
-                }
-            });
-            banner.start();
-//        }
+    if (tData.getData()!=null){
+        List<String> listImage = new ArrayList<>();
+        for (int i = 0; i <tData.getData().size();i++) {
+            listImage.add(Constants.BaseUrl+tData.getData().get(i).getAdlink());
+            Log.e(TAG, "宿舍 ********"+Constants.BaseUrl+tData.getData().get(i).getAdlink() );
+        }
+        banner.setImages((List<?>)listImage)
+                .setImageLoader(new GlideImageLoader())
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                .isAutoPlay(true);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                mListener.onItemClick(mView, position, mData);
+            }
+        });
+        banner.start();
+    }
+
     }
 }

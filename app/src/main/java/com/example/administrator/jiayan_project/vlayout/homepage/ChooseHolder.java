@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.vlayout.homepage;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.jiayan_project.MyApplication;
@@ -19,11 +20,12 @@ import butterknife.BindView;
 /**
  * Created by 鱼握拳 on 2018/4/12.
  */
-
+//超值首选  http://jiayan.didi0769.com/index.php/api/index/huasuan
 public class ChooseHolder  extends VlayoutBaseHolder<FirstChooseBean>{
     @BindView(R.id.easycyclerview)
     EasyRecyclerView easyRecyclerView;
-    private List<FirstChooseBean> firstChooseBeans=new ArrayList<>();
+    private List<FirstChooseBean.DataBean> firstChooseBeans=new ArrayList<>();
+    private static final String TAG = "ChooseHolder";
     private HomeChooseAdapter homeChooseAdapter=new HomeChooseAdapter(MyApplication.getContext());
     public ChooseHolder(View itemView) {
         super(itemView);
@@ -35,8 +37,10 @@ public class ChooseHolder  extends VlayoutBaseHolder<FirstChooseBean>{
 
         LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-       easyRecyclerView.setLayoutManager(layoutManager);
-//        firstChooseBeans = fData;
+        easyRecyclerView.setLayoutManager(layoutManager);
+
+        firstChooseBeans=fData.getData();
+        Log.e(TAG, "setData-------------------: "+firstChooseBeans.size() );
         homeChooseAdapter.addAll(firstChooseBeans);
         easyRecyclerView.setAdapter(homeChooseAdapter);
         homeChooseAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {

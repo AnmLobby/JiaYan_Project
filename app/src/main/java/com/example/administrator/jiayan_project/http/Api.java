@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.http;
 
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
+import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
@@ -24,22 +25,23 @@ public interface Api {
     Observable<BannerBean> getBanner();
 
     /**超值首选*/
-    Observable<FestivalBean> getFirst();
+    @GET("index.php/api/index/huasuan")
+    Observable<FirstChooseBean> getFirst();
 
     /**新品推荐*/
-    @GET("")
+    @GET("index.php/api/index/isnew")
     Observable<RecommendBean> getRecommend();
 
     /*** 明星推荐*/
-    @GET("")
+    @GET("index.php/api/index/feature")
     Observable<StarBean>   getStar();
 
     /**热门产品*/
-    @GET("")
+    @GET("index.php/api/index/ishot")
     Observable<HotBean> getHot();
 
     /***节日盛宴*/
-    @GET("")
+    @GET("index.php/api/index/isfeast")
     Observable<FestivalBean>    getFestival();
 
     /**

@@ -1,8 +1,10 @@
 package com.example.administrator.jiayan_project.mvp.homepage;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
+import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
@@ -26,7 +28,7 @@ import retrofit2.Call;
  */
 
 public class HomeModel  extends BaseModel{
-    private Call<BannerBean> bannerBeanCall;
+    private Call<FestivalBean> bannerBeanCall;
     private Call<FestivalBean> festivalBeanCall;
     private Call<FirstChooseBean> firstChooseBeanCall;
     private Call<HotBean> hotBeanCall;
@@ -35,25 +37,110 @@ public class HomeModel  extends BaseModel{
     private CompositeDisposable mcompositeDisposable;
     private Context context;
     private Api api;
+    private static final String TAG = "HomeModel";
     public  HomeModel(Context mContext) {
         super();
         context = mContext;
         api = retrofitManager.getService();
         mcompositeDisposable = new CompositeDisposable();
     }
-    public void RequestBanner( final IBaseListCallBack<BannerBean> iBaseRequestCallBack) {
+    public void RequestBanner( final IBaseRequestCallBack<BannerBean> iBaseRequestCallBack) {
         mcompositeDisposable.add(api.getBanner()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<BannerBean>() {
                     @Override
-                    public void accept(BannerBean bannerBean) throws Exception {
-
-                        iBaseRequestCallBack.requestSuccess((List<BannerBean>) bannerBean);
+                    public void accept(BannerBean bannerBeans) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(bannerBeans);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void RequestFesival( final IBaseRequestCallBack<FestivalBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getFestival()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FestivalBean>() {
+                    @Override
+                    public void accept(FestivalBean festivalBean) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(festivalBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void RequestFirst( final IBaseRequestCallBack<FirstChooseBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getFirst()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FirstChooseBean>() {
+                    @Override
+                    public void accept(FirstChooseBean firstChooseBean) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(firstChooseBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void RequestHot( final IBaseRequestCallBack<HotBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getHot()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<HotBean>() {
+                    @Override
+                    public void accept(HotBean hotBeans) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(hotBeans);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void RequestRecom( final IBaseRequestCallBack<RecommendBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getRecommend()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<RecommendBean>() {
+                    @Override
+                    public void accept(RecommendBean recommendBeans) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(recommendBeans);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void RequestStar( final IBaseRequestCallBack<StarBean> iBaseRequestCallBack) {
+        mcompositeDisposable.add(api.getStar()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<StarBean>() {
+                    @Override
+                    public void accept(StarBean starBeans) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(starBeans);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
                         iBaseRequestCallBack.requestError(throwable);
                     }
                 }));

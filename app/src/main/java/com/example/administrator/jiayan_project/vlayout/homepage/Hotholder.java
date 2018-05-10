@@ -25,7 +25,7 @@ import butterknife.BindView;
 public class Hotholder extends VlayoutBaseHolder<HotBean> {
     @BindView(R.id.easycyclerview)
     EasyRecyclerView easyRecyclerView;
-    private List<HotBean> hotbean=new ArrayList<>();
+    private List<HotBean.DataBean> hotbean=new ArrayList<>();
     private HotAdapter hotAdapter=new HotAdapter(MyApplication.getContext());
     public Hotholder(View itemView) {
         super(itemView);
@@ -37,7 +37,8 @@ public class Hotholder extends VlayoutBaseHolder<HotBean> {
         LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         easyRecyclerView.setLayoutManager(layoutManager);
-//        firstChooseBeans = fData;
+//        hotbean.add(hData);
+        hotbean=hData.getData();
        hotAdapter.addAll(hotbean);
         easyRecyclerView.setAdapter(hotAdapter);
         hotAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {

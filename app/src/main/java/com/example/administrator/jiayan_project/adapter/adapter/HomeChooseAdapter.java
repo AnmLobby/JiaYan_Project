@@ -12,7 +12,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by 鱼握拳 on 2018/4/16.
  */
 
-public class HomeChooseAdapter extends RecyclerArrayAdapter<FirstChooseBean> {
+public class HomeChooseAdapter extends RecyclerArrayAdapter<FirstChooseBean.DataBean> {
     public HomeChooseAdapter(Context context) {
         super(context);
     }
