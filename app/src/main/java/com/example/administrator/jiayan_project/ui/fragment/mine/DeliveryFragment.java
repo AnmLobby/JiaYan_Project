@@ -38,6 +38,7 @@ public class DeliveryFragment extends BaseFragment {
 //    RecyclerView recyclerview;
     @BindView(R.id.lv_address)
     ListView lv_address;
+    private Boolean isPause=false;
     private AddressAdapter addressListAdapter;
     private List<AddressBean> addressBeans=new ArrayList<>();
     private static final String TAG = "ClassifyFragment";
@@ -59,9 +60,10 @@ public class DeliveryFragment extends BaseFragment {
                 .orderDesc(AddressBeanDao.Properties.Isdefault)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        for (int i = 0; i < list.size(); i++) {
-            Log.d("zoneLog", "studentNumber:-- " +list.get(i).getId()+"--"+list.get(i).getUsername());
-        }
+        Log.e(TAG, "onCreateView: "+list.size() );
+//        for (int i = 0; i < list.size(); i++) {
+//            Log.d("zoneLog", "studentNumber:-- " +list.get(i).getId()+"--"+list.get(i).getUsername());
+//        }
 //        Log.e(TAG, "onCreateView: "+list.size() +list.get(i));
         addressBeans.addAll(list);
         addressListAdapter =new AddressAdapter(MyApplication.getContext(),addressBeans);
@@ -94,6 +96,33 @@ public class DeliveryFragment extends BaseFragment {
 //            }
 //        });
         return layout;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+            isPause = true; //记录页面已经被暂停
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (isPause){ //判断是否暂停
+            isPause = false;
+            addressBeans.clear();
+            list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
+                    .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                    .limit(300)//只获取结果集的前 3 个数据
+                    .orderDesc(AddressBeanDao.Properties.Isdefault)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                    .build()
+                    .list();
+            addressBeans.addAll(list);
+            addressListAdapter =new AddressAdapter(MyApplication.getContext(),addressBeans);
+            addressListAdapter.notifyDataSetChanged();
+        }
+
     }
 
     private void initTopBar() {

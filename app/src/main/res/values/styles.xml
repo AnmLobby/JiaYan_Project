@@ -135,4 +135,12 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#939192</item>
+        <item name="colorControlActivated">@color/app_color_blue</item>
+    </style>
+
+
 </resources>

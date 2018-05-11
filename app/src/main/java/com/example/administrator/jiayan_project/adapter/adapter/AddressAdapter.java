@@ -126,8 +126,9 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
                 break;
             case R.id.ly_delete:
                 position = (int) v.getTag();
-                Toast.makeText(MyApplication.getContext(), "777", Toast.LENGTH_SHORT).show();
                 deleteAddress(position);
+                Toast.makeText(MyApplication.getContext(), "777", Toast.LENGTH_SHORT).show();
+
 
                 break;
         }
@@ -197,38 +198,38 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
 //
 //               .show();
 
-        final CustomDialog selfDialog = new CustomDialog(MyApplication.getContext());
-        selfDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        selfDialog.setTitle("");
-        selfDialog.setMessage("确定要删除地址吗");
-        selfDialog.setYesOnclickListener("确定", new CustomDialog.onYesOnclickListener() {
-            @Override
-            public void onYesClick() {
-                addressController.delete(address.id);
-                        addressList.remove(address);
-                            notifyDataSetChanged();
-                        Toast.makeText(MyApplication.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
-                selfDialog.dismiss();
-            }
-        });
-        selfDialog.setNoOnclickListener("取消", new CustomDialog.onNoOnclickListener() {
-            @Override
-            public void onNoClick() {
-
-                selfDialog.dismiss();
-            }
-        });
-        selfDialog.show();
+//       final CustomDialog selfDialog = new CustomDialog(MyApplication.getContext());
+//        selfDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+//        selfDialog.setTitle("");
+//        selfDialog.setMessage("确定要删除地址吗");
+//        selfDialog.setYesOnclickListener("确定", new CustomDialog.onYesOnclickListener() {
+//            @Override
+//            public void onYesClick() {
+//                addressController.delete(address.id);
+//                        addressList.remove(address);
+//                            notifyDataSetChanged();
+//                        Toast.makeText(MyApplication.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+//                selfDialog.dismiss();
+//            }
+//        });
+//        selfDialog.setNoOnclickListener("取消", new CustomDialog.onNoOnclickListener() {
+//            @Override
+//            public void onNoClick() {
+//
+//                selfDialog.dismiss();
+//            }
+//        });
+//        selfDialog.show();
 
 //        final AddressBean address = addressList.get(position);
-//        AlertUtils.showAlert(context, "确定删除" + address.realname + "这条地址吗？", "删除", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                //删除数据库
-//                addressController.delete(address.id);
-//                addressList.remove(address);
-//                notifyDataSetChanged();
-//            }
-//        }, "取消", null);
+        AlertUtils.showAlert(context, "确定删除" + address.realname + "这条地址吗？", "删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //删除数据库
+                addressController.delete(address.id);
+                addressList.remove(address);
+                notifyDataSetChanged();
+            }
+        }, "取消", null);
     }
 }

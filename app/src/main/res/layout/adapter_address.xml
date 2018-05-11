@@ -51,7 +51,10 @@
         </LinearLayout>
     </LinearLayout>
 
-
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,6 +63,7 @@
         android:padding="14dp">
 
         <CheckBox
+            android:theme="@style/MyCheckBox"
             android:id="@+id/cb_isdefault"
             android:layout_width="25dp"
             android:layout_height="25dp" />
@@ -81,14 +85,15 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="55pt"
+                android:layout_height="55pt"
                 android:background="@mipmap/address_ic_edit" />
 
             <TextView
+                android:textColor="@color/text_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:text="编辑" />
         </LinearLayout>
 
@@ -100,15 +105,16 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="55pt"
+                android:layout_height="55pt"
                 android:layout_marginLeft="8dp"
                 android:background="@mipmap/address_ic_delete" />
 
             <TextView
+                android:textColor="@color/text_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:text="删除" />
         </LinearLayout>
     </LinearLayout>
