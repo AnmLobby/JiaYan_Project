@@ -6,7 +6,6 @@
     android:background="?attr/app_primary_color"
     tools:context="com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment">
 
-
     <com.qmuiteam.qmui.widget.QMUITopBar
         app:qmui_topbar_title_color="@color/white"
         android:id="@+id/mtopbar"
@@ -19,16 +18,249 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+<LinearLayout
+    android:layout_marginTop="20pt"
+    android:orientation="horizontal"
+    android:layout_marginLeft="30pt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<TextView
+    android:textColor="#3e3d3e"
+    android:id="@+id/order_name"
+    android:text="王先生"
+    android:textSize="@dimen/text_large"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="#3e3d3e"
+        android:layout_marginLeft="40pt"
+        android:id="@+id/order_phone"
+        android:text="13172218987"
+        android:textSize="@dimen/text_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+            <TextView
+                android:textColor="#3e3d3e"
+                android:layout_marginTop="30pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginBottom="40pt"
+                android:id="@+id/order_address"
+                android:text="广东省东莞市东城区添龙商务大厦809号"
+                android:textSize="@dimen/text_six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <RelativeLayout
+                android:background="#f7f7f7"
+                android:paddingLeft="45pt"
+                android:paddingRight="30pt"
+                android:layout_width="match_parent"
+                android:layout_height="250pt">
+                <TextView
+                    android:id="@+id/time_select"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_four"
+                    android:text="时间选择"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/layout_start"
+                    android:layout_toRightOf="@+id/time_select"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="82pt"
+                    android:layout_width="650pt"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/start_time"
+                            android:layout_marginTop="60pt"
+                            android:text="11:00"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/text_large"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/start_date"
+                            android:layout_marginLeft="22pt"
+                            android:layout_marginTop="35pt"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/text_gray"
+                            android:text="03-27"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_marginLeft="22pt"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/buife_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_end"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/end_time"
+                            android:layout_marginTop="60pt"
+                            android:text="11:00"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/text_large"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/end_date"
+                            android:layout_marginLeft="22pt"
+                            android:layout_marginTop="35pt"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/text_gray"
+                            android:text="03-27"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginRight="15pt"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/banque_moret"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+<LinearLayout
+    android:layout_marginTop="50pt"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_weight="2"
+        android:layout_marginLeft="32pt"
+        android:layout_width="match_parent"
+        android:layout_height="250pt" />
+<RelativeLayout
+    android:layout_weight="1"
+    android:layout_marginLeft="20pt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+            <TextView
+                android:text="“情深似海”宴/998元"
+                android:textSize="@dimen/text_six"
+                android:textColor="@color/app_color_blue"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/cuisine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10pt"
+                android:id="@+id/xiangqing"
+                android:text=" 菜品详情"
+                android:drawableLeft="@mipmap/order_pg"
+                android:layout_below="@+id/cuisine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="10pt"
+        android:layout_below="@id/xiangqing"
+        android:text="规格：10人/桌"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+</LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="50pt"
+        android:layout_marginLeft="60pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_gray"
+            android:text="预定桌数"
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="80pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_gray"
+            android:text="×20"
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginLeft="30pt"
+        android:text="备注"
+        android:textSize="@dimen/text_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <com.example.administrator.jiayan_project.utils.weight.LinedEditText
+            android:id="@+id/edit_query"
+            app:ce_edit_text_color="#08090a"
+            android:layout_margin="30pt"
+            app:ce_edit_text_size="16px"
+            app:ce_count_text_size="16px"
+            app:ce_maxLength="100"
+            app:ce_countMode="Percentage"
+            app:ce_hint="填写订单备注消息"
+            android:layout_width="match_parent"
+            android:layout_height="300pt" />
+
+            <com.example.administrator.jiayan_project.utils.weight.TagCloudView
+                android:id="@+id/positionsTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:tcvBackground="@drawable/edit_style_blue"
+                app:tcvBorder="6dp"
+                app:tcvCanTagClick="true"
+                app:tcvItemBorderHorizontal="6dp"
+                app:tcvItemBorderVertical="8dp"
+                app:tcvSingleLine="false"
+                app:tcvTextColor="@color/text_black"
+                app:tcvTextSize="14px" />
+
+
 
 
 
         </LinearLayout>
-
     </android.support.v4.widget.NestedScrollView>
 
     <RelativeLayout
+        android:id="@+id/xianshilayout"
         android:paddingLeft="60pt"
         android:layout_gravity="bottom"
         android:background="#FFFFFF"

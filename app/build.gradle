@@ -105,7 +105,8 @@ dependencies {
     // add library
     implementation 'org.greenrobot:greendao-generator:3.2.2'
     implementation 'com.facebook.fresco:fresco:1.9.0'
-
+    //滚动新闻条
     implementation 'com.sunfusheng:marqueeview:1.2.0'
+    //地区选择
     implementation 'com.youth.picker:pickerview:0.1.4@aar'
 }

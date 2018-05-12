@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.vlayout.homepage;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -23,10 +24,10 @@ import butterknife.BindView;
 //超值首选  http://jiayan.didi0769.com/index.php/api/index/huasuan
 public class ChooseHolder  extends VlayoutBaseHolder<FirstChooseBean>{
     @BindView(R.id.easycyclerview)
-    EasyRecyclerView easyRecyclerView;
+    RecyclerView easyRecyclerView;
     private List<FirstChooseBean.DataBean> firstChooseBeans;
     private static final String TAG = "ChooseHolder";
-    private HomeChooseAdapter homeChooseAdapter=new HomeChooseAdapter(MyApplication.getContext());
+    private HomeChooseAdapter homeChooseAdapter;
     public ChooseHolder(View itemView) {
         super(itemView);
     }
@@ -34,7 +35,7 @@ public class ChooseHolder  extends VlayoutBaseHolder<FirstChooseBean>{
     @Override
     public void setData(int ps, FirstChooseBean fData) {
         super.setData(ps, fData);
-
+        homeChooseAdapter=new HomeChooseAdapter(MyApplication.getContext());
         LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         easyRecyclerView.setLayoutManager(layoutManager);

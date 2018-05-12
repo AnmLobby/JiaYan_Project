@@ -1,13 +1,20 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
@@ -33,7 +40,7 @@ public class SettingFragment extends BaseFragment {
     QMUIGroupListView mGroupListView;
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
-
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
 
 
     @Override
@@ -97,30 +104,10 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron4.setOrientation(QMUICommonListItemView.VERTICAL);
         itemWithChevron4.setImageDrawable(getResources().getDrawable(R.mipmap.call));
         itemWithChevron4.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                final String phone = "400-830-9328";
-                final CustomDialog selfDialog = new CustomDialog(getActivity());
-                selfDialog.setTitle("");
-                selfDialog.setMessage(phone);
-                selfDialog.setYesOnclickListener("呼叫", new CustomDialog.onYesOnclickListener() {
-                    @Override
-                    public void onYesClick() {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_CALL);
-                        intent.setData(Uri.parse("tel:" + phone));
-                        startActivity(intent);
-                        selfDialog.dismiss();
-                    }
-                });
-                selfDialog.setNoOnclickListener("取消", new CustomDialog.onNoOnclickListener() {
-                    @Override
-                    public void onNoClick() {
-
-                        selfDialog.dismiss();
-                    }
-                });
-                selfDialog.show();
+                Call();
             }
         });
         QMUICommonListItemView itemWithChevron5 = mGroupListView.createItemView("意见反馈");
@@ -162,47 +149,33 @@ public class SettingFragment extends BaseFragment {
         mTopBar.setTitle(ContantsName.SettingName);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.e(TAG, "onDestroyView: " );
-    }
+    private void Call() {
+        if (ContextCompat.checkSelfPermission(MyApplication.getContext(),
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            // 没有获得授权，申请授权
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.CALL_PHONE)) {
+                // 返回值：
+//                          如果app之前请求过该权限,被用户拒绝, 这个方法就会返回true.
+//                          如果用户之前拒绝权限的时候勾选了对话框中”Don’t ask again”的选项,那么这个方法会返回false.
+//                          如果设备策略禁止应用拥有这条权限, 这个方法也返回false.
+                // 弹窗需要解释为何需要该权限，再次请求授权
+                Toast.makeText(MyApplication.getContext(), "请授权！", Toast.LENGTH_LONG).show();
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e(TAG, "onResume: " );
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.e(TAG, "onStop: " );
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: " );
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.e(TAG, "onStart: " );
-    }
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            Log.e(TAG, "onHiddenChanged: " );
+                // 帮跳转到该应用的设置界面，让用户手动授权
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }else{
+                // 不需要解释为何需要该权限，直接请求授权
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.CALL_PHONE},MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            }
         }else {
-            Log.e(TAG, "on水水水水水" );
+            // 已经获得授权，可以打电话
+            CallPhone();
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.e(TAG, "onDetach: " );
-    }
 }
