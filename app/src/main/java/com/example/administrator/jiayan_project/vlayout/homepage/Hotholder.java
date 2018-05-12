@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.vlayout.homepage;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -23,9 +24,12 @@ import butterknife.BindView;
  * Created by 鱼握拳 on 2018/4/12.
  */
 
+/**
+ * 热门
+ */
 public class Hotholder extends VlayoutBaseHolder<HotBean> {
     @BindView(R.id.easycyclerview)
-    EasyRecyclerView easyRecyclerView;
+    RecyclerView easyRecyclerView;
     private List<HotBean.DataBean> hotbean;
     private HotAdapter hotAdapter;
     private static final String TAG = "Hotholder";
