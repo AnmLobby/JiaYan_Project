@@ -1,15 +1,11 @@
 package com.example.administrator.jiayan_project.adapter.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -22,7 +18,6 @@ import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.greendao.AddressController;
 import com.example.administrator.jiayan_project.utils.helper.FragmentController;
 import com.example.administrator.jiayan_project.utils.util.AlertUtils;
-import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
@@ -39,16 +34,17 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
 
     private List<AddressBean> addressList;
     private LayoutInflater mInflater;
-    private Context context;
+
     private QMUIDialog qmuiDialog;
+    private Activity mainActivity;
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
     //选中条目
     private int position;
 
-    public AddressAdapter(Context context, List<AddressBean> addressList) {
+    public AddressAdapter(Activity mainActivity, List<AddressBean> addressList) {
         this.addressList = addressList;
-        this.context = context;
-        mInflater = LayoutInflater.from(context);
+        this.mainActivity = mainActivity;
+        mInflater = LayoutInflater.from(mainActivity);
         addressController = AddressController.getInstance();
         activityController = FragmentController.getInstance();
     }
@@ -176,27 +172,27 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
      */
     private void deleteAddress(int position) {
        final AddressBean address = addressList.get(position);
-//        new QMUIDialog.MessageDialogBuilder(context.getApplicationContext())
-//                .setTitle("标题")
-//                .setMessage("确定要删除吗？")
-//                .addAction("取消", new QMUIDialogAction.ActionListener() {
-//                    @Override
-//                    public void onClick(QMUIDialog dialog, int index) {
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
-//                    @Override
-//                    public void onClick(QMUIDialog dialog, int index) {
-//                        addressController.delete(address.id);
-//                        addressList.remove(address);
-//                            notifyDataSetChanged();
-//                        Toast.makeText(MyApplication.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
-//                        dialog.dismiss();
-//                    }
-//                })
-//
-//               .show();
+        new QMUIDialog.MessageDialogBuilder(mainActivity)
+                .setTitle("标题")
+                .setMessage("确定要删除吗？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        addressController.delete(address.id);
+                        addressList.remove(address);
+                            notifyDataSetChanged();
+                        Toast.makeText(MyApplication.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+
+               .show();
 
 //       final CustomDialog selfDialog = new CustomDialog(MyApplication.getContext());
 //        selfDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
@@ -222,14 +218,15 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
 //        selfDialog.show();
 
 //        final AddressBean address = addressList.get(position);
-        AlertUtils.showAlert(context, "确定删除" + address.realname + "这条地址吗？", "删除", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //删除数据库
-                addressController.delete(address.id);
-                addressList.remove(address);
-                notifyDataSetChanged();
-            }
-        }, "取消", null);
+
+//        AlertUtils.showAlert(mainActivity, "确定删除" + address.realname + "这条地址吗？", "删除", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                //删除数据库
+//                addressController.delete(address.id);
+//                addressList.remove(address);
+//                notifyDataSetChanged();
+//            }
+//        }, "取消", null);
     }
 }

@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.AddressAdapter;
@@ -66,7 +67,7 @@ public class DeliveryFragment extends BaseFragment {
 //        }
 //        Log.e(TAG, "onCreateView: "+list.size() +list.get(i));
         addressBeans.addAll(list);
-        addressListAdapter =new AddressAdapter(MyApplication.getContext(),addressBeans);
+        addressListAdapter =new AddressAdapter(getActivity(),addressBeans);
         lv_address.setAdapter(addressListAdapter);
 //        addressListAdapter.setNewData(addressBeans);
 //        addressListAdapter.loadMoreComplete();
@@ -119,7 +120,7 @@ public class DeliveryFragment extends BaseFragment {
                     .build()
                     .list();
             addressBeans.addAll(list);
-            addressListAdapter =new AddressAdapter(MyApplication.getContext(),addressBeans);
+            addressListAdapter =new AddressAdapter(getActivity(),addressBeans);
             addressListAdapter.notifyDataSetChanged();
         }
 
