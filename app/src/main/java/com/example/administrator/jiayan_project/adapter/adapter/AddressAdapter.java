@@ -123,7 +123,7 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
             case R.id.ly_delete:
                 position = (int) v.getTag();
                 deleteAddress(position);
-                Toast.makeText(MyApplication.getContext(), "777", Toast.LENGTH_SHORT).show();
+
 
 
                 break;
@@ -173,8 +173,8 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
     private void deleteAddress(int position) {
        final AddressBean address = addressList.get(position);
         new QMUIDialog.MessageDialogBuilder(mainActivity)
-                .setTitle("标题")
-                .setMessage("确定要删除吗？")
+                .setTitle("提示")
+                .setMessage("确定要删除该地址吗？")
                 .addAction("取消", new QMUIDialogAction.ActionListener() {
                     @Override
                     public void onClick(QMUIDialog dialog, int index) {

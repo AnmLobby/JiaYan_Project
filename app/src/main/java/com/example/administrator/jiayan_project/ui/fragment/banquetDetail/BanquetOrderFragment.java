@@ -1,6 +1,5 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
+import com.example.administrator.jiayan_project.db.bean.AddressBean;
+import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
+import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.weight.LinedEditText;
 import com.example.administrator.jiayan_project.utils.weight.TagCloudView;
@@ -22,7 +23,6 @@ import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,12 +35,14 @@ import butterknife.ButterKnife;
 public class BanquetOrderFragment extends BaseFragment {
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
+    //名字手机地址
     @BindView(R.id.order_name)
     TextView orderName;
     @BindView(R.id.order_phone)
     TextView orderPhone;
     @BindView(R.id.order_address)
     TextView orderAddress;
+    //服务时间
     @BindView(R.id.time_select)
     TextView timeSelect;
     @BindView(R.id.start_time)
@@ -55,28 +57,39 @@ public class BanquetOrderFragment extends BaseFragment {
     LinearLayout layoutEnd;
     @BindView(R.id.layout_start)
     LinearLayout layoutStart;
+    //菜品名字，价格,桌子人数
     @BindView(R.id.cuisine_name)
     TextView cuisineName;
     @BindView(R.id.xiangqing)
     TextView xiangqing;
     @BindView(R.id.youhuijiage)
     TextView youhuijiage;
+    @BindView(R.id.people)
+    TextView people;
+    //底部价格
     @BindView(R.id.sure_money)
     TextView sureMoney;
     @BindView(R.id.cancel_money)
     TextView cancelMoney;
     @BindView(R.id.bg)
     ImageView bg;
+    //备注消息
     @BindView(R.id.edit_query)
     LinedEditText editQuery;
     @BindView(R.id.xianshilayout)
     RelativeLayout xianshilayout;
+    //云标签
     @BindView(R.id.positionsTag)
-    TagCloudView  positionsView;
+    TagCloudView positionsView;
+    @BindView(R.id.choose_address)
+    RelativeLayout chooseAddress;
     private HashMap<Integer, Boolean> map = new HashMap<>(0);//记录选择的位置
     private List<String> AllTagsPosition = new ArrayList<>(0);//整个标签存放集合
-    private List<String>   aa=new ArrayList<>();
+    private List<String> aa = new ArrayList<>();
     private static final String TAG = "BanquetOrderFragment";
+    private String remark;
+    private List<AddressBean> list;
+
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
@@ -87,10 +100,31 @@ public class BanquetOrderFragment extends BaseFragment {
                 .load(R.drawable.bg_people)
                 .centerCrop()
                 .into(bg);
-
-
         initPoView();
+        initOrdername();
+        chooseAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startFragment(new ChooseAddressFragment());
+            }
+        });
         return layout;
+    }
+
+    private void initOrdername() {
+        list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
+                .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                .limit(1)//只获取结果集的前 3 个数据
+                .orderDesc(AddressBeanDao.Properties.Isdefault)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                .build()
+                .list();
+        if (list.size()==0){
+            orderAddress.setText("亲，你还没有设置收货地址");
+        }else {
+            orderName.setText(list.get(0).getRealname());
+            orderPhone.setText(list.get(0).getPhone());
+            orderAddress.setText(list.get(0).getArea() + list.get(0).getAddress());
+        }
     }
 
     private void initPoView() {
@@ -116,19 +150,21 @@ public class BanquetOrderFragment extends BaseFragment {
             @Override
             public void onTagClick(int position) {
                 bindPositionView(position);
-                if (aa.contains(AllTagsPosition.get(position))){
+                if (aa.contains(AllTagsPosition.get(position))) {
                     aa.remove(AllTagsPosition.get(position));
-                }else {
+                } else {
                     aa.add(AllTagsPosition.get(position));
                 }
-                for (int i = 0; i <aa.size() ; i++) {
-                    Log.e(TAG, "onTagClick: ssssssssss"+aa.get(i).toString() );
+                StringBuilder strr = new StringBuilder();
+                for (int i = 0; i < aa.size(); i++) {
+                    if (i == aa.size() - 1) {
+                        strr.append(aa.get(i));
+                    } else {
+                        strr.append(aa.get(i));
+                        strr.append(",");
+                    }
+                    remark = strr.toString();
                 }
-                Iterator it = aa.iterator();
-                while(it.hasNext()) {
-                    Log.e(TAG, "一共aaaaaa有"+it.next());
-                }
-                Log.e(TAG, "一共有"+aa.size());
             }
         });
 
@@ -160,6 +196,7 @@ public class BanquetOrderFragment extends BaseFragment {
             }
         }
     }
+
     private void initTopBar() {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +205,13 @@ public class BanquetOrderFragment extends BaseFragment {
             }
         });
         mTopBar.setTitle(ContantsName.HighReception);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initOrdername();
     }
 
     @Override

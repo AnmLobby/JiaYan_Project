@@ -68,6 +68,7 @@ public class DeliveryFragment extends BaseFragment {
 //        Log.e(TAG, "onCreateView: "+list.size() +list.get(i));
         addressBeans.addAll(list);
         addressListAdapter =new AddressAdapter(getActivity(),addressBeans);
+
         lv_address.setAdapter(addressListAdapter);
 //        addressListAdapter.setNewData(addressBeans);
 //        addressListAdapter.loadMoreComplete();

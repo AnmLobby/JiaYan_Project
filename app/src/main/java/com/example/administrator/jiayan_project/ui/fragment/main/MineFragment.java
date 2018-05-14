@@ -107,7 +107,6 @@ public class MineFragment extends BaseFragment {
             break;
             case R.id.kajuan_layout:
                 startFragment(new BanquetOrderFragment());
-                Toast.makeText(MyApplication.getContext(), "咯卷", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fenxiang_layout:
                 Toast.makeText(MyApplication.getContext(), "分享", Toast.LENGTH_SHORT).show();

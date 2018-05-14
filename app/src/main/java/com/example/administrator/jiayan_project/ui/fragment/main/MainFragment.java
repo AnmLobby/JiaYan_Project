@@ -67,10 +67,10 @@ public class MainFragment extends BaseFragment {
                 ContextCompat.getDrawable(getContext(), R.mipmap.mine_select),
                 "我的", false
         );
-        mTabSegment.addTab(homepage);
-        mTabSegment.addTab(classify);
-        mTabSegment.addTab(cart);
-        mTabSegment.addTab(mine);
+        mTabSegment.addTab(homepage).addTab(classify).addTab(cart).addTab(mine);
+//        mTabSegment.addTab(classify);
+//        mTabSegment.addTab(cart);
+//        mTabSegment.addTab(mine);
 
     }
 
