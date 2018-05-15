@@ -3,6 +3,7 @@ package com.example.administrator.jiayan_project.vlayout.homepage;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
@@ -26,6 +27,8 @@ import butterknife.BindView;
 public class NewsHolder   extends VlayoutBaseHolder<NewsBean> {
     @BindView(R.id.mar)
     MarqueeView marqueeView;
+    @BindView(R.id.news)
+    TextView textView;
     public NewsHolder(View itemView) {
         super(itemView);
     }
@@ -44,5 +47,6 @@ public class NewsHolder   extends VlayoutBaseHolder<NewsBean> {
 //        info.add("5. 个人博客：sunfusheng.com");
 //        info.add("6. 微信公众号：孙福生");
         marqueeView.startWithList(info);
+
     }
 }
