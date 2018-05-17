@@ -405,14 +405,4 @@ public class BanquetFragment extends BaseFragment {
             }
         });
     }
-    public static void  HideSoftKeyBoardDialog(Activity activity){
-        try{
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-        }
-        catch(Exception ex){
-            Log.e(TAG, "HideSoftKeyBoardDialog: "+ex );
-        }
-    }
-
 }

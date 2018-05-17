@@ -113,8 +113,8 @@ public class MainFragment extends BaseFragment {
                     case 1:
                         return new ClassifyFragment();
                     case 2:
-//                        return  new CartFragment();
-                        return  new BlankOneFragment();
+                        return  new CartFragment();
+//                        return  new BlankOneFragment();
                     case 3:
                     default:
                         return  new MineFragment();

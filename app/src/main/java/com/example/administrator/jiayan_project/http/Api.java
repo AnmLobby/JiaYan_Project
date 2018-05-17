@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.http;
 
+import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
@@ -58,6 +59,9 @@ public interface Api {
     @POST("")
     Observable<UserBean>  postUser();
 
-
-
+    /**
+    * 购物车
+    */
+    @GET("index.php/api/index/huasuan")
+    Observable<CartBean>   getCart();
 }

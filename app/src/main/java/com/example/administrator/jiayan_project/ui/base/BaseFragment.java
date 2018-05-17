@@ -1,9 +1,12 @@
 package com.example.administrator.jiayan_project.ui.base;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 import com.qmuiteam.qmui.arch.QMUIFragment;
@@ -59,5 +62,14 @@ public  abstract class BaseFragment extends QMUIFragment {
             }
         });
         selfDialog.show();
+    }
+    public static void  HideSoftKeyBoardDialog(Activity activity){
+        try{
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+        }
+        catch(Exception ex){
+
+        }
     }
 }

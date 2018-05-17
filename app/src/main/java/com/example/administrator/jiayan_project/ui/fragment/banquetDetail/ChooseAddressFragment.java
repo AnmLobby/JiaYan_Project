@@ -1,16 +1,15 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
+import android.content.Context;
 import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
-import com.example.administrator.jiayan_project.adapter.adapter.AddressAdapter;
 import com.example.administrator.jiayan_project.adapter.adapter.ChooseAdressAdaptr;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
@@ -35,13 +34,16 @@ public class ChooseAddressFragment extends BaseFragment {
     QMUITopBar mTopBar;
     @BindView(R.id.recyclerview)
     EasyRecyclerView recyclerview;
-    private  List<AddressBean> addressBeans = new ArrayList<>();
-    private  List<AddressBean> list;
+    @BindView(R.id.fraglayout)
+    FrameLayout fraglayout;
+    private List<AddressBean> addressBeans = new ArrayList<>();
+    private List<AddressBean> list;
     private ChooseAdressAdaptr chooseAdressAdaptr;
     private AddressController addressController;
-    private Boolean isPause=false;
+    private Boolean isPause = false;
     private Handler handler = new Handler();
     private static final String TAG = "ChooseAddressFragment";
+
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choose_address, null);
@@ -89,19 +91,18 @@ public class ChooseAddressFragment extends BaseFragment {
             }
         });
     }
+
     @Override
     public void onPause() {
         super.onPause();
-
         isPause = true; //记录页面已经被暂停
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-
-        if (isPause){ //判断是否暂停
+        hideInput(MyApplication.getContext(),fraglayout );
+        if (isPause) { //判断是否暂停
             isPause = false;
             list.clear();
 //             chooseAdressAdaptr = new ChooseAdressAdaptr(MyApplication.getContext());
@@ -112,12 +113,9 @@ public class ChooseAddressFragment extends BaseFragment {
                     .orderDesc(AddressBeanDao.Properties.Isdefault)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                     .build()
                     .list();
-            Log.e(TAG, "onResume: "+list.size() );
             addressBeans.addAll(list);
-            Log.e(TAG, "onResume: "+addressBeans.size() );
             chooseAdressAdaptr.addAll(addressBeans);
             addressBeans.clear();
-            Log.e(TAG, "onResume: "+addressBeans.size() );
         }
 
     }
@@ -125,5 +123,17 @@ public class ChooseAddressFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+    }
+
+    /**
+     * 强制禁止调用键盘
+     * @param context
+     * @param view
+     */
+    private void hideInput(Context context, View view) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
