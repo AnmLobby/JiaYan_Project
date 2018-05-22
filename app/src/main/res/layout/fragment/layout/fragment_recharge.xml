@@ -1,0 +1,61 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color_blue"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white "
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+<LinearLayout
+    android:background="@color/white"
+    android:layout_marginTop="?attr/qmui_topbar_height"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:maxLength="6"
+        android:layout_margin="40pt"
+        android:inputType="number"
+        android:hint="请输入充值金额"
+        android:background="@drawable/edittext_style"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="150pt" />
+    <TextView
+        android:layout_marginLeft="30pt"
+        android:layout_marginTop="30pt"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_large"
+        android:text="支付方式"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_margin="30pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:button="@android:color/transparent"
+
+            android:drawableRight="@drawable/checkbox_style"
+            android:text="离线"/>
+
+        <!--<CheckBox-->
+    <!--android:button="@android:color/transparent"-->
+    <!--android:background="@drawable/checkbox_style"-->
+    <!--android:layout_width="23dp"-->
+    <!--android:layout_height="23dp" />-->
+    </RelativeLayout>
+</LinearLayout>
+</FrameLayout>

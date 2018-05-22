@@ -9,10 +9,9 @@ import android.widget.Toast;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
-import com.example.administrator.jiayan_project.db.bean.LikeBean;
-import com.example.administrator.jiayan_project.db.bean.LikeBeanDao;
-import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
+
 
 import java.util.List;
 
@@ -33,6 +32,8 @@ public class CartFragment extends BaseFragment {
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_cart, null);
         ButterKnife.bind(this, layout);
+
+
         onViewClicked(layout);
         return layout;
     }
@@ -52,8 +53,10 @@ public class CartFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.one:
-                break;
 
+                break;
+            default:
+                break;
         }
     }
 

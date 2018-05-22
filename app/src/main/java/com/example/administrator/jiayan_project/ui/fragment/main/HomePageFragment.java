@@ -16,6 +16,7 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.DataBean;
@@ -30,6 +31,7 @@ import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
 import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
@@ -48,6 +50,8 @@ import com.example.administrator.jiayan_project.vlayout.homepage.NewsHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.RecommendHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.StartHolder;
 import com.example.administrator.jiayan_project.vlayout.mine.GridHolder;
+import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +81,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
             new IconBean("万众服务", R.mipmap.w_fuwu), new IconBean("高级接待", R.mipmap.g_siyan)
     };
     private List<IconBean> iconBeanList = new ArrayList<>();
+
     @Override
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home_page, null);
@@ -112,7 +117,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-                        Log.e(TAG, "onItemClick: "+mData.getData().get(position).getAdlink() );
+                     startFragment(new BlankOneFragment());
                     }
                 });
         //超值首选

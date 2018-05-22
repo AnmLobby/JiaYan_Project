@@ -27,6 +27,7 @@ public class AboutFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_about, null);
+
         ButterKnife.bind(this, layout);
         initTopBar();
         return  layout;

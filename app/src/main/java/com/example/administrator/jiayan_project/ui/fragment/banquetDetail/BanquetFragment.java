@@ -1,8 +1,6 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,14 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
@@ -32,7 +28,6 @@ import com.example.administrator.jiayan_project.adapter.adapter.TimeAdapter;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
-import com.example.administrator.jiayan_project.utils.util.UtilsHelp;
 import com.qmuiteam.qmui.layout.QMUILayoutHelper;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -125,6 +120,10 @@ public class BanquetFragment extends BaseFragment {
     //日期开始布局
     @BindView(R.id.layout_start)
     LinearLayout layoutStart;
+    @BindView(R.id.add_cart)
+    TextView addCart;
+    @BindView(R.id.buy_soon)
+    TextView buySoon;
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 5;
     private int mRadius;
@@ -138,8 +137,9 @@ public class BanquetFragment extends BaseFragment {
     private boolean needMove = false;
     private int movePosition;
     private boolean isChangeByLeftClick = false;
-    private String[] strList=new String[]{"10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00",
-            "16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"};
+    private String[] strList = new String[]{"10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00",
+            "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"};
+
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
@@ -147,6 +147,7 @@ public class BanquetFragment extends BaseFragment {
         initBanner();
         initQmuiLayout();
         initTextViewMoney();
+        //放在loading那里，不然加载会卡
         leftData = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
@@ -216,24 +217,34 @@ public class BanquetFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    //选择布草颜色
-    @OnClick({R.id.yanseLayout,R.id.layout_end, R.id.layout_start})
+
+    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start,R.id.add_cart, R.id.buy_soon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.yanseLayout:
+                //选择布草颜色
                 showSimpleBottomSheetList();
                 break;
             case R.id.layout_end:
-                initEndTimeDialog(endDate,endTime);
+                initEndTimeDialog(endDate, endTime);
 
                 break;
             case R.id.layout_start:
-                initEndTimeDialog(startDate,startTime);
+                initEndTimeDialog(startDate, startTime);
 
+                break;
+            case R.id.add_cart:
+                break;
+            case R.id.buy_soon:
                 break;
         }
     }
-//选择结束时间dialog
+
+    /**
+     * 选择结束时间dialog
+     * @param enate
+     * @param enime
+     */
     private void initEndTimeDialog(final TextView enate, final TextView enime) {
 //        HideSoftKeyBoardDialog(getActivity());
         final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppTheme).create();
@@ -253,14 +264,14 @@ public class BanquetFragment extends BaseFragment {
         params.width = WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
         //设置窗口高度为包裹内容
         DisplayMetrics d = MyApplication.getContext().getResources().getDisplayMetrics(); // 获取屏幕宽、高用
-        params.height =  (int) (d.heightPixels * 0.65);
+        params.height = (int) (d.heightPixels * 0.65);
 //        params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
         params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致window后所有的东西都成暗淡
         params.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
         window.setAttributes(params);
-        RecyclerView mRvLeft=view.findViewById(R.id.rv_left);
-        RecyclerView mRvRight=view.findViewById(R.id.rv_right);
-        QMUITopBar mTopBar=view.findViewById(R.id.mtopbar);
+        RecyclerView mRvLeft = view.findViewById(R.id.rv_left);
+        RecyclerView mRvRight = view.findViewById(R.id.rv_right);
+        QMUITopBar mTopBar = view.findViewById(R.id.mtopbar);
         mTopBar.setTitle("选择服务时间");
         mTopBar.addRightImageButton(R.mipmap.dialog_close, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,8 +288,8 @@ public class BanquetFragment extends BaseFragment {
             @Override
             public void onLeftItemClick(int position) {
 
-                String d_time= mRVLeftAdapter.getData().get(position);
-                enate.setText(d_time.substring(0,5));
+                String d_time = mRVLeftAdapter.getData().get(position);
+                enate.setText(d_time.substring(0, 5));
 
             }
         });
@@ -288,7 +299,7 @@ public class BanquetFragment extends BaseFragment {
         mRVRightAdapter.setOnLeftItemClickListener(new TimeAdapter.OnLeftItemClickListener() {
             @Override
             public void onLeftItemClick(int position) {
-                String o_time= mRVRightAdapter.getData().get(position);
+                String o_time = mRVRightAdapter.getData().get(position);
                 enime.setText(o_time);
             }
         });
@@ -329,7 +340,9 @@ public class BanquetFragment extends BaseFragment {
                 .show();
     }
 
-
+    /**
+     * 开始时间选择
+     */
     private void showCommentDailog() {
         //R.style.***一定要写，不然不能充满整个屏宽，引用R.style.AppTheme就可以
         final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppTheme).create();

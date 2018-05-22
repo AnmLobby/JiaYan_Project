@@ -21,8 +21,11 @@ import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
+import com.example.administrator.jiayan_project.ui.fragment.chef_service.ReceptionFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SetAddressFragment;
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 
@@ -80,6 +83,7 @@ public class MineFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.shoucang_layout:
                 Toast.makeText(MyApplication.getContext(), "收藏", Toast.LENGTH_SHORT).show();
+                startFragment(new ReceptionFragment());
                 break;
             case R.id.huiyuan_layout:
                 Toast.makeText(MyApplication.getContext(), "会有", Toast.LENGTH_SHORT).show();
@@ -106,16 +110,18 @@ public class MineFragment extends BaseFragment {
              Call();
             break;
             case R.id.kajuan_layout:
-                startFragment(new BanquetOrderFragment());
+                startFragment(new SearchFragment());
+//                startFragment(new BanquetOrderFragment());
                 break;
             case R.id.fenxiang_layout:
+                startFragment(new BlankOneFragment());
                 Toast.makeText(MyApplication.getContext(), "分享", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.yuelayout:
                 Toast.makeText(MyApplication.getContext(), "yuer", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chongzhilayout:
-                Toast.makeText(MyApplication.getContext(), "充值", Toast.LENGTH_SHORT).show();
+              startFragment(new RechargeFragment());
                 break;
             case R.id.jifenlayout:
                 startFragment(new JifenFragment());

@@ -3,6 +3,7 @@ package com.example.administrator.jiayan_project;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDex;
 
 import com.example.administrator.jiayan_project.db.bean.DaoMaster;
 import com.example.administrator.jiayan_project.db.bean.DaoSession;
@@ -10,6 +11,7 @@ import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.AppContextUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.vondear.rxtools.RxTool;
 
 
 /**
@@ -35,7 +37,13 @@ public class MyApplication extends Application {
         new RudenessScreenHelper(this, 1080).activate();
         Fresco.initialize(this);
         GreenDaoManager.getInstance();
+        RxTool.init(this);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+    }
 }
 

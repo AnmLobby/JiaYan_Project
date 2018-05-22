@@ -72,4 +72,5 @@ public  abstract class BaseFragment extends QMUIFragment {
 
         }
     }
+//    mTopBar.setBackgroundDividerEnabled(false);//取消设置分割线
 }
