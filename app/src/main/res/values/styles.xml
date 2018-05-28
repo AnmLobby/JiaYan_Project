@@ -1,12 +1,12 @@
 <resources>
-    <!--<style name="ThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!--<item name="android:background">@drawable/start</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:windowFullscreen">true</item>-->
-        <!--&lt;!&ndash;<item name="windowActionBar">false</item>&ndash;&gt;-->
-        <!--<item name="windowNoTitle">true</item>-->
-    <!--</style>-->
-    <!-- Base application theme. -->
+    <style name="ThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/start</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!--<item name="windowActionBar">false</item>-->
+        <item name="windowNoTitle">true</item>
+    </style>
+     <!--Base application theme. -->
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
         <!-- 配置Android提供的theme -->
         <!--<item name="android:windowSoftInputMode">stateVisible</item>//禁止自动弹出键盘-->

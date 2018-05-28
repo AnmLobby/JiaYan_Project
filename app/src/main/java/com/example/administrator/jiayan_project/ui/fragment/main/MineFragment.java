@@ -28,6 +28,7 @@ import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SetAddressFragment;
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
+import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,16 +96,25 @@ public class MineFragment extends BaseFragment {
                 Toast.makeText(MyApplication.getContext(), "po", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fuwu_layout:
-                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View detailcontent = inflater.inflate(R.layout.dialog_detail, null);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(detailcontent);
-                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+//                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                View detailcontent = inflater.inflate(R.layout.dialog_detail, null);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(detailcontent);
+//                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builder.show();
+                final RxDialogSure rxDialogSure = new RxDialogSure(getActivity());//提示弹窗
+//                rxDialogSure.getLogoView().setImageResource(R.drawable.logo);
+                rxDialogSure.getSureView().setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onClick(View v) {
+                        rxDialogSure.cancel();
                     }
                 });
-                builder.show();
+                rxDialogSure.show();
                 break;
             case R.id.kefu_layout:
              Call();
