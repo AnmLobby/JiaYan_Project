@@ -37,7 +37,7 @@ public class BannerHolder extends VlayoutBaseHolder<BannerBean> {
         List<String> listImage = new ArrayList<>();
         for (int i = 0; i <tData.getData().size();i++) {
             listImage.add(Constants.BaseUrl+tData.getData().get(i).getAdlink());
-            Log.e(TAG, "宿舍 ********"+Constants.BaseUrl+tData.getData().get(i).getAdlink() );
+
         }
         banner.setImages((List<?>)listImage)
                 .setImageLoader(new GlideImageLoader())

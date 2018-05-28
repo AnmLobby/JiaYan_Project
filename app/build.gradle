@@ -36,6 +36,7 @@ android {
                     'src/main/res/layout/mine',
                     'src/main/res/layout/news',
                     'src/main/res/layout/chef',
+                    'src/main/res/layout/slide',
                     'src/main/res/layout/banquet',
                     'src/main/res/layout/classify',
                     'src/main/res/mipmap-xhdpi/mine',
@@ -118,5 +119,7 @@ dependencies {
     implementation 'com.youth.picker:pickerview:0.1.4@aar'
 
     implementation 'com.android.support:multidex:1.0.3'
-//    implementation 'com.github.vondear:RxTools:v1.7.7.3'
+    //implementation 'com.github.vondear:RxTools:v1.7.7.3'
+    //启动页
+//    implementation 'com.github.apl-devs:appintro:v4.2.3'
 }

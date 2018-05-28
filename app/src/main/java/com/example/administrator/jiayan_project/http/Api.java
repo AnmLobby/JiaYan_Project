@@ -13,6 +13,7 @@ import com.example.administrator.jiayan_project.enity.login.UserBean;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by 鱼握拳 on 2018/3/31.
@@ -56,8 +57,12 @@ public interface Api {
      * 登陆
      * @return
      */
-    @POST("")
-    Observable<UserBean>  postUser();
+//    http://v.juhe.cn/sms/send?mobile=手机号码&tpl_id=短信模板ID&tpl_value=%23code%23%3D654654&key=
+    @POST("send")
+    Observable<UserBean>  postUser(@Query("mobile") String mobile,
+                                   @Query("tpl_value") String tpl_value,
+                                    @Query("key") String key,
+                                    @Query("tpl_id") String tpl_id);
 
     /**
     * 购物车

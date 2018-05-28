@@ -25,11 +25,11 @@ public class LoginModel extends BaseModel {
     public  LoginModel(Context mContext) {
         super();
         context = mContext;
-        api = retrofitManager.getService();
+        api = loginManager.getService();
         mcompositeDisposable = new CompositeDisposable();
     }
     public void loginIn(String phone,String password,final IBaseRequestCallBack<UserBean> iBaseRequestCallBack){
-        mcompositeDisposable.add(api.postUser()
+        mcompositeDisposable.add(api.postUser(phone,password,"6c980c4ab7b574935234355bfe217e10","75662")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<UserBean>() {

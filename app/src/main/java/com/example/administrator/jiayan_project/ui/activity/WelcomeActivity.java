@@ -29,7 +29,8 @@ public class WelcomeActivity extends BaseActivity {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+//                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+                        startActivity(new Intent(WelcomeActivity.this,IntroActivityActivity.class));
                     }
                 });
     }

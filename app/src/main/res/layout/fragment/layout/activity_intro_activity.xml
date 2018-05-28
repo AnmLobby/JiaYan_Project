@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.jiayan_project.ui.activity.IntroActivityActivity">
+<!--<com.youth.banner.Banner-->
+    <!--android:layout_marginBottom="200pt"-->
+    <!--android:id="@+id/banner"-->
+    <!--app:delay_time="3000"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+    <android.support.v4.view.ViewPager
+        android:layout_marginBottom="230pt"
+        android:id="@+id/guide_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_gravity="bottom"
+        android:id="@+id/guide_dots"
+        android:layout_width="match_parent"
+        android:layout_height="30pt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200pt"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" />
+
+
+    <RelativeLayout
+    android:layout_gravity="bottom"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="200pt">
+    <!--<Button-->
+        <!--android:background="@color/qmui_config_color_transparent"-->
+        <!--android:id="@+id/skip"-->
+        <!--android:layout_marginLeft="30pt"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:textColor="@color/app_color_blue"-->
+        <!--android:text="跳过"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+    <Button
+        android:background="@color/qmui_config_color_transparent"
+        android:id="@+id/login"
+        android:layout_marginRight="30pt"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:textColor="@color/app_color_blue"
+        android:text="前往登录"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+</FrameLayout>
