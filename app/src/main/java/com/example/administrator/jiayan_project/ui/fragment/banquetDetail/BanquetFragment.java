@@ -37,6 +37,7 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -147,6 +148,12 @@ public class BanquetFragment extends BaseFragment {
         initBanner();
         initQmuiLayout();
         initTextViewMoney();
+
+        String strAA= DateUtils.get7date().get(1)+DateUtils.get7week().get(1);
+        startDate.setText(strAA.substring(5,10));
+        endDate.setText(strAA.substring(5,10));
+
+
         //放在loading那里，不然加载会卡
         leftData = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
@@ -301,6 +308,7 @@ public class BanquetFragment extends BaseFragment {
             public void onLeftItemClick(int position) {
                 String o_time = mRVRightAdapter.getData().get(position);
                 enime.setText(o_time);
+                dialog.dismiss();
             }
         });
     }

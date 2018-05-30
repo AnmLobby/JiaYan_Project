@@ -27,8 +27,8 @@ public class HomeChooseViewHolder  extends BaseViewHolder<FirstChooseBean.DataBe
     @Override
     public void setData(FirstChooseBean.DataBean data) {
         super.setData(data);
-        Log.e(TAG, "setaaaData: "+Constants.JiaYan+data.getOriginalimg() );
-        Glide.with(MyApplication.getContext()).load(Constants.JiaYan+data.getOriginalimg()).into(imageView);
+        Log.e(TAG, "setaaaData: "+Constants.BaseUrl+data.getOriginalimg() );
+        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+data.getOriginalimg()).into(imageView);
     }
 
 }

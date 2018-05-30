@@ -117,7 +117,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-                     startFragment(new BlankOneFragment());
+
+
+//                     startFragment(new BlankOneFragment());
                     }
                 });
         //超值首选
@@ -246,7 +248,8 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<NewsBean>() {
                     @Override
                     public void onItemClick(View view, int position,NewsBean mData) {
-
+                        int id=mData.getData().get(position).getId();
+                        Log.e(TAG, "onItemClick: "+id );
                     }
                 });
         delegateAdapter.addAdapter(banneradapter);

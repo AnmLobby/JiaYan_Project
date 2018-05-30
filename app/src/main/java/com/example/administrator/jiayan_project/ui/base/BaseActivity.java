@@ -1,6 +1,8 @@
 package com.example.administrator.jiayan_project.ui.base;
 
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,4 +27,13 @@ public abstract class BaseActivity extends QMUIFragmentActivity {
         return (int) statusBarHeight;
     }
 
+    /**
+     * 处理后台返回应用为空
+     * @param outState
+     * @param outPersistentState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
+    }
 }

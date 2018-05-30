@@ -43,7 +43,7 @@ public class RecommendHolder extends VlayoutBaseHolder<DataBean>{
 
 
             Glide.with(MyApplication.getContext())
-                    .load(Constants.JiaYan+rData.getOriginalimg())
+                    .load(Constants.BaseUrl+rData.getOriginalimg())
                     .into(imageView);
             name.setText(rData.getDinnername());
             liangdian.setText(rData.getSubname());

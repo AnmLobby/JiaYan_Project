@@ -11,5 +11,6 @@
         app:qmui_is_circle="false"
         android:layout_width="350pt"
         android:layout_height="500pt"
+        app:qmui_border_width="0dp"
         />
 </android.support.constraint.ConstraintLayout>

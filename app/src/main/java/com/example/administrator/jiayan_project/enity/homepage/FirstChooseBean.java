@@ -8,6 +8,7 @@ import java.util.List;
 
 public class FirstChooseBean {
 
+
     private List<DataBean> data;
 
     public List<DataBean> getData() {
@@ -20,18 +21,18 @@ public class FirstChooseBean {
 
     public static class DataBean {
         /**
-         * id : 2
-         * originalimg : 2.png
-         * dinnername : 万众服务
-         * subname : 超值活动
-         * price : 8888.00
+         * id : 1
+         * originalimg : /static/img/dinner_img/1c32385f012ab97b02f8a91ee7d3fddd.jpg
+         * dinnername : 鸿门宴
+         * subname : 项羽鸿门设宴
+         * price : 999
          */
 
         private int id;
         private String originalimg;
         private String dinnername;
         private String subname;
-        private String price;
+        private int price;
 
         public int getId() {
             return id;
@@ -65,11 +66,11 @@ public class FirstChooseBean {
             this.subname = subname;
         }
 
-        public String getPrice() {
+        public int getPrice() {
             return price;
         }
 
-        public void setPrice(String price) {
+        public void setPrice(int price) {
             this.price = price;
         }
     }

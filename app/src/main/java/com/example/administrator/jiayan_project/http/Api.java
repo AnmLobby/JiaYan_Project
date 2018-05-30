@@ -24,33 +24,33 @@ public interface Api {
      * 主页
      */
     /**首页轮播图*/
-    @GET("index.php/api/index/ad")
+    @GET("index/ad")
     Observable<BannerBean> getBanner();
 
     /**
      * 快报
      */
-    @GET("index.php/api/index/news")
+    @GET("index/news")
     Observable<NewsBean> getNews();
 
     /**超值首选*/
-    @GET("index.php/api/index/huasuan")
+    @GET("index/huasuan")
     Observable<FirstChooseBean> getFirst();
 
     /**新品推荐*/
-    @GET("index.php/api/index/isnew")
+    @GET("index/isnew")
     Observable<RecommendBean> getRecommend();
 
     /*** 明星推荐*/
-    @GET("index.php/api/index/feature")
+    @GET("index/feature")
     Observable<StarBean>   getStar();
 
     /**热门产品*/
-    @GET("index.php/api/index/ishot")
+    @GET("index/ishot")
     Observable<HotBean> getHot();
 
     /***节日盛宴*/
-    @GET("index.php/api/index/isfeast")
+    @GET("index/isfeast")
     Observable<FestivalBean>    getFestival();
 
     /**

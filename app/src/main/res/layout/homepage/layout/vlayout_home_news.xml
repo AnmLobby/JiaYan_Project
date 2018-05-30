@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:background="#f9f7f7"
     android:layout_marginTop="50pt"
     android:layout_marginBottom="30pt"
-    android:orientation="horizontal"
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="140pt">
 <TextView
+    android:layout_alignParentLeft="true"
+    android:layout_centerInParent="true"
     android:id="@+id/news"
-    android:layout_marginLeft="80pt"
+    android:layout_marginLeft="50pt"
     android:text="宴快报"
     android:textStyle="bold"
     android:textColor="@color/text_black"
@@ -19,14 +21,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
     <com.sunfusheng.marqueeview.MarqueeView
+
+        android:layout_marginLeft="530pt"
         android:id="@+id/mar"
-        android:layout_marginLeft="60pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mvAnimDuration="1000"
+        app:mvAnimDuration="2000"
         app:mvDirection="bottom_to_top"
         app:mvInterval="3000"
         app:mvTextColor="#403f3f"
         app:mvTextSize="14sp"
+        android:layout_centerInParent="true"
         app:mvSingleLine="true"/>
-</LinearLayout>
+    <ImageView
+        android:src="@mipmap/yan_news"
+        android:id="@+id/image"
+        android:layout_marginRight="60pt"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

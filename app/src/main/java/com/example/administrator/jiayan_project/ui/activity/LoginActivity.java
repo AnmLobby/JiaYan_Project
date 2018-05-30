@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.db.bean.KeepPhoneBean;
+import com.example.administrator.jiayan_project.db.bean.KeepPhoneBeanDao;
+import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpActivity;
 import com.example.administrator.jiayan_project.mvp.login.LoginPresenter;
@@ -47,6 +50,7 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
     LinearLayout content;
     private Disposable mdDisposable;
     private String i;
+    private String phone;
     private static final String TAG = "LoginActivity";
 //    @Override
 //    protected int getContextViewId() {
@@ -66,15 +70,16 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
             case R.id.huoqu_pwd:
                 i= "%23code%23%3d"+String.valueOf(getRandNum(1,999999));
                 getPresenter().clickRequest(etMobile.getText().toString().trim(),i);
+                phone=etMobile.getText().toString().trim();
                 Log.e(TAG, "accept: "+i );
                 huoquPwd.setEnabled(false);
                 //从0开始发射11个数字为：0-10依次输出，延时0s执行，每1s发射一次。
-                mdDisposable = Flowable.intervalRange(0, 7, 0, 1, TimeUnit.SECONDS)
+                mdDisposable = Flowable.intervalRange(0, 31, 0, 1, TimeUnit.SECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext(new Consumer<Long>() {
                             @Override
                             public void accept(Long aLong) throws Exception {
-                                huoquPwd.setText("重新获取(" + (6 - aLong) + ")");
+                                huoquPwd.setText("重新获取(" + (30 - aLong) + ")");
                             }
                         })
                         .doOnComplete(new Action() {
@@ -91,8 +96,14 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
                 String s="%23code%23%3d"+etPassword.getText().toString().trim();
                 if (s.equals(i)){
                     Log.e(TAG, "true" );
+                    KeepPhoneBeanDao addressBeanDao= GreenDaoManager.getInstance().getSession().getKeepPhoneBeanDao();
+                    KeepPhoneBean addressBean=new  KeepPhoneBean();
+                    addressBean.setPhoneNumber(phone);
+                    addressBeanDao.insert(addressBean);
+                    Toast.makeText(this, "正确", Toast.LENGTH_SHORT).show();
                 }else {
                     Log.e(TAG, "false" );
+                    Toast.makeText(this, "验证码错误，请输入正确的验证码", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.wb:
@@ -120,10 +131,6 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
         int randNum = min + (int)(Math.random() * ((max - min) + 1));
         return randNum;
     }
-    public void rand(){
-        System.out.println("随机数为" + getRandNum(1,999999));
-    }
-
     @Override
     public void requestLoading() {
 
@@ -131,18 +138,23 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
 
     @Override
     public void resultFailure(String result) {
-        Log.e(TAG, "re三双 "+result );
+
     }
 
     @Override
     public void resultUserSuccess(UserBean userBean) {
         String  code= String.valueOf(userBean.getError_code());
         if (code.equals("0")){
-            Toast.makeText(this, "请留意短信", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "短信已发送，请留意手机接收短信", Toast.LENGTH_SHORT).show();
         }
         if (code.equals("205401")){
             Toast.makeText(this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
         }
-        Log.e(TAG, "啊啊 "+userBean.getError_code() );
+        if (code.equals("205405")){
+            Toast.makeText(this, "发送短信短语频繁，请稍后再试", Toast.LENGTH_SHORT).show();
+        }
+        if (code.equals("205403")){
+            Toast.makeText(this, "网络错误,请重试", Toast.LENGTH_SHORT).show();
+        }
     }
 }
