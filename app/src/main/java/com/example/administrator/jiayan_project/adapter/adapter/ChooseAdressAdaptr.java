@@ -4,9 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import com.example.administrator.jiayan_project.adapter.holder.ChoorseAddressViewHolder;
-import com.example.administrator.jiayan_project.adapter.holder.NewsViewHolder;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
-import com.example.administrator.jiayan_project.enity.news.NewsBean;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 

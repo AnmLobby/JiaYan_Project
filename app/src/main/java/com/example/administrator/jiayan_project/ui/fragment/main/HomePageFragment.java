@@ -36,6 +36,7 @@ import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSu
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleFragment;
+import com.example.administrator.jiayan_project.ui.fragment.yan_news.NewsDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
@@ -248,8 +249,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<NewsBean>() {
                     @Override
                     public void onItemClick(View view, int position,NewsBean mData) {
-                        int id=mData.getData().get(position).getId();
-                        Log.e(TAG, "onItemClick: "+id );
+//                        int id=mData.getData().get(position).getId();
+                        startFragment(new NewsDetailFragment());
+//                        Log.e(TAG, "onItemClick: "+id );
                     }
                 });
         delegateAdapter.addAdapter(banneradapter);

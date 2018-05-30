@@ -33,12 +33,6 @@ public class AboutFragment extends BaseFragment {
         return  layout;
     }
     private void initTopBar() {
-//        mTopBar.addLeftImageButton(R.mipmap.ic_back,R.id.qmui_topbar_item_left_back).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                popBackStack();
-//            }
-//        });
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,5 +41,10 @@ public class AboutFragment extends BaseFragment {
         });
         mTopBar.setTitle(ContantsName.AboutName);
     }
-
+//        mTopBar.addLeftImageButton(R.mipmap.ic_back,R.id.qmui_topbar_item_left_back).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popBackStack();
+//            }
+//        });
 }

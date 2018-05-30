@@ -1,0 +1,101 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_color_blue"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.yan_news.NewsDetailFragment">
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+    <android.support.v4.widget.NestedScrollView
+        android:background="@color/white"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<TextView
+    android:text="那么，问题来了，难道小型餐厅未来的发展促使只能做深恶是嘎嘎？"
+    android:id="@+id/title"
+    android:textStyle="bold"
+    android:layout_margin="30pt"
+    android:textColor="@color/text_black"
+    android:textSize="@dimen/text_tem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+<TextView
+    android:text="2018-08-12 12:12:30"
+    android:layout_marginLeft="30pt"
+    android:textSize="@dimen/text_four"
+    android:textColor="@color/gray"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+<!--<com.qmuiteam.qmui.widget.QMUIRadiusImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--app:qmui_border_width="0dp"-->
+    <!--app:qmui_is_circle="false"-->
+    <!--app:qmui_corner_radius="3dp"-->
+    <!--android:id="@+id/image"-->
+    <!--android:layout_margin="30pt"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_height="300pt" />-->
+<ImageView
+
+    android:layout_margin="30pt"
+    android:id="@+id/image"
+    android:scaleType="fitXY"
+    android:layout_width="match_parent"
+    android:layout_height="500pt" />
+        <TextView
+            android:text="一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
+            该摘要发送到DTS，DTS在加入了收到文件摘要的日期和时间信息后再对该文件加密（数字签名），然后送回用户　书面签署文件的时间是由签署人自己写上的，而数字时间戳则不然，它是由认证单位DTS来加的，以DTS收到文件的时间为依据。"
+            android:id="@+id/contentview"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_six"
+            android:layout_margin="30pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="文章作者：余沃铨"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_four"
+                android:layout_marginLeft="30pt"
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="233浏览过"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_four"
+                android:layout_marginRight="30pt"
+                android:id="@+id/wwatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>

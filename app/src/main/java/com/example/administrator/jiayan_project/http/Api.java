@@ -9,10 +9,12 @@ import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
+import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -69,4 +71,10 @@ public interface Api {
     */
     @GET("index.php/api/index/huasuan")
     Observable<CartBean>   getCart();
+
+    /**
+     * 快报详情信息
+     */
+    @GET("News/details/id/{id}")
+    Observable<NewsDetailBean>   getNeswDetail(@Path("id") String id);
 }
