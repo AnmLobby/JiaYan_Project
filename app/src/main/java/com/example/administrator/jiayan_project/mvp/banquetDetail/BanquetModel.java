@@ -1,8 +1,8 @@
-package com.example.administrator.jiayan_project.mvp.news;
+package com.example.administrator.jiayan_project.mvp.banquetDetail;
 
 import android.content.Context;
 
-import com.example.administrator.jiayan_project.enity.login.UserBean;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
@@ -15,29 +15,30 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 /**
- * Created by Administrator on 2018/5/30/030.
+ * Created by Administrator on 2018/6/1/001.
  */
 
-public class NewsDetailModel extends BaseModel {
-    private Call<NewsDetailBean> newsDetailBeanCall;
+public class BanquetModel extends BaseModel {
+    private Call<BanquetBean> banquetBeanCall;
     private CompositeDisposable mcompositeDisposable;
     private Context context;
     private Api api;
-    public  NewsDetailModel(Context mContext) {
+    public  BanquetModel(Context mContext) {
         super();
         context = mContext;
         api = retrofitManager.getService();
         mcompositeDisposable = new CompositeDisposable();
     }
-    public void getDetailNews(String id, final IBaseRequestCallBack<NewsDetailBean> iBaseRequestCallBack){
-        mcompositeDisposable.add(api.getNeswDetail(id)
+
+    public void getBanquet(String id, final IBaseRequestCallBack<BanquetBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getBanquet(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<NewsDetailBean>() {
+                .subscribe(new Consumer<BanquetBean>() {
                     @Override
-                    public void accept(NewsDetailBean newsDetailBean) throws Exception {
+                    public void accept(BanquetBean banquetBean) throws Exception {
 
-                        iBaseRequestCallBack.requestSuccess(newsDetailBean);
+                        iBaseRequestCallBack.requestSuccess(banquetBean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -46,9 +47,11 @@ public class NewsDetailModel extends BaseModel {
                     }
                 }));
     }
+
+
     public void interruptHttp(){
-        if(newsDetailBeanCall != null && !newsDetailBeanCall.isCanceled()){
-            newsDetailBeanCall.cancel();
+        if(banquetBeanCall != null && !banquetBeanCall.isCanceled()){
+            banquetBeanCall.cancel();
         }
     }
 }

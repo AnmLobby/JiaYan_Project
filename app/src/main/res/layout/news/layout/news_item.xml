@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="150pt"
+    android:layout_marginTop="15pt"
     android:layout_width="match_parent"
-    android:layout_height="350pt">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/title"
         android:ellipsize="end"
         android:maxLines="3"
-        android:layout_marginTop="50pt"
+        android:layout_marginTop="30pt"
         android:layout_toLeftOf="@+id/image"
         android:layout_marginLeft="20pt"
-        android:text="那么，问题来了，难道小型餐厅未来的发展趋势只能做“深夜食堂”么？"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
     <TextView
-        android:layout_marginTop="50pt"
+        android:paddingBottom="30pt"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20pt"
         android:id="@+id/author"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_small"
-        android:layout_below="@+id/title"
-        android:text="文章作者：xxx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:layout_marginLeft="80pt"
-        android:layout_below="@+id/title"
+        android:id="@+id/clicknumber"
+        android:paddingBottom="30pt"
+        android:layout_toLeftOf="@+id/image"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="50pt"
-        android:layout_toRightOf="@+id/author"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_small"
-        android:text="233人浏览过"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ImageView
-        android:src="@drawable/news"
+
         android:layout_alignParentRight="true"
         android:id="@+id/image"
         android:layout_margin="25pt"
         android:layout_width="370pt"
-        android:layout_height="300pt" />
+        android:layout_height="280pt" />
 </RelativeLayout>

@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
 
 <TextView
-    android:text="那么，问题来了，难道小型餐厅未来的发展促使只能做深恶是嘎嘎？"
+    android:text=""
     android:id="@+id/title"
     android:textStyle="bold"
     android:layout_margin="30pt"
@@ -30,7 +30,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 <TextView
-    android:text="2018-08-12 12:12:30"
+    android:id="@+id/time"
+    android:text=""
     android:layout_marginLeft="30pt"
     android:textSize="@dimen/text_four"
     android:textColor="@color/gray"
@@ -54,16 +55,7 @@
     android:layout_width="match_parent"
     android:layout_height="500pt" />
         <TextView
-            android:text="一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件一般来说，时间戳产生的过程为：用户首先将需要加时间戳的文件用Hash编码加密形成摘要，然后将该摘要发送到DTS，DTS在加入了收到文件
-            该摘要发送到DTS，DTS在加入了收到文件摘要的日期和时间信息后再对该文件加密（数字签名），然后送回用户　书面签署文件的时间是由签署人自己写上的，而数字时间戳则不然，它是由认证单位DTS来加的，以DTS收到文件的时间为依据。"
+            android:text=""
             android:id="@+id/contentview"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_six"
@@ -76,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="文章作者：余沃铨"
+                android:text=""
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/gray"
@@ -86,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:text="233浏览过"
+                android:text=""
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/gray"

@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,11 +34,13 @@ import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.NewsDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
+import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
@@ -52,7 +55,12 @@ import com.example.administrator.jiayan_project.vlayout.homepage.RecommendHolder
 import com.example.administrator.jiayan_project.vlayout.homepage.StartHolder;
 import com.example.administrator.jiayan_project.vlayout.mine.GridHolder;
 import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
+import com.youth.banner.Banner;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +74,7 @@ import butterknife.ButterKnife;
 public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresenter> implements HomeView {
     @BindView(R.id.recycler)
     FatRecyclerview mRecycler;
+    private Banner banner=new Banner(MyApplication.getContext());
     private Context mContext;
     private DelegateAdapter delegateAdapter;
     private VlayoutBaseAdapter banneradapter,festivalAdapter,chooseAdapter,hotAdapter,recommendAdapter,startAdapter,tOnewAdapter,tTwoadapter,threeAdapter,gridAdapter,newsAdapter;
@@ -88,6 +97,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home_page, null);
         ButterKnife.bind(this, layout);
         getPresenter().clickRequest();
+
         virtualLayoutManager= new VirtualLayoutManager(mContext);
         mRecycler.setLayoutManager(virtualLayoutManager);
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -96,6 +106,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         delegateAdapter = new DelegateAdapter(virtualLayoutManager, false);
         initVlayout();
         initBean();
+
         return layout;
     }
     private void initBean() {
@@ -249,8 +260,12 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<NewsBean>() {
                     @Override
                     public void onItemClick(View view, int position,NewsBean mData) {
-//                        int id=mData.getData().get(position).getId();
-                        startFragment(new NewsDetailFragment());
+                        String id= String.valueOf(mData.getData().get(position).getId());
+                        NewsDetailFragment newsDetailFragment=new NewsDetailFragment();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("id",id);
+                        newsDetailFragment.setArguments(bundle);
+                        startFragment(newsDetailFragment);
 //                        Log.e(TAG, "onItemClick: "+id );
                     }
                 });
@@ -278,6 +293,14 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     public void requestLoading() {
 
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        banner.stopAutoPlay();
+    }
+
+
 
     @Override
     public void resultFailure(String result) {
@@ -365,4 +388,17 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     public HomePresenter createPresenter() {
         return new HomePresenter();
     }
+    @Override
+    public void onDestroyView() {
+
+
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        banner.startAutoPlay();
+    }
+
 }

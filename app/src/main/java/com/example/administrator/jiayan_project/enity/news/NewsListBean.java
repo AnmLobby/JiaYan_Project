@@ -3,10 +3,10 @@ package com.example.administrator.jiayan_project.enity.news;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/5/8/008.
+ * Created by Administrator on 2018/5/31/031.
  */
 
-public class NewsVideoBean {
+public class NewsListBean {
 
     private List<DataBean> data;
 
@@ -20,14 +20,13 @@ public class NewsVideoBean {
 
     public static class DataBean {
         /**
-         * id : 2
-         * newstitle : 我是宴快报视频
-         * newscontent : 阿斯加德弗兰克健身房
-         * newsauthor : 王尼美
-         * click : 101
+         * id : 1
+         * newstitle : 我是宴快报哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+         * newscontent : 老看手机飞洒地方了
+         * newsauthor : 王尼玛
+         * click : 100
          * createtime : 1525770675
          * newsimg : /uploads/banner3.png
-         * newsvideo : http://www.ipta.cn/video.mp4
          */
 
         private int id;
@@ -37,7 +36,6 @@ public class NewsVideoBean {
         private int click;
         private int createtime;
         private String newsimg;
-        private String newsvideo;
 
         public int getId() {
             return id;
@@ -93,14 +91,6 @@ public class NewsVideoBean {
 
         public void setNewsimg(String newsimg) {
             this.newsimg = newsimg;
-        }
-
-        public String getNewsvideo() {
-            return newsvideo;
-        }
-
-        public void setNewsvideo(String newsvideo) {
-            this.newsvideo = newsvideo;
         }
     }
 }

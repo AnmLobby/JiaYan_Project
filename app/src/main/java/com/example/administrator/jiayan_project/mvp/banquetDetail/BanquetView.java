@@ -1,14 +1,14 @@
-package com.example.administrator.jiayan_project.mvp.news;
+package com.example.administrator.jiayan_project.mvp.banquetDetail;
 
-import com.example.administrator.jiayan_project.enity.login.UserBean;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.mvp.base.IMvpBaseView;
 
 /**
- * Created by Administrator on 2018/5/30/030.
+ * Created by Administrator on 2018/6/1/001.
  */
 
-public interface NewsDetailView  extends IMvpBaseView {
+public interface BanquetView extends IMvpBaseView {
     /**
      * 加载数据前
      */
@@ -21,7 +21,7 @@ public interface NewsDetailView  extends IMvpBaseView {
     void resultFailure(String result);
 
     /**
-     * 新闻详情接口
+     * 宴会详情
      */
-    void  resultUserSuccess(NewsDetailBean newsDetailBean);
+    void  resultBanquetSuccess(BanquetBean banquetBean);
 }

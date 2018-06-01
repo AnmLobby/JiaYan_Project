@@ -12,7 +12,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by Administrator on 2018/5/8/008.
  */
 
-public class NewsVideoAdapter extends RecyclerArrayAdapter<NewsVideoBean> {
+public class NewsVideoAdapter extends RecyclerArrayAdapter<NewsVideoBean.DataBean> {
     public NewsVideoAdapter(Context context) {
         super(context);
     }

@@ -35,26 +35,27 @@ private static final String TAG = "WelcomeActivity";
 
        list = GreenDaoManager.getInstance().getSession().getKeepPhoneBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
-                .limit(300)//只获取结果集的前 3 个数据
+                .limit(1)//只获取结果集的前 3 个数据
                 .orderDesc(KeepPhoneBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        Log.e(TAG, "onCreate:杀杀杀杀杀杀杀杀杀s"+list.size() );
-
+        startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
 //        setContentView(R.layout.activity_welcome);
-        Observable.timer(0,TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-//                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
-                        if (list.size()==0){
-                            startActivity(new Intent(WelcomeActivity.this,IntroActivityActivity.class));
-                        }else {
-                            startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
-                        }
-                        finish();
-                    }
-                });
+
+
+//        Observable.timer(0,TimeUnit.SECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(Long aLong) throws Exception {
+////                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+//                        if (list.size()==0){
+//                            startActivity(new Intent(WelcomeActivity.this,IntroActivityActivity.class));
+//                        }else {
+//                            startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+//                        }
+//                        finish();
+//                    }
+//                });
     }
 }

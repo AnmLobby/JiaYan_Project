@@ -1,25 +1,26 @@
-package com.example.administrator.jiayan_project.mvp.news;
+package com.example.administrator.jiayan_project.mvp.banquetDetail;
 
 import android.os.Handler;
 import android.util.Log;
 
 import com.example.administrator.jiayan_project.MyApplication;
-import com.example.administrator.jiayan_project.enity.login.UserBean;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
 import com.example.administrator.jiayan_project.mvp.base.IBaseRequestCallBack;
-import com.example.administrator.jiayan_project.mvp.login.LoginView;
+import com.example.administrator.jiayan_project.mvp.news.NewsDetailModel;
+import com.example.administrator.jiayan_project.mvp.news.NewsDetailView;
 
 /**
- * Created by Administrator on 2018/5/30/030.
+ * Created by Administrator on 2018/6/1/001.
  */
 
-public class NewsDetailPresenter extends AbstractMvpPersenter<NewsDetailView> {
-    private NewsDetailModel newsDetailModel;
-    public NewsDetailPresenter(){
-        this.newsDetailModel=new NewsDetailModel(MyApplication.getContext());
+public class BanquetPresenter extends AbstractMvpPersenter<BanquetView> {
+    private BanquetModel banquetModel;
+    public BanquetPresenter(){
+        this.banquetModel=new BanquetModel(MyApplication.getContext());
     }
-    public void clickRequestNews(final String id) {
+    public void clickRequestBanquet(final String id) {
         //获取View
         if (getmMvpView() != null) {
             getmMvpView().requestLoading();
@@ -28,7 +29,7 @@ public class NewsDetailPresenter extends AbstractMvpPersenter<NewsDetailView> {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                newsDetailModel.getDetailNews(id,new IBaseRequestCallBack<NewsDetailBean>() {
+                banquetModel.getBanquet(id,new IBaseRequestCallBack<BanquetBean>() {
                     @Override
                     public void requestError(Throwable throwable) {
                         if (getmMvpView() != null) {
@@ -36,9 +37,9 @@ public class NewsDetailPresenter extends AbstractMvpPersenter<NewsDetailView> {
                         }
                     }
                     @Override
-                    public void requestSuccess(NewsDetailBean newsDetailBean) {
+                    public void requestSuccess(BanquetBean banquetBean) {
                         if (getmMvpView() != null) {
-                            getmMvpView().resultUserSuccess(newsDetailBean);
+                            getmMvpView().resultBanquetSuccess(banquetBean);
                         }
                     }
                 });
@@ -46,6 +47,6 @@ public class NewsDetailPresenter extends AbstractMvpPersenter<NewsDetailView> {
         }, 10);
     }
     public void interruptHttp(){
-        newsDetailModel.interruptHttp();
+        banquetModel.interruptHttp();
     }
 }

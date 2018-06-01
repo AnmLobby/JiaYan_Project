@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.http;
 
+import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
@@ -10,6 +11,8 @@ import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
+import com.example.administrator.jiayan_project.enity.news.NewsListBean;
+import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -77,4 +80,40 @@ public interface Api {
      */
     @GET("News/details/id/{id}")
     Observable<NewsDetailBean>   getNeswDetail(@Path("id") String id);
+
+    /**
+     * 新闻列表首页
+     */
+    @GET("News/news")
+    Observable<NewsListBean>   getNeswHome();
+
+    /**
+     * 新闻列表视频
+     */
+    @GET("News/video")
+    Observable<NewsVideoBean>   getNeswVideo();
+
+    /**
+     * 新闻列表活动
+     */
+    @GET("News/activity")
+    Observable<NewsListBean>   getNeswActivity();
+
+    /**
+     * 新闻列表商学院
+     */
+    @GET("News/business")
+    Observable<NewsListBean>   getNeswXue();
+
+    /**
+     * 新闻列表宴万家
+     */
+    @GET("News/yanwanjia")
+    Observable<NewsListBean>   getNeswYan();
+
+    /**
+     *  宴会详情第一个页面
+     */
+    @GET("Details/message/id/{id}")
+    Observable<BanquetBean>   getBanquet(@Path("id") String id);
 }

@@ -45,4 +45,9 @@ public class CartModel extends BaseModel{
                     }
                 }));
     }
+    public void interruptHttp(){
+        if(cartBeanCall != null && !cartBeanCall.isCanceled()){
+            cartBeanCall.cancel();
+        }
+    }
 }

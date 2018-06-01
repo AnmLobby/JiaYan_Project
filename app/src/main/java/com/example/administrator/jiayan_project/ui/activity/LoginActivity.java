@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepPhoneBean;
 import com.example.administrator.jiayan_project.db.bean.KeepPhoneBeanDao;
@@ -100,7 +102,12 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
                     KeepPhoneBean addressBean=new  KeepPhoneBean();
                     addressBean.setPhoneNumber(phone);
                     addressBeanDao.insert(addressBean);
-                    Toast.makeText(this, "正确", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "准备跳转", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_still);
+                    finish();
+
                 }else {
                     Log.e(TAG, "false" );
                     Toast.makeText(this, "验证码错误，请输入正确的验证码", Toast.LENGTH_SHORT).show();

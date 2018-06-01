@@ -3,7 +3,9 @@ package com.example.administrator.jiayan_project.vlayout.homepage;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
@@ -11,10 +13,13 @@ import com.example.administrator.jiayan_project.adapter.adapter.HotAdapter;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.ui.activity.LoginActivity;
+import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseHolder;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.sunfusheng.marqueeview.MarqueeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +35,8 @@ public class NewsHolder   extends VlayoutBaseHolder<NewsBean> {
     MarqueeView marqueeView;
     @BindView(R.id.news)
     TextView textView;
+    @BindView(R.id.image)
+    ImageView image;
     private static final String TAG = "NewsHolder";
     public NewsHolder(View itemView) {
         super(itemView);
@@ -42,11 +49,10 @@ public class NewsHolder   extends VlayoutBaseHolder<NewsBean> {
         for (int i = 0; i <hData.getData().size() ; i++) {
             info.add(hData.getData().get(i).getNewstitle());
         }
-        textView.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.e(TAG, "onClick: 啊啊啊啊啊啊啊啊啊啊啊啊" );
+                EventBus.getDefault().post(new StartNewsEvent());
             }
         });
 //        info.add("1. 大家好，我是孙福生。");

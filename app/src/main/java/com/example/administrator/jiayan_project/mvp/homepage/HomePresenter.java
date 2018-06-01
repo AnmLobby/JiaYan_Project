@@ -146,5 +146,7 @@ public class HomePresenter extends AbstractMvpPersenter<HomeView> {
             }
         },1);
     }
-
+    public void interruptHttp(){
+        homeModel.interruptHttp();
+    }
 }

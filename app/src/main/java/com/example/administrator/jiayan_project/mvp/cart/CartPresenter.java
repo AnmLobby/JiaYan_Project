@@ -46,4 +46,7 @@ public class CartPresenter   extends AbstractMvpPersenter<CartView> {
             }
         }, 10);
     }
+    public void interruptHttp(){
+        cartModel.interruptHttp();
+    }
 }

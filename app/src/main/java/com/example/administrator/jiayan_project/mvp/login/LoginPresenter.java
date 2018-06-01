@@ -46,4 +46,7 @@ public class LoginPresenter extends AbstractMvpPersenter<LoginView> {
             }
         }, 10);
     }
+    public void interruptHttp(){
+        loginModel.interruptHttp();
+    }
 }

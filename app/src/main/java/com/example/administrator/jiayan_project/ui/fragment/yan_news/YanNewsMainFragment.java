@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jzvd.JZVideoPlayer;
 
 
 public class YanNewsMainFragment extends BaseFragment {
@@ -185,8 +187,19 @@ public class YanNewsMainFragment extends BaseFragment {
         };
         mViewPager.setAdapter(pagerAdapter);
         mTabSegment.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                JZVideoPlayer.releaseAllVideos();
+            }
+        });
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        JZVideoPlayer.releaseAllVideos();
+    }
 }
 
 
