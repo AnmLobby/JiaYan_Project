@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,8 @@ import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetPresent
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetView;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
+import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.qmuiteam.qmui.layout.QMUILayoutHelper;
@@ -42,6 +45,10 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,7 +148,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     @BindView(R.id.mainLayout)
     FrameLayout mainFrag;
-
+    String requeid;
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 5;
     private int mRadius;
@@ -163,18 +170,21 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
         ButterKnife.bind(this, layout);
+        EventBus.getDefault().register(this);
+//        Bundle bun=getArguments();
+//        requeid = bun.getString("iid");
+//        Log.e(TAG, "onCreateView: "+requeid );
+//        requeid="2";
+
         initBanner();
         initQmuiLayout();
         initTextViewMoney();
-        getPresenter().clickRequestBanquet("1");
         String strAA= DateUtils.get7date().get(1)+DateUtils.get7week().get(1);
         startDate.setText(strAA.substring(5,10));
         endDate.setText(strAA.substring(5,10));
-
         //放在loading那里，不然加载会卡
         return layout;
     }
-
 
     private void initTextViewMoney() {
         String str = bucaoColor.getText().toString();
@@ -203,13 +213,13 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     //banner图
     private void initBanner() {
         listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
-        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
-        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
-        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
-        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
-        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
-        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
-        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
 
         Log.e(TAG, "initBanner: " + listImage.size());
         banner.setImages(listImage)
@@ -227,6 +237,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
     }
 
 
@@ -455,15 +466,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     @Override
     public void resultBanquetSuccess(BanquetBean banquetBean) {
-//        leftData = new ArrayList<>();
-//        for (int i = 0; i < 30; i++) {
-//            String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
-//            leftData.add(str.substring(5,10)+"\n"+str.substring(10,12));
-//        }
-//        rightData= new ArrayList<>();
-//        for (int i = 0; i <strList.length ; i++) {
-//            rightData.add(strList[i]);
-//        }
+
         buyMoney.setText(String.valueOf(banquetBean.getData().get(0).getPrice()));
         //设置取消textview
         moneyBefore.setText("原价：¥ "+String.valueOf(banquetBean.getData().get(0).getOriginprice())+" /套");
@@ -472,14 +475,27 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         dishesName.setText(banquetBean.getData().get(0).getDinnername());
         saclenum.setText("已销售："+banquetBean.getData().get(0).getSalesum()+"笔");
 
-
-
         mainFrag.setVisibility(View.VISIBLE);
         tipDialog.dismiss();
+         leftData = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
+            leftData.add(str.substring(5,10)+"\n"+str.substring(10,12));
+        }
+        rightData= new ArrayList<>();
+        for (int i = 0; i <strList.length ; i++) {
+            rightData.add(strList[i]);
+        }
     }
 
     @Override
     public BanquetPresenter createPresenter() {
         return new BanquetPresenter();
+    }
+    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
+    public  void ononMoonStickyEvent(StartNewsEvent startNewsEvent){
+       String  req=startNewsEvent.getMessage();
+        getPresenter().clickRequestBanquet(req);
+        Log.e(TAG, "onCreateView水水水水水水水水水水s: "+req);
     }
 }

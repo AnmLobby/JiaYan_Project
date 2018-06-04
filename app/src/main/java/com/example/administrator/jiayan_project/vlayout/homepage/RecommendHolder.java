@@ -48,6 +48,11 @@ public class RecommendHolder extends VlayoutBaseHolder<DataBean>{
             name.setText(rData.getDinnername());
             liangdian.setText(rData.getSubname());
             money.setText("¥"+rData.getPrice());
-
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onItemClick(mView, position, mData);
+                }
+            });
     }
 }

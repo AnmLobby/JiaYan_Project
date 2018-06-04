@@ -31,9 +31,11 @@ import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
 import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
+import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
@@ -62,6 +64,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +132,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-
+                        String id= String.valueOf(mData.getData().get(position).getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
 
 //                     startFragment(new BlankOneFragment());
                     }
@@ -144,6 +149,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                     @Override
                     public void onItemClick(View view, int position, FirstChooseBean mData) {
 
+                        String id= String.valueOf(mData.getData().get(position).getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
                     }
                 });
         festivalAdapter = new VlayoutBaseAdapter(mContext)
@@ -154,6 +162,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<DataBean>() {
                     @Override
                     public void onItemClick(View view, int position,DataBean mData) {
+                        String id= String.valueOf(mData.getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
 
                     }
                 });
@@ -166,6 +177,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                     @Override
                     public void onItemClick(View view, int position,HotBean mData) {
 
+                        String id= String.valueOf(mData.getData().get(position).getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
                     }
                 });
         //新品推荐
@@ -177,7 +191,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<DataBean>() {
                     @Override
                     public void onItemClick(View view, int position, DataBean mData) {
-
+                        String id= String.valueOf(mData.getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
                     }
                 });
 //特色
@@ -189,8 +205,16 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<DataBean>() {
                     @Override
                     public void onItemClick(View view, int position, DataBean mData) {
+                        String id= String.valueOf(mData.getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
-                        Log.e(TAG, "onItemClickaaaaaaaaaaaaaaaa: " );
+//                        Bundle bundle=new Bundle();
+//                        bundle.putString("iid",id);
+//                        BanquetFragment banquetFragment=new BanquetFragment();
+//                        banquetFragment.setArguments(bundle);
+//                        Log.e(TAG, "onItemClick: "+id );
+
+//                        Log.e(TAG, "onItemClickaaaaaaaaaaaaaaaa: " );
                     }
                 });
         tOnewAdapter = new VlayoutBaseAdapter(mContext)
@@ -239,6 +263,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                     public void onItemClick(View view, int position, IconBean mData) {
                         switch (String.valueOf(position)) {
                             case "0":
+                                startFragment(new BigYanFragment());
                                 break;
                             case "1":
                                 startFragment(new CookRegisterFragment());

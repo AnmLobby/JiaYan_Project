@@ -26,8 +26,5 @@ public interface BigYanView extends IMvpBaseView {
      */
     void  resultYanListSuccess(BigYanBean newsListBean);
 
-    /**
-     * 新闻视频
-     */
-    void resultVideoListSuccess(NewsVideoBean newsVideoBean);
+
 }

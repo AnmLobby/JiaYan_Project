@@ -44,6 +44,8 @@ public class MainActivity extends BaseActivity{
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public  void onMoonEvent(StartNewsEvent startNewsEvent){
-        startFragment(new YanNewsMainFragment());
+        if (startNewsEvent.getMessage()==null){
+            startFragment(new YanNewsMainFragment());
+        }
     }
 }

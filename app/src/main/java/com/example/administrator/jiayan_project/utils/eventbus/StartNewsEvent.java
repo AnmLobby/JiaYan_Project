@@ -17,4 +17,10 @@ public class StartNewsEvent {
     }
 
     private String message;
+
+    public StartNewsEvent(String message) {
+        this.message = message;
+    }
+    public StartNewsEvent() {
+    }
 }

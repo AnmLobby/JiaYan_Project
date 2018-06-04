@@ -28,7 +28,7 @@ public class BanquetDetailFragment extends BaseFragment {
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_blank_detail, null);
         ButterKnife.bind(this, layout);
-        mWebView.loadUrl("https://www.jianshu.com/p/6e5eda3a51af");
+//        mWebView.loadUrl("https://www.jianshu.com/p/6e5eda3a51af");
         initWebView();
         return layout;
     }
