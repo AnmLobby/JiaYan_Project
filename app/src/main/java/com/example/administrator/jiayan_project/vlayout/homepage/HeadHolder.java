@@ -19,7 +19,7 @@ import butterknife.BindView;
 public class HeadHolder extends VlayoutBaseHolder<BannerBean> {
         @BindView(R.id.title) TextView titleText;
         @BindView(R.id.more) TextView more;
-    private static final String TAG = "RecommendHolder";
+         private static final String TAG = "RecommendHolder";
         public HeadHolder(View itemView) {
             super(itemView);
             }

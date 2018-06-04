@@ -20,11 +20,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
 import com.example.administrator.jiayan_project.adapter.adapter.TimeAdapter;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetPresenter;
+import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetView;
+import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
@@ -33,22 +38,28 @@ import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * 高级宴会菜单
  */
 
-public class BanquetFragment extends BaseFragment {
+public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPresenter> implements BanquetView {
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.qmui_layout)
@@ -85,6 +96,8 @@ public class BanquetFragment extends BaseFragment {
     TextView baozhang;
     @BindView(R.id.tuikuan)
     TextView tuikuan;
+    @BindView(R.id.saclenum)
+    TextView saclenum;
     @BindView(R.id.dishes_name)
     TextView dishesName;
     @BindView(R.id.dishes_share)
@@ -125,6 +138,10 @@ public class BanquetFragment extends BaseFragment {
     TextView addCart;
     @BindView(R.id.buy_soon)
     TextView buySoon;
+
+    @BindView(R.id.mainLayout)
+    FrameLayout mainFrag;
+
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 5;
     private int mRadius;
@@ -138,6 +155,7 @@ public class BanquetFragment extends BaseFragment {
     private boolean needMove = false;
     private int movePosition;
     private boolean isChangeByLeftClick = false;
+    private QMUITipDialog tipDialog;
     private String[] strList = new String[]{"10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00",
             "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"};
 
@@ -148,30 +166,17 @@ public class BanquetFragment extends BaseFragment {
         initBanner();
         initQmuiLayout();
         initTextViewMoney();
-
+        getPresenter().clickRequestBanquet("1");
         String strAA= DateUtils.get7date().get(1)+DateUtils.get7week().get(1);
         startDate.setText(strAA.substring(5,10));
         endDate.setText(strAA.substring(5,10));
 
-
         //放在loading那里，不然加载会卡
-        leftData = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
-            leftData.add(str.substring(5,10)+"\n"+str.substring(10,12));
-        }
-        rightData= new ArrayList<>();
-        for (int i = 0; i <strList.length ; i++) {
-            rightData.add(strList[i]);
-        }
         return layout;
     }
 
-    //设置取消textview
+
     private void initTextViewMoney() {
-        moneyBefore.setText("原价：¥ 666 /套");
-        moneyBefore.getPaint().setFlags(
-                Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
         String str = bucaoColor.getText().toString();
         if (str.contains("普通")) {
             tip.setVisibility(View.GONE);
@@ -234,13 +239,12 @@ public class BanquetFragment extends BaseFragment {
                 break;
             case R.id.layout_end:
                 initEndTimeDialog(endDate, endTime);
-
                 break;
             case R.id.layout_start:
                 initEndTimeDialog(startDate, startTime);
-
                 break;
             case R.id.add_cart:
+
                 break;
             case R.id.buy_soon:
                 break;
@@ -425,5 +429,57 @@ public class BanquetFragment extends BaseFragment {
                 renshu.setText(editable);
             }
         });
+    }
+
+    @Override
+
+    public void requestLoading() {
+        Log.e(TAG, "requestLoassssssssssssssssding: " );
+        tipDialog = new QMUITipDialog.Builder(getActivity())
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+        tipDialog.show();
+//        RxDialogShapeLoading rxDialogShapeLoading = new RxDialogShapeLoading(getActivity());
+//        rxDialogShapeLoading.show();
+//
+    }
+
+    @Override
+    public void resultFailure(String result) {
+        tipDialog.dismiss();
+        Log.e(TAG, "resultFailure: "+result          );
+        Toast.makeText(MyApplication.getContext(), "发生未知错误", Toast.LENGTH_SHORT).show();
+        popBackStack();
+    }
+
+    @Override
+    public void resultBanquetSuccess(BanquetBean banquetBean) {
+//        leftData = new ArrayList<>();
+//        for (int i = 0; i < 30; i++) {
+//            String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
+//            leftData.add(str.substring(5,10)+"\n"+str.substring(10,12));
+//        }
+//        rightData= new ArrayList<>();
+//        for (int i = 0; i <strList.length ; i++) {
+//            rightData.add(strList[i]);
+//        }
+        buyMoney.setText(String.valueOf(banquetBean.getData().get(0).getPrice()));
+        //设置取消textview
+        moneyBefore.setText("原价：¥ "+String.valueOf(banquetBean.getData().get(0).getOriginprice())+" /套");
+        moneyBefore.getPaint().setFlags(
+                Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+        dishesName.setText(banquetBean.getData().get(0).getDinnername());
+        saclenum.setText("已销售："+banquetBean.getData().get(0).getSalesum()+"笔");
+
+
+
+        mainFrag.setVisibility(View.VISIBLE);
+        tipDialog.dismiss();
+    }
+
+    @Override
+    public BanquetPresenter createPresenter() {
+        return new BanquetPresenter();
     }
 }

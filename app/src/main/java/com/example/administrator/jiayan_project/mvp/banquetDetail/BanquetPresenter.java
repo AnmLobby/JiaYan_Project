@@ -44,7 +44,7 @@ public class BanquetPresenter extends AbstractMvpPersenter<BanquetView> {
                     }
                 });
             }
-        }, 10);
+        }, 1000);
     }
     public void interruptHttp(){
         banquetModel.interruptHttp();

@@ -189,7 +189,8 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<DataBean>() {
                     @Override
                     public void onItemClick(View view, int position, DataBean mData) {
-
+                        startFragment(new BlankOneFragment());
+                        Log.e(TAG, "onItemClickaaaaaaaaaaaaaaaa: " );
                     }
                 });
         tOnewAdapter = new VlayoutBaseAdapter(mContext)

@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.http;
 
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
@@ -116,4 +117,10 @@ public interface Api {
      */
     @GET("Details/message/id/{id}")
     Observable<BanquetBean>   getBanquet(@Path("id") String id);
+
+    /**
+     * 大型宴席
+     */
+    @GET("Large/large")
+    Observable<BigYanBean>   getBigYan();
 }
