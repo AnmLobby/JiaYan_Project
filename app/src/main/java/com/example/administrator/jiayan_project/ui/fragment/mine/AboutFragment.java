@@ -39,6 +39,7 @@ public class AboutFragment extends BaseFragment {
                 popBackStack();
             }
         });
+        mTopBar.setBackgroundDividerEnabled(false);
         mTopBar.setTitle(ContantsName.AboutName);
     }
 //        mTopBar.addLeftImageButton(R.mipmap.ic_back,R.id.qmui_topbar_item_left_back).setOnClickListener(new View.OnClickListener() {

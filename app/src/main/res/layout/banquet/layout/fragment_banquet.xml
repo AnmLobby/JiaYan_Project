@@ -463,6 +463,7 @@
     android:layout_width="match_parent"
     android:layout_height="150pt">
     <LinearLayout
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginTop="15pt"
         android:layout_weight="1"
         android:orientation="vertical"
@@ -478,7 +479,7 @@
         <TextView
             android:textSize="@dimen/text_small"
             android:layout_gravity="center"
-            android:text="客服"
+            android:text="联系我们"
             android:textColor="@color/text_gray"
             android:layout_below="@+id/kefuimg"
             android:id="@+id/kefu"
@@ -487,6 +488,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginTop="15pt"
     android:layout_weight="1"
     android:orientation="vertical"

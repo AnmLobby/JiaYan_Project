@@ -3,6 +3,7 @@ package com.example.administrator.jiayan_project.http;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
+import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
@@ -10,10 +11,13 @@ import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -60,7 +64,7 @@ public interface Api {
     Observable<FestivalBean>    getFestival();
 
     /**
-     * 登陆
+     * 登陆短信接口
      * @return
      */
 //    http://v.juhe.cn/sms/send?mobile=手机号码&tpl_id=短信模板ID&tpl_value=%23code%23%3D654654&key=
@@ -70,6 +74,13 @@ public interface Api {
                                     @Query("key") String key,
                                     @Query("tpl_id") String tpl_id);
 
+    /**
+     * post到服务器
+     * @param username
+     * @return
+     */
+    @GET("Login/login/username/{username}")
+    Observable<List<LoginBean>>  postMessage(@Path("username") String username);
     /**
     * 购物车
     */
@@ -123,4 +134,10 @@ public interface Api {
      */
     @GET("Large/large")
     Observable<BigYanBean>   getBigYan();
+
+    /**
+     * 我的收藏
+     */
+    @GET("Collection/mycollection/userid/{userid}")
+    Observable<FavouriteBean>   getMyFavorite(@Path("userid") String userid);
 }

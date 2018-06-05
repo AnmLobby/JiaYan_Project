@@ -84,7 +84,6 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    startFragment(new BlankOneFragment());
 
             }
         });

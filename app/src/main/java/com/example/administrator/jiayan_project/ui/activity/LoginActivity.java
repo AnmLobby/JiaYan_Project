@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +12,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.administrator.jiayan_project.MainActivity;
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
-import com.example.administrator.jiayan_project.db.bean.KeepPhoneBean;
-import com.example.administrator.jiayan_project.db.bean.KeepPhoneBeanDao;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpActivity;
 import com.example.administrator.jiayan_project.mvp.login.LoginPresenter;
 import com.example.administrator.jiayan_project.mvp.login.LoginView;
-import com.example.administrator.jiayan_project.ui.base.BaseActivity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -70,6 +74,10 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.huoqu_pwd:
+                if (etMobile.getText().toString().trim().length() < 11) {
+                    Toast.makeText(MyApplication.getContext(), "手机号码格式错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 i= "%23code%23%3d"+String.valueOf(getRandNum(1,999999));
                 getPresenter().clickRequest(etMobile.getText().toString().trim(),i);
                 phone=etMobile.getText().toString().trim();
@@ -97,16 +105,13 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
             case R.id.login:
                 String s="%23code%23%3d"+etPassword.getText().toString().trim();
                 if (s.equals(i)){
-                    Log.e(TAG, "true" );
-                    KeepPhoneBeanDao addressBeanDao= GreenDaoManager.getInstance().getSession().getKeepPhoneBeanDao();
-                    KeepPhoneBean addressBean=new  KeepPhoneBean();
-                    addressBean.setPhoneNumber(phone);
-                    addressBeanDao.insert(addressBean);
-                    Toast.makeText(this, "准备跳转", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_still);
-                    finish();
+//                    Log.e(TAG, "true" );
+                    getPresenter().clickPostMessage(phone);
+//                    Toast.makeText(this, "准备跳转", Toast.LENGTH_SHORT).show();
+//                    Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_still);
+//                    finish();
 
                 }else {
                     Log.e(TAG, "false" );
@@ -121,6 +126,17 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
                 break;
         }
     }
+
+//    @Override
+//    public void resultLoginSuccess(LoginBean loginBean) {
+//
+//        Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_still);
+//                    finish();
+//    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -145,7 +161,7 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
 
     @Override
     public void resultFailure(String result) {
-
+        Log.e(TAG, "resultFailure: "+result );
     }
 
     @Override
@@ -164,4 +180,52 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
             Toast.makeText(this, "网络错误,请重试", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void resultLoginSuccess(List<LoginBean> loginBean) {
+        List<KeepUserBean> keepUserBeans ;
+
+        keepUserBeans = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
+                .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                .limit(1)//只获取结果集的前 3 个数据
+                .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                .build()
+                .list();
+        Log.e(TAG, "尚未添加的长度 "+ keepUserBeans.size());
+
+        KeepUserBeanDao addressBeanDao= GreenDaoManager.getInstance().getSession().getKeepUserBeanDao();
+        KeepUserBean addressBean=new KeepUserBean();
+        addressBean.setUserId(loginBean.get(0).getId());
+        addressBean.setAge(loginBean.get(0).getAge());
+        addressBean.setGender(loginBean.get(0).getGender());
+        addressBean.setGroup_id(loginBean.get(0).getGroup_id());
+        addressBean.setLevel(loginBean.get(0).getLevel());
+        addressBean.setMobile(loginBean.get(0).getMobile());
+        addressBean.setNickname(loginBean.get(0).getNickname());
+//        if (loginBean.get(0).getRealname().isEmpty()){
+//            addressBean.setNickname("null");
+//        }else {
+            addressBean.setNickname(loginBean.get(0).getRealname());
+//        }
+//        if (loginBean.get(0).getAvatar().isEmpty()){
+//            addressBean.setNickname("null");
+//        }else {
+            addressBean.setNickname(loginBean.get(0).getAvatar());
+//        }
+
+        addressBean.setUsername(loginBean.get(0).getUsername());
+        addressBeanDao.insert(addressBean);
+        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+//        Log.e(TAG, "打印消息"+loginBean.get(0).getRealname()+loginBean.get(0).getUsername());
+//
+//        Log.e(TAG, "resultLogin "+loginBean );
+//        Log.e(TAG, "获取数据库长度 "+ keepUserBeans.size());
+//        Log.e(TAG, "resultLoginSuccess: "+loginBean.size() );
+        Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_still);
+                    finish();
+    }
+
+
 }

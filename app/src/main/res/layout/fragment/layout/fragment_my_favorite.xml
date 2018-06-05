@@ -2,12 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_color_blue"
     tools:context="com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+    <android.support.v7.widget.RecyclerView
+
+        android:background="#f2eff2"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>

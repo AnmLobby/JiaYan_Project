@@ -6,6 +6,7 @@ import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface IBaseListCallBack<T> {
      * @descriptoin	请求成功
      * @param
      */
-    void requestBannerSuccess(List<BannerBean> callBack);
+    void requestBannerSuccess(List<LoginBean> callBack);
 
 
 

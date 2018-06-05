@@ -2,10 +2,14 @@ package com.example.administrator.jiayan_project.mvp.login;
 
 import android.content.Context;
 
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
+import com.example.administrator.jiayan_project.mvp.base.IBaseListCallBack;
 import com.example.administrator.jiayan_project.mvp.base.IBaseRequestCallBack;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,13 +23,15 @@ import retrofit2.Call;
 
 public class LoginModel extends BaseModel {
     private Call<UserBean> userBeanCall;
+    private Call<LoginBean> loginBeanCall;
     private CompositeDisposable mcompositeDisposable;
     private Context context;
-    private Api api;
+    private Api api,mainAPi;
     public  LoginModel(Context mContext) {
         super();
         context = mContext;
         api = loginManager.getService();
+        mainAPi=retrofitManager.getService();
         mcompositeDisposable = new CompositeDisposable();
     }
     public void loginIn(String phone,String password,final IBaseRequestCallBack<UserBean> iBaseRequestCallBack){
@@ -45,9 +51,30 @@ public class LoginModel extends BaseModel {
                     }
                 }));
     }
+
+    public void loginUser(String phone,final IBaseListCallBack<LoginBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(mainAPi.postMessage(phone)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<List<LoginBean>>() {
+                    @Override
+                    public void accept(List<LoginBean> loginBean) throws Exception {
+
+                        iBaseRequestCallBack.requestBannerSuccess(loginBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
     public void interruptHttp(){
         if(userBeanCall != null && !userBeanCall.isCanceled()){
             userBeanCall.cancel();
+        }
+        if(loginBeanCall != null && !loginBeanCall.isCanceled()){
+            loginBeanCall.cancel();
         }
     }
 }

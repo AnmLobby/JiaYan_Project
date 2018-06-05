@@ -37,6 +37,12 @@ public class FestivalHolder extends VlayoutBaseHolder<DataBean> {
 //        List<FestivalBean.DataBean> list=fData.getData();
 //        for (int i = 0; i <fData.getData().size() ; i++) {
             Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+fData.getOriginalimg()).into(imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onItemClick(mView, position, mData);
+                }
+            });
 //            name.setText(fData.getData().get(i).getPrice());
 //            liangdian.setText("88");
 //            money.setText("¥"+fData.getData().get(i).getPrice());

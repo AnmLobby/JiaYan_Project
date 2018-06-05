@@ -1,9 +1,6 @@
 package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,21 +11,25 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
+import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
-import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.chef_service.ReceptionFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
-import com.example.administrator.jiayan_project.ui.fragment.mine.SetAddressFragment;
-import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
+import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +47,6 @@ public class MineFragment extends BaseFragment {
     LinearLayout chongzhilayout;
     @BindView(R.id.jifenlayout)
     LinearLayout jifenlayout;
-
     @BindView(R.id.shoucang_layout)
     LinearLayout shoucangLayout;
     @BindView(R.id.huiyuan_layout)
@@ -71,20 +71,30 @@ public class MineFragment extends BaseFragment {
     LinearLayout daipingjiaLayout;
     @BindView(R.id.tuikuan_layout)
     LinearLayout tuikuanLayout;
-
+    @BindView(R.id.name)
+    TextView name;
+    private List<KeepUserBean> list;
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
         ButterKnife.bind(this, layout);
+        list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
+                .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                .limit(1)//只获取结果集的前 3 个数据
+                .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                .build()
+                .list();
+        name.setText(list.get(0).getUsername());
         return layout;
     }
 
-    @OnClick({R.id.shoucang_layout, R.id.huiyuan_layout, R.id.address_layout, R.id.pingjia_layout, R.id.fuwu_layout, R.id.kefu_layout, R.id.kajuan_layout, R.id.fenxiang_layout, R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout,R.id.daifukuan_layout, R.id.yizhifu_layout, R.id.daipingjia_layout, R.id.tuikuan_layout})
+    @OnClick({R.id.shoucang_layout, R.id.huiyuan_layout, R.id.address_layout, R.id.pingjia_layout, R.id.fuwu_layout, R.id.kefu_layout, R.id.kajuan_layout, R.id.fenxiang_layout, R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout, R.id.daifukuan_layout, R.id.yizhifu_layout, R.id.daipingjia_layout, R.id.tuikuan_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shoucang_layout:
                 Toast.makeText(MyApplication.getContext(), "收藏", Toast.LENGTH_SHORT).show();
-                startFragment(new ReceptionFragment());
+                startFragment(new MyFavoriteFragment());
+//                startFragment(new ReceptionFragment());
                 break;
             case R.id.huiyuan_layout:
                 Toast.makeText(MyApplication.getContext(), "会有", Toast.LENGTH_SHORT).show();
@@ -117,10 +127,11 @@ public class MineFragment extends BaseFragment {
                 rxDialogSure.show();
                 break;
             case R.id.kefu_layout:
-             Call();
-            break;
+                Call();
+                break;
             case R.id.kajuan_layout:
-                startFragment(new SearchFragment());
+                startFragment(new SettingFragment());
+//                startFragment(new SearchFragment());
 //                startFragment(new BanquetOrderFragment());
                 break;
             case R.id.fenxiang_layout:
@@ -131,7 +142,7 @@ public class MineFragment extends BaseFragment {
                 Toast.makeText(MyApplication.getContext(), "yuer", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chongzhilayout:
-              startFragment(new RechargeFragment());
+                startFragment(new RechargeFragment());
                 break;
             case R.id.jifenlayout:
                 startFragment(new JifenFragment());
@@ -158,7 +169,6 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     @Override
@@ -174,7 +184,7 @@ public class MineFragment extends BaseFragment {
 
     private void Call() {
         if (ContextCompat.checkSelfPermission(MyApplication.getContext(),
-                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             // 没有获得授权，申请授权
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                     Manifest.permission.CALL_PHONE)) {
@@ -190,12 +200,12 @@ public class MineFragment extends BaseFragment {
                 Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
                 intent.setData(uri);
                 startActivity(intent);
-            }else{
+            } else {
                 // 不需要解释为何需要该权限，直接请求授权
                 ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.CALL_PHONE},MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                        new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
             }
-        }else {
+        } else {
             // 已经获得授权，可以打电话
             CallPhone();
         }

@@ -18,7 +18,11 @@ import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.big_yanxi.BigYanPresenter;
 import com.example.administrator.jiayan_project.mvp.big_yanxi.BigYanView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
+import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -73,10 +77,9 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
         bigYanAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Log.e(TAG, "onItemClick: "+bigYanAdapter.getData().get(position).getId() );
-                BanquetFragment banquetFragment=new BanquetFragment();
-
-                Toast.makeText(MyApplication.getContext(), "9999", Toast.LENGTH_SHORT).show();
+                String id= String.valueOf(bigYanAdapter.getData().get(position).getId());
+                EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                startFragment(new BlankOneFragment());
             }
         });
         //给RecyclerView设置适配器
