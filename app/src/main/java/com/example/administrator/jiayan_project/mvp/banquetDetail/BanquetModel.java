@@ -3,6 +3,9 @@ package com.example.administrator.jiayan_project.mvp.banquetDetail;
 import android.content.Context;
 
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
@@ -20,6 +23,8 @@ import retrofit2.Call;
 
 public class BanquetModel extends BaseModel {
     private Call<BanquetBean> banquetBeanCall;
+    private Call<FavoritrResultBean> favoritrResultBeanCall;
+    private Call<CheckFavoriteBean> checkFavoriteBeanCall;
     private CompositeDisposable mcompositeDisposable;
     private Context context;
     private Api api;
@@ -47,11 +52,49 @@ public class BanquetModel extends BaseModel {
                     }
                 }));
     }
+    public void postKeepFavorite(int userid,int dinnerid, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postMyFavorite(new KeepFavoriteBean(userid,dinnerid))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
 
+                        iBaseRequestCallBack.requestSuccess(favoritrResultBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void getChecjFavorite(int userid,int dinnerid, final IBaseRequestCallBack<CheckFavoriteBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getCheckFavorite(userid,dinnerid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<CheckFavoriteBean>() {
+                    @Override
+                    public void accept(CheckFavoriteBean checkFavoriteBean) throws Exception {
 
+                        iBaseRequestCallBack.requestSuccess(checkFavoriteBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
     public void interruptHttp(){
         if(banquetBeanCall != null && !banquetBeanCall.isCanceled()){
             banquetBeanCall.cancel();
+        }
+        if(favoritrResultBeanCall != null && !favoritrResultBeanCall.isCanceled()){
+            favoritrResultBeanCall.cancel();
+        }
+        if(checkFavoriteBeanCall != null && !checkFavoriteBeanCall.isCanceled()){
+            checkFavoriteBeanCall.cancel();
         }
     }
 }

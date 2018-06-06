@@ -1,6 +1,9 @@
 package com.example.administrator.jiayan_project.http;
 
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
@@ -20,6 +23,7 @@ import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -140,4 +144,16 @@ public interface Api {
      */
     @GET("Collection/mycollection/userid/{userid}")
     Observable<FavouriteBean>   getMyFavorite(@Path("userid") String userid);
+
+    /**
+     * 添加（删除）到我的收藏
+     */
+    @POST("Collection/editcollection")
+    Observable<FavoritrResultBean>  postMyFavorite(@Body KeepFavoriteBean keepFavoriteBean);
+
+    /**
+     * 检查是否收藏该数据
+     */
+    @GET("Collection/collection/userid/{userid}/dinnerid/{dinnerid}")
+    Observable<CheckFavoriteBean>  getCheckFavorite(@Path("userid") int userid,@Path("dinnerid") int dinnerid);
 }

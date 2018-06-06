@@ -2,7 +2,6 @@ package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,12 +26,15 @@ import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
 import com.example.administrator.jiayan_project.adapter.adapter.TimeAdapter;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
+import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetPresenter;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetView;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
-import com.example.administrator.jiayan_project.ui.base.BaseFragment;
-import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
@@ -42,7 +44,6 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -51,16 +52,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 /**
  * 高级宴会菜单
@@ -149,6 +145,8 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @BindView(R.id.mainLayout)
     FrameLayout mainFrag;
     String requeid;
+    @BindView(R.id.keepsave)
+    LinearLayout keepsave;
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 5;
     private int mRadius;
@@ -165,23 +163,29 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private QMUITipDialog tipDialog;
     private String[] strList = new String[]{"10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00",
             "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"};
-
+    private List<KeepUserBean> list;
+    private String dinnerid;
+    private int userid;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
         ButterKnife.bind(this, layout);
         EventBus.getDefault().register(this);
-//        Bundle bun=getArguments();
-//        requeid = bun.getString("iid");
-//        Log.e(TAG, "onCreateView: "+requeid );
-//        requeid="2";
-
+        list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
+                .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                .limit(1)//只获取结果集的前 1 个数据
+                .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                .build()
+                .list();
+        userid=list.get(0).getUserId();
+        getPresenter().clickRequestBanquet(dinnerid);
+        getPresenter().checkGetSaveLove(userid, Integer.parseInt(dinnerid));
         initBanner();
         initQmuiLayout();
         initTextViewMoney();
-        String strAA= DateUtils.get7date().get(1)+DateUtils.get7week().get(1);
-        startDate.setText(strAA.substring(5,10));
-        endDate.setText(strAA.substring(5,10));
+        String strAA = DateUtils.get7date().get(1) + DateUtils.get7week().get(1);
+        startDate.setText(strAA.substring(5, 10));
+        endDate.setText(strAA.substring(5, 10));
         //放在loading那里，不然加载会卡
         return layout;
     }
@@ -237,11 +241,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
 
-    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start,R.id.add_cart, R.id.buy_soon})
+    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.yanseLayout:
@@ -259,11 +262,15 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 break;
             case R.id.buy_soon:
                 break;
+            case R.id.keepsave:
+                getPresenter().clickPostLove(userid, Integer.parseInt(dinnerid));
+                break;
         }
     }
 
     /**
      * 选择结束时间dialog
+     *
      * @param enate
      * @param enime
      */
@@ -445,7 +452,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
 
     public void requestLoading() {
-        Log.e(TAG, "requestLoassssssssssssssssding: " );
+        Log.e(TAG, "requestLoassssssssssssssssding: ");
         tipDialog = new QMUITipDialog.Builder(getActivity())
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
@@ -459,32 +466,56 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void resultFailure(String result) {
         tipDialog.dismiss();
-        Log.e(TAG, "resultFailure: "+result          );
+        Log.e(TAG, "resultFailure: " + result);
         Toast.makeText(MyApplication.getContext(), "发生未知错误", Toast.LENGTH_SHORT).show();
         popBackStack();
     }
 
+    /**
+     * i详细信息请求完成界面
+     * @param banquetBean
+     */
     @Override
     public void resultBanquetSuccess(BanquetBean banquetBean) {
 
         buyMoney.setText(String.valueOf(banquetBean.getData().get(0).getPrice()));
         //设置取消textview
-        moneyBefore.setText("原价：¥ "+String.valueOf(banquetBean.getData().get(0).getOriginprice())+" /套");
+        moneyBefore.setText("原价：¥ " + String.valueOf(banquetBean.getData().get(0).getOriginprice()) + " /套");
         moneyBefore.getPaint().setFlags(
                 Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
         dishesName.setText(banquetBean.getData().get(0).getDinnername());
-        saclenum.setText("已销售："+banquetBean.getData().get(0).getSalesum()+"笔");
+        saclenum.setText("已销售：" + banquetBean.getData().get(0).getSalesum() + "笔");
 
         mainFrag.setVisibility(View.VISIBLE);
         tipDialog.dismiss();
-         leftData = new ArrayList<>();
+        leftData = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            String str= DateUtils.get7date().get(i)+DateUtils.get7week().get(i);
-            leftData.add(str.substring(5,10)+"\n"+str.substring(10,12));
+            String str = DateUtils.get7date().get(i) + DateUtils.get7week().get(i);
+            leftData.add(str.substring(5, 10) + "\n" + str.substring(10, 12));
         }
-        rightData= new ArrayList<>();
-        for (int i = 0; i <strList.length ; i++) {
+        rightData = new ArrayList<>();
+        for (int i = 0; i < strList.length; i++) {
             rightData.add(strList[i]);
+        }
+    }
+
+    @Override
+    public void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
+        if (favoritrResultBean.getCode()==200){
+            likeimg.setBackgroundResource(R.mipmap.banquet_islike);
+        }
+        if (favoritrResultBean.getCode()==202){
+            likeimg.setBackgroundResource(R.mipmap.banquet_like);
+        }
+        Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void resultCheckFavoriteSuccess(CheckFavoriteBean checkFavoriteBean) {
+        if (checkFavoriteBean.isCode()) {
+            likeimg.setBackgroundResource(R.mipmap.banquet_islike);
+        } else {
+            likeimg.setBackgroundResource(R.mipmap.banquet_like);
         }
     }
 
@@ -492,10 +523,9 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     public BanquetPresenter createPresenter() {
         return new BanquetPresenter();
     }
-    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
-    public  void ononMoonStickyEvent(StartNewsEvent startNewsEvent){
-       String  req=startNewsEvent.getMessage();
-        getPresenter().clickRequestBanquet(req);
-        Log.e(TAG, "onCreateView水水水水水水水水水水s: "+req);
+
+    @Subscribe(threadMode = ThreadMode.POSTING, sticky = true)
+    public void ononMoonStickyEvent(StartNewsEvent startNewsEvent) {
+        dinnerid = startNewsEvent.getMessage();
     }
 }

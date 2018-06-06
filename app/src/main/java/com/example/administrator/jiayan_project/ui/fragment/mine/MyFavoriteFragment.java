@@ -78,6 +78,7 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
     @Override
     public void resultMyFavoriteSuccess(FavouriteBean favouriteBean) {
         dataBeans=favouriteBean.getData();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -85,6 +86,9 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
         myFavoriteAdapter = new MyFavoriteAdapter(dataBeans);
         //给RecyclerView设置适配器
         recyclerView.setAdapter(myFavoriteAdapter);
+        if (dataBeans.size()==0){
+                myFavoriteAdapter.setEmptyView(getView());
+        }
         myFavoriteAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

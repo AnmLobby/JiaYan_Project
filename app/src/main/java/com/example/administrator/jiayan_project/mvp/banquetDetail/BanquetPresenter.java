@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
 import com.example.administrator.jiayan_project.mvp.base.IBaseRequestCallBack;
@@ -45,6 +47,38 @@ public class BanquetPresenter extends AbstractMvpPersenter<BanquetView> {
                 });
             }
         }, 1000);
+    }
+    public void clickPostLove(final int userid,final int dinnerid) {
+        banquetModel.postKeepFavorite(userid,dinnerid,new IBaseRequestCallBack<FavoritrResultBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultKeepFavoriteSuccess(favoritrResultBean);
+                }
+            }
+        });
+    }
+    public void checkGetSaveLove(final int userid,final int dinnerid) {
+        banquetModel.getChecjFavorite(userid,dinnerid,new IBaseRequestCallBack<CheckFavoriteBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(CheckFavoriteBean checkFavoriteBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultCheckFavoriteSuccess(checkFavoriteBean);
+                }
+            }
+        });
     }
     public void interruptHttp(){
         banquetModel.interruptHttp();

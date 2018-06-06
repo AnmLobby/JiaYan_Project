@@ -8,7 +8,32 @@ import java.util.List;
 
 public class FavouriteBean {
 
+
+    /**
+     * code : 200
+     * msg : 感谢你的收藏,期待亲的下单
+     * data : [{"id":19,"dinnername":"麦肯基","subname":"爱上见不到就开始","price":6889,"originalimg":"/static/img/dinner_img/9c21e2124d244684ec926917b25a897d.jpg"},{"id":13,"dinnername":"阿斯纳税款","subname":"杉德卡是哪所熟悉","price":9999,"originalimg":"/static/img/dinner_img/e32bcd76ea90d1764d017718dcfb7c61.jpg"},{"id":10,"dinnername":"湿哒杰斯的你","subname":"比特币","price":2727,"originalimg":"/static/img/dinner_img/7551e3eaa6dda96e5255dc889724aa412.jpg"},{"id":3,"dinnername":"绿色营养品味美食","subname":"回味年轻的小时候味道哒","price":8888,"originalimg":"/static/img/dinner_img/9c21e2324d244684ec986917b25a8219d.jpg"},{"id":17,"dinnername":"奥斯丁","subname":"乐凯新材","price":6889,"originalimg":"/static/img/dinner_img/9c21e2124d244684ec926917b25a897d.jpg"},{"id":2,"dinnername":"豪华套餐","subname":"触发霸气","price":9998,"originalimg":"/static/img/dinner_img/9c21e2324d244684ec986917b25a829d.jpg"},{"id":18,"dinnername":"麻痹","subname":"男人高大上","price":6666,"originalimg":"/static/img/dinner_img/9c21e2124d244684ec926917b25a897d.jpg"}]
+     */
+
+    private int code;
+    private String msg;
     private List<DataBean> data;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public List<DataBean> getData() {
         return data;
@@ -20,11 +45,11 @@ public class FavouriteBean {
 
     public static class DataBean {
         /**
-         * id : 12
-         * dinnername : 酸酸甜甜年轻的味道
-         * subname : 阿斯顿内存卡了
-         * price : 47878
-         * originalimg : /static/img/dinner_img/aef90ffb9e8e9c4dbde4a65f38939389.jpg
+         * id : 19
+         * dinnername : 麦肯基
+         * subname : 爱上见不到就开始
+         * price : 6889
+         * originalimg : /static/img/dinner_img/9c21e2124d244684ec926917b25a897d.jpg
          */
 
         private int id;
