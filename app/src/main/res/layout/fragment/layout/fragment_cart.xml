@@ -13,8 +13,81 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height"/>
 <LinearLayout
+    android:orientation="vertical"
     android:layout_marginTop="?attr/qmui_topbar_height"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list_shopping_cart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#edeaec" />
+
+    <RelativeLayout
+
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_c">
+
+
+        <!--<CheckBox-->
+            <!--android:visibility="gone"-->
+            <!--android:id="@+id/ck_all"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:button="@drawable/check_box_style"-->
+            <!--android:checkMark="?android:attr/listChoiceIndicatorMultiple"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:scaleX="0.6"-->
+            <!--android:scaleY="0.6"-->
+            <!--android:text="全选"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:textColor="@color/black" />-->
+        <TextView
+            android:id="@+id/nex"
+            android:layout_marginLeft="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="合计："
+            android:textColor="@color/black" />
+        <TextView
+            android:layout_toRightOf="@+id/nex"
+            android:id="@+id/tv_show_price"
+            android:layout_width="wrap_content"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="合计:0.00"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_settlement"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/app_color_blue"
+            android:gravity="center"
+            android:text="结算(0)"
+            android:textColor="@color/white_c" />
+    </RelativeLayout>
+
+
+</LinearLayout>
 </FrameLayout>

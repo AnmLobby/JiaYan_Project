@@ -135,7 +135,7 @@ public class MineFragment extends BaseFragment {
 //                startFragment(new BanquetOrderFragment());
                 break;
             case R.id.fenxiang_layout:
-                startFragment(new BlankOneFragment());
+//                startFragment(new BlankOneFragment());
                 Toast.makeText(MyApplication.getContext(), "分享", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.yuelayout:

@@ -9,6 +9,9 @@ import java.util.List;
  */
 
 public class CartBean {
+    /**
+     * 没用到
+     */
     private List<FirstChooseBean.DataBean> data;
 
     public List<FirstChooseBean.DataBean> getData() {

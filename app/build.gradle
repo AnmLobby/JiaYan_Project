@@ -39,6 +39,7 @@ android {
                     'src/main/res/layout/slide',
                     'src/main/res/layout/big',
                     'src/main/res/layout/like',
+                    'src/main/res/layout/cart',
                     'src/main/res/layout/banquet',
                     'src/main/res/layout/classify',
                     'src/main/res/mipmap-xhdpi/mine',

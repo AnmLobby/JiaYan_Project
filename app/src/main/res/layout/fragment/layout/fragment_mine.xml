@@ -419,13 +419,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@mipmap/mkajuan"
+                    android:src="@mipmap/mine_setting"
                     android:id="@+id/kajuan"
                     android:layout_width="105pt"
                     android:layout_height="105pt"
                     android:layout_gravity="center" />
                 <TextView
-                    android:text="电子卡卷"
+                    android:text="设置"
                     android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

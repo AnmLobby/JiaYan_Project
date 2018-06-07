@@ -4,6 +4,8 @@ package com.example.administrator.jiayan_project.ui.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
@@ -72,5 +74,14 @@ public  abstract class BaseFragment extends QMUIFragment {
 
         }
     }
-//    mTopBar.setBackgroundDividerEnabled(false);//取消设置分割线
+
+    /**
+     * 6-7日添加测试空白bug是否修复
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+
+    }
+    //    mTopBar.setBackgroundDividerEnabled(false);//取消设置分割线
 }

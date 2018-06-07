@@ -182,6 +182,10 @@ public class SetAddressFragment extends AddressBaseFragment {
             Toast.makeText(MyApplication.getContext(), "手机号码格式错误", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (et_area.getText().toString().equals("选择地区")){
+            Toast.makeText(MyApplication.getContext(), "请选择地区", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (isdeafault) {
             //将已经设置为默认地址的选项取消掉
             addressController.updateAddressWithoutDefault(username);

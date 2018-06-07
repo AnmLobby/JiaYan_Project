@@ -4,6 +4,7 @@ package com.example.administrator.jiayan_project.ui.base;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -34,6 +35,9 @@ public abstract class BaseActivity extends QMUIFragmentActivity {
      */
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-
+        if(outState!=null){
+            FragmentManager manager = getSupportFragmentManager();
+            manager.popBackStackImmediate(null, 1);
+        }
     }
 }
