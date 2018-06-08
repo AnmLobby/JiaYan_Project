@@ -2,6 +2,9 @@ package com.example.administrator.jiayan_project.mvp.myFavorite;
 
 import android.content.Context;
 
+import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
@@ -37,6 +40,23 @@ public class MyFavoriteModel extends BaseModel {
                     public void accept(FavouriteBean favouriteBean) throws Exception {
 
                         iBaseRequestCallBack.requestSuccess(favouriteBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+    public void deleteMyFavorite (int userid,int dinnerid, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postMyFavorite(new KeepFavoriteBean(userid,dinnerid))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
+
+                        iBaseRequestCallBack.requestSuccess(favoritrResultBean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

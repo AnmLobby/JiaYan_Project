@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.administrator.jiayan_project.MyApplication;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
@@ -47,7 +48,22 @@ public class MyFavoritePresenter extends AbstractMvpPersenter<MyFavoriteView> {
             }
         }, 10);
     }
-
+    public void clickDeleteLove(final int userid,final int dinnerid) {
+        myFavoriteModel.deleteMyFavorite(userid,dinnerid,new IBaseRequestCallBack<FavoritrResultBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultDeleteMyFavoriteSuccess(favoritrResultBean);
+                }
+            }
+        });
+    }
     public void interruptHttp() {
         myFavoriteModel.interruptHttp();
     }

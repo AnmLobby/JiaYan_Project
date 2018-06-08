@@ -40,7 +40,7 @@ public class FragmentController {
         Bundle bundle = new Bundle();
         bundle.putParcelable("address", address);
         settingFragment.setArguments(bundle);
-        startFragment(new SetAddressFragment());
+        startFragment(settingFragment);
     }
 
     protected void startFragment(BaseFragment fragment) {

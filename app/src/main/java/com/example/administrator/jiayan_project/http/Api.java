@@ -152,6 +152,12 @@ public interface Api {
     Observable<FavoritrResultBean>  postMyFavorite(@Body KeepFavoriteBean keepFavoriteBean);
 
     /**
+     * 添加（删除）到我的收藏
+     */
+    @POST("Collection/delete")
+    Observable<FavoritrResultBean>  deleteMyFavorite(@Body KeepFavoriteBean keepFavoriteBean);
+
+    /**
      * 检查是否收藏该数据
      */
     @GET("Collection/collection/userid/{userid}/dinnerid/{dinnerid}")

@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.mvp.myFavorite;
 
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.mvp.base.IMvpBaseView;
@@ -24,5 +25,10 @@ public interface MyFavoriteView extends IMvpBaseView {
      * 收藏列表接口
      */
     void  resultMyFavoriteSuccess(FavouriteBean favouriteBean);
+
+    /**
+     * 收藏列表接口
+     */
+    void  resultDeleteMyFavoriteSuccess(FavoritrResultBean favoritrResultBean);
 }
 

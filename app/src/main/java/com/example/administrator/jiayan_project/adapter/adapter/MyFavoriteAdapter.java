@@ -19,16 +19,16 @@ import java.util.List;
  */
 
 public class MyFavoriteAdapter extends BaseQuickAdapter<FavouriteBean.DataBean, BaseViewHolder> {
+
     public MyFavoriteAdapter(@Nullable List<FavouriteBean.DataBean> data) {
         super(R.layout.myfavorite_item, data);
     }
 
     @Override
     protected void convert(BaseViewHolder  viewHolder, FavouriteBean.DataBean item) {
+        viewHolder.addOnClickListener(R.id.buy).addOnClickListener(R.id.cancel);
         viewHolder
                 .setText(R.id.title, item.getDinnername())
-                .addOnClickListener(R.id.buy)    //给图标添加 点击事件
-                .addOnClickListener(R.id.cancel)
                 .setText(R.id.money,"¥ "+ String.valueOf(item.getPrice()))
                 .setText(R.id.detail,item.getSubname());
         Glide.with(MyApplication.getContext())
@@ -36,4 +36,5 @@ public class MyFavoriteAdapter extends BaseQuickAdapter<FavouriteBean.DataBean, 
                 .crossFade()
                 .into((ImageView) viewHolder.getView(R.id.image));
     }
+
 }

@@ -21,7 +21,12 @@ import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +54,7 @@ public class DeliveryFragment extends BaseFragment {
         FrameLayout layout = ( FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_delivery, null);
         ButterKnife.bind(this, layout);
         initTopBar();
-
+//        EventBus.getDefault().register(this);
 //        LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 //        recyclerview.setLayoutManager(layoutManager);
@@ -103,7 +108,6 @@ public class DeliveryFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-
             isPause = true; //记录页面已经被暂停
     }
 
@@ -128,6 +132,12 @@ public class DeliveryFragment extends BaseFragment {
     }
 
     private void initTopBar() {
+        mTopBar.addRightImageButton(R.mipmap.add, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startFragment(new SetAddressFragment());
+            }
+        });
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,13 +145,19 @@ public class DeliveryFragment extends BaseFragment {
             }
         });
         mTopBar.setTitle(ContantsName.ReceiveLocation);
-        mTopBar.addRightImageButton(R.mipmap.add, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startFragment(new SetAddressFragment());
-            }
-        });
-    }
 
+    }
+//    @Subscribe(threadMode = ThreadMode.POSTING, sticky = false)
+//    public void ononMoonEvent(AddressEvent addressEvent) {
+////        String phone=addressEvent.getPhone().toString().trim();
+//        startFragment(new SetAddressFragment());
+////        Log.e(TAG, "ononMoonStickyEvent: "+phone );
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        EventBus.getDefault().unregister(this);
+//    }
 
 }

@@ -46,7 +46,7 @@ public class BanquetPresenter extends AbstractMvpPersenter<BanquetView> {
                     }
                 });
             }
-        }, 1000);
+        }, 300);
     }
     public void clickPostLove(final int userid,final int dinnerid) {
         banquetModel.postKeepFavorite(userid,dinnerid,new IBaseRequestCallBack<FavoritrResultBean>() {

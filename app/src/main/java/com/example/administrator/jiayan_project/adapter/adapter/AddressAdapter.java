@@ -2,7 +2,9 @@ package com.example.administrator.jiayan_project.adapter.adapter;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,14 @@ import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.greendao.AddressController;
+import com.example.administrator.jiayan_project.ui.activity.TwoActivity;
+import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
 import com.example.administrator.jiayan_project.utils.helper.FragmentController;
 import com.example.administrator.jiayan_project.utils.util.AlertUtils;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -118,14 +124,12 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
                 break;
             case R.id.ly_edit:
                 position = (int) v.getTag();
-                activityController.startEditAddressActivityWithAddress(MyApplication.getContext(), addressList.get(position));
+//                EventBus.getDefault().postSticky(new AddressEvent(addressList.get(position).getId(),addressList.get(position).getPhone(),addressList.get(position).getRealname(),addressList.get(position).getArea(),addressList.get(position).getAddress(),addressList.get(position).getIsdefault()));
+//                activityController.startEditAddressActivityWithAddress(mainActivity, addressList.get(position));
                 break;
             case R.id.ly_delete:
                 position = (int) v.getTag();
                 deleteAddress(position);
-
-
-
                 break;
         }
     }
@@ -146,6 +150,7 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
             cb_isdefault = (CheckBox) view.findViewById(R.id.cb_isdefault);
             ly_edit = (LinearLayout) view.findViewById(R.id.ly_edit);
             ly_delete = (LinearLayout) view.findViewById(R.id.ly_delete);
+            ly_edit.setVisibility(View.GONE);
         }
     }
 

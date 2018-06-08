@@ -29,10 +29,16 @@ import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.db.greendao.UserController;
 import com.example.administrator.jiayan_project.ui.base.AddressBaseFragment;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
+import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.youth.picker.PickerView;
 import com.youth.picker.entity.PickerData;
 import com.youth.picker.listener.OnPickerClickListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +67,7 @@ public class SetAddressFragment extends AddressBaseFragment {
     private PickerView pickerView;
     //编辑或添加地址
     private int state;
-
+    private static final String TAG = "SetAddressFragment";
 
 
     interface STATE {
@@ -73,6 +79,7 @@ public class SetAddressFragment extends AddressBaseFragment {
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_set_address, null);
         ButterKnife.bind(this, layout);
+//        EventBus.getDefault().register(this);
         initProvinceDatas();
         et_realname = layout.findViewById(R.id.et_realname);
         et_phone = layout.findViewById(R.id.et_phone);
@@ -147,13 +154,13 @@ public class SetAddressFragment extends AddressBaseFragment {
     private void initAddressViews() {
 //        addressBean = getIntent().getParcelableExtra("address");
 
-        if (addressBean != null) {
-            //编辑状态
-            state = STATE.STATE_EDIT;
-        } else {
-            //添加状态
-            state = STATE.STATE_ADD;
-        }
+//        if (addressBean != null) {
+//            //编辑状态
+//            state = STATE.STATE_EDIT;
+//        } else {
+//            //添加状态
+//            state = STATE.STATE_ADD;
+//        }
 
         if (state == STATE.STATE_EDIT) {
             et_realname.setText(addressBean.realname);
@@ -221,5 +228,16 @@ public class SetAddressFragment extends AddressBaseFragment {
 //            finish();
         }
     }
-
+//    @Subscribe(threadMode = ThreadMode.POSTING, sticky = true)
+//    public void ononMoonStickyEvent(AddressEvent addressEvent) {
+//        state = STATE.STATE_EDIT;
+//        String phone=addressEvent.getPhone().toString().trim();
+//        Log.e(TAG, "ononMoonStickyEvent: "+phone );
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        EventBus.getDefault().unregister(this);
+//    }
 }

@@ -10,9 +10,7 @@ import java.util.List;
  */
 
 public class AddressController {
-
     public static volatile AddressController addressController;
-
     public static AddressController getInstance() {
         if (addressController == null) {
             synchronized (AddressController.class) {
@@ -23,8 +21,6 @@ public class AddressController {
         }
         return addressController;
     }
-
-
     /**
      * 添加数据
      */

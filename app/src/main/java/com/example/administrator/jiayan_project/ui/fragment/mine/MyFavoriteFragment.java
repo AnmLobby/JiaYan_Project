@@ -18,6 +18,7 @@ import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.big_yanxi.BigYanPresenter;
@@ -49,6 +50,8 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
     private static final String TAG = "MyFavoriteFragment";
     private List<FavouriteBean.DataBean> dataBeans;
     private MyFavoriteAdapter myFavoriteAdapter;
+    int UserId;
+    private View errorView;
     @Override
     protected View onCreateView() {
         FrameLayout layout = ( FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my_favorite, null);
@@ -60,7 +63,7 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        int UserId=list.get(0).getUserId();
+         UserId=list.get(0).getUserId();
         getPresenter().clickRequestNews(String.valueOf(UserId));
         return layout;
     }
@@ -77,43 +80,59 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
 
     @Override
     public void resultMyFavoriteSuccess(FavouriteBean favouriteBean) {
+        errorView= getLayoutInflater().inflate(R.layout.empty_love, (ViewGroup) recyclerView.getParent(), false);
+        int code=favouriteBean.getCode();
         dataBeans=favouriteBean.getData();
-
+        myFavoriteAdapter = new MyFavoriteAdapter(dataBeans);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        //创建适配器
-        myFavoriteAdapter = new MyFavoriteAdapter(dataBeans);
-        //给RecyclerView设置适配器
         recyclerView.setAdapter(myFavoriteAdapter);
-        if (dataBeans.size()==0){
-                myFavoriteAdapter.setEmptyView(getView());
+        switch (code){
+            case 200:
+//                if (dataBeans.size()==0){
+//                    myFavoriteAdapter.setEmptyView(getView());
+//                }
+                myFavoriteAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        FavouriteBean.DataBean sta = (FavouriteBean.DataBean) adapter.getItem(position);
+                        switch (view.getId()) {
+                            case R.id.cancel:
+                                int  content = sta.getId();
+                                myFavoriteAdapter.remove(position);
+                          if (dataBeans.size()==0){
+                              myFavoriteAdapter.setEmptyView(errorView);
+                          }
+                                getPresenter().clickDeleteLove(UserId,content);
+                                break;
+                            case R.id.buy:
+
+                                break;
+
+                        }
+                    }
+                });
+                myFavoriteAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        String id= String.valueOf(myFavoriteAdapter.getData().get(position).getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
+                    }
+                });
+                break;
+            case 404:
+                myFavoriteAdapter.setEmptyView(errorView);
         }
-        myFavoriteAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.cancel) {
 
-
-                } else if (view.getId() == R.id.buy) {
-
-
-                }
-
-
-            }
-        });
-        myFavoriteAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-                String id= String.valueOf(myFavoriteAdapter.getData().get(position).getId());
-                EventBus.getDefault().postSticky(new StartNewsEvent(id));
-                startFragment(new BlankOneFragment());
-
-            }
-        });
     }
+
+    @Override
+    public void resultDeleteMyFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
+        Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
+    }
+
     private void initTopBar() {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
