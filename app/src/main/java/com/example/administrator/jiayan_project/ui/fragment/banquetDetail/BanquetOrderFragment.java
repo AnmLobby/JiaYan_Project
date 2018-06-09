@@ -18,6 +18,7 @@ import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.example.administrator.jiayan_project.utils.weight.LinedEditText;
 import com.example.administrator.jiayan_project.utils.weight.TagCloudView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -102,6 +103,13 @@ public class BanquetOrderFragment extends BaseFragment {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
         ButterKnife.bind(this, layout);
         initTopBar();
+        /**
+         * 初始化获取今天的时间的设置信息
+         */
+        String strAA = DateUtils.get7date().get(1) + DateUtils.get7week().get(1);
+        startDate.setText(strAA.substring(5, 10));
+        endDate.setText(strAA.substring(5, 10));
+
         Bundle bundle=getArguments();
         imageurl=bundle.getString("imageurl");
         price =bundle.getString("price");
@@ -113,8 +121,6 @@ public class BanquetOrderFragment extends BaseFragment {
                 .load(imageurl)
                 .centerCrop()
                 .into(bg);
-
-        Log.e(TAG, "看看吧"+peoplenum+people+price+num+name );
         cuisineName.setText(name);
         cuisine_price.setText("¥ "+price);
         people.setText("规格："+peoplenum+"人/桌");

@@ -4,6 +4,7 @@ import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
@@ -162,4 +163,10 @@ public interface Api {
      */
     @GET("Collection/collection/userid/{userid}/dinnerid/{dinnerid}")
     Observable<CheckFavoriteBean>  getCheckFavorite(@Path("userid") int userid,@Path("dinnerid") int dinnerid);
+
+    /**
+     * 添加到购物车
+     */
+    @POST("Shopcar/editshopcar")
+    Observable<FavoritrResultBean>  postAddCart(@Body PostAddCartBean postAddCartBean);
 }

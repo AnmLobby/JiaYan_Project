@@ -8,7 +8,9 @@ import java.util.List;
 
 public class BanquetBean {
 
+
     private List<DataBean> data;
+    private List<SizeBean> size;
 
     public List<DataBean> getData() {
         return data;
@@ -18,33 +20,40 @@ public class BanquetBean {
         this.data = data;
     }
 
+    public List<SizeBean> getSize() {
+        return size;
+    }
+
+    public void setSize(List<SizeBean> size) {
+        this.size = size;
+    }
+
     public static class DataBean {
         /**
-         * id : 1
-         * dinnername : 鸿门宴
-         * subname : 项羽鸿门设宴
-         * originprice : 5656
-         * price : 999
-         * salesum : 999
-         * storecount : 99
+         * id : 2
+         * dinnername : 豪华套餐
+         * subname : 触发霸气
+         * originprice : 99999
+         * price : 9998
+         * salesum : 2133
+         * storecount : 1
          * unit : 1
          * state : 1
-         * comment : 换个地方
-         * originalimg : /static/img/dinner_img/1c32385f012ab97b02f8a91ee7d3fddd.jpg
-         * guige : 2
+         * comment : 萨达
+         * originalimg : /static/img/dinner_img/9c21e2324d244684ec986917b25a829d.jpg
+         * guige : 1
          * cookerid : 1
-         * score : 99
-         * type : 10
-         * categoryid : 1
+         * score : 1
+         * categoryid : 2
          * sort : 0
          * huishou : 1
-         * time : 1526278634
-         * label : 1
+         * time : 1526279115
+         * label : 4
          * bigtype : 1
          * edittime : null
-         * dinggou : 最大的能接2000桌，最少1桌起订(酒席宴席类)
-         * fuwu : 它是指当不可预见的发展导致一产品的进口数量增加，以致对生产同类或直接竞争产品的国内产业造成严重损害或严重损害威胁时，进口成员方可以在非歧视原则的基础上对该产品的进口实施限制。
-         * tuikuan : 京东在线支付及POS机刷卡支付订单退款，如涉及到银行信息京东会依据银行及相关机构已经建立的条例处理退款，为了保证客户账户金额的安全，我们均会安排原卡原退
+         * dinggou : 最大的能接2000桌，最少1桌起订(酒席宴席类)。
+         * fuwu : 宴万家为每一位通过平台下单的顾客朋友购买团体保险，保障服务的食品安全、消防安全、人身安全。
+         * tuikuan : 家宴在线支付及POS机刷卡支付订单退款，如涉及到银行信息家宴会依据银行及相关机构已经建立的条例处理退款，为了保证客户账户金额的安全，我们均会安排原卡原退。
          */
 
         private int id;
@@ -61,7 +70,6 @@ public class BanquetBean {
         private int guige;
         private int cookerid;
         private int score;
-        private int type;
         private int categoryid;
         private int sort;
         private int huishou;
@@ -185,14 +193,6 @@ public class BanquetBean {
             this.score = score;
         }
 
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
         public int getCategoryid() {
             return categoryid;
         }
@@ -271,6 +271,32 @@ public class BanquetBean {
 
         public void setTuikuan(String tuikuan) {
             this.tuikuan = tuikuan;
+        }
+    }
+
+    public static class SizeBean {
+        /**
+         * id : 1
+         * sname : 普通紫色
+         */
+
+        private int id;
+        private String sname;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getSname() {
+            return sname;
+        }
+
+        public void setSname(String sname) {
+            this.sname = sname;
         }
     }
 }

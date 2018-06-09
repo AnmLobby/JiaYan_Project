@@ -36,4 +36,9 @@ public interface BanquetView extends IMvpBaseView {
      * 检测是否收藏该宴席
      */
     void resultCheckFavoriteSuccess(CheckFavoriteBean checkFavoriteBean);
+
+    /**
+     * 添加到购物车
+     */
+    void resultAddCartSuccess(FavoritrResultBean favoritrResultBean);
 }

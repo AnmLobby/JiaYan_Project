@@ -80,6 +80,23 @@ public class BanquetPresenter extends AbstractMvpPersenter<BanquetView> {
             }
         });
     }
+
+    public void AddToCart(int userid,int detail,int num,int dinnerid,int ren) {
+        banquetModel.postAddCart(userid,detail,num,dinnerid,ren,new IBaseRequestCallBack<FavoritrResultBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultAddCartSuccess(favoritrResultBean);
+                }
+            }
+        });
+    }
     public void interruptHttp(){
         banquetModel.interruptHttp();
     }

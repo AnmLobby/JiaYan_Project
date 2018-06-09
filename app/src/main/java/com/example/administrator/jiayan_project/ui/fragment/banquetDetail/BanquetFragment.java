@@ -173,13 +173,15 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private String dinnerid;
     private int userid;
     private String imageUrl;
+    private QMUIBottomSheet.BottomListSheetBuilder qmuiBottomSheet;
+    private List<BanquetBean.SizeBean> sizesList=new ArrayList<>();
+    private  int colorId;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         EventBus.getDefault().register(this);
-
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
                 .limit(1)//只获取结果集的前 1 个数据
@@ -191,10 +193,11 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         getPresenter().checkGetSaveLove(userid, Integer.parseInt(dinnerid));
         initBanner();
         initQmuiLayout();
-        initTextViewMoney();
-        String strAA = DateUtils.get7date().get(1) + DateUtils.get7week().get(1);
-        startDate.setText(strAA.substring(5, 10));
-        endDate.setText(strAA.substring(5, 10));
+//        initTextViewMoney();
+//        加载显示今天的数据。已经设置到订单页面
+//        String strAA = DateUtils.get7date().get(1) + DateUtils.get7week().get(1);
+//        startDate.setText(strAA.substring(5, 10));
+//        endDate.setText(strAA.substring(5, 10));
         //放在loading那里，不然加载会卡
         return layout;
     }
@@ -251,7 +254,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         super.onDestroyView();
     }
 
-
+    /**
+     * 各控件的点击事件
+     * @param view
+     */
     @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave,R.id.kefuimg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -266,11 +272,17 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 initEndTimeDialog(startDate, startTime);
                 break;
             case R.id.add_cart:
+                int numZhushu= Integer.parseInt(Fzhuoshu.getText().toString());
+                int numPeople= Integer.parseInt(renshu.getText().toString());
+                getPresenter().AddToCart(userid,colorId,numZhushu, Integer.parseInt(dinnerid),numPeople);
                 break;
             case R.id.buy_soon:
+                if (bucaoColor.getText().toString().equals("选择你所喜欢的摆设颜色")){
+                    Toast.makeText(MyApplication.getContext(), "请选择摆设颜色", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 BanquetOrderFragment orderFragment=new BanquetOrderFragment();
                 Bundle bundle=new Bundle();
-                Log.e(TAG, "onViewClicked: "+bucaoColor+"**"+ Fzhuoshu+"**"+ renshu+"**"+ buyMoney+"**"+ dishesName);
                 bundle.putString("color", bucaoColor.getText().toString());
                 bundle.putString("num", Fzhuoshu.getText().toString());
                 bundle.putString("people", renshu.getText().toString());
@@ -291,7 +303,6 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 选择结束时间dialog
-     *
      * @param enate
      * @param enime
      */
@@ -356,6 +367,9 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         });
     }
 
+    /**
+     * 选择每桌人数跟总的桌数
+     */
     @OnClick(R.id.zhuoshuLayout)
     public void onViewClicked() {
         showCommentDailog();
@@ -365,24 +379,26 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
      * 选择布草颜色，弹出对话框
      */
     private void showSimpleBottomSheetList() {
-        new QMUIBottomSheet.BottomListSheetBuilder(getActivity())
-                .addItem("普通红色")
-                .addItem("普通蓝色")
-                .addItem("普通黄色")
-                .addItem("豪华红色")
-                .addItem("豪华紫色")
-                .addItem("豪华蓝色")
-                .addItem("豪华黄色")
-                .setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
+//        new QMUIBottomSheet.BottomListSheetBuilder(getActivity())
+//                .addItem("普通红色","1")
+//                .addItem("普通蓝色","2")
+//                .addItem("普通黄色","3")
+//                .addItem("豪华红色","4")
+//                .addItem("豪华紫色","5")
+//                .addItem("豪华蓝色","6")
+//                .addItem("豪华黄色","7")
+               qmuiBottomSheet.setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
                     @Override
                     public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
+                        colorId= Integer.parseInt(tag);
+                        Log.e(TAG, "onClick: "+colorId);
                         dialog.dismiss();
-                        bucaoColor.setText(tag);
+                        bucaoColor.setText(sizesList.get(Integer.parseInt(tag)-1).getSname());
                         String str = bucaoColor.getText().toString();
-                        if (str.contains("普通")) {
-                            tip.setVisibility(View.GONE);
-                        } else {
+                        if (str.contains("豪华")) {
                             tip.setVisibility(View.VISIBLE);
+                        } else {
+                            tip.setVisibility(View.GONE);
                         }
                     }
                 })
@@ -473,8 +489,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         });
     }
 
+    /**
+     * 加载前的操作
+     */
     @Override
-
     public void requestLoading() {
         Log.e(TAG, "requestLoassssssssssssssssding: ");
         tipDialog = new QMUITipDialog.Builder(getActivity())
@@ -487,6 +505,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 //
     }
 
+    /**
+     * 加载出错
+     * @param result
+     */
     @Override
     public void resultFailure(String result) {
         tipDialog.dismiss();
@@ -501,7 +523,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
      */
     @Override
     public void resultBanquetSuccess(BanquetBean banquetBean) {
-
+        tip.setVisibility(View.GONE);
         dinggou.setText(banquetBean.getData().get(0).getDinggou());
         baozhang.setText(banquetBean.getData().get(0).getFuwu());
         tuikuan.setText(banquetBean.getData().get(0).getTuikuan());
@@ -520,10 +542,16 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 .setBannerStyle(BannerConfig.NUM_INDICATOR)
                 .isAutoPlay(false)
                 .start();
-
-
         mainFrag.setVisibility(View.VISIBLE);
         tipDialog.dismiss();
+        sizesList=banquetBean.getSize();
+        qmuiBottomSheet= new QMUIBottomSheet.BottomListSheetBuilder(getActivity());
+        for (int i = 0; i <banquetBean.getSize().size() ; i++) {
+           qmuiBottomSheet.addItem(banquetBean.getSize().get(i).getSname(), String.valueOf(banquetBean.getSize().get(i).getId()));
+        }
+
+
+//选择时间的日期数据
 //        leftData = new ArrayList<>();
 //        for (int i = 0; i < 30; i++) {
 //            String str = DateUtils.get7date().get(i) + DateUtils.get7week().get(i);
@@ -535,6 +563,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 //        }
     }
 
+    /**
+     * 添加到收藏
+     * @param favoritrResultBean
+     */
     @Override
     public void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
         if (favoritrResultBean.getCode()==200){
@@ -546,6 +578,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 检测是否收藏
+     * @param checkFavoriteBean
+     */
     @Override
     public void resultCheckFavoriteSuccess(CheckFavoriteBean checkFavoriteBean) {
         if (checkFavoriteBean.isCode()) {
@@ -555,6 +591,19 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         }
     }
 
+    /**
+     * 添加到购物车成功
+     * @param favoritrResultBean
+     */
+    @Override
+    public void resultAddCartSuccess(FavoritrResultBean favoritrResultBean) {
+        Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * EventBus获取到dinnerid
+     * @return
+     */
     @Override
     public BanquetPresenter createPresenter() {
         return new BanquetPresenter();

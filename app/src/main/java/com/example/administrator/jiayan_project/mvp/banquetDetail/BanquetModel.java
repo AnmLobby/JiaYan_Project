@@ -6,6 +6,7 @@ import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
@@ -86,6 +87,24 @@ public class BanquetModel extends BaseModel {
                     }
                 }));
     }
+    public void postAddCart(int userid,int detail,int num,int dinnerid,int ren, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postAddCart(new PostAddCartBean(userid,detail,num,dinnerid,ren))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
+
+                        iBaseRequestCallBack.requestSuccess(favoritrResultBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+
     public void interruptHttp(){
         if(banquetBeanCall != null && !banquetBeanCall.isCanceled()){
             banquetBeanCall.cancel();
