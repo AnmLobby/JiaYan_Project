@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height">
         <LinearLayout
+            android:id="@+id/search"
             android:paddingRight="10pt"
             android:layout_weight="3"
             android:layout_margin="18pt"
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
+            android:id="@+id/erweima"
             android:layout_marginRight="15pt"
             android:layout_weight="1"
             android:src="@mipmap/qr_card"

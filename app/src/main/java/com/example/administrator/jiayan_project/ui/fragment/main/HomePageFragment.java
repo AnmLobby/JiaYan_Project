@@ -1,16 +1,15 @@
 package com.example.administrator.jiayan_project.ui.fragment.main;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
@@ -31,20 +30,14 @@ import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
 import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
-import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment;
-import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
-import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
-import com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.NewsDetailFragment;
-import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
-import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.BannerHolder;
@@ -57,20 +50,17 @@ import com.example.administrator.jiayan_project.vlayout.homepage.NewsHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.RecommendHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.StartHolder;
 import com.example.administrator.jiayan_project.vlayout.mine.GridHolder;
-import com.vondear.rxtools.view.dialog.RxDialogShapeLoading;
+import com.vondear.rxtools.activity.ActivityScanerCode;
 import com.youth.banner.Banner;
 
-
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
-import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 主页面，底部栏第一个
@@ -78,19 +68,23 @@ import butterknife.ButterKnife;
 public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresenter> implements HomeView {
     @BindView(R.id.recycler)
     FatRecyclerview mRecycler;
-    private Banner banner=new Banner(MyApplication.getContext());
+    @BindView(R.id.search)
+    LinearLayout search;
+    @BindView(R.id.erweima)
+    ImageView erweima;
+    private Banner banner = new Banner(MyApplication.getContext());
     private Context mContext;
     private DelegateAdapter delegateAdapter;
-    private VlayoutBaseAdapter banneradapter,festivalAdapter,chooseAdapter,hotAdapter,recommendAdapter,startAdapter,tOnewAdapter,tTwoadapter,threeAdapter,gridAdapter,newsAdapter;
-    private List<BannerBean> bannerBeans=new ArrayList<>();
-    private List<FestivalBean> festivalBeans=new ArrayList<>();
-    private List<FirstChooseBean> firstChooseBeans =new ArrayList<>();
-    private List<HotBean> hotBeans=new ArrayList<>();
-    private List<RecommendBean> recommendBeans=new ArrayList<>();
-    private List<StarBean> starBeans=new ArrayList<>();
-    private List<NewsBean> newsBeans=new ArrayList<>();
+    private VlayoutBaseAdapter banneradapter, festivalAdapter, chooseAdapter, hotAdapter, recommendAdapter, startAdapter, tOnewAdapter, tTwoadapter, threeAdapter, gridAdapter, newsAdapter;
+    private List<BannerBean> bannerBeans = new ArrayList<>();
+    private List<FestivalBean> festivalBeans = new ArrayList<>();
+    private List<FirstChooseBean> firstChooseBeans = new ArrayList<>();
+    private List<HotBean> hotBeans = new ArrayList<>();
+    private List<RecommendBean> recommendBeans = new ArrayList<>();
+    private List<StarBean> starBeans = new ArrayList<>();
+    private List<NewsBean> newsBeans = new ArrayList<>();
     private static final String TAG = "HomePageFragment";
-    private  VirtualLayoutManager virtualLayoutManager;
+    private VirtualLayoutManager virtualLayoutManager;
     private IconBean[] iconBeans = {new IconBean("大型酒席", R.mipmap.b_yanxi),
             new IconBean("万众服务", R.mipmap.w_fuwu), new IconBean("高级接待", R.mipmap.g_siyan)
     };
@@ -102,7 +96,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         getPresenter().clickRequest();
-        virtualLayoutManager= new VirtualLayoutManager(mContext);
+        virtualLayoutManager = new VirtualLayoutManager(mContext);
         mRecycler.setLayoutManager(virtualLayoutManager);
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
         mRecycler.setRecycledViewPool(viewPool);
@@ -113,6 +107,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
         return layout;
     }
+
     private void initBean() {
         iconBeanList.clear();
         for (int i = 0; i < iconBeans.length; i++) {
@@ -133,7 +128,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-                        String id= String.valueOf(mData.getData().get(position).getId());
+                        String id = String.valueOf(mData.getData().get(position).getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
 
@@ -150,7 +145,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                     @Override
                     public void onItemClick(View view, int position, FirstChooseBean mData) {
 
-                        String id= String.valueOf(mData.getData().get(position).getId());
+                        String id = String.valueOf(mData.getData().get(position).getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
                     }
@@ -162,23 +157,23 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setHolder(FestivalHolder.class)
                 .setListener(new ItemListener<DataBean>() {
                     @Override
-                    public void onItemClick(View view, int position,DataBean mData) {
-                        String id= String.valueOf(mData.getId());
+                    public void onItemClick(View view, int position, DataBean mData) {
+                        String id = String.valueOf(mData.getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
 
                     }
                 });
-        hotAdapter=new VlayoutBaseAdapter(mContext)
+        hotAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<HotBean>())
                 .setLayout(R.layout.vlayout_home_hot)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(Hotholder.class)
                 .setListener(new ItemListener<HotBean>() {
                     @Override
-                    public void onItemClick(View view, int position,HotBean mData) {
+                    public void onItemClick(View view, int position, HotBean mData) {
 
-                        String id= String.valueOf(mData.getData().get(position).getId());
+                        String id = String.valueOf(mData.getData().get(position).getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
                     }
@@ -192,7 +187,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<DataBean>() {
                     @Override
                     public void onItemClick(View view, int position, DataBean mData) {
-                        String id= String.valueOf(mData.getId());
+                        String id = String.valueOf(mData.getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
                     }
@@ -206,7 +201,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<DataBean>() {
                     @Override
                     public void onItemClick(View view, int position, DataBean mData) {
-                        String id= String.valueOf(mData.getId());
+                        String id = String.valueOf(mData.getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
 //                        Bundle bundle=new Bundle();
@@ -242,7 +237,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
                     }
                 });
-        threeAdapter= new VlayoutBaseAdapter(mContext)
+        threeAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<BannerBean>())
                 .setLayout(R.layout.recyclerview_head)
                 .setLayoutHelper(new LinearLayoutHelper())
@@ -250,7 +245,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setTitle("节日盛宴")
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
-                    public void onItemClick(View view, int position,BannerBean mData) {
+                    public void onItemClick(View view, int position, BannerBean mData) {
 
                     }
                 });
@@ -286,11 +281,11 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setHolder(NewsHolder.class)
                 .setListener(new ItemListener<NewsBean>() {
                     @Override
-                    public void onItemClick(View view, int position,NewsBean mData) {
-                        String id= String.valueOf(mData.getData().get(position).getId());
-                        NewsDetailFragment newsDetailFragment=new NewsDetailFragment();
-                        Bundle bundle=new Bundle();
-                        bundle.putString("id",id);
+                    public void onItemClick(View view, int position, NewsBean mData) {
+                        String id = String.valueOf(mData.getData().get(position).getId());
+                        NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
                         newsDetailFragment.setArguments(bundle);
                         startFragment(newsDetailFragment);
 //                        Log.e(TAG, "onItemClick: "+id );
@@ -328,10 +323,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     }
 
 
-
     @Override
     public void resultFailure(String result) {
-        Log.e(TAG, "resultFailure: "+result );
+        Log.e(TAG, "resultFailure: " + result);
     }
 
     @Override
@@ -392,15 +386,15 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
     @Override
     public void successNews(NewsBean newsBean) {
-            newsBeans.add(newsBean);
-            newsAdapter.setData(newsBeans);
-            newsAdapter.notifyDataSetChanged();
+        newsBeans.add(newsBean);
+        newsAdapter.setData(newsBeans);
+        newsAdapter.notifyDataSetChanged();
     }
 
     private LayoutHelper getGridLayoutHelper() {
         GridLayoutHelper gridHelper = new GridLayoutHelper(3);
         gridHelper.setMarginTop(20);
-        gridHelper.setWeights(new float[]{33.3f, 33.3f,33.3f});
+        gridHelper.setWeights(new float[]{33.3f, 33.3f, 33.3f});
         //设置垂直方向条目的间隔
         gridHelper.setVGap(4);
         //设置水平方向条目的间隔
@@ -411,14 +405,14 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         gridHelper.setAutoExpand(true);
         return gridHelper;
     }
+
     @Override
     public HomePresenter createPresenter() {
         return new HomePresenter();
     }
+
     @Override
     public void onDestroyView() {
-
-
         super.onDestroyView();
     }
 
@@ -428,4 +422,16 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         banner.startAutoPlay();
     }
 
+    @OnClick({R.id.search, R.id.erweima})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.search:
+                startFragment(new SearchFragment());
+                break;
+            case R.id.erweima:
+                Intent intent=new Intent(MyApplication.getContext(),ActivityScanerCode.class);
+//                startActivity(intent);
+                break;
+        }
+    }
 }
