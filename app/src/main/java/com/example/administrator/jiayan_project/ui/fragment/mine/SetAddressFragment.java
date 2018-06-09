@@ -43,6 +43,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -137,6 +139,7 @@ public class SetAddressFragment extends AddressBaseFragment {
             @Override
             public void onClick(View view) {
                 saveAddress();
+                Log.e(TAG, "onClick: ***" );
             }
         });
 
@@ -154,13 +157,13 @@ public class SetAddressFragment extends AddressBaseFragment {
     private void initAddressViews() {
 //        addressBean = getIntent().getParcelableExtra("address");
 
-//        if (addressBean != null) {
-//            //编辑状态
-//            state = STATE.STATE_EDIT;
-//        } else {
-//            //添加状态
-//            state = STATE.STATE_ADD;
-//        }
+        if (addressBean != null) {
+            //编辑状态
+            state = STATE.STATE_EDIT;
+        } else {
+            //添加状态
+            state = STATE.STATE_ADD;
+        }
 
         if (state == STATE.STATE_EDIT) {
             et_realname.setText(addressBean.realname);

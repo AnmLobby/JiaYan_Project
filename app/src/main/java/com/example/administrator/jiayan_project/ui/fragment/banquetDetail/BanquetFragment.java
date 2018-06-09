@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
@@ -32,11 +35,13 @@ import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetPresenter;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetView;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.qmuiteam.qmui.layout.QMUILayoutHelper;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
@@ -137,10 +142,11 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     //日期开始布局
     @BindView(R.id.layout_start)
     LinearLayout layoutStart;
+    //添加到购物车，购买
     @BindView(R.id.add_cart)
-    TextView addCart;
+    Button addCart;
     @BindView(R.id.buy_soon)
-    TextView buySoon;
+    Button  buySoon;
 
     @BindView(R.id.mainLayout)
     FrameLayout mainFrag;
@@ -166,11 +172,14 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private List<KeepUserBean> list;
     private String dinnerid;
     private int userid;
+    private String imageUrl;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         EventBus.getDefault().register(this);
+
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
                 .limit(1)//只获取结果集的前 1 个数据
@@ -216,21 +225,20 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     //banner图
     private void initBanner() {
-        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
-//        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
-//        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
 //        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
 //        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
 //        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
 //        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
 //        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
-
-        Log.e(TAG, "initBanner: " + listImage.size());
-        banner.setImages(listImage)
-                .setImageLoader(new GlideImageLoader())
-                .setBannerStyle(BannerConfig.NUM_INDICATOR)
-                .isAutoPlay(false)
-                .start();
+//        listImage.add("http://img.kaiyanapp.com/2b7ac9d21ca06df7e39e80a3799a3fb6.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/d7186edff72b6a6ddd03eff166ee4cd8.jpeg");
+//        listImage.add("http://img.kaiyanapp.com/cd74ae49d45ab6999bcd55dbae6d550f.jpeg");
+//        listImage.add(imageUrl);
+//        banner.setImages(listImage)
+//                .setImageLoader(new GlideImageLoader())
+//                .setBannerStyle(BannerConfig.NUM_INDICATOR)
+//                .isAutoPlay(false)
+//                .start();
     }
 
     @Override
@@ -244,7 +252,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     }
 
 
-    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave})
+    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave,R.id.kefuimg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.yanseLayout:
@@ -258,12 +266,25 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 initEndTimeDialog(startDate, startTime);
                 break;
             case R.id.add_cart:
-
                 break;
             case R.id.buy_soon:
+                BanquetOrderFragment orderFragment=new BanquetOrderFragment();
+                Bundle bundle=new Bundle();
+                Log.e(TAG, "onViewClicked: "+bucaoColor+"**"+ Fzhuoshu+"**"+ renshu+"**"+ buyMoney+"**"+ dishesName);
+                bundle.putString("color", bucaoColor.getText().toString());
+                bundle.putString("num", Fzhuoshu.getText().toString());
+                bundle.putString("people", renshu.getText().toString());
+                bundle.putString("price", buyMoney.getText().toString());
+                bundle.putString("name", dishesName.getText().toString());
+                bundle.putString("imageurl",imageUrl);
+                orderFragment.setArguments(bundle);
+                startFragment(orderFragment);
                 break;
             case R.id.keepsave:
                 getPresenter().clickPostLove(userid, Integer.parseInt(dinnerid));
+                break;
+            case R.id.kefuimg:
+                CallPhone();
                 break;
         }
     }
@@ -357,7 +378,6 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                     public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
                         dialog.dismiss();
                         bucaoColor.setText(tag);
-
                         String str = bucaoColor.getText().toString();
                         if (str.contains("普通")) {
                             tip.setVisibility(View.GONE);
@@ -400,6 +420,8 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
         EditText people = (EditText) view.findViewById(R.id.num_people);
         EditText zhuoshu = (EditText) view.findViewById(R.id.num_zhuoshu);
+        TextView dinnerPs=view.findViewById(R.id.dinnerPs);
+        ImageView logoimg= view.findViewById(R.id.logoimg);
         ImageView dialo_close = view.findViewById(R.id.close_dialog);
         TextView dialog_name = view.findViewById(R.id.dialog_name);
         TextView dialog_now = view.findViewById(R.id.dialog_buy_money);
@@ -410,6 +432,8 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 dialog.dismiss();
             }
         });
+        Glide.with(MyApplication.getContext()).load(imageUrl).into(logoimg);
+        dinnerPs.setText(dinggou.getText().toString());
         dialog_name.setText(dishesName.getText().toString());
         dialog_now.setText(buyMoney.getText().toString());
         dialog_before.setText(moneyBefore.getText().toString());
@@ -478,6 +502,9 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void resultBanquetSuccess(BanquetBean banquetBean) {
 
+        dinggou.setText(banquetBean.getData().get(0).getDinggou());
+        baozhang.setText(banquetBean.getData().get(0).getFuwu());
+        tuikuan.setText(banquetBean.getData().get(0).getTuikuan());
         buyMoney.setText(String.valueOf(banquetBean.getData().get(0).getPrice()));
         //设置取消textview
         moneyBefore.setText("原价：¥ " + String.valueOf(banquetBean.getData().get(0).getOriginprice()) + " /套");
@@ -485,18 +512,27 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
         dishesName.setText(banquetBean.getData().get(0).getDinnername());
         saclenum.setText("已销售：" + banquetBean.getData().get(0).getSalesum() + "笔");
+        //轮播图
+        imageUrl= Constants.BaseUrl+banquetBean.getData().get(0).getOriginalimg();
+        listImage.add(imageUrl);
+        banner.setImages(listImage)
+                .setImageLoader(new GlideImageLoader())
+                .setBannerStyle(BannerConfig.NUM_INDICATOR)
+                .isAutoPlay(false)
+                .start();
+
 
         mainFrag.setVisibility(View.VISIBLE);
         tipDialog.dismiss();
-        leftData = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            String str = DateUtils.get7date().get(i) + DateUtils.get7week().get(i);
-            leftData.add(str.substring(5, 10) + "\n" + str.substring(10, 12));
-        }
-        rightData = new ArrayList<>();
-        for (int i = 0; i < strList.length; i++) {
-            rightData.add(strList[i]);
-        }
+//        leftData = new ArrayList<>();
+//        for (int i = 0; i < 30; i++) {
+//            String str = DateUtils.get7date().get(i) + DateUtils.get7week().get(i);
+//            leftData.add(str.substring(5, 10) + "\n" + str.substring(10, 12));
+//        }
+//        rightData = new ArrayList<>();
+//        for (int i = 0; i < strList.length; i++) {
+//            rightData.add(strList[i]);
+//        }
     }
 
     @Override

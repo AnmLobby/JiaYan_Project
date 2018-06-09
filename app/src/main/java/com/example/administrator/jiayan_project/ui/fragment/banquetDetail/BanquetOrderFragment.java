@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,11 +67,17 @@ public class BanquetOrderFragment extends BaseFragment {
     TextView youhuijiage;
     @BindView(R.id.people)
     TextView people;
+    @BindView(R.id.cuisine_price)
+    TextView cuisine_price;
+    @BindView(R.id.allnum)
+    TextView allnum;
+    @BindView(R.id.bucaocolor)
+    TextView bucaocolor;
     //底部价格
     @BindView(R.id.sure_money)
     TextView sureMoney;
-    @BindView(R.id.cancel_money)
-    TextView cancelMoney;
+//    @BindView(R.id.cancel_money)
+//    TextView cancelMoney;
     @BindView(R.id.bg)
     ImageView bg;
     //备注消息
@@ -89,17 +96,30 @@ public class BanquetOrderFragment extends BaseFragment {
     private static final String TAG = "BanquetOrderFragment";
     private String remark;
     private List<AddressBean> list;
-
+    private String price,color,num,peoplenum,name,imageurl;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
         ButterKnife.bind(this, layout);
         initTopBar();
-
+        Bundle bundle=getArguments();
+        imageurl=bundle.getString("imageurl");
+        price =bundle.getString("price");
+        color=bundle.getString("color");
+        num=bundle.getString("num");
+        name=bundle.getString("name");
+        peoplenum=bundle.getString("people");
         Glide.with(MyApplication.getContext())
-                .load(R.drawable.bg_people)
+                .load(imageurl)
                 .centerCrop()
                 .into(bg);
+
+        Log.e(TAG, "看看吧"+peoplenum+people+price+num+name );
+        cuisineName.setText(name);
+        cuisine_price.setText("¥ "+price);
+        people.setText("规格："+peoplenum+"人/桌");
+        allnum.setText("×"+num);
+        bucaocolor.setText("布草摆设："+color);
         initPoView();
         initOrdername();
         chooseAddress.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +224,7 @@ public class BanquetOrderFragment extends BaseFragment {
                 popBackStack();
             }
         });
-        mTopBar.setTitle(ContantsName.HighReception);
+        mTopBar.setTitle("确认订单");
     }
 
 

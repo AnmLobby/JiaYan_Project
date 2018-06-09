@@ -43,6 +43,7 @@ import com.example.administrator.jiayan_project.ui.fragment.recruit.TestRecycleF
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.NewsDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
@@ -98,9 +99,9 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     @Override
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home_page, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         getPresenter().clickRequest();
-
         virtualLayoutManager= new VirtualLayoutManager(mContext);
         mRecycler.setLayoutManager(virtualLayoutManager);
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();

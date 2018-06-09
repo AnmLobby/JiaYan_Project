@@ -13,6 +13,7 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.NoScrollViewPager;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
@@ -35,7 +36,9 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected View onCreateView() {
+
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_main, null);
+        RudenessScreenHelper.resetDensity(getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTabs();
         initPagers();
