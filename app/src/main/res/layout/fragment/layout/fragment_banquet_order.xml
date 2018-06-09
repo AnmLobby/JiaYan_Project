@@ -93,7 +93,6 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:id="@+id/layout_start"
                     android:layout_toRightOf="@+id/time_select"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="82pt"
@@ -101,6 +100,7 @@
                     android:layout_height="match_parent" >
 
                     <LinearLayout
+                        android:id="@+id/layout_start"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -342,6 +342,7 @@
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content" />-->
 <Button
+    android:id="@+id/pay_money"
     android:text="结算"
     android:clickable="true"
     android:focusable="true"

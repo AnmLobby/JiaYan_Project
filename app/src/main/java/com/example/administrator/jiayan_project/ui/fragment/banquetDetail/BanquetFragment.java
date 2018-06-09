@@ -272,6 +272,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 initEndTimeDialog(startDate, startTime);
                 break;
             case R.id.add_cart:
+                if (bucaoColor.getText().toString().equals("选择你所喜欢的摆设颜色")){
+                    Toast.makeText(MyApplication.getContext(), "请选择摆设颜色", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 int numZhushu= Integer.parseInt(Fzhuoshu.getText().toString());
                 int numPeople= Integer.parseInt(renshu.getText().toString());
                 getPresenter().AddToCart(userid,colorId,numZhushu, Integer.parseInt(dinnerid),numPeople);

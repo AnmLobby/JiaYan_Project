@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.mvp.big_yanxi;
 
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
@@ -26,5 +27,8 @@ public interface BigYanView extends IMvpBaseView {
      */
     void  resultYanListSuccess(BigYanBean newsListBean);
 
-
+    /**
+     * 添加到我的收藏
+     */
+    void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean);
 }

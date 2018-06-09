@@ -13,6 +13,10 @@ import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.BigYanAdapter;
 import com.example.administrator.jiayan_project.app.ContantsName;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
+import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.big_yanxi.BigYanPresenter;
@@ -38,12 +42,20 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
     private static final String TAG = "BigYanFragment";
     private List<BigYanBean.DataBean> dataBeans;
     private BigYanAdapter bigYanAdapter;
+    private List<KeepUserBean> list;
+    private int userid;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_big_yan, null);
         ButterKnife.bind(this, layout);
-
         getPresenter().clickRequestBigYan();
+        list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
+                .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                .limit(1)//只获取结果集的前 1 个数据
+                .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                .build()
+                .list();
+        userid=list.get(0).getUserId();
         return layout;
     }
 
@@ -71,7 +83,8 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
         bigYanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(MyApplication.getContext(), "88888", Toast.LENGTH_SHORT).show();
+                String id= String.valueOf(bigYanAdapter.getData().get(position).getId());
+                getPresenter().clickPostLove(userid, Integer.parseInt(id));
             }
         });
         bigYanAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -84,6 +97,11 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
         });
         //给RecyclerView设置适配器
         recyclerView.setAdapter(bigYanAdapter);
+    }
+
+    @Override
+    public void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
+        Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.administrator.jiayan_project.MyApplication;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
@@ -44,5 +45,21 @@ public class BigYanPresenter extends AbstractMvpPersenter<BigYanView> {
                 });
             }
         }, 10);
+    }
+    public void clickPostLove(final int userid,final int dinnerid) {
+        bigYanModel.postKeepFavorite(userid,dinnerid,new IBaseRequestCallBack<FavoritrResultBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultKeepFavoriteSuccess(favoritrResultBean);
+                }
+            }
+        });
     }
 }

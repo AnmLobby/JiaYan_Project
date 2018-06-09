@@ -26,7 +26,7 @@ public class MyFavoriteAdapter extends BaseQuickAdapter<FavouriteBean.DataBean, 
 
     @Override
     protected void convert(BaseViewHolder  viewHolder, FavouriteBean.DataBean item) {
-        viewHolder.addOnClickListener(R.id.buy).addOnClickListener(R.id.cancel);
+        viewHolder.addOnClickListener(R.id.cancel);
         viewHolder
                 .setText(R.id.title, item.getDinnername())
                 .setText(R.id.money,"¥ "+ String.valueOf(item.getPrice()))

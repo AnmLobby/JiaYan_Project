@@ -106,9 +106,9 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
                           }
                                 getPresenter().clickDeleteLove(UserId,content);
                                 break;
-                            case R.id.buy:
-
-                                break;
+//                            case R.id.buy:
+//
+//                                break;
 
                         }
                     }
