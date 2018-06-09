@@ -10,9 +10,9 @@
     android:layout_width="match_parent"
     android:layout_height="85dp">
     <ImageView
+        android:id="@+id/logoimg"
         android:layout_weight="1"
         android:scaleType="fitXY"
-        android:src="@mipmap/cover_default"
         android:layout_width="70dp"
         android:layout_height="80dp" />
     <LinearLayout
@@ -124,13 +124,13 @@
                 android:numeric="integer"
                 android:id="@+id/num_people"
                 android:background="@drawable/edittext_style"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/text_gray"
                 android:textSize="10sp"
-                android:text="/桌"
+                android:text="人/桌"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -150,7 +150,7 @@
                 android:numeric="integer"
                 android:id="@+id/num_zhuoshu"
                 android:background="@drawable/edittext_style"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginLeft="5dp"
@@ -192,10 +192,11 @@
         android:layout_height="wrap_content">
         <TextView
             android:textColor="@color/text_gray"
-            android:text="服务说明："
+            android:text="订购说明："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/dinnerPs"
             android:textSize="@dimen/text_small"
             android:textColor="@color/text_gray"
             android:text="最大的能接2000桌，最少10桌起订(酒席宴席类)"

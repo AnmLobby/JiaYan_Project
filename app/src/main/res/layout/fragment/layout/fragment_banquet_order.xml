@@ -80,12 +80,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="250pt">
                 <TextView
+                    android:drawableBottom="@drawable/booking"
                     android:id="@+id/time_select"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_four"
-                    android:text="时间选择"
+                    android:drawableRight="@mipmap/banque_moret"
+                    android:text="选择服务时间   "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -160,13 +162,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_marginRight="15pt"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/banque_moret"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!--<ImageView-->
+                    <!--android:layout_marginRight="15pt"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:src="@mipmap/banque_moret"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
             </RelativeLayout>
 
 <LinearLayout
@@ -188,17 +190,33 @@
     android:layout_height="match_parent">
 
             <TextView
-                android:text="“情深似海”宴/998元"
+                android:text="“情深似海”宴/"
                 android:textSize="@dimen/text_six"
                 android:textColor="@color/app_color_blue"
                 android:layout_alignParentLeft="true"
                 android:id="@+id/cuisine_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+    <TextView
+        android:text=" || "
+        android:textSize="@dimen/text_six"
+        android:textColor="#FF9547"
+        android:id="@+id/nolo"
+        android:layout_toRightOf="@+id/cuisine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_toRightOf="@+id/nolo"
+        android:textSize="@dimen/text_six"
+        android:textColor="@color/app_color_blue"
+        android:id="@+id/cuisine_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="10pt"
                 android:id="@+id/xiangqing"
-                android:text=" 菜品详情"
+                android:text=" 菜品详情："
                 android:drawableLeft="@mipmap/order_pg"
                 android:layout_below="@+id/cuisine_name"
                 android:layout_width="wrap_content"
@@ -208,6 +226,14 @@
         android:layout_marginTop="10pt"
         android:layout_below="@id/xiangqing"
         android:text="规格：10人/桌"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/bucaocolor"
+        android:layout_marginTop="10pt"
+        android:layout_below="@id/people"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_small"
         android:layout_width="wrap_content"
@@ -228,6 +254,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/allnum"
             android:layout_marginRight="80pt"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
@@ -292,12 +319,12 @@
             android:textColor="@color/text_black"
             android:layout_marginTop="30pt"
             android:id="@+id/youhuijiage"
-            android:text="优惠价格："
+            android:text="合计："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:textSize="@dimen/text_six"
-            android:text="166"
+
             android:textColor="@color/banquet_money"
             android:layout_marginLeft="10pt"
             android:layout_marginTop="30pt"
@@ -305,15 +332,15 @@
             android:id="@+id/sure_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
-            android:text="8888"
-            android:textSize="@dimen/text_four"
-            android:textColor="@color/text_gray"
-            android:id="@+id/cancel_money"
-            android:layout_marginTop="10pt"
-            android:layout_below="@id/youhuijiage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:text="8888"-->
+            <!--android:textSize="@dimen/text_four"-->
+            <!--android:textColor="@color/text_gray"-->
+            <!--android:id="@+id/cancel_money"-->
+            <!--android:layout_marginTop="10pt"-->
+            <!--android:layout_below="@id/youhuijiage"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 <Button
     android:text="结算"
     android:clickable="true"

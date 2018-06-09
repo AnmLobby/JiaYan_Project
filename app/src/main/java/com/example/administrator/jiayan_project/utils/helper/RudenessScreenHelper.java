@@ -90,20 +90,9 @@ public class RudenessScreenHelper {
     public static float pt2px(Context context, float value){
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, value, context.getResources().getDisplayMetrics());
     }
-
-
-
-
-
-
-
-
-
-
-
     private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks;
     private Application mApplication;
-    private float designWidth = 720;
+    private float designWidth = 1080;
 
     /**
      *
@@ -172,6 +161,4 @@ public class RudenessScreenHelper {
         restoreDensity(mApplication);
         mApplication.unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks);
     }
-
-
 }
