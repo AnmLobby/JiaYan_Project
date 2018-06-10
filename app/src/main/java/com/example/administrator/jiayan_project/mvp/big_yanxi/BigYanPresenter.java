@@ -46,8 +46,8 @@ public class BigYanPresenter extends AbstractMvpPersenter<BigYanView> {
             }
         }, 10);
     }
-    public void clickPostLove(final int userid,final int dinnerid) {
-        bigYanModel.postKeepFavorite(userid,dinnerid,new IBaseRequestCallBack<FavoritrResultBean>() {
+    public void AddToCart(int userid,int detail,int num,int dinnerid,int ren) {
+        bigYanModel.postAddCart(userid,detail,num,dinnerid,ren,new IBaseRequestCallBack<FavoritrResultBean>() {
             @Override
             public void requestError(Throwable throwable) {
                 if (getmMvpView() != null) {
@@ -57,7 +57,7 @@ public class BigYanPresenter extends AbstractMvpPersenter<BigYanView> {
             @Override
             public void requestSuccess(FavoritrResultBean favoritrResultBean) {
                 if (getmMvpView() != null) {
-                    getmMvpView().resultKeepFavoriteSuccess(favoritrResultBean);
+                    getmMvpView().resultAddMyCartSuccess(favoritrResultBean);
                 }
             }
         });

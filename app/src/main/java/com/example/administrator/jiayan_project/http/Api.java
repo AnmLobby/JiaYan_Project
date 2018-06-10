@@ -87,7 +87,7 @@ public interface Api {
     @GET("Login/login/username/{username}")
     Observable<List<LoginBean>>  postMessage(@Path("username") String username);
     /**
-    * 购物车
+    * 购物车,没有用到，已经取消
     */
     @GET("index.php/api/index/huasuan")
     Observable<CartBean>   getCart();
@@ -147,13 +147,13 @@ public interface Api {
     Observable<FavouriteBean>   getMyFavorite(@Path("userid") String userid);
 
     /**
-     * 添加（删除）到我的收藏
+     * 添加（或删除）到我的收藏
      */
     @POST("Collection/editcollection")
     Observable<FavoritrResultBean>  postMyFavorite(@Body KeepFavoriteBean keepFavoriteBean);
 
     /**
-     * 添加（删除）到我的收藏
+     *  删除到我的收藏
      */
     @POST("Collection/delete")
     Observable<FavoritrResultBean>  deleteMyFavorite(@Body KeepFavoriteBean keepFavoriteBean);
@@ -169,4 +169,16 @@ public interface Api {
      */
     @POST("Shopcar/editshopcar")
     Observable<FavoritrResultBean>  postAddCart(@Body PostAddCartBean postAddCartBean);
+
+    /**
+     * 查看我的购物车
+     */
+    @POST("Shopcar/shopcar/userid/{userid}")
+    Observable<CartBean>  getMyCart(@Path("userid") int userid);
+
+    /**
+     * 删除的购物车
+     */
+    @POST("Shopcar/delete")
+    Observable<FavoritrResultBean>  postDeleteCart(@Body PostAddCartBean postAddCartBean);
 }

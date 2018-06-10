@@ -24,18 +24,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 已付款
+ * 待评价
  */
-public class HavePayFragment extends BaseFragment {
+public class EvaluateFragment extends BaseFragment {
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
     private View errorView;
     private List<UnpayBean> list=new ArrayList<>();
     @Override
     protected View onCreateView() {
-        FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_have_pay, null);
+        FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_all_order, null);
         ButterKnife.bind(this, layout);
-        errorView= getLayoutInflater().inflate(R.layout.havepay_empty, (ViewGroup) recyclerView.getParent(), false);
+        errorView= getLayoutInflater().inflate(R.layout.evaluate_empty, (ViewGroup) recyclerView.getParent(), false);
         RefundedAdapter refundedAdapter=new RefundedAdapter(list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -44,6 +44,7 @@ public class HavePayFragment extends BaseFragment {
         refundedAdapter.setEmptyView(errorView);
         return  layout;
     }
+
     @Override
     protected boolean canDragBack() {
         return false;

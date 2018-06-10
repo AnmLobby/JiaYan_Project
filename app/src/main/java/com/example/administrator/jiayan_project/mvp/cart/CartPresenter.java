@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.administrator.jiayan_project.MyApplication;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
@@ -19,7 +20,7 @@ public class CartPresenter   extends AbstractMvpPersenter<CartView> {
     public CartPresenter(){
         this.cartModel=new CartModel(MyApplication.getContext());
     }
-    public void clickRequestCart(){
+    public void clickRequestCart(final int id){
         if (getmMvpView() != null) {
             getmMvpView().requestLoading();
         }
@@ -27,7 +28,7 @@ public class CartPresenter   extends AbstractMvpPersenter<CartView> {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                cartModel.CartAll(new IBaseRequestCallBack<CartBean>() {
+                cartModel.CartAll(id,new IBaseRequestCallBack<CartBean>() {
                     @Override
                     public void requestError(Throwable throwable) {
                         if (getmMvpView() != null) {
@@ -45,6 +46,22 @@ public class CartPresenter   extends AbstractMvpPersenter<CartView> {
 
             }
         }, 10);
+    }
+    public void deleteToCart(int userid,int detail,int num,int dinnerid,int ren) {
+        cartModel.postAddCart(userid,detail,num,dinnerid,ren,new IBaseRequestCallBack<FavoritrResultBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultDeleteSuccess(favoritrResultBean);
+                }
+            }
+        });
     }
     public void interruptHttp(){
         cartModel.interruptHttp();

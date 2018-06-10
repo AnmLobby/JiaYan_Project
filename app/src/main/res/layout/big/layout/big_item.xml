@@ -98,7 +98,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/app_color_theme_3"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="收藏"
+            android:text="加入购物车"
             android:id="@+id/add_cart"
             android:textColor="@color/white"
             android:layout_width="230pt"

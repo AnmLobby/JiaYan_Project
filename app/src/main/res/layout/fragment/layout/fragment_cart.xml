@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height"/>
 <LinearLayout
+    android:background="@color/white"
     android:orientation="vertical"
     android:layout_marginTop="?attr/qmui_topbar_height"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -56,6 +56,7 @@
             <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
             <!--android:textColor="@color/black" />-->
         <TextView
+            android:text="合计："
             android:id="@+id/nex"
             android:layout_marginLeft="18dp"
             android:layout_alignParentLeft="true"
@@ -74,8 +75,10 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:padding="5dp"
-            android:text="合计:0.00"
-            android:textColor="@color/black" />
+            android:text="¥ 0.0"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:textColor="@color/banquet_money" />
         <TextView
             android:id="@+id/tv_settlement"
             android:layout_width="100dp"

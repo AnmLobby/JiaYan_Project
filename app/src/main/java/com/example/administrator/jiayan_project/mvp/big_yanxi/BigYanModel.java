@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
+import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.http.Api;
@@ -50,8 +51,8 @@ public class BigYanModel  extends BaseModel{
                     }
                 }));
     }
-    public void postKeepFavorite(int userid,int dinnerid, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
-        mcompositeDisposable.add(api.postMyFavorite(new KeepFavoriteBean(userid,dinnerid))
+    public void postAddCart(int userid,int detail,int num,int dinnerid,int ren, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postAddCart(new PostAddCartBean(userid,detail,num,dinnerid,ren))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<FavoritrResultBean>() {

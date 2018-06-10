@@ -6,14 +6,14 @@ package com.example.administrator.jiayan_project.enity.banquet;
 
 public class PostAddCartBean {
     private int   userid;
-    private int   detail;
+    private int   sizeid;
     private int   num;
     private int  feastid;
     private int  ren;
 
-    public PostAddCartBean(int userid, int detail, int num, int feastid, int ren) {
+    public PostAddCartBean(int userid, int sizeid, int num, int feastid, int ren) {
         this.userid = userid;
-        this.detail = detail;
+        this.sizeid = sizeid;
         this.num = num;
         this.feastid = feastid;
         this.ren = ren;
@@ -29,11 +29,11 @@ public class PostAddCartBean {
     }
 
     public int getDetail() {
-        return detail;
+        return sizeid;
     }
 
-    public void setDetail(int detail) {
-        this.detail = detail;
+    public void setDetail(int sizeid) {
+        this.sizeid = sizeid;
     }
 
     public int getNum() {

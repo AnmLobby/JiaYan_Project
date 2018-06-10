@@ -28,7 +28,7 @@ public interface BigYanView extends IMvpBaseView {
     void  resultYanListSuccess(BigYanBean newsListBean);
 
     /**
-     * 添加到我的收藏
+     * 添加到我的购物车
      */
-    void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean);
+    void resultAddMyCartSuccess(FavoritrResultBean favoritrResultBean);
 }

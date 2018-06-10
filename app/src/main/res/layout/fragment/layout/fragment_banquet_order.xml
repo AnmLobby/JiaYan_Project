@@ -190,7 +190,6 @@
     android:layout_height="match_parent">
 
             <TextView
-                android:text="“情深似海”宴/"
                 android:textSize="@dimen/text_six"
                 android:textColor="@color/app_color_blue"
                 android:layout_alignParentLeft="true"
@@ -317,14 +316,14 @@
         <TextView
             android:textSize="@dimen/text_six"
             android:textColor="@color/text_black"
-            android:layout_marginTop="30pt"
+            android:layout_marginTop="40pt"
             android:id="@+id/youhuijiage"
-            android:text="合计："
+            android:text="合计： "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:textSize="@dimen/text_six"
-
+            android:textStyle="bold"
+            android:textSize="20sp"
             android:textColor="@color/banquet_money"
             android:layout_marginLeft="10pt"
             android:layout_marginTop="30pt"

@@ -84,7 +84,7 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 String id= String.valueOf(bigYanAdapter.getData().get(position).getId());
-                getPresenter().clickPostLove(userid, Integer.parseInt(id));
+                getPresenter().AddToCart(userid,1,1, Integer.parseInt(id),10);
             }
         });
         bigYanAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -100,7 +100,7 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
     }
 
     @Override
-    public void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
+    public void resultAddMyCartSuccess(FavoritrResultBean favoritrResultBean) {
         Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
     }
 

@@ -2,6 +2,8 @@ package com.example.administrator.jiayan_project.mvp.cart;
 
 import android.content.Context;
 
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
@@ -20,6 +22,7 @@ import retrofit2.Call;
 
 public class CartModel extends BaseModel{
     private CompositeDisposable mcompositeDisposable;
+    private Call<FavoritrResultBean> favoritrResultBeanCall;
     private Context context;
     private Api api;
     private Call<CartBean> cartBeanCall;
@@ -29,8 +32,8 @@ public class CartModel extends BaseModel{
         api=retrofitManager.getService();
         mcompositeDisposable=new CompositeDisposable();
     }
-    public void CartAll(final IBaseRequestCallBack<CartBean> iBaseRequestCallBack){
-        mcompositeDisposable.add(api.getCart()
+    public void CartAll(int userid,final IBaseRequestCallBack<CartBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getMyCart(userid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<CartBean>() {
@@ -45,9 +48,29 @@ public class CartModel extends BaseModel{
                     }
                 }));
     }
+    public void postAddCart(int userid,int detail,int num,int dinnerid,int ren, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postDeleteCart(new PostAddCartBean(userid,detail,num,dinnerid,ren))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
+
+                        iBaseRequestCallBack.requestSuccess(favoritrResultBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
     public void interruptHttp(){
         if(cartBeanCall != null && !cartBeanCall.isCanceled()){
             cartBeanCall.cancel();
+        }
+        if(favoritrResultBeanCall != null && !favoritrResultBeanCall.isCanceled()){
+            favoritrResultBeanCall.cancel();
         }
     }
 }

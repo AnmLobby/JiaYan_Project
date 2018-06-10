@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,14 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
-import com.example.administrator.jiayan_project.enity.cart.ShoppingCartBean;
+import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.utils.util.StringUtil;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
@@ -32,7 +34,7 @@ import java.util.List;
 
 public class ShoppingCartAdapter extends BaseAdapter {
     private boolean isShow = true;//是否显示编辑/完成
-    private List<ShoppingCartBean> shoppingCartBeanList;
+    private List<CartBean.DataBean> shoppingCartBeanList;
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
     private Context context;
@@ -42,7 +44,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public void setShoppingCartBeanList(Activity mainActivity,List<ShoppingCartBean> shoppingCartBeanList) {
+    public void setShoppingCartBeanList(Activity mainActivity,List<CartBean.DataBean> shoppingCartBeanList) {
         this.shoppingCartBeanList = shoppingCartBeanList;
         this.mainActivity = mainActivity;
         mInflater = LayoutInflater.from(mainActivity);
@@ -101,25 +103,25 @@ public class ShoppingCartAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
+        final CartBean.DataBean shoppingCartBean = shoppingCartBeanList.get(position);
         boolean choosed = shoppingCartBean.isChoosed();
         if (choosed){
             holder.ckOneChose.setChecked(true);
         }else{
             holder.ckOneChose.setChecked(false);
         }
-        String attribute = shoppingCartBean.getAttribute();
+        String attribute ="布草颜色："+ shoppingCartBean.getSname();
         if (!StringUtil.isEmpty(attribute)){
             holder.tvCommodityAttr.setText(attribute);
         }else{
-            holder.tvCommodityAttr.setText(shoppingCartBean.getDressSize()+"");
+            holder.tvCommodityAttr.setText(shoppingCartBean.getSname()+"");
         }
-        holder.tvCommodityName.setText(shoppingCartBean.getShoppingName());
-        holder.tvCommodityPrice.setText(shoppingCartBean.getPrice()+"");
-        holder.tvCommodityNum.setText(" X"+shoppingCartBean.getCount()+"");
-        holder.tvCommodityShowNum.setText(shoppingCartBean.getCount()+"");
+        holder.tvCommodityName.setText(shoppingCartBean.getDinnername()+"  ||  ");
+        holder.tvCommodityPrice.setText("¥ "+shoppingCartBean.getPrice()+"");
+        holder.tvCommodityNum.setText(" X"+shoppingCartBean.getNum()+"");
+        holder.tvCommodityShowNum.setText(shoppingCartBean.getNum()+"");
 //        Constants.BaseUrl+
-        Glide.with(MyApplication.getContext()).load(shoppingCartBean.getImageUrl()).into(holder.ivShowPic);
+        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+shoppingCartBean.getOriginalimg()).into(holder.ivShowPic);
 //        ImageLoader.getInstance().displayImage(shoppingCartBean.getImageUrl(),holder.ivShowPic);
         //单选框按钮
         holder.ckOneChose.setOnClickListener(
@@ -141,6 +143,12 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     }
                 }
         );
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    modifyCountInterface.onItemLayoutClick(position);
+            }
+        });
         //增加按钮
         holder.ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +227,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
         TextView tvCommodityName, tvCommodityAttr, tvCommodityPrice, tvCommodityNum, tvCommodityShowNum,ivSub, ivAdd;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
+        RelativeLayout relativeLayout;
         public ViewHolder(View itemView) {
+            relativeLayout=(RelativeLayout) itemView.findViewById(R.id.rela_layout);
             ckOneChose = (CheckBox) itemView.findViewById(R.id.ck_chose);
             ivShowPic = (ImageView) itemView.findViewById(R.id.iv_show_pic);
             ivSub = (TextView) itemView.findViewById(R.id.iv_sub);
@@ -275,6 +285,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
          * @param position
          */
         void childDelete(int position);
+
+        void onItemLayoutClick(int position);
     }
 }
 

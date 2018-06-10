@@ -49,7 +49,7 @@ public class MyFavoriteModel extends BaseModel {
                 }));
     }
     public void deleteMyFavorite (int userid,int dinnerid, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
-        mcompositeDisposable.add(api.postMyFavorite(new KeepFavoriteBean(userid,dinnerid))
+        mcompositeDisposable.add(api.deleteMyFavorite(new KeepFavoriteBean(userid,dinnerid))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<FavoritrResultBean>() {

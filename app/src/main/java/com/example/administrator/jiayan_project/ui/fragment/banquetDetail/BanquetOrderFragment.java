@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,7 +121,7 @@ public class BanquetOrderFragment extends BaseFragment {
             "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"};
     private List<String> leftData;
     private List<String> rightData;
-
+    private int  totalPrice;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
@@ -151,7 +152,9 @@ public class BanquetOrderFragment extends BaseFragment {
                         }
                     }
                 });
-
+        /**
+         * 获取传递过来的消息
+         */
         Bundle bundle = getArguments();
         imageurl = bundle.getString("imageurl");
         price = bundle.getString("price");
@@ -163,6 +166,7 @@ public class BanquetOrderFragment extends BaseFragment {
                 .load(imageurl)
                 .centerCrop()
                 .into(bg);
+        Log.e(TAG, "onCreateView: 图片"+imageurl );
         cuisineName.setText(name);
         cuisine_price.setText("¥ " + price);
         people.setText("规格：" + peoplenum + "人/桌");
@@ -170,6 +174,8 @@ public class BanquetOrderFragment extends BaseFragment {
         bucaocolor.setText("布草摆设：" + color);
         initPoView();
         initOrdername();
+         totalPrice +=  Integer.parseInt(num) *  Integer.parseInt(price);
+         sureMoney.setText("¥ " +totalPrice+"");
         chooseAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

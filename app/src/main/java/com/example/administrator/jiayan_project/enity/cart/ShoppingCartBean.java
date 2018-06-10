@@ -18,7 +18,6 @@ public class ShoppingCartBean {
 
 
 
-
     public String getAttribute() {
         return attribute;
     }

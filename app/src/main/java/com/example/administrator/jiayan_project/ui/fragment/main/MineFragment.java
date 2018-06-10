@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +28,7 @@ import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine_payorder.OrderBlankFragment;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import java.util.List;
@@ -139,29 +141,47 @@ public class MineFragment extends BaseFragment {
                 Toast.makeText(MyApplication.getContext(), "分享", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.yuelayout:
-                Toast.makeText(MyApplication.getContext(), "yuer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.getContext(), "余额", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chongzhilayout:
-                startFragment(new RechargeFragment());
+                Toast.makeText(MyApplication.getContext(), "充值", Toast.LENGTH_SHORT).show();
+//                startFragment(new RechargeFragment());
                 break;
             case R.id.jifenlayout:
-                startFragment(new JifenFragment());
+//                startFragment(new JifenFragment());
+                Toast.makeText(MyApplication.getContext(), "积分", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.daifukuan_layout:
-                Toast.makeText(MyApplication.getContext(), "待付款", Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(MyApplication.getContext(), "待付款", Toast.LENGTH_SHORT).show();
+                OrderBlankFragment orderBlankFragment=new OrderBlankFragment();
+                Bundle bundle=new Bundle();
+                bundle.putInt("index",0);
+                orderBlankFragment.setArguments(bundle);
+                startFragment(orderBlankFragment);
                 break;
             case R.id.yizhifu_layout:
-                Toast.makeText(MyApplication.getContext(), "已支付", Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(MyApplication.getContext(), "已支付", Toast.LENGTH_SHORT).show();
+                OrderBlankFragment orderBlankFragment1=new OrderBlankFragment();
+                Bundle bundle1=new Bundle();
+                bundle1.putInt("index",1);
+                orderBlankFragment1.setArguments(bundle1);
+                startFragment(orderBlankFragment1);
                 break;
             case R.id.daipingjia_layout:
-                Toast.makeText(MyApplication.getContext(), "带评价", Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(MyApplication.getContext(), "带评价", Toast.LENGTH_SHORT).show();
+                OrderBlankFragment orderBlankFragment2=new OrderBlankFragment();
+                Bundle bundle2=new Bundle();
+                bundle2.putInt("index",2);
+                orderBlankFragment2.setArguments(bundle2);
+                startFragment(orderBlankFragment2);
                 break;
             case R.id.tuikuan_layout:
-                Toast.makeText(MyApplication.getContext(), "退款", Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(MyApplication.getContext(), "退款", Toast.LENGTH_SHORT).show();
+                OrderBlankFragment orderBlankFragment3=new OrderBlankFragment();
+                Bundle bundle3=new Bundle();
+                bundle3.putInt("index",3);
+                orderBlankFragment3.setArguments(bundle3);
+                startFragment(orderBlankFragment3);
                 break;
         }
     }
