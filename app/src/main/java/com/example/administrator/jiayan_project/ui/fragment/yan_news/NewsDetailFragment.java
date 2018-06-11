@@ -109,4 +109,9 @@ public class NewsDetailFragment extends AbstractMvpFragment<NewsDetailView, News
     public NewsDetailPresenter createPresenter() {
         return new NewsDetailPresenter();
     }
+
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

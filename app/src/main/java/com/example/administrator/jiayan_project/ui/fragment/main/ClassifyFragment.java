@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -42,6 +44,8 @@ public class ClassifyFragment extends BaseFragment {
     RecyclerView mRvLeft;
     @BindView(R.id.rv_right)
     RecyclerView mRvRight;
+    @BindView(R.id.search)
+    LinearLayout search;
     private GridLayoutManager mRightGridLayoutManager;
     private LinkedRVLeftAdapter mRVLeftAdapter;
     private LinkedRVRightAdapter mRVRightAdapter;
@@ -51,10 +55,15 @@ public class ClassifyFragment extends BaseFragment {
     private static final String TAG = "ClassifyFragment";
     @Override
     protected View onCreateView() {
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classify, null);
+        FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classify, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
-
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startFragment(new SearchFragment());
+            }
+        });
         mRvLeft.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
         List<String> leftData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

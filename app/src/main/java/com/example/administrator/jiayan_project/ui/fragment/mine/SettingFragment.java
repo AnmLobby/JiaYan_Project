@@ -56,7 +56,10 @@ public class SettingFragment extends BaseFragment {
 
         return layout;
     }
-
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
     private void initList() {
         View.OnClickListener onClickListener = null;
         QMUICommonListItemView itemWithChevron = mGroupListView.createItemView("安全设置");

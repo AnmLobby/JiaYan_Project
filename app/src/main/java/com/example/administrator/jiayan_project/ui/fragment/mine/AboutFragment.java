@@ -35,6 +35,10 @@ public class AboutFragment extends BaseFragment {
         initTopBar();
         return  layout;
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
     private void initTopBar() {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override

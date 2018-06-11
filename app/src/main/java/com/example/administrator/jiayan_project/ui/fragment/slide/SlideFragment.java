@@ -39,4 +39,6 @@ public class SlideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(layoutResId, container, false);
     }
+
+
 }

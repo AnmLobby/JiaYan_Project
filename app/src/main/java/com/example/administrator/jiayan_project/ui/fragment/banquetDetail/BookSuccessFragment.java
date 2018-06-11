@@ -49,4 +49,8 @@ public class BookSuccessFragment extends BaseFragment {
             }
         });
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

@@ -61,4 +61,8 @@ public class SearchFragment extends BaseFragment {
         InputMethodManager inputManager = (InputMethodManager)etSearch.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.showSoftInput(etSearch, 0);
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

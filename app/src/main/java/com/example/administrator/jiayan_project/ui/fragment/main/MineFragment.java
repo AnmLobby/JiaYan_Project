@@ -102,14 +102,8 @@ public class MineFragment extends BaseFragment {
 //                startFragment(new ReceptionFragment());
                 break;
             case R.id.huiyuan_layout:
-                final WageDialog wageDialog=new WageDialog(getActivity());
-                wageDialog.setYesOnclickListener(new WageDialog.onCloseOnclickListener() {
-                    @Override
-                    public void onYesClick() {
-                       wageDialog.dismiss();
-                    }
-                });
-                wageDialog.show();
+
+
                 Toast.makeText(MyApplication.getContext(), "会员", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.address_layout:

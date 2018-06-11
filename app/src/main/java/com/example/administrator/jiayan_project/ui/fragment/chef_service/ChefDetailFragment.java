@@ -66,4 +66,8 @@ public class ChefDetailFragment extends BaseFragment {
         });
         mTopBar.setTitle(ContantsName.AboutName);
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

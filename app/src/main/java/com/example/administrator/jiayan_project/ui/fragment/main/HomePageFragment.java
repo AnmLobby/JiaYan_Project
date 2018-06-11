@@ -33,7 +33,9 @@ import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
+import com.example.administrator.jiayan_project.ui.fragment.chef_service.WZServiceFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
+
 import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.NewsDetailFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
@@ -262,13 +264,12 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                                 startFragment(new BigYanFragment());
                                 break;
                             case "1":
-                                startFragment(new CookRegisterFragment());
+                                startFragment(new WZServiceFragment());
+//                                startFragment(new CookRegisterFragment());
                                 break;
                             case "2":
-                                startFragment(new DeliveryFragment());
-                                break;
-                            case "3":
-                                startFragment(new BookSuccessFragment());
+//                                startFragment(new DeliveryFragment());
+                                startFragment(new CookRegisterFragment());
                                 break;
                             default:
                         }

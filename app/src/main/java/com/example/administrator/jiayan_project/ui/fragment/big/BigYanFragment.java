@@ -125,4 +125,8 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
     public void onDestroyView() {
         super.onDestroyView();
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

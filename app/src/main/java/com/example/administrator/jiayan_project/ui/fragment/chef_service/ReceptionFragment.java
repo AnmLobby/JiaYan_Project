@@ -74,4 +74,8 @@ public class ReceptionFragment extends BaseFragment {
             }
         });
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

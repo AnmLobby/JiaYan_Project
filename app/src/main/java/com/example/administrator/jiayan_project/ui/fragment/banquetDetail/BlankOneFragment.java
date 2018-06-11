@@ -185,4 +185,8 @@ public class BlankOneFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
         QMUIStatusBarHelper.setStatusBarDarkMode(getBaseFragmentActivity());
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

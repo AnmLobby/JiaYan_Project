@@ -7,6 +7,7 @@ import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
+import com.example.administrator.jiayan_project.enity.chef.ChefMsgBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
@@ -181,4 +182,10 @@ public interface Api {
      */
     @POST("Shopcar/delete")
     Observable<FavoritrResultBean>  postDeleteCart(@Body PostAddCartBean postAddCartBean);
+
+    /**
+     *
+     */
+    @GET("Cook/cook")
+    Observable<ChefMsgBean>  getChef();
 }

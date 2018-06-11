@@ -56,7 +56,10 @@ public class JifenFragment extends BaseFragment{
         initBean();
         return  layout;
     }
-
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
     private void initBean() {
 
         iconBeanList.clear();

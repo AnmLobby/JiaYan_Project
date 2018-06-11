@@ -188,4 +188,9 @@ public class OrderBlankFragment extends BaseFragment {
         });
         mTopBar.setTitle(ContantsName.MyOrder);
     }
+
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

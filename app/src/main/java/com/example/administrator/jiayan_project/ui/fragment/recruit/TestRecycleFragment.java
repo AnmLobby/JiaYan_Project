@@ -103,4 +103,9 @@ public class TestRecycleFragment extends BaseFragment {
 //            moveToPosition(movePosition = mRVRightAdapter.getPositionForHeader(leftSelected));
         }
     };
+
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

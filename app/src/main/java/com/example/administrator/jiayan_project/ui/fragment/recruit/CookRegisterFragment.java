@@ -19,8 +19,10 @@ import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.enity.mine.JifenBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.main.SearchFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
+import com.example.administrator.jiayan_project.utils.weight.WageDialog;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 import com.example.administrator.jiayan_project.vlayout.mine.GridHolder;
@@ -108,6 +110,21 @@ public class CookRegisterFragment extends BaseFragment {
     }
 
     private void initTopBar() {
+        mTopBar.addRightImageButton(R.mipmap.wage_order, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //薪资标准dialog
+                final WageDialog wageDialog=new WageDialog(getActivity());
+                wageDialog.setYesOnclickListener(new WageDialog.onCloseOnclickListener() {
+                    @Override
+                    public void onYesClick() {
+                        wageDialog.dismiss();
+
+                    }
+                });
+                wageDialog.show();
+            }
+        });
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,5 +132,9 @@ public class CookRegisterFragment extends BaseFragment {
             }
         });
         mTopBar.setTitle("英才聘用");
+    }
+    @Override
+    protected boolean canDragBack() {
+        return false;
     }
 }

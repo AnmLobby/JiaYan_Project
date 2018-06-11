@@ -233,6 +233,11 @@ public class SetAddressFragment extends AddressBaseFragment {
 //            finish();
         }
     }
+
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 //    @Subscribe(threadMode = ThreadMode.POSTING, sticky = true)
 //    public void ononMoonStickyEvent(AddressEvent addressEvent) {
 //        state = STATE.STATE_EDIT;

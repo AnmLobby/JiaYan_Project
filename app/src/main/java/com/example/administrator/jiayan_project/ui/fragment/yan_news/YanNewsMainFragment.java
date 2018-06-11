@@ -203,6 +203,10 @@ public class YanNewsMainFragment extends BaseFragment {
         super.onDestroyView();
         JZVideoPlayer.releaseAllVideos();
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }
 
 

@@ -381,4 +381,8 @@ public class BanquetOrderFragment extends BaseFragment {
                 break;
         }
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

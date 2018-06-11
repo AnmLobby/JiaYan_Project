@@ -132,7 +132,10 @@ public class DeliveryFragment extends BaseFragment {
         }
 
     }
-
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
     private void initTopBar() {
         mTopBar.addRightImageButton(R.mipmap.add, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -129,7 +129,10 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
         }
 
     }
-
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
     @Override
     public void resultDeleteMyFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
         Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
