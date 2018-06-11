@@ -17,6 +17,7 @@ import com.example.administrator.jiayan_project.db.greendao.AddressController;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SetAddressFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -47,6 +48,7 @@ public class ChooseAddressFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choose_address, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         addressController = AddressController.getInstance();

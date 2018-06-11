@@ -29,6 +29,8 @@ import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragm
 import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine_payorder.OrderBlankFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
+import com.example.administrator.jiayan_project.utils.weight.WageDialog;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import java.util.List;
@@ -79,6 +81,7 @@ public class MineFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
@@ -99,7 +102,15 @@ public class MineFragment extends BaseFragment {
 //                startFragment(new ReceptionFragment());
                 break;
             case R.id.huiyuan_layout:
-                Toast.makeText(MyApplication.getContext(), "会有", Toast.LENGTH_SHORT).show();
+                final WageDialog wageDialog=new WageDialog(getActivity());
+                wageDialog.setYesOnclickListener(new WageDialog.onCloseOnclickListener() {
+                    @Override
+                    public void onYesClick() {
+                       wageDialog.dismiss();
+                    }
+                });
+                wageDialog.show();
+                Toast.makeText(MyApplication.getContext(), "会员", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.address_layout:
                 startFragment(new DeliveryFragment());

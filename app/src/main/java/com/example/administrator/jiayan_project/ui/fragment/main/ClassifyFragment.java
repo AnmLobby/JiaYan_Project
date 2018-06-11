@@ -24,6 +24,7 @@ import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRig
 import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRightBaseBean;
 import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRightContentBean;
 import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRightHeaderBean;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class ClassifyFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classify, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
 
         mRvLeft.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));

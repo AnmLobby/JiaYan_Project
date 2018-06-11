@@ -27,6 +27,7 @@ import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.example.administrator.jiayan_project.utils.weight.LinedEditText;
 import com.example.administrator.jiayan_project.utils.weight.TagCloudView;
@@ -125,6 +126,7 @@ public class BanquetOrderFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         /**

@@ -22,6 +22,7 @@ import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,6 +53,7 @@ public class DeliveryFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = ( FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_delivery, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
 //        EventBus.getDefault().register(this);

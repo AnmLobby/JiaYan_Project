@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content">
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+<LinearLayout
+    android:layout_marginRight="4dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginBottom="15dp"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:text="厨师等级"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:src="@drawable/wage_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/text_four"
+        android:text="薪资：有三种情况："
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/text_small"
+        android:text="（1） 月薪：满一个月或以上"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/text_small"
+        android:text="（2） 日薪=月薪/当月天数*1.6倍"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/text_small"
+        android:text="（3） 半月薪水=月薪/当月天数*1.3倍(聘用满≥15且        ≤30)"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+</LinearLayout>

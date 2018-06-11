@@ -24,6 +24,7 @@ import butterknife.Unbinder;
 public  abstract class BaseFragment extends QMUIFragment {
 
     public BaseFragment() {
+
     }
 
 

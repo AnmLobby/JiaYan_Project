@@ -37,9 +37,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:gravity="center"
+
             android:maxHeight="200dp"
-            android:text="@string/android_origin"
+            android:text="1、宴万家为每一位通过平台下单的顾客朋友购买团体险，保障服务的食品安全、消防安全、人身安全
+\n2、平台所用每一位厨房员工，均持有健康证，并经过平台统一面试培训
+方可上岗，拒绝聘用不合格员工。
+关于下单
+\n3、顾客进入商城后，在浏览过程中，有任何疑问均可拨打全国免费热线
+400- -830- -9328，我们有专业客服为您服务!
+\n4、根据实际情况拍下你所需产品，并填写 真实有效的信息(姓名、电话
+服务地址)，在备注栏填写服务时间、服务人数与您的要求。由于需要
+准备食材，我们只接受提前预定(至少提前3天)。
+\n5、菜式未确定前可根据顾客需要故适当调整。"
             android:textColor="@color/black"/>
 
         <TextView

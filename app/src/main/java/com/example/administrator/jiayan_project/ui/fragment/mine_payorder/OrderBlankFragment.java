@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetCommentFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -40,6 +42,7 @@ public class OrderBlankFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_order_blank, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         initTabs();

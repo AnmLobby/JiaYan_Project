@@ -20,6 +20,7 @@ import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRig
 import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRightBaseBean;
 import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRightContentBean;
 import com.example.administrator.jiayan_project.ui.fragment.classify.LinkedRVRightHeaderBean;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
@@ -53,6 +54,7 @@ public class TestRecycleFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_test_recycle, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         mTopBar.setTitle("选择服务时间");
 

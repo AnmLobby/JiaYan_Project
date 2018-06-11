@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import butterknife.BindView;
@@ -25,6 +26,7 @@ public class RechargeFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_recharge, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         return layout;

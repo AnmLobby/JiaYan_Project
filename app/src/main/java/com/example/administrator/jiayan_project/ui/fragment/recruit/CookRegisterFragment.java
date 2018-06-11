@@ -13,11 +13,13 @@ import android.widget.FrameLayout;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.enity.mine.JifenBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.VlayoutLayoutHelper;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
@@ -50,6 +52,7 @@ public class CookRegisterFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_cook_register, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         initRecyclerView();

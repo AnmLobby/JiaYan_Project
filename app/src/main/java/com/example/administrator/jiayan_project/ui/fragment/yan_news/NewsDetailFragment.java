@@ -19,6 +19,7 @@ import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.mvp.news.NewsDetailPresenter;
 import com.example.administrator.jiayan_project.mvp.news.NewsDetailView;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import java.text.ParseException;
@@ -49,6 +50,7 @@ public class NewsDetailFragment extends AbstractMvpFragment<NewsDetailView, News
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_detail, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         Bundle bundle=getArguments();
         String id=bundle.getString("id");

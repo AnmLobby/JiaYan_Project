@@ -16,6 +16,7 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.order_adapter.RefundedAdapter;
 import com.example.administrator.jiayan_project.enity.order.UnpayBean;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class UnpayFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_unpay, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         errorView= getLayoutInflater().inflate(R.layout.unpay_empty, (ViewGroup) recyclerView.getParent(), false);
         RefundedAdapter refundedAdapter=new RefundedAdapter(list);

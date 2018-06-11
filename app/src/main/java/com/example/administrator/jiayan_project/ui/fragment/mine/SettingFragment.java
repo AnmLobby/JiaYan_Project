@@ -21,6 +21,7 @@ import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -48,6 +49,7 @@ public class SettingFragment extends BaseFragment {
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_setting, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         initList();
@@ -64,7 +66,7 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startFragment(new YanNewsMainFragment());
+//                startFragment(new YanNewsMainFragment());
 //                startFragmentAndDestroyCurrent(new YanNewsMainFragment());
             }
         });
@@ -76,7 +78,7 @@ public class SettingFragment extends BaseFragment {
         itemWithChevron1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startFragment(new SettingFragment());
+//                startFragment(new SettingFragment());
             }
         });
         QMUICommonListItemView itemWithChevron2 = mGroupListView.createItemView("版本更新");

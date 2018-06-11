@@ -29,6 +29,7 @@ import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,6 +56,7 @@ public class MyFavoriteFragment extends AbstractMvpFragment<MyFavoriteView, MyFa
     @Override
     protected View onCreateView() {
         FrameLayout layout = ( FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my_favorite, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()

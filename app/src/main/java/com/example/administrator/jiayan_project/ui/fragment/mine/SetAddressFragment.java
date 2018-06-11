@@ -31,6 +31,7 @@ import com.example.administrator.jiayan_project.ui.base.AddressBaseFragment;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.youth.picker.PickerView;
 import com.youth.picker.entity.PickerData;
@@ -80,6 +81,7 @@ public class SetAddressFragment extends AddressBaseFragment {
     @Override
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_set_address, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
 //        EventBus.getDefault().register(this);
         initProvinceDatas();

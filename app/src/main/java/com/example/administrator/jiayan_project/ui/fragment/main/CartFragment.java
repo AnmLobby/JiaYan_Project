@@ -28,6 +28,7 @@ import com.example.administrator.jiayan_project.mvp.cart.CartView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetOrderFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
@@ -72,6 +73,7 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_cart, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         textView = new TextView(MyApplication.getContext());
         shoppingCartAdapter = new ShoppingCartAdapter(MyApplication.getContext());

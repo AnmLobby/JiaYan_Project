@@ -21,6 +21,7 @@ import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.news_list.NewsListPresenter;
 import com.example.administrator.jiayan_project.mvp.news_list.NewsListView;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -47,6 +48,7 @@ public class ViedeoFragment  extends AbstractMvpFragment<NewsListView, NewsListP
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_viedeo, null);
+        RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
 
         getPresenter().clickRequestVideoNews();
