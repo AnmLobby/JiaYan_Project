@@ -35,9 +35,11 @@ public abstract class BaseActivity extends QMUIFragmentActivity {
      */
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        if(outState!=null){
-            FragmentManager manager = getSupportFragmentManager();
-            manager.popBackStackImmediate(null, 1);
-        }
+
+        //6-13重新修改
+//        if(outState!=null){
+//            FragmentManager manager = getSupportFragmentManager();
+//            manager.popBackStackImmediate(null, 1);
+//        }
     }
 }

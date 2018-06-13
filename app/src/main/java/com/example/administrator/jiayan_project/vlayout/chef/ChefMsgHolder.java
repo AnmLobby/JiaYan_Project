@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.vlayout.chef;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.enity.chef.ChefDataBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefMsgBean;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
 import com.example.administrator.jiayan_project.http.Constants;
@@ -19,7 +21,7 @@ import butterknife.BindView;
  * Created by Administrator on 2018/6/11/011.
  */
 
-public class ChefMsgHolder extends VlayoutBaseHolder<ChefMsgBean.DataBean> {
+public class ChefMsgHolder extends VlayoutBaseHolder<ChefDataBean> {
     @BindView(R.id.icon)
     ImageView mIcon;
     @BindView(R.id.name)
@@ -30,8 +32,10 @@ public class ChefMsgHolder extends VlayoutBaseHolder<ChefMsgBean.DataBean> {
     }
 
     @Override
-    public void setData(int ps, ChefMsgBean.DataBean cData) {
+    public void setData(int ps, ChefDataBean cData) {
         super.setData(ps, cData);
+
+        Log.e(TAG, "setData: "+ Constants.BaseUrl+cData.getCookimg());
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getCookimg()).into(mIcon);
         mFunc.setText(cData.getSubname());
     }

@@ -43,6 +43,7 @@ import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelpe
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.BannerHolder;
+import com.example.administrator.jiayan_project.vlayout.homepage.BaonianHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.ChooseHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.FestivalHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.HeadHolder;
@@ -77,7 +78,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     private Banner banner = new Banner(MyApplication.getContext());
     private Context mContext;
     private DelegateAdapter delegateAdapter;
-    private VlayoutBaseAdapter banneradapter, festivalAdapter, chooseAdapter, hotAdapter, recommendAdapter, startAdapter, tOnewAdapter, tTwoadapter, threeAdapter, gridAdapter, newsAdapter;
+    private VlayoutBaseAdapter banneradapter, festivalAdapter, chooseAdapter, hotAdapter, recommendAdapter, startAdapter, tOnewAdapter, tTwoadapter, threeAdapter, gridAdapter, newsAdapter,baonianAdapter;
     private List<BannerBean> bannerBeans = new ArrayList<>();
     private List<FestivalBean> festivalBeans = new ArrayList<>();
     private List<FirstChooseBean> firstChooseBeans = new ArrayList<>();
@@ -251,6 +252,17 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
                     }
                 });
+        baonianAdapter = new VlayoutBaseAdapter(mContext)
+                .setData(new ArrayList<BannerBean>())
+                .setLayout(R.layout.vlayout_home_baonian)
+                .setLayoutHelper(new LinearLayoutHelper())
+                .setHolder(BaonianHolder.class)
+                .setListener(new ItemListener<BannerBean>() {
+                    @Override
+                    public void onItemClick(View view, int position, BannerBean mData) {
+
+                    }
+                });
         gridAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<IconBean>())
                 .setLayout(R.layout.vlayout_home_grid)
@@ -295,6 +307,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         delegateAdapter.addAdapter(banneradapter);
         delegateAdapter.addAdapter(newsAdapter);
         delegateAdapter.addAdapter(gridAdapter);
+        delegateAdapter.addAdapter(baonianAdapter);
         delegateAdapter.addAdapter(chooseAdapter);
         delegateAdapter.addAdapter(tOnewAdapter);
         delegateAdapter.addAdapter(recommendAdapter);
@@ -344,7 +357,8 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         threeAdapter.setData(bannerBeans);
         threeAdapter.notifyDataSetChanged();
 
-
+        baonianAdapter.setData(bannerBeans);
+        baonianAdapter.notifyDataSetChanged();
     }
 
     @Override

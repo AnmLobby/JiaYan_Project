@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        app:delay_time="3000"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="470pt"
+        />
+    <TextView
+        android:layout_marginBottom="20pt"
+        android:layout_marginTop="50pt"
+        android:layout_marginLeft="30pt"
+        android:drawableLeft="@mipmap/mad"
+        android:textColor="#8000"
+        android:textSize="@dimen/text_large"
+        android:text="   优选厨师服务分类："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_marginRight="45pt"
+        android:layout_marginLeft="45pt"
+        android:background="#eae7e9"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+</LinearLayout>

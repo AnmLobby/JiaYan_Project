@@ -26,6 +26,7 @@ import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankO
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,12 +46,13 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
     private BigYanAdapter bigYanAdapter;
     private List<KeepUserBean> list;
     private int userid;
+    private QMUITipDialog tipDialog;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_big_yan, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
-        getPresenter().clickRequestBigYan();
+        initTopBar();
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
                 .limit(1)//只获取结果集的前 1 个数据
@@ -58,30 +60,34 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
                 .build()
                 .list();
         userid=list.get(0).getUserId();
+        getPresenter().clickRequestBigYan();
         return layout;
     }
 
 
     @Override
     public void requestLoading() {
-
+        tipDialog = new QMUITipDialog.Builder(getActivity())
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+        tipDialog.show();
     }
 
     @Override
     public void resultFailure(String result) {
-        Log.e(TAG, "resultFailure: " );
+      popBackStack();
     }
 
     @Override
     public void resultYanListSuccess(BigYanBean newsListBean) {
-        Log.e(TAG, "resultYanListSuccess: " );
         dataBeans=newsListBean.getData();
+        bigYanAdapter = new BigYanAdapter(dataBeans);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        initTopBar();
         //创建适配器
-        bigYanAdapter = new BigYanAdapter(dataBeans);
+        recyclerView.setAdapter(bigYanAdapter);
         bigYanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -98,7 +104,7 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
             }
         });
         //给RecyclerView设置适配器
-        recyclerView.setAdapter(bigYanAdapter);
+        tipDialog.dismiss();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.fragment.chef_service;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.enity.chef.ChefBannerBean;
+import com.example.administrator.jiayan_project.enity.chef.ChefDataBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefMsgBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.DataBean;
@@ -27,6 +29,8 @@ import com.example.administrator.jiayan_project.ui.fragment.main.SearchFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.vlayout.chef.ChefBannerHolder;
+import com.example.administrator.jiayan_project.vlayout.chef.ChefMsgHolder;
+import com.example.administrator.jiayan_project.vlayout.chef.ViewLineHolder;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.BannerHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.FestivalHolder;
@@ -53,9 +57,10 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
     RecyclerView mRecycler;
     private Context mContext;
     private DelegateAdapter delegateAdapter;
-    private VlayoutBaseAdapter banneradapter, chefAdapter;
+    private VlayoutBaseAdapter banneradapter, chefAdapter,lineAdapter;
     private  VirtualLayoutManager virtualLayoutManager;
     private List<ChefBannerBean> chefBannerBeans=new ArrayList<>();
+    private static final String TAG = "WZServiceFragment";
     private ChefBannerBean[] bannerBean = new ChefBannerBean[]{new ChefBannerBean("http://bmob-cdn-18241.b0.upaiyun.com/2018/06/11/591738b640ac699080fc1d808960a55f.png"),
             new ChefBannerBean("http://bmob-cdn-18241.b0.upaiyun.com/2018/06/11/591738b640ac699080fc1d808960a55f.png")};
     @Override
@@ -81,7 +86,7 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
     private void initDele() {
         banneradapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<ChefBannerBean>())
-                .setLayout(R.layout.vlayout_home_banner)
+                .setLayout(R.layout.chef_banner)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(ChefBannerHolder.class)
                 .setListener(new ItemListener<ChefBannerBean>() {
@@ -90,23 +95,34 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
 //                        String id = String.valueOf(mData.getData().get(position).getId());
 //                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
 //                        startFragment(new BlankOneFragment());
-//                     startFragment(new BlankOneFragment());
+//                        startFragment(new BlankOneFragment());
+                    }
+                });
+        lineAdapter= new VlayoutBaseAdapter(mContext)
+                .setData(new ArrayList<ChefDataBean>())
+                .setLayout(R.layout.vlayout_chef_head)
+                .setLayoutHelper(new LinearLayoutHelper())
+                .setHolder(ViewLineHolder.class)
+                .setListener(new ItemListener<ChefDataBean>() {
+                    @Override
+                    public void onItemClick(View view, int position, ChefDataBean mData) {
+
                     }
                 });
        chefAdapter = new VlayoutBaseAdapter(mContext)
-                .setData(new ArrayList<ChefMsgBean.DataBean>())
-                .setLayout(R.layout.vlayout_home_festival)
+                .setData(new ArrayList<ChefDataBean>())
+                .setLayout(R.layout.vlayout_chef_grid)
                 .setLayoutHelper(getGridLayoutHelper())
-                .setHolder(FestivalHolder.class)
-                .setListener(new ItemListener<ChefMsgBean.DataBean>() {
+                .setHolder(ChefMsgHolder.class)
+                .setListener(new ItemListener<ChefDataBean>() {
                     @Override
-                    public void onItemClick(View view, int position, ChefMsgBean.DataBean mData) {
-//                        String id = String.valueOf(mData.getId());
+                    public void onItemClick(View view, int position, ChefDataBean mData) {
 //                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
 //                        startFragment(new BlankOneFragment());
                     }
                 });
         delegateAdapter.addAdapter(banneradapter);
+//        delegateAdapter.addAdapter(lineAdapter);
         delegateAdapter.addAdapter(chefAdapter);
         mRecycler.setAdapter(delegateAdapter);
     }
@@ -149,8 +165,8 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
         gridHelper.setVGap(4);
         //设置水平方向条目的间隔
         gridHelper.setHGap(4);
-        gridHelper.setMarginLeft(5);
-        gridHelper.setMarginBottom(5);
+        gridHelper.setMarginLeft(8);
+        gridHelper.setMarginBottom(20);
         //自动填充满布局，在设置完权重，若没有占满，自动填充满布局
         gridHelper.setAutoExpand(true);
         return gridHelper;
@@ -162,20 +178,26 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
 
     @Override
     public void resultFailure(String result) {
-
+            popBackStack();
+        Log.e(TAG, "resultFailure: "+result );
     }
 
     @Override
     public void resultChefSuccess(ChefMsgBean chefMsgBean) {
-//                chefAdapter.setData(chefMsgBean.getData());
-//                chefAdapter.notifyDataSetChanged();
-//        for (int i = 0; i < bannerBean.length; i++) {
-//            chefBannerBeans.add(bannerBean[i]);
-//
-//        }
-//        banneradapter.setData(chefBannerBeans);
-//        banneradapter.notifyDataSetChanged();
 
 
-    }
+
+
+//        List<ChefMsgBean> list=new ArrayList<>();
+//        list.add(chefMsgBean);
+        chefAdapter.setData(chefMsgBean.getChefData());
+        chefAdapter.notifyDataSetChanged();
+
+//        lineAdapter.setData(chefMsgBean.getChefData());
+//        lineAdapter.notifyDataSetChanged();
+
+        chefBannerBeans.add(bannerBean[1]);
+        banneradapter.setData(chefBannerBeans);
+        banneradapter.notifyDataSetChanged();
+}
 }

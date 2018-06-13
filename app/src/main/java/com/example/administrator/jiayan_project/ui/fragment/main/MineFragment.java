@@ -22,6 +22,7 @@ import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
+import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
 import com.example.administrator.jiayan_project.ui.fragment.chef_service.ReceptionFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
@@ -103,7 +104,7 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.huiyuan_layout:
 
-
+                startFragment(new BigYanFragment());
                 Toast.makeText(MyApplication.getContext(), "会员", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.address_layout:

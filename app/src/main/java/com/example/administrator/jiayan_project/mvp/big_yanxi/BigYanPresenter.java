@@ -44,7 +44,7 @@ public class BigYanPresenter extends AbstractMvpPersenter<BigYanView> {
                     }
                 });
             }
-        }, 10);
+        }, 200);
     }
     public void AddToCart(int userid,int detail,int num,int dinnerid,int ren) {
         bigYanModel.postAddCart(userid,detail,num,dinnerid,ren,new IBaseRequestCallBack<FavoritrResultBean>() {

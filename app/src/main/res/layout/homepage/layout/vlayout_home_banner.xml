@@ -10,7 +10,7 @@
         app:delay_time="3000"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="620pt"
+        android:layout_height="470pt"
         />
 
 </LinearLayout>
