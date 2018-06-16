@@ -44,7 +44,6 @@ public class BlankOneFragment extends BaseFragment {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_blank, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
-        QMUIStatusBarHelper.setStatusBarLightMode(getBaseFragmentActivity());
         initTabs();
         initPagers();
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +184,13 @@ public class BlankOneFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
         QMUIStatusBarHelper.setStatusBarDarkMode(getBaseFragmentActivity());
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        QMUIStatusBarHelper.setStatusBarLightMode(getBaseFragmentActivity());
+    }
+
     @Override
     protected boolean canDragBack() {
         return false;

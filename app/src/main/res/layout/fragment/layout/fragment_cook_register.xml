@@ -18,33 +18,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<ImageView
-    android:scaleType="fitStart"
-    android:src="@mipmap/cover_default"
-    android:id="@+id/iv_cover_bg"
-    android:layout_width="match_parent"
-    android:layout_height="500pt" />
+<!--<ImageView-->
+    <!--android:scaleType="fitStart"-->
+    <!--android:src="@mipmap/cover_default"-->
+    <!--android:id="@+id/iv_cover_bg"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="500pt" />-->
         <android.support.v7.widget.RecyclerView
-            android:background="#e9e4e7"
+            android:visibility="gone"
+
+            android:background="#faf9f9"
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="40pt"
-            android:layout_marginBottom="25pt"
-            android:layout_marginLeft="40pt"
-            android:text="认证说明："
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/text_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginLeft="25pt"
-            android:text="\u3000\u3000平台认证，预约带齐证件面试，通过面试的，评定厨师等级，奖励现金X元，并正式在平台上线接单。（面试通过厨师，每半年或一年考核一次）"
-            android:textColor="#161616"
-            android:textSize="@dimen/text_six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:layout_marginTop="40pt"-->
+            <!--android:layout_marginBottom="25pt"-->
+            <!--android:layout_marginLeft="40pt"-->
+            <!--android:text="认证说明："-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_large"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<TextView-->
+            <!--android:layout_marginLeft="25pt"-->
+            <!--android:text="\u3000\u3000平台认证，预约带齐证件面试，通过面试的，评定厨师等级，奖励现金X元，并正式在平台上线接单。（面试通过厨师，每半年或一年考核一次）"-->
+            <!--android:textColor="#161616"-->
+            <!--android:textSize="@dimen/text_six"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
     </LinearLayout>
 </FrameLayout>

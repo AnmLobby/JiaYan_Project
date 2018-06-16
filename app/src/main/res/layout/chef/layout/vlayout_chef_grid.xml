@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:layout_marginTop="10pt"
-    android:layout_marginBottom="3pt"
+    android:layout_marginBottom="20pt"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="330pt"
-        android:layout_height="330pt"
+        android:layout_width="220pt"
+        android:layout_height="220pt"
         android:layout_gravity="center" />
     <TextView
         android:ellipsize="end"

@@ -17,7 +17,9 @@ import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelpe
 
 import butterknife.ButterKnife;
 
-
+/**
+ * 丢弃
+ */
 public class ChefTablayoutFragment extends BaseFragment {
     public static ChefTablayoutFragment newInstance(int position) {
         Bundle args = new Bundle();

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350pt">
+<de.hdodenhof.circleimageview.CircleImageView
+    android:layout_centerInParent="true"
+    android:layout_alignParentLeft="true"
+    android:layout_marginLeft="40pt"
+    android:id="@+id/headimage"
+    android:layout_width="200pt"
+    android:layout_height="200pt" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_marginLeft="25pt"
+        android:layout_toRightOf="@+id/headimage"
+        android:layout_marginTop="70pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_six"
+        android:textStyle="bold" />
+
+    <com.hedgehog.ratingbar.RatingBar
+        android:layout_marginTop="18pt"
+        android:id="@+id/ratingbar"
+        android:layout_width="250pt"
+        android:layout_height="55pt"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="25pt"
+        android:layout_toRightOf="@+id/headimage"
+        hedgehog:clickable="false"
+        hedgehog:halfstart="true"
+        hedgehog:starCount="5"
+        hedgehog:starEmpty="@mipmap/black"
+        hedgehog:starFill="@mipmap/yellow"
+        hedgehog:starImageHeight="50pt"
+        hedgehog:starImageWidth="50pt"
+        hedgehog:starImagePadding="5pt"/>
+    <TextView
+        android:id="@+id/rating_size"
+        android:layout_marginTop="18pt"
+        android:textColor="#ffd100"
+        android:layout_marginLeft="20pt"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/ratingbar"
+        android:textSize="@dimen/text_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/caixi"
+        android:layout_marginTop="18pt"
+        android:layout_marginLeft="25pt"
+        android:textColor="#919091"
+        android:layout_below="@+id/ratingbar"
+        android:layout_toRightOf="@+id/headimage"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_marginRight="13pt"
+        android:layout_toLeftOf="@+id/chef_level"
+        android:layout_marginTop="65pt"
+        android:id="@+id/chef_image"
+        android:layout_width="55pt"
+        android:layout_height="55pt" />
+    <TextView
+        android:textSize="@dimen/text_four"
+        android:textColor="@color/black"
+        android:id="@+id/chef_level"
+        android:layout_marginRight="30pt"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="70pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:id="@+id/chef_service"
+        android:layout_marginRight="30pt"
+        android:layout_marginBottom="80pt"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="70pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#d2d1d2"
+        android:layout_marginRight="25pt"
+        android:layout_marginLeft="25pt"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+
+            android:layout_marginLeft="25pt"
+            android:layout_marginTop="25pt"
+            android:text="已验证信息："
+            android:textSize="@dimen/text_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20pt"
+        android:layout_width="match_parent"
+        android:layout_height="200pt">
+        <RelativeLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginTop="30pt"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/shenfen"
+                android:layout_width="80pt"
+                android:layout_height="80pt" />
+
+            <TextView
+                android:layout_marginTop="15pt"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/shenfen"
+                android:text="(身份证、健康证)"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+
+                android:layout_marginTop="30pt"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/chushi"
+                android:layout_width="120pt"
+                android:layout_height="80pt" />
+
+            <TextView
+                android:layout_marginTop="15pt"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/chushi"
+                android:text="(厨师证)"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+
+                android:layout_marginTop="30pt"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/yingyang"
+                android:layout_width="120pt"
+                android:layout_height="80pt" />
+
+            <TextView
+                android:layout_marginTop="15pt"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/yingyang"
+                android:text="(营养师证)"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+
+                android:layout_marginTop="30pt"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/qita"
+                android:layout_width="120pt"
+                android:layout_height="80pt" />
+
+            <TextView
+                android:layout_marginTop="15pt"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/qita"
+                android:text="(其他证件)"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

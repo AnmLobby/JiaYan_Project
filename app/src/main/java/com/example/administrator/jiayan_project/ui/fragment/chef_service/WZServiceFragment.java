@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.ui.fragment.chef_service;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +26,9 @@ import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.chef.ChefPresenter;
 import com.example.administrator.jiayan_project.mvp.chef.ChefView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
+import com.example.administrator.jiayan_project.ui.fragment.main.ClassifyFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.SearchFragment;
+import com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.vlayout.chef.ChefBannerHolder;
@@ -36,6 +39,7 @@ import com.example.administrator.jiayan_project.vlayout.homepage.BannerHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.FestivalHolder;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -50,7 +54,7 @@ import butterknife.ButterKnife;
  */
 public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresenter> implements ChefView {
 
-
+    private QMUITipDialog tipDialog;
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
     @BindView(R.id.recyclerview)
@@ -92,6 +96,7 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
                 .setListener(new ItemListener<ChefBannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, ChefBannerBean mData) {
+                        startFragment(new CookRegisterFragment());
 //                        String id = String.valueOf(mData.getData().get(position).getId());
 //                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
 //                        startFragment(new BlankOneFragment());
@@ -117,14 +122,24 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
                 .setListener(new ItemListener<ChefDataBean>() {
                     @Override
                     public void onItemClick(View view, int position, ChefDataBean mData) {
-//                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
-//                        startFragment(new BlankOneFragment());
+                        int id =mData.getId();
+                        String msg=mData.getTitlename();
+                        Bundle bundle=new Bundle();
+                        bundle.putInt("id",id);
+                        bundle.putString("msg",msg);
+                        ChefClassifyFragment chefClassifyFragment=new ChefClassifyFragment();
+                        chefClassifyFragment.setArguments(bundle);
+                        startFragment(chefClassifyFragment);
                     }
                 });
         delegateAdapter.addAdapter(banneradapter);
 //        delegateAdapter.addAdapter(lineAdapter);
         delegateAdapter.addAdapter(chefAdapter);
         mRecycler.setAdapter(delegateAdapter);
+
+        chefBannerBeans.add(bannerBean[1]);
+        banneradapter.setData(chefBannerBeans);
+        banneradapter.notifyDataSetChanged();
     }
     private void initTopBar() {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
@@ -141,6 +156,7 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
         });
         mTopBar.setBackgroundDividerEnabled(false);
         mTopBar.setTitle(ContantsName.WZService);
+
     }
 
     @Override
@@ -173,7 +189,11 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
     }
     @Override
     public void requestLoading() {
-
+        tipDialog = new QMUITipDialog.Builder(getActivity())
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+        tipDialog.show();
     }
 
     @Override
@@ -196,8 +216,6 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
 //        lineAdapter.setData(chefMsgBean.getChefData());
 //        lineAdapter.notifyDataSetChanged();
 
-        chefBannerBeans.add(bannerBean[1]);
-        banneradapter.setData(chefBannerBeans);
-        banneradapter.notifyDataSetChanged();
+        tipDialog.dismiss();
 }
 }

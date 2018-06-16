@@ -445,7 +445,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 break;
             case R.id.erweima:
                 Intent intent=new Intent(MyApplication.getContext(),ActivityScanerCode.class);
-//                startActivity(intent);
+                startActivity(intent);
                 break;
         }
     }

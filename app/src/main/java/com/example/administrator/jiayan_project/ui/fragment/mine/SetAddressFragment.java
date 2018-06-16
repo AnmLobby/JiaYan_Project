@@ -43,11 +43,15 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * 添加收货地址
@@ -84,7 +88,7 @@ public class SetAddressFragment extends AddressBaseFragment {
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
 //        EventBus.getDefault().register(this);
-        initProvinceDatas();
+
         et_realname = layout.findViewById(R.id.et_realname);
         et_phone = layout.findViewById(R.id.et_phone);
 //        et_street = layout.findViewById(R.id.et_street);
@@ -92,40 +96,51 @@ public class SetAddressFragment extends AddressBaseFragment {
         et_address = layout.findViewById(R.id.et_address);
         cb_isdefault = layout.findViewById(R.id.cb_isdefault);
         bt_save = layout.findViewById(R.id.bt_save);
-        PickerData data=new PickerData();
-        //设置数据，有多少层级自己确定
-        data.setFirstDatas(mProvinceDatas);
-        data.setSecondDatas(mCitisDatasMap);
-        data.setThirdDatas(mDistrictDatasMap);
-        data.setFourthDatas(new HashMap<String, String[]>());
-        //设置初始化默认显示的三级菜单(此方法可以选择传参数量1到4个)
-//        data.setInitSelectText("河北省","石家庄市","平山县");
-        //初始化选择器
-        pickerView=new PickerView(getActivity(),data);
         linearLayout=layout.findViewById(R.id.linlayout);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hintKbTwo();
-                pickerView.show(linearLayout);
-            }
-        });
-        pickerView.setOnPickerClickListener(new OnPickerClickListener() {
-            //选择列表时触发的事件
-            @Override
-            public void OnPickerClick(PickerData pickerData) {
-                //想获取单个选择项 PickerData内也有方法（弹出框手动关闭）
+        Observable.timer(300, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        initProvinceDatas();
+                        PickerData data=new PickerData();
+                        //设置数据，有多少层级自己确定
+                        data.setFirstDatas(mProvinceDatas);
+                        data.setSecondDatas(mCitisDatasMap);
+                        data.setThirdDatas(mDistrictDatasMap);
+                        data.setFourthDatas(new HashMap<String, String[]>());
+                        //设置初始化默认显示的三级菜单(此方法可以选择传参数量1到4个)
+//        data.setInitSelectText("河北省","石家庄市","平山县");
+                        //初始化选择器
+                        pickerView=new PickerView(getActivity(),data);
 
-                et_area.setText(pickerData.getSelectText());
-                pickerView.dismiss();//关闭选择器
-            }
-            //点击确定按钮触发的事件（自动关闭）
-            @Override
-            public void OnPickerConfirmClick(PickerData pickerData) {
+                        linearLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                hintKbTwo();
+                                pickerView.show(linearLayout);
+                            }
+                        });
+                        pickerView.setOnPickerClickListener(new OnPickerClickListener() {
+                            //选择列表时触发的事件
+                            @Override
+                            public void OnPickerClick(PickerData pickerData) {
+                                //想获取单个选择项 PickerData内也有方法（弹出框手动关闭）
 
-                et_area.setText(pickerData.getSelectText());
-            }
-        });
+                                et_area.setText(pickerData.getSelectText());
+                                pickerView.dismiss();//关闭选择器
+                            }
+                            //点击确定按钮触发的事件（自动关闭）
+                            @Override
+                            public void OnPickerConfirmClick(PickerData pickerData) {
+
+                                et_area.setText(pickerData.getSelectText());
+                            }
+                        });
+
+                    }
+                });
+
 
         userController = UserController.getInstance();
         addressController = AddressController.getInstance();

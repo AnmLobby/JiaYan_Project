@@ -1,0 +1,321 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_color_blue"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.recruit.CookRegisterPostFragment">
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+    <ScrollView
+        android:background="@color/white"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="姓名："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:background="@null"
+            android:layout_marginRight="20pt"
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="300pt"
+            android:theme="@style/MyEditText" />
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+
+    <RelativeLayout
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="年龄："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:inputType="number"
+            android:background="@null"
+            android:layout_marginRight="20pt"
+            android:id="@+id/age"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="300pt"
+            android:theme="@style/MyEditText" />
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+    <RelativeLayout
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="性别："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--<EditText-->
+            <!--android:layout_marginRight="20pt"-->
+            <!--android:id="@+id/gender"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_marginLeft="300pt"-->
+            <!--android:theme="@style/MyEditText" />-->
+
+        <RadioGroup
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="300pt"
+            android:id="@+id/radiogroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:layout_marginLeft="60pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男" />
+
+            <RadioButton
+                android:layout_marginLeft="60pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女" />
+        </RadioGroup>
+
+
+
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+    <RelativeLayout
+        android:id="@+id/selectare"
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="工作城市："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/et_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40pt"
+            android:drawablePadding="50pt"
+            android:drawableRight="@mipmap/banque_moret"
+            android:text="选择地区" />
+        <!--<EditText-->
+            <!--android:layout_marginRight="20pt"-->
+            <!--android:id="@+id/workcity"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_marginLeft="300pt"-->
+            <!--android:theme="@style/MyEditText" />-->
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+    <RelativeLayout
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="在职单位："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:background="@null"
+            android:layout_marginRight="20pt"
+            android:id="@+id/workunit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="300pt"
+            android:theme="@style/MyEditText" />
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+    <RelativeLayout
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="手机号码："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:background="@null"
+            android:maxLength="11"
+            android:inputType="number"
+            android:layout_marginRight="20pt"
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="300pt"
+            android:theme="@style/MyEditText" />
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+    <RelativeLayout
+        android:layout_marginLeft="62pt"
+        android:layout_width="match_parent"
+        android:layout_height="170pt">
+
+        <TextView
+            android:textColor="#717171"
+            android:textSize="@dimen/text_six"
+            android:text="厨龄 (年) ："
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:inputType="number"
+            android:background="@null"
+            android:layout_marginRight="20pt"
+            android:id="@+id/chefage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="300pt"
+            android:theme="@style/MyEditText" />
+    </RelativeLayout>
+    <include
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="45pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/base_view"/>
+
+</LinearLayout>
+
+
+
+
+
+    </ScrollView>
+<LinearLayout
+    android:background="@color/white"
+    android:layout_gravity="bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.AppCompatButton
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:padding="12dp"
+        android:background="@color/app_color_blue"
+        android:textColor="@color/white"
+        android:text="提交审核"/>
+</LinearLayout>
+</FrameLayout>

@@ -158,5 +158,9 @@
         <attr name="tcvCanTagClick" format="boolean" />
         <attr name="tcvTagResId" format="reference" />
     </declare-styleable>
-
+    <!--注册edittext样式-->
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/light_gray</item>
+        <item name="colorControlActivated">@color/app_color_blue</item>
+    </style>
 </resources>

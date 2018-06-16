@@ -35,9 +35,9 @@ public class ChefMsgHolder extends VlayoutBaseHolder<ChefDataBean> {
     public void setData(int ps, ChefDataBean cData) {
         super.setData(ps, cData);
 
-        Log.e(TAG, "setData: "+ Constants.BaseUrl+cData.getCookimg());
-        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getCookimg()).into(mIcon);
-        mFunc.setText(cData.getSubname());
+
+        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getCookerimg()).into(mIcon);
+        mFunc.setText(cData.getTitlename());
     }
 
     @Override

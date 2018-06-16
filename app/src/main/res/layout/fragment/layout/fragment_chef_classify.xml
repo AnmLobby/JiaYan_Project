@@ -1,0 +1,22 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/app_color_blue"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.chef_service.ChefClassifyFragment">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:background="@color/white"
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

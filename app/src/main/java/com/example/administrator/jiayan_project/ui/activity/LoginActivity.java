@@ -84,12 +84,12 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
                 Log.e(TAG, "accept: "+i );
                 huoquPwd.setEnabled(false);
                 //从0开始发射11个数字为：0-10依次输出，延时0s执行，每1s发射一次。
-                mdDisposable = Flowable.intervalRange(0, 31, 0, 1, TimeUnit.SECONDS)
+                mdDisposable = Flowable.intervalRange(0, 61, 0, 1, TimeUnit.SECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext(new Consumer<Long>() {
                             @Override
                             public void accept(Long aLong) throws Exception {
-                                huoquPwd.setText("重新获取(" + (30 - aLong) + ")");
+                                huoquPwd.setText("重新获取(" + (60 - aLong) + ")");
                             }
                         })
                         .doOnComplete(new Action() {

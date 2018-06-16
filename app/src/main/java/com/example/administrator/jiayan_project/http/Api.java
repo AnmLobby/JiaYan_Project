@@ -7,7 +7,12 @@ import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
+import com.example.administrator.jiayan_project.enity.chef.ChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefMsgBean;
+import com.example.administrator.jiayan_project.enity.chef.CookRegesigtBean;
+import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailBannerBean;
+import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailCommentBean;
+import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailMsgBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
@@ -21,6 +26,10 @@ import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
+import com.example.administrator.jiayan_project.enity.reception.ReceptionBannerBean;
+import com.example.administrator.jiayan_project.enity.reception.ReceptionChefBean;
+import com.example.administrator.jiayan_project.enity.reception.ReceptionDinnerBean;
+import com.example.administrator.jiayan_project.mvp.regesigt_list.RegListBean;
 
 import java.util.List;
 
@@ -188,4 +197,61 @@ public interface Api {
      */
     @GET("Cook/cook")
     Observable<ChefMsgBean>  getChef();
+
+    /**
+     * 注册厨师
+     */
+    @POST("Cook/cookpersonal")
+    Observable<FavoritrResultBean>  postCookRegister(@Body CookRegesigtBean cookRegesigtBean);
+
+    /**
+     * 分类厨师列表详情*
+     */
+    @GET("Cook/cooko/id/{id}")
+    Observable<ChefClassifyBean>  getCookClassifyMsg(@Path("id") int id);
+
+    /**
+     * 需要招聘厨师列表
+     */
+    @GET("Cook/cookregister")
+    Observable<RegListBean>  getCookRegList();
+
+    /**
+     * 厨师详情轮播图
+     */
+    @GET("Cook/cooko/id/{id}")
+    Observable<ChefDetailBannerBean>  getChefDetailBanner(@Path("id") int id);
+
+    /**
+     * 厨师详情信息
+     */
+    @GET("Cook/cookdetails/id/{id}")
+    Observable<ChefDetailMsgBean>      getChefDetailMsg(@Path("id") int id);
+    /**
+     * 厨师详情评论
+     */
+    @GET("Cook/cooko/id/{id}")
+    Observable<ChefDetailCommentBean>  getChefDetailComment(@Path("id") int id);
+
+
+
+    /**
+     * 高端接待轮播图
+     */
+    @GET("Cook/cooko/id/{id}")
+    Observable<ReceptionBannerBean>  getReceptionBanner();
+
+    /**
+     *  高端接待列表
+     */
+    @GET("Cook/cooko/id/{id}")
+    Observable<ReceptionDinnerBean>      getReceptionDinner();
+
+    /**
+     *  高端接待厨师
+     */
+    @GET("Cook/cooko/id/{id}")
+    Observable<ReceptionChefBean>  getReceptionChef();
+
+
 }
