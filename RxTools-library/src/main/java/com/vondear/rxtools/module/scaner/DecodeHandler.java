@@ -154,8 +154,10 @@ final class DecodeHandler extends Handler {
             message.sendToTarget();
         } else {
             Message message = Message.obtain(activity.getHandler(), R.id.decode_failed);
-            message.sendToTarget();
+            if (message.getTarget() != null) { message.sendToTarget(); }
+//            message.sendToTarget();
         }
+
     }
 
 }
