@@ -125,7 +125,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
                 popBackStack();
             }
         });
-        mTopBar.setTitle(ContantsName.AboutName);
+        mTopBar.setTitle("厨师预定");
     }
 
     @Override

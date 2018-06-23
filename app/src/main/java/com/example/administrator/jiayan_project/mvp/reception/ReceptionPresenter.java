@@ -78,4 +78,31 @@ public class ReceptionPresenter extends AbstractMvpPersenter<ReceptionView> {
             }
         }, 10);
     }
+    public void clickRequestDinner() {
+        if (getmMvpView() != null) {
+            getmMvpView().requestLoading();
+        }
+        //模拟网络延迟，可以显示出加载中
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                receptionModel.getReceptionDinner( new IBaseRequestCallBack<ReceptionDinnerBean>() {
+                    @Override
+                    public void requestError(Throwable throwable) {
+                        if (getmMvpView() != null) {
+                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                        }
+                    }
+
+                    @Override
+                    public void requestSuccess(ReceptionDinnerBean cartBean) {
+                        if (getmMvpView() != null) {
+                            getmMvpView().resultDinnerSuccess(cartBean);
+                        }
+                    }
+                });
+            }
+        }, 10);
+    }
 }

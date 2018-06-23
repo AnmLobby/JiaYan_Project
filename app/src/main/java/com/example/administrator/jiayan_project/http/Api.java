@@ -244,7 +244,7 @@ public interface Api {
     /**
      *  高端接待列表
      */
-    @GET("Cook/cooko/id/{id}")
+    @GET("Reception/reception")
     Observable<ReceptionDinnerBean>      getReceptionDinner();
 
     /**

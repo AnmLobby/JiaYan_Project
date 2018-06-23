@@ -11,13 +11,14 @@ import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.enity.reception.ReceptionDinnerBean;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 /**
  * Created by Administrator on 2018/6/14/014.
  */
 
-public class ReceptionDinnerViewHolder   extends BaseViewHolder<ReceptionDinnerBean> {
-    private ImageView imageView;
+public class ReceptionDinnerViewHolder   extends BaseViewHolder<ReceptionDinnerBean.ReceptionBean> {
+    private QMUIRadiusImageView imageView;
     private TextView title,price;
     private static final String TAG = "CagViewHolder";
 
@@ -29,8 +30,12 @@ public class ReceptionDinnerViewHolder   extends BaseViewHolder<ReceptionDinnerB
 
     }
 
+
     @Override
-    public void setData(ReceptionDinnerBean data) {
+    public void setData(ReceptionDinnerBean.ReceptionBean data) {
         super.setData(data);
+        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+data.getOriginalimg()).into(imageView);
+        title.setText(data.getDinnername());
+        price.setText("¥ "+String.valueOf(data.getPrice()));
     }
 }

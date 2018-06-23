@@ -12,7 +12,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by Administrator on 2018/6/14/014.
  */
 
-public class ReceptionDinnerAdapter  extends RecyclerArrayAdapter<ReceptionDinnerBean> {
+public class ReceptionDinnerAdapter  extends RecyclerArrayAdapter<ReceptionDinnerBean.ReceptionBean> {
     public ReceptionDinnerAdapter(Context context) {
         super(context);
     }

@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import com.example.administrator.jiayan_project.adapter.holder.ReceptionChefViewHolder;
 import com.example.administrator.jiayan_project.enity.reception.ReceptionChefBean;
+import com.example.administrator.jiayan_project.enity.reception.ReceptionDinnerBean;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -12,7 +13,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by Administrator on 2018/6/14/014.
  */
 
-public class ReceptionChefAdapter extends RecyclerArrayAdapter<ReceptionChefBean> {
+public class ReceptionChefAdapter extends RecyclerArrayAdapter<ReceptionDinnerBean.CookoBean> {
     public ReceptionChefAdapter(Context context) {
         super(context);
     }

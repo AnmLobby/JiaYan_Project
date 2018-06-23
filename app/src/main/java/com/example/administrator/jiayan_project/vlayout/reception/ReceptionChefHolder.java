@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Administrator on 2018/6/14/014.
  */
 
-public class ReceptionChefHolder extends VlayoutBaseHolder<ReceptionChefBean> {
+public class ReceptionChefHolder extends VlayoutBaseHolder<ReceptionDinnerBean> {
     private List<ReceptionDinnerBean> itemListBeans;
     private ReceptionDinnerAdapter homeRecyclervAdapter;
 
@@ -26,7 +26,7 @@ public class ReceptionChefHolder extends VlayoutBaseHolder<ReceptionChefBean> {
     }
 
     @Override
-    public void setData(int ps, ReceptionChefBean rData) {
+    public void setData(int ps, ReceptionDinnerBean rData) {
         super.setData(ps, rData);
 
 //        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

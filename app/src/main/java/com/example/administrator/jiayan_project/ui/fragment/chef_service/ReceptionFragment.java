@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.ui.fragment.chef_service;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -69,6 +70,7 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
         initTopBar();
         initRecycler();
         initDele();
+        getPresenter().clickRequestDinner();
         return layout;
     }
 
@@ -96,9 +98,10 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
                 });
         dinnerAdapter= new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<ReceptionDinnerBean>())
-                .setLayout(R.layout.vlayout_chefdetail_detail)
+                .setLayout(R.layout.reception_base_recyclewview)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(ReceptionDinnerHolder.class)
+                .setTitle("套餐服务")
                 .setListener(new ItemListener<ReceptionDinnerBean>() {
                     @Override
                     public void onItemClick(View view, int position, ReceptionDinnerBean mData) {
@@ -107,13 +110,13 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
                 });
 
         chefAdapter = new VlayoutBaseAdapter(mContext)
-                .setData(new ArrayList<ReceptionChefBean>())
+                .setData(new ArrayList<ReceptionDinnerBean>())
                 .setLayout(R.layout.vlayout_chef_grid)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(ReceptionChefHolder.class)
-                .setListener(new ItemListener<ReceptionChefBean>() {
+                .setListener(new ItemListener<ReceptionDinnerBean>() {
                     @Override
-                    public void onItemClick(View view, int position, ReceptionChefBean mData) {
+                    public void onItemClick(View view, int position, ReceptionDinnerBean mData) {
 
                     }
                 });
@@ -131,12 +134,12 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
             }
         });
         mTopBar.setTitle(ContantsName.HighReception);
-        mTopBar.addRightImageButton(R.mipmap.share, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        mTopBar.addRightImageButton(R.mipmap.share, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
     @Override
     protected boolean canDragBack() {
@@ -152,6 +155,7 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
     public void resultFailure(String result) {
         Toast.makeText(MyApplication.getContext(), "发生未知错误", Toast.LENGTH_SHORT).show();
         popBackStack();
+        Log.e(TAG, "resultFailure: "+result );
     }
 
     @Override
@@ -162,11 +166,16 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
     @Override
     public void resultChefSuccess(ReceptionChefBean receptionChefBean) {
 
+        Log.e(TAG, "resultDinnerSuccess:d顶顶顶顶顶 " );
     }
 
     @Override
     public void resultDinnerSuccess(ReceptionDinnerBean receptionDinnerBean) {
-
+        Log.e(TAG, "resultDinnerSuccess:d顶顶顶顶顶 " );
+        receptionDinnerBeans.add(receptionDinnerBean);
+        Log.e(TAG, "resultDinnerSuccess: "+receptionDinnerBeans.size() );
+        dinnerAdapter.setData(receptionDinnerBeans);
+        dinnerAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -13,7 +13,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * Created by Administrator on 2018/6/14/014.
  */
 
-public class ReceptionChefViewHolder   extends BaseViewHolder<ReceptionChefBean> {
+public class ReceptionChefViewHolder   extends BaseViewHolder<ReceptionDinnerBean.CookoBean> {
     private ImageView imageView;
     private TextView title,price;
     private static final String TAG = "CagViewHolder";
@@ -24,7 +24,7 @@ public class ReceptionChefViewHolder   extends BaseViewHolder<ReceptionChefBean>
     }
 
     @Override
-    public void setData(ReceptionChefBean data) {
+    public void setData(ReceptionDinnerBean.CookoBean data) {
         super.setData(data);
     }
 }
