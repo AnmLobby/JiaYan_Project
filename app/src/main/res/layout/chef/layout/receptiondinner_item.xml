@@ -29,7 +29,6 @@
         android:id="@+id/title"
         android:ellipsize="end"
         android:textSize="@dimen/text_large"
-
         android:maxLines="1"
         android:textColor="#333333"
         android:layout_marginTop="8pt"

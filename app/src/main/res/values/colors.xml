@@ -50,5 +50,7 @@
     <color name="transparency">#00000000</color><!-- 透明色 -->
     <color name="white_c">#FFFFFF</color>
     <color name="qianhui">#E0E0E0</color>
+    <color name="cam">#35474b</color>
+    <color name="camtwo">#253238</color>
     <!-- 浅灰 -->
 </resources>

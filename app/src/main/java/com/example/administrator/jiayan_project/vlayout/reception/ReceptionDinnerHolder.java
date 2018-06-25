@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.vlayout.reception;
 
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,7 @@ public class ReceptionDinnerHolder extends VlayoutBaseHolder<ReceptionDinnerBean
     @BindView(R.id.title)
     TextView textView;
     @BindView(R.id.select_recycler)
-    EasyRecyclerView easyrecycler;
+    RecyclerView easyrecycler;
     private static final String TAG = "SelectHolder";
 
     public ReceptionDinnerHolder(View itemView) {

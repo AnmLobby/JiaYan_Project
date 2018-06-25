@@ -14,9 +14,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
+import com.example.administrator.jiayan_project.ui.activity.ChangeMineMsgActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
@@ -62,14 +64,16 @@ public class SettingFragment extends BaseFragment {
     }
     private void initList() {
         View.OnClickListener onClickListener = null;
-        QMUICommonListItemView itemWithChevron = mGroupListView.createItemView("安全设置");
+        QMUICommonListItemView itemWithChevron = mGroupListView.createItemView("个人设置");
         itemWithChevron.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron.setImageDrawable(getResources().getDrawable(R.mipmap.set));
         itemWithChevron.setOrientation(QMUICommonListItemView.VERTICAL);
         itemWithChevron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startFragment(new YanNewsMainFragment());
+                Intent intent=new Intent(MyApplication.getContext(), ChangeMineMsgActivity.class);
+                startActivity(intent);
+//                startFragment(new ChangeMsgFragment());
 //                startFragmentAndDestroyCurrent(new YanNewsMainFragment());
             }
         });

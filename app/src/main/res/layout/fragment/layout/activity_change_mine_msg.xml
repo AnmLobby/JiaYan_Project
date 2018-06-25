@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:background="@color/app_color_blue"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.jiayan_project.ui.activity.ChangeMineMsgActivity">
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:background="@color/white"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250pt">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:text="头像："
+                    android:layout_marginLeft="38pt"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    app:qmui_border_width="0px"
+                    app:qmui_is_circle="true"
+                    android:id="@+id/image"
+                    android:layout_marginRight="38pt"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_width="170pt"
+                    android:layout_height="170pt" />
+            </RelativeLayout>
+            <include
+                layout="@layout/base_view"
+                android:layout_width="match_parent"
+                android:layout_height="1pt"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250pt">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:text="用户名："
+                    android:layout_marginLeft="38pt"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+            <include
+                layout="@layout/base_view"
+                android:layout_width="match_parent"
+                android:layout_height="1pt"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>

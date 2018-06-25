@@ -111,8 +111,9 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
 
         chefAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<ReceptionDinnerBean>())
-                .setLayout(R.layout.vlayout_chef_grid)
+                .setLayout(R.layout.reception_base_recyclewview)
                 .setLayoutHelper(new LinearLayoutHelper())
+                .setTitle("名师专区")
                 .setHolder(ReceptionChefHolder.class)
                 .setListener(new ItemListener<ReceptionDinnerBean>() {
                     @Override
@@ -123,6 +124,7 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
         delegateAdapter.addAdapter(banneradapter);
         delegateAdapter.addAdapter(dinnerAdapter);
         delegateAdapter.addAdapter(chefAdapter);
+
         mRecycler.setAdapter(delegateAdapter);
 
     }
@@ -171,11 +173,12 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
 
     @Override
     public void resultDinnerSuccess(ReceptionDinnerBean receptionDinnerBean) {
-        Log.e(TAG, "resultDinnerSuccess:d顶顶顶顶顶 " );
         receptionDinnerBeans.add(receptionDinnerBean);
-        Log.e(TAG, "resultDinnerSuccess: "+receptionDinnerBeans.size() );
         dinnerAdapter.setData(receptionDinnerBeans);
         dinnerAdapter.notifyDataSetChanged();
+
+        chefAdapter.setData(receptionDinnerBeans);
+        chefAdapter.notifyDataSetChanged();
     }
 
     @Override

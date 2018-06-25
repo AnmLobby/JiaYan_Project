@@ -236,6 +236,4 @@ public class MineFragment extends BaseFragment {
             CallPhone();
         }
     }
-
-
 }
