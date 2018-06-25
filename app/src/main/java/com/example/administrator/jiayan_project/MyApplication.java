@@ -12,6 +12,7 @@ import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelpe
 import com.example.administrator.jiayan_project.utils.util.AppContextUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.vondear.rxtools.RxTool;
+import com.vondear.rxtools.module.wechat.share.WechatShareTools;
 
 
 /**
@@ -38,6 +39,7 @@ public class MyApplication extends Application {
         Fresco.initialize(this);
         GreenDaoManager.getInstance();
         RxTool.init(this);
+        WechatShareTools.init(this, "wx4a05b523f7d9fcb6");//初始化
     }
 
     @Override

@@ -3,18 +3,24 @@ package com.example.administrator.jiayan_project.ui.fragment.main;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
@@ -32,6 +38,11 @@ import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment
 import com.example.administrator.jiayan_project.ui.fragment.mine_payorder.OrderBlankFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.WageDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.vondear.rxtools.RxImageTool;
+import com.vondear.rxtools.module.wechat.pay.WechatPay;
+import com.vondear.rxtools.module.wechat.share.WechatShareModel;
+import com.vondear.rxtools.module.wechat.share.WechatShareTools;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import java.util.List;
@@ -78,6 +89,7 @@ public class MineFragment extends BaseFragment {
     LinearLayout tuikuanLayout;
     @BindView(R.id.name)
     TextView name;
+    private  WechatShareModel mWechatShareModel;
     private List<KeepUserBean> list;
     @Override
     protected View onCreateView() {
@@ -143,11 +155,15 @@ public class MineFragment extends BaseFragment {
 //                startFragment(new BanquetOrderFragment());
                 break;
             case R.id.fenxiang_layout:
-//                startFragment(new BlankOneFragment());
-                Toast.makeText(MyApplication.getContext(), "分享", Toast.LENGTH_SHORT).show();
+                showShareDialog();
                 break;
             case R.id.yuelayout:
-                Toast.makeText(MyApplication.getContext(), "余额", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MyApplication.getContext(), "余额", Toast.LENGTH_SHORT).show();
+
+
+
+
+
                 break;
             case R.id.chongzhilayout:
                 Toast.makeText(MyApplication.getContext(), "充值", Toast.LENGTH_SHORT).show();
@@ -191,6 +207,48 @@ public class MineFragment extends BaseFragment {
                 break;
         }
     }
+
+    /**
+     * 分享选择
+     */
+    private void showShareDialog() {
+
+        String url = "https://fir.im/twdu";//网页链接
+
+        String description = "一款能在线预定宴席，厨师注册，预定的app。你也赶紧来看看吧！";//描述
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);//获取Bitmap
+        byte[] bitmapByte = RxImageTool.bitmap2Bytes(bitmap, Bitmap.CompressFormat.PNG);//将 Bitmap 转换成 byte[]
+
+        mWechatShareModel = new WechatShareModel(url, description, "", bitmapByte);
+
+        //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
+        WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
+        //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
+        final int TAG_SHARE_WECHAT_FRIEND = 0;
+        final int TAG_SHARE_WECHAT_MOMENT = 1;
+        QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(getActivity());
+        builder.addItem(R.mipmap.icon_more_operation_share_friend, "分享到微信", TAG_SHARE_WECHAT_FRIEND, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.icon_more_operation_share_moment, "分享到朋友圈", TAG_SHARE_WECHAT_MOMENT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .setOnSheetItemClickListener(new QMUIBottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(QMUIBottomSheet dialog, View itemView) {
+                        dialog.dismiss();
+                        int tag = (int) itemView.getTag();
+                        switch (tag) {
+                            case TAG_SHARE_WECHAT_FRIEND:
+                                Log.e(TAG, "onClick: " );
+                                WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
+                                break;
+                            case TAG_SHARE_WECHAT_MOMENT:
+                                WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Zone);//分享操作
+                                break;
+                        }
+                    }
+                }).build().show();
+
+    }
+
 
     @Override
     public void onDestroyView() {

@@ -1,6 +1,8 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
@@ -49,6 +53,9 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.vondear.rxtools.RxImageTool;
+import com.vondear.rxtools.module.wechat.share.WechatShareModel;
+import com.vondear.rxtools.module.wechat.share.WechatShareTools;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -58,6 +65,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -176,6 +184,8 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private QMUIBottomSheet.BottomListSheetBuilder qmuiBottomSheet;
     private List<BanquetBean.SizeBean> sizesList=new ArrayList<>();
     private  int colorId;
+    private  String shareTitle,shareDescri;
+    private  WechatShareModel mWechatShareModel;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
@@ -258,7 +268,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
      * 各控件的点击事件
      * @param view
      */
-    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave,R.id.kefuimg})
+    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave,R.id.kefuimg,R.id.dishes_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.yanseLayout:
@@ -302,7 +312,53 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
             case R.id.kefuimg:
                 CallPhone();
                 break;
+            case R.id.dishes_share:
+                showShareDialog();
+                break;
         }
+    }
+
+    /**
+     * 分享选择
+     */
+    private void showShareDialog() {
+
+        final String url = "http://jiayan.didi0769.com/mobile/Details/details/id/"+dinnerid;//网页链接
+
+//        String description = "工欲善其事必先利其器！";//描述
+//
+//        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);//获取Bitmap
+
+        Glide.with(MyApplication.getContext()).load(imageUrl).asBitmap().override(60,40).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                byte[] bitmapByte = RxImageTool.bitmap2Bytes(resource, Bitmap.CompressFormat.PNG);//将 Bitmap 转换成 byte[]
+                mWechatShareModel = new WechatShareModel(url, shareTitle, shareDescri, bitmapByte);
+            }
+        });
+        //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
+        final int TAG_SHARE_WECHAT_FRIEND = 0;
+        final int TAG_SHARE_WECHAT_MOMENT = 1;
+        QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(getActivity());
+        builder.addItem(R.mipmap.icon_more_operation_share_friend, "分享到微信", TAG_SHARE_WECHAT_FRIEND, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.icon_more_operation_share_moment, "分享到朋友圈", TAG_SHARE_WECHAT_MOMENT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .setOnSheetItemClickListener(new QMUIBottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(QMUIBottomSheet dialog, View itemView) {
+                        dialog.dismiss();
+                        int tag = (int) itemView.getTag();
+                        switch (tag) {
+                            case TAG_SHARE_WECHAT_FRIEND:
+                                Log.e(TAG, "onClick: " );
+                                WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
+                                break;
+                            case TAG_SHARE_WECHAT_MOMENT:
+                                WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Zone);//分享操作
+                                break;
+                        }
+                    }
+                }).build().show();
+
     }
 
     /**
@@ -528,6 +584,8 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void resultBanquetSuccess(BanquetBean banquetBean) {
         tip.setVisibility(View.GONE);
+        shareTitle=banquetBean.getData().get(0).getDinnername();
+        shareDescri="现价：¥ "+banquetBean.getData().get(0).getPrice();
         dinggou.setText(banquetBean.getData().get(0).getDinggou());
         baozhang.setText(banquetBean.getData().get(0).getFuwu());
         tuikuan.setText(banquetBean.getData().get(0).getTuikuan());
