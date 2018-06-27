@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.ui.fragment.chef_service;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,9 +60,9 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
     private DelegateAdapter delegateAdapter;
     private  VirtualLayoutManager virtualLayoutManager;
     private VlayoutBaseAdapter banneradapter, chefAdapter,dinnerAdapter;
-    private List<ReceptionBannerBean> receptionBannerBeans=new ArrayList<>();
+//    private List<ReceptionBannerBean> receptionBannerBeans=new ArrayList<>();
     private List<ReceptionDinnerBean> receptionDinnerBeans=new ArrayList<>();
-    private List<ReceptionChefBean>  receptionChefBeans=new ArrayList<>();
+//    private List<ReceptionChefBean>  receptionChefBeans=new ArrayList<>();
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_reception, null);
@@ -86,14 +87,19 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
     private void initDele() {
 
         banneradapter = new VlayoutBaseAdapter(mContext)
-                .setData(new ArrayList<ReceptionBannerBean>())
+                .setData(new ArrayList<ReceptionDinnerBean>())
                 .setLayout(R.layout.vlayout_chefdetail_banner)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(ReceptionBannerHolder.class)
-                .setListener(new ItemListener<ReceptionBannerBean>() {
+                .setListener(new ItemListener<ReceptionDinnerBean>() {
                     @Override
-                    public void onItemClick(View view, int position, ReceptionBannerBean mData) {
-
+                    public void onItemClick(View view, int position, ReceptionDinnerBean mData) {
+                        ReceptionBannerDetailFragment bannerDetailFragment=new ReceptionBannerDetailFragment();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("title",mData.getAd().get(position).getAdname());
+                        bundle.putString("link",mData.getAd().get(position).getAdlink());
+                        bannerDetailFragment.setArguments(bundle);
+                        startFragment(bannerDetailFragment);
                     }
                 });
         dinnerAdapter= new VlayoutBaseAdapter(mContext)
@@ -179,6 +185,9 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
 
         chefAdapter.setData(receptionDinnerBeans);
         chefAdapter.notifyDataSetChanged();
+
+        banneradapter.setData(receptionDinnerBeans);
+        banneradapter.notifyDataSetChanged();
     }
 
     @Override

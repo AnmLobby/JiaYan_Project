@@ -28,7 +28,7 @@
     <TextView
         android:id="@+id/title"
         android:ellipsize="end"
-        android:textSize="@dimen/text_large"
+        android:textSize="@dimen/text_six"
         android:maxLines="1"
         android:textColor="#333333"
         android:layout_marginTop="8pt"
@@ -36,15 +36,33 @@
         android:layout_marginLeft="20pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+        <TextView
+            android:text="服务标准"
+            android:layout_below="@+id/title"
+            android:layout_toRightOf="@+id/image"
+            android:layout_marginLeft="20pt"
+            android:textSize="12sp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/price"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_six"
-        android:layout_marginTop="15pt"
-        android:layout_below="@+id/title"
+        android:id="@+id/saclenum"
         android:layout_toRightOf="@+id/image"
         android:layout_marginLeft="20pt"
+        android:layout_alignParentBottom="true"
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/price"
+        android:textColor="@color/banquet_money"
+        android:textSize="@dimen/text_six"
+        android:layout_marginTop="15pt"
+        android:layout_marginRight="20pt"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

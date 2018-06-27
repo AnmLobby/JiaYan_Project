@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height">
 <TextView
-    android:textColor="#8a8a8a"
+    android:textColor="#ffffff"
     android:textSize="@dimen/text_six"
     android:layout_marginLeft="5pt"
     android:layout_alignParentLeft="true"
@@ -49,7 +49,7 @@
 
         <TextView
             android:layout_margin="30pt"
-            android:textColor="@color/gray"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:id="@+id/tv_search"
             android:layout_width="wrap_content"
@@ -59,9 +59,46 @@
             android:text="搜索" />
     </RelativeLayout>
 <LinearLayout
+    android:orientation="vertical"
     android:background="@color/white"
     android:layout_marginTop="?attr/qmui_topbar_height"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_author">
+        <TextView
+            android:id="@+id/tv_hot"
+            style="@style/main_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50pt"
+            android:text="- 热门搜索词 -"
+            android:textColor="#404040" />
+        <co.lujun.androidtagview.TagContainerLayout
+            android:id="@+id/layout_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_hot"
+            android:layout_marginTop="20pt"
+            android:paddingLeft="30pt"
+            android:paddingRight="30pt"
+            app:container_background_color="@color/app_bar_color"
+            app:container_border_color="@color/app_bar_color"
+            app:container_enable_drag="false"
+            app:container_gravity="center"
+            app:horizontal_interval="8pt"
+            app:tag_background_color="@color/detail_bg2"
+            app:tag_border_color="@color/white"
+            app:tag_clickable="true"
+            app:tag_text_color="@color/white"
+            app:tag_theme="none"
+            app:vertical_interval="8pt" />
+    </RelativeLayout>
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 </LinearLayout>
 </FrameLayout>

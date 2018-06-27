@@ -23,12 +23,16 @@ import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
+import com.example.administrator.jiayan_project.enity.mine.UpdateAppInfo;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
 import com.example.administrator.jiayan_project.enity.reception.ReceptionBannerBean;
 import com.example.administrator.jiayan_project.enity.reception.ReceptionChefBean;
 import com.example.administrator.jiayan_project.enity.reception.ReceptionDinnerBean;
+import com.example.administrator.jiayan_project.enity.search.HotSearchBean;
+import com.example.administrator.jiayan_project.enity.search.SearchBodyBean;
+import com.example.administrator.jiayan_project.enity.search.SearchResultBean;
 import com.example.administrator.jiayan_project.mvp.regesigt_list.RegListBean;
 
 import java.util.List;
@@ -253,5 +257,21 @@ public interface Api {
     @GET("Cook/cooko/id/{id}")
     Observable<ReceptionChefBean>  getReceptionChef();
 
+    /**
+     * 更新App接口
+     */
+    @GET("5b30b495548b7a7574a1e097?")
+    Observable<UpdateAppInfo> getUpdateInfo(@Query("api_token") String api_token);
 
+    /**
+     * 搜索热门关键词
+     */
+    @GET("Search/search")
+    Observable<HotSearchBean>  getSearchHot();
+
+    /**
+     * 搜索返回内容
+     */
+    @POST("Search/searchadd")
+    Observable<SearchResultBean>  getSearchResult(@Body SearchBodyBean searchBodyBean);
 }

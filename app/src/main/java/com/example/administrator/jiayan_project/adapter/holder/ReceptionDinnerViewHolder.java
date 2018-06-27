@@ -19,7 +19,7 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 public class ReceptionDinnerViewHolder   extends BaseViewHolder<ReceptionDinnerBean.ReceptionBean> {
     private QMUIRadiusImageView imageView;
-    private TextView title,price;
+    private TextView title,price,sac;
     private static final String TAG = "CagViewHolder";
 
     public  ReceptionDinnerViewHolder(ViewGroup parent) {
@@ -27,7 +27,7 @@ public class ReceptionDinnerViewHolder   extends BaseViewHolder<ReceptionDinnerB
         imageView=$(R.id.image);
         title=$(R.id.title);
         price=$(R.id.price);
-
+        sac=$(R.id.saclenum);
     }
 
 
@@ -37,5 +37,6 @@ public class ReceptionDinnerViewHolder   extends BaseViewHolder<ReceptionDinnerB
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+data.getOriginalimg()).into(imageView);
         title.setText(data.getDinnername());
         price.setText("¥ "+String.valueOf(data.getPrice()));
+        sac.setText("已销售："+data.getSalesum()+"笔");
     }
 }

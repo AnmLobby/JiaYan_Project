@@ -6,6 +6,7 @@ import android.view.View;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.reception.ReceptionBannerBean;
+import com.example.administrator.jiayan_project.enity.reception.ReceptionDinnerBean;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseHolder;
@@ -22,24 +23,28 @@ import butterknife.BindView;
  * Created by Administrator on 2018/6/14/014.
  */
 
-public class ReceptionBannerHolder extends VlayoutBaseHolder<ReceptionBannerBean> {
+public class ReceptionBannerHolder extends VlayoutBaseHolder<ReceptionDinnerBean> {
     @BindView(R.id.banner)
     Banner banner;
+
     public ReceptionBannerHolder(View itemView) {
         super(itemView);
     }
+
     @Override
-    public void setData(int ps, ReceptionBannerBean tData) {
+    public void setData(int ps, ReceptionDinnerBean tData) {
         super.setData(ps, tData);
-//        if (tData.getData()!=null){
+        if (tData.getAd() != null) {
             List<String> listImage = new ArrayList<>();
-//            for (int i = 0; i <tData.getData().size();i++) {
-//                listImage.add(Constants.BaseUrl+tData.getData().get(i).getAdcode());
-//                Log.e(TAG, "setDaaa啊啊啊啊啊啊啊啊啊啊啊ta: "+Constants.BaseUrl+tData.getData().get(i).getAdcode() );
-//            }
-            banner.setImages((List<?>)listImage)
+            List<String> titles = new ArrayList<>();
+            for (int i = 0; i < tData.getAd().size(); i++) {
+                listImage.add(Constants.BaseUrl + tData.getAd().get(i).getAdcode());
+                titles.add(tData.getAd().get(i).getAdname());
+            }
+            banner.setImages((List<?>) listImage)
                     .setImageLoader(new GlideImageLoader())
-                    .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                    .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                    .setBannerTitles(titles)
                     .isAutoPlay(true);
             banner.setOnBannerListener(new OnBannerListener() {
                 @Override
@@ -49,4 +54,5 @@ public class ReceptionBannerHolder extends VlayoutBaseHolder<ReceptionBannerBean
             });
             banner.start();
         }
+    }
 }

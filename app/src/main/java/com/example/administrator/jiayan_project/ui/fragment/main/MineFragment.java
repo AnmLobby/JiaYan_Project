@@ -213,7 +213,7 @@ public class MineFragment extends BaseFragment {
      */
     private void showShareDialog() {
 
-        String url = "https://fir.im/twdu";//网页链接
+        String url = "https://fir.im/gn4w";//网页链接
 
         String description = "一款能在线预定宴席，厨师注册，预定的app。你也赶紧来看看吧！";//描述
 
@@ -223,7 +223,7 @@ public class MineFragment extends BaseFragment {
         mWechatShareModel = new WechatShareModel(url, description, "", bitmapByte);
 
         //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
-        WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
+//        WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
         //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
         final int TAG_SHARE_WECHAT_FRIEND = 0;
         final int TAG_SHARE_WECHAT_MOMENT = 1;

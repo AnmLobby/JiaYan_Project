@@ -3,6 +3,7 @@ package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
@@ -18,14 +19,21 @@ import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
+import com.example.administrator.jiayan_project.enity.mine.UpdateAppInfo;
+import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
+import com.example.administrator.jiayan_project.mvp.setting.SettingPresenter;
+import com.example.administrator.jiayan_project.mvp.setting.SettingView;
 import com.example.administrator.jiayan_project.ui.activity.ChangeMineMsgActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.main.MineFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
+import com.example.administrator.jiayan_project.utils.update.UpdateManager;
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
@@ -38,7 +46,7 @@ import butterknife.ButterKnife;
  * 设置
  */
 
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends AbstractMvpFragment<SettingView, SettingPresenter> implements SettingView {
 
     private static final String TAG = "SettingFragment";
     @BindView(R.id.groupListView)
@@ -46,8 +54,8 @@ public class SettingFragment extends BaseFragment {
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
-
-
+    private PackageInfo packInfo = null;
+    private  QMUICommonListItemView itemWithChevron2;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_setting, null);
@@ -55,7 +63,13 @@ public class SettingFragment extends BaseFragment {
         ButterKnife.bind(this, layout);
         initTopBar();
         initList();
-
+        PackageManager packageManager = MyApplication.getContext().getPackageManager();
+        try {
+            packInfo = packageManager.getPackageInfo(MyApplication.getContext().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        getPresenter().clickRequestUpdate();
         return layout;
     }
     @Override
@@ -88,7 +102,7 @@ public class SettingFragment extends BaseFragment {
 //                startFragment(new SettingFragment());
             }
         });
-        QMUICommonListItemView itemWithChevron2 = mGroupListView.createItemView("版本更新");
+        itemWithChevron2 = mGroupListView.createItemView("版本更新");
         itemWithChevron2.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         itemWithChevron2.setImageDrawable(getResources().getDrawable(R.mipmap.updata));
         itemWithChevron2.setOrientation(QMUICommonListItemView.VERTICAL);
@@ -188,4 +202,56 @@ public class SettingFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void requestLoading() {
+
+    }
+
+    @Override
+    public void resultFailure(String result) {
+
+    }
+
+    @Override
+    public void resultUpdateSuccess(final UpdateAppInfo updateAppInfo) {
+        final int localVersion = packInfo.versionCode;
+        final int newVersion = Integer.valueOf(updateAppInfo.getVersion());
+        if (newVersion > localVersion) {
+            itemWithChevron2.showNewTip(true);
+        }
+        itemWithChevron2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (newVersion > localVersion) {
+                    startUpdateApp(updateAppInfo);
+                } else {
+                    Toast.makeText(MyApplication.getContext(), "目前已是最新版本" + "V-" + packInfo.versionName, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    private void startUpdateApp(final UpdateAppInfo updateAppInfo) {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("更新提示：")
+                .setMessage("检测到新版本，是否更新？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        UpdateManager manager = new UpdateManager(MyApplication.getContext());
+                        manager.startDownload(updateAppInfo.getInstall_url());
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+    @Override
+    public SettingPresenter createPresenter() {
+        return new SettingPresenter();
+    }
 }
