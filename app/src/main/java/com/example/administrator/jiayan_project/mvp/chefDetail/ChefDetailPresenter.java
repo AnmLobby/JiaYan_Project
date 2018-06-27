@@ -30,36 +30,36 @@ public class ChefDetailPresenter extends AbstractMvpPersenter<ChefDetailView> {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                chefDetailModel.getChefDetailBanner(id, new IBaseRequestCallBack<ChefDetailBannerBean>() {
-                    @Override
-                    public void requestError(Throwable throwable) {
-                        if (getmMvpView() != null) {
-                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
-                        }
-                    }
-
-                    @Override
-                    public void requestSuccess(ChefDetailBannerBean cartBean) {
-                        if (getmMvpView() != null) {
-                            getmMvpView().resultChefBannerSuccess(cartBean);
-                        }
-                    }
-                });
-                chefDetailModel.getChefDetailComment(id, new IBaseRequestCallBack<ChefDetailCommentBean>() {
-                    @Override
-                    public void requestError(Throwable throwable) {
-                        if (getmMvpView() != null) {
-                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
-                        }
-                    }
-
-                    @Override
-                    public void requestSuccess(ChefDetailCommentBean cartBean) {
-                        if (getmMvpView() != null) {
-                            getmMvpView().resultChefCommentSuccess(cartBean);
-                        }
-                    }
-                });
+//                chefDetailModel.getChefDetailBanner(id, new IBaseRequestCallBack<ChefDetailBannerBean>() {
+//                    @Override
+//                    public void requestError(Throwable throwable) {
+//                        if (getmMvpView() != null) {
+//                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void requestSuccess(ChefDetailBannerBean cartBean) {
+//                        if (getmMvpView() != null) {
+//                            getmMvpView().resultChefBannerSuccess(cartBean);
+//                        }
+//                    }
+//                });
+//                chefDetailModel.getChefDetailComment(id, new IBaseRequestCallBack<ChefDetailCommentBean>() {
+//                    @Override
+//                    public void requestError(Throwable throwable) {
+//                        if (getmMvpView() != null) {
+//                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void requestSuccess(ChefDetailCommentBean cartBean) {
+//                        if (getmMvpView() != null) {
+//                            getmMvpView().resultChefCommentSuccess(cartBean);
+//                        }
+//                    }
+//                });
                 chefDetailModel.getChefDetailMsg(id, new IBaseRequestCallBack<ChefDetailMsgBean>() {
                     @Override
                     public void requestError(Throwable throwable) {

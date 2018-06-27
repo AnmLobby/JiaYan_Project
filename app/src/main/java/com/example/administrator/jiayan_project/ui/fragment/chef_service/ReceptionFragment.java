@@ -38,6 +38,7 @@ import com.example.administrator.jiayan_project.vlayout.reception.ReceptionBanne
 import com.example.administrator.jiayan_project.vlayout.reception.ReceptionChefHolder;
 import com.example.administrator.jiayan_project.vlayout.reception.ReceptionDinnerHolder;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
     QMUITopBar mTopBar;
     @BindView(R.id.recycler)
     FatRecyclerview mRecycler;
+    private QMUITipDialog tipDialog;
     private Context mContext;
     private DelegateAdapter delegateAdapter;
     private  VirtualLayoutManager virtualLayoutManager;
@@ -156,7 +158,11 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
 
     @Override
     public void requestLoading() {
-
+        tipDialog = new QMUITipDialog.Builder(getActivity())
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+        tipDialog.show();
     }
 
     @Override
@@ -179,6 +185,7 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
 
     @Override
     public void resultDinnerSuccess(ReceptionDinnerBean receptionDinnerBean) {
+
         receptionDinnerBeans.add(receptionDinnerBean);
         dinnerAdapter.setData(receptionDinnerBeans);
         dinnerAdapter.notifyDataSetChanged();
@@ -188,6 +195,7 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
 
         banneradapter.setData(receptionDinnerBeans);
         banneradapter.notifyDataSetChanged();
+        tipDialog.dismiss();
     }
 
     @Override

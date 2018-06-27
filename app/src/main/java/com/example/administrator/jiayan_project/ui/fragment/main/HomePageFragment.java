@@ -148,7 +148,6 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<FirstChooseBean>() {
                     @Override
                     public void onItemClick(View view, int position, FirstChooseBean mData) {
-
                         String id = String.valueOf(mData.getData().get(position).getId());
                         EventBus.getDefault().postSticky(new StartNewsEvent(id));
                         startFragment(new BlankOneFragment());
@@ -331,11 +330,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        banner.stopAutoPlay();
-    }
+
 
 
     @Override
@@ -436,6 +431,17 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
     public void onResume() {
         super.onResume();
         banner.startAutoPlay();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        banner.stopAutoPlay();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        banner.stopAutoPlay();
     }
 
     @OnClick({R.id.search, R.id.erweima})

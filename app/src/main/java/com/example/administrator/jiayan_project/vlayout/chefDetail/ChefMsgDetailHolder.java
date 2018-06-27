@@ -55,7 +55,7 @@ public class ChefMsgDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean> {
     public void setData(int ps, ChefDetailMsgBean cData) {
         super.setData(ps, cData);
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getChefData().get(0).getCookimg()).into(headimage);
-        name.setText(cData.getChefData().get(0).getRankname());
+        name.setText(cData.getChefData().get(0).getCookname());
         caixi.setText("菜系："+cData.getChefData().get(0).getCuisine());
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getCook().get(0).getCookerimg()).into(chefImage);
         chefLevel.setText(cData.getCook().get(0).getTitlename());

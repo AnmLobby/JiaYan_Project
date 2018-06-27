@@ -132,10 +132,8 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-
         if (isPause) { //判断是否暂停
             isPause = false;
-
             Observable.timer(100, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<Long>() {
@@ -144,8 +142,6 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
                             getPresenter().clickRequestCart(userid);
                         }
                     });
-
-
             tvShowPrice.setText("¥  0.0"  );
             tvSettlement.setText("结算(" + 0 + ")");
         }
@@ -239,12 +235,12 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     @Override
     public void doDecrease(int position, View showCountView, boolean isChecked) {
         CartBean.DataBean shoppingCartBean = shoppingCartBeanList.get(position);
-        int currentCount = shoppingCartBean.getPrice();
+        int currentCount = shoppingCartBean.getNum();
         if (currentCount == 1) {
             return;
         }
         currentCount--;
-        shoppingCartBean.setPrice(currentCount);
+        shoppingCartBean.setNum(currentCount);
         ((TextView) showCountView).setText(currentCount + "");
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();

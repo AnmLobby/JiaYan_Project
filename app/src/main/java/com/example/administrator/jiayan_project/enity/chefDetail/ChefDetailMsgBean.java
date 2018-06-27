@@ -11,6 +11,7 @@ public class ChefDetailMsgBean {
 
     private List<ChefDataBean> chefData;
     private List<CookBean> cook;
+    private List<String> yii;
 
     public List<ChefDataBean> getChefData() {
         return chefData;
@@ -28,24 +29,32 @@ public class ChefDetailMsgBean {
         this.cook = cook;
     }
 
+    public List<String> getYii() {
+        return yii;
+    }
+
+    public void setYii(List<String> yii) {
+        this.yii = yii;
+    }
+
     public static class ChefDataBean {
         /**
-         * id : 1
-         * honor_id : 1
-         * rank_id : 1
-         * cookage : 10
-         * salesum : 100
-         * subname : 很好很帅气
-         * price : 888
-         * cookimg : /static/img/cook_img/5b1e1f7b6b6b2.jpg
-         * yueprice : 88888
-         * nianprice : 888888
+         * id : 2
+         * honor_id : 5
+         * rank_id : 4
+         * cookage : 100
+         * salesum : 5004
+         * subname : 做菜超好吃特别有营养很好
+         * price : 999
+         * cookimg : /static/img/cook_img/5b1e38e030266.jpg
+         * banprice : 99999
+         * nianprice : 999999
          * certificates : 1
-         * cookfront : 0
-         * dietionfront : 1
+         * cookfront : 1
+         * dietionfront : 0
          * other : 1
-         * cuisine : 广东菜系
-         * rankname : 助理营养师
+         * cuisine : 客家菜系
+         * cookname : 小往
          */
 
         private int id;
@@ -56,14 +65,14 @@ public class ChefDetailMsgBean {
         private String subname;
         private int price;
         private String cookimg;
-        private int yueprice;
+        private int banprice;
         private int nianprice;
         private int certificates;
         private int cookfront;
         private int dietionfront;
         private int other;
         private String cuisine;
-        private String rankname;
+        private String cookname;
 
         public int getId() {
             return id;
@@ -129,12 +138,12 @@ public class ChefDetailMsgBean {
             this.cookimg = cookimg;
         }
 
-        public int getYueprice() {
-            return yueprice;
+        public int getBanprice() {
+            return banprice;
         }
 
-        public void setYueprice(int yueprice) {
-            this.yueprice = yueprice;
+        public void setBanprice(int banprice) {
+            this.banprice = banprice;
         }
 
         public int getNianprice() {
@@ -185,20 +194,20 @@ public class ChefDetailMsgBean {
             this.cuisine = cuisine;
         }
 
-        public String getRankname() {
-            return rankname;
+        public String getCookname() {
+            return cookname;
         }
 
-        public void setRankname(String rankname) {
-            this.rankname = rankname;
+        public void setCookname(String cookname) {
+            this.cookname = cookname;
         }
     }
 
     public static class CookBean {
         /**
-         * id : 1
-         * titlename : 中式营养师
-         * cookerimg : /assets/cook/5b20dcc304806.png
+         * id : 5
+         * titlename : 中式烹调师
+         * cookerimg : /assets/cook/5b20dce58ea95.png
          */
 
         private int id;

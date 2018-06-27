@@ -67,13 +67,13 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
 
     private void initDele() {
         banneradapter = new VlayoutBaseAdapter(mContext)
-                .setData(new ArrayList<ChefDetailBannerBean>())
+                .setData(new ArrayList<ChefDetailMsgBean>())
                 .setLayout(R.layout.vlayout_chefdetail_banner)
                 .setLayoutHelper(new LinearLayoutHelper())
                 .setHolder(ChefBannerDetailHolder.class)
-                .setListener(new ItemListener<ChefDetailBannerBean>() {
+                .setListener(new ItemListener<ChefDetailMsgBean>() {
                     @Override
-                    public void onItemClick(View view, int position, ChefDetailBannerBean mData) {
+                    public void onItemClick(View view, int position, ChefDetailMsgBean mData) {
 
                     }
                 });
@@ -154,6 +154,9 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
         msgBeans.add(chefDetailMsgBean);
         chefmsgAdapter.setData(msgBeans);
         chefmsgAdapter.notifyDataSetChanged();
+
+        banneradapter.setData(msgBeans);
+        banneradapter.notifyDataSetChanged();
     }
 
     @Override
