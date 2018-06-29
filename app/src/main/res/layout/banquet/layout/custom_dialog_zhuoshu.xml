@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
     android:layout_margin="15dp"
     android:orientation="horizontal"
@@ -99,7 +99,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/text_gray"
             android:textSize="10sp"
-            android:text="最少10桌起订 （酒席宴席类）"
+            android:text="最少10桌起订 （酒席宴席类），每桌人数为10-12人"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -120,12 +120,22 @@
                 android:text="每桌人数："
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <EditText
-                android:numeric="integer"
+            <!--<EditText-->
+                <!--android:maxLength="2"-->
+                <!--android:text="10"-->
+                <!--android:numeric="integer"-->
+                <!--android:id="@+id/num_people"-->
+                <!--android:background="@drawable/edittext_style"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content" />-->
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:layout_width="60dp"
+                android:layout_height="25dp"
                 android:id="@+id/num_people"
-                android:background="@drawable/edittext_style"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content" />
+                app:qmui_borderColor="#4b4a48"
+                android:textColor="#4b4a48"
+                android:text="10"
+                app:qmui_radius="4dp"/>
             <TextView
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/text_gray"
@@ -147,6 +157,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:maxLength="4"
+                android:text="10"
                 android:numeric="integer"
                 android:id="@+id/num_zhuoshu"
                 android:background="@drawable/edittext_style"
@@ -199,7 +211,7 @@
             android:id="@+id/dinnerPs"
             android:textSize="@dimen/text_small"
             android:textColor="@color/text_gray"
-            android:text="最大的能接2000桌，最少10桌起订(酒席宴席类)"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

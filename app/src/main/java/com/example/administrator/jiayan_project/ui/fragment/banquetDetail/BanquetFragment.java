@@ -1,14 +1,17 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -29,6 +32,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
@@ -43,21 +47,27 @@ import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetPresenter;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetView;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
+import com.example.administrator.jiayan_project.ui.activity.IntroActivityActivity;
+import com.example.administrator.jiayan_project.ui.activity.WelcomeActivity;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
-import com.example.administrator.jiayan_project.utils.util.DateUtils;
+import com.example.administrator.jiayan_project.utils.weight.RegionNumberEditText;
 import com.qmuiteam.qmui.layout.QMUILayoutHelper;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.vondear.rxtools.RxImageTool;
 import com.vondear.rxtools.module.wechat.share.WechatShareModel;
 import com.vondear.rxtools.module.wechat.share.WechatShareTools;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,11 +75,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * 高级宴会菜单
@@ -154,13 +167,17 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @BindView(R.id.add_cart)
     Button addCart;
     @BindView(R.id.buy_soon)
-    Button  buySoon;
+    Button buySoon;
 
     @BindView(R.id.mainLayout)
     FrameLayout mainFrag;
     String requeid;
     @BindView(R.id.keepsave)
     LinearLayout keepsave;
+    @BindView(R.id.zhuoshuone)
+    TextView zhuoshuone;
+    @BindView(R.id.renshuone)
+    TextView renshuone;
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 5;
     private int mRadius;
@@ -182,10 +199,14 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private int userid;
     private String imageUrl;
     private QMUIBottomSheet.BottomListSheetBuilder qmuiBottomSheet;
-    private List<BanquetBean.SizeBean> sizesList=new ArrayList<>();
-    private  int colorId;
-    private  String shareTitle,shareDescri;
-    private  WechatShareModel mWechatShareModel;
+    private List<BanquetBean.SizeBean> sizesList = new ArrayList<>();
+    private int colorId;
+    private String shareTitle, shareDescri;
+    private WechatShareModel mWechatShareModel;
+    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
+    private int MIN_MARK = 10;
+    private int MAX_MARK = 12;
+    private   QMUIRoundButton people;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
@@ -198,7 +219,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        userid=list.get(0).getUserId();
+        userid = list.get(0).getUserId();
         getPresenter().clickRequestBanquet(dinnerid);
         getPresenter().checkGetSaveLove(userid, Integer.parseInt(dinnerid));
         initBanner();
@@ -266,9 +287,10 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 各控件的点击事件
+     *
      * @param view
      */
-    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon,R.id.keepsave,R.id.kefuimg,R.id.dishes_share})
+    @OnClick({R.id.yanseLayout, R.id.layout_end, R.id.layout_start, R.id.add_cart, R.id.buy_soon, R.id.keepsave, R.id.kefuimg, R.id.dishes_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.yanseLayout:
@@ -282,27 +304,27 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 initEndTimeDialog(startDate, startTime);
                 break;
             case R.id.add_cart:
-                if (bucaoColor.getText().toString().equals("选择你所喜欢的摆设颜色")){
+                if (bucaoColor.getText().toString().equals("选择你所喜欢的摆设颜色")) {
                     Toast.makeText(MyApplication.getContext(), "请选择摆设颜色", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int numZhushu= Integer.parseInt(Fzhuoshu.getText().toString());
-                int numPeople= Integer.parseInt(renshu.getText().toString());
-                getPresenter().AddToCart(userid,colorId,numZhushu, Integer.parseInt(dinnerid),numPeople);
+                int numZhushu = Integer.parseInt(Fzhuoshu.getText().toString());
+                int numPeople = Integer.parseInt(renshu.getText().toString());
+                getPresenter().AddToCart(userid, colorId, numZhushu, Integer.parseInt(dinnerid), numPeople);
                 break;
             case R.id.buy_soon:
-                if (bucaoColor.getText().toString().equals("选择你所喜欢的摆设颜色")){
+                if (bucaoColor.getText().toString().equals("选择你所喜欢的摆设颜色")) {
                     Toast.makeText(MyApplication.getContext(), "请选择摆设颜色", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                BanquetOrderFragment orderFragment=new BanquetOrderFragment();
-                Bundle bundle=new Bundle();
+                BanquetOrderFragment orderFragment = new BanquetOrderFragment();
+                Bundle bundle = new Bundle();
                 bundle.putString("color", bucaoColor.getText().toString());
                 bundle.putString("num", Fzhuoshu.getText().toString());
                 bundle.putString("people", renshu.getText().toString());
                 bundle.putString("price", buyMoney.getText().toString());
                 bundle.putString("name", dishesName.getText().toString());
-                bundle.putString("imageurl",imageUrl);
+                bundle.putString("imageurl", imageUrl);
                 orderFragment.setArguments(bundle);
                 startFragment(orderFragment);
                 break;
@@ -315,6 +337,19 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
             case R.id.dishes_share:
                 showShareDialog();
                 break;
+                //人数点击。桌数
+//            case R.id.zhuoshu:
+//                showEditTextDialog();
+//                break;
+//            case R.id.zhuoshuone:
+//                showEditTextDialog();
+//                break;
+//            case R.id.renshu:
+//                showMenuDialog();
+//                break;
+//            case R.id.renshuone:
+//                showMenuDialog();
+//                break;
         }
     }
 
@@ -323,13 +358,13 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
      */
     private void showShareDialog() {
 
-        final String url = "http://jiayan.didi0769.com/mobile/Details/details/id/"+dinnerid;//网页链接
+        final String url = "http://jiayan.didi0769.com/mobile/Details/details/id/" + dinnerid;//网页链接
 
 //        String description = "工欲善其事必先利其器！";//描述
 //
 //        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);//获取Bitmap
 
-        Glide.with(MyApplication.getContext()).load(imageUrl).asBitmap().override(60,40).into(new SimpleTarget<Bitmap>() {
+        Glide.with(MyApplication.getContext()).load(imageUrl).asBitmap().override(60, 40).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 byte[] bitmapByte = RxImageTool.bitmap2Bytes(resource, Bitmap.CompressFormat.PNG);//将 Bitmap 转换成 byte[]
@@ -349,7 +384,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                         int tag = (int) itemView.getTag();
                         switch (tag) {
                             case TAG_SHARE_WECHAT_FRIEND:
-                                Log.e(TAG, "onClick: " );
+                                Log.e(TAG, "onClick: ");
                                 WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
                                 break;
                             case TAG_SHARE_WECHAT_MOMENT:
@@ -363,6 +398,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 选择结束时间dialog
+     *
      * @param enate
      * @param enime
      */
@@ -447,27 +483,75 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 //                .addItem("豪华紫色","5")
 //                .addItem("豪华蓝色","6")
 //                .addItem("豪华黄色","7")
-               qmuiBottomSheet.setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
-                    @Override
-                    public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
-                        colorId= Integer.parseInt(tag);
-                        Log.e(TAG, "onClick: "+colorId);
-                        dialog.dismiss();
-                        bucaoColor.setText(sizesList.get(Integer.parseInt(tag)-1).getSname());
-                        String str = bucaoColor.getText().toString();
-                        if (str.contains("豪华")) {
-                            tip.setVisibility(View.VISIBLE);
-                        } else {
-                            tip.setVisibility(View.GONE);
-                        }
-                    }
-                })
+        qmuiBottomSheet.setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
+                colorId = Integer.parseInt(tag);
+                Log.e(TAG, "onClick: " + colorId);
+                dialog.dismiss();
+                bucaoColor.setText(sizesList.get(Integer.parseInt(tag) - 1).getSname());
+                String str = bucaoColor.getText().toString();
+                if (str.contains("豪华")) {
+                    tip.setVisibility(View.VISIBLE);
+                } else {
+                    tip.setVisibility(View.GONE);
+                }
+            }
+        })
                 .build()
                 .show();
     }
+     /**
+      * 总桌数
+     */
+     private void showEditTextDialog() {
+         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(getActivity());
+         builder.setTitle("预定桌数")
+                 .setPlaceholder("在此输入您所需预定桌数")
+                 .setInputType(InputType.TYPE_CLASS_NUMBER)
+                 .addAction("取消", new QMUIDialogAction.ActionListener() {
+                     @Override
+                     public void onClick(QMUIDialog dialog, int index) {
+                         dialog.dismiss();
+                     }
+                 })
+                 .addAction("确定", new QMUIDialogAction.ActionListener() {
+                     @Override
+                     public void onClick(QMUIDialog dialog, int index) {
+                         CharSequence text = builder.getEditText().getText();
+                         if (text != null && text.length() > 0) {
+                             Fzhuoshu.setText(String.valueOf(text));
+//                             Toast.makeText(getActivity(), "您的昵称: " + text, Toast.LENGTH_SHORT).show();
+                             dialog.dismiss();
+                         } else {
+                             Toast.makeText(getActivity(), "请填入您所需预定桌数", Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                 })
+                 .create(mCurrentDialogStyle).show();
+     }
 
     /**
-     * 开始时间选择
+     * 选择每桌人数
+     */
+    private void showMenuDialog() {
+        final String[] items = new String[]{"      10   ", "      11", "      12"};
+        new QMUIDialog.MenuDialogBuilder(getActivity())
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        renshu.setText(String.valueOf(items[which]));
+                        people.setText(renshu.getText().toString().trim());
+//                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    /**
+     * 人数填写。桌数。
      */
     private void showCommentDailog() {
         //R.style.***一定要写，不然不能充满整个屏宽，引用R.style.AppTheme就可以
@@ -480,6 +564,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 //        window.getDecorView().setPadding(0, 0, 0, 0);
         //设置dialog弹出后会点击屏幕或物理返回键，dialog不消失
         dialog.setCanceledOnTouchOutside(true);
+
         dialog.show();
         window.setContentView(view);
         //获得window窗口的属性
@@ -488,16 +573,18 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         params.width = WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
         //设置窗口高度为包裹内容
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
+//        params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
         params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致window后所有的东西都成暗淡
         params.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
         //将设置好的属性set回去
         window.setAttributes(params);
 
-        EditText people = (EditText) view.findViewById(R.id.num_people);
-        EditText zhuoshu = (EditText) view.findViewById(R.id.num_zhuoshu);
-        TextView dinnerPs=view.findViewById(R.id.dinnerPs);
-        ImageView logoimg= view.findViewById(R.id.logoimg);
+        people = (QMUIRoundButton) view.findViewById(R.id.num_people);
+        final EditText zhuoshu = ( EditText) view.findViewById(R.id.num_zhuoshu);
+
+
+        TextView dinnerPs = view.findViewById(R.id.dinnerPs);
+        ImageView logoimg = view.findViewById(R.id.logoimg);
         ImageView dialo_close = view.findViewById(R.id.close_dialog);
         TextView dialog_name = view.findViewById(R.id.dialog_name);
         TextView dialog_now = view.findViewById(R.id.dialog_buy_money);
@@ -515,38 +602,161 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         dialog_before.setText(moneyBefore.getText().toString());
         dialog_before.getPaint().setFlags(
                 Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+        zhuoshu.requestFocus();
+        zhuoshu.setText(Fzhuoshu.getText().toString());
+
+        people.setText(renshu.getText().toString().trim());
+        people.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMenuDialog();
+            }
+        });
         zhuoshu.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(final CharSequence charSequence, int start, int count, int after) {
 
+
+                Observable.timer(2, TimeUnit.SECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<Long>() {
+                            @Override
+                            public void accept(Long aLong) throws Exception {
+
+                                if (charSequence.toString().isEmpty()){
+                                    zhuoshu.setText(String.valueOf(MIN_MARK));
+                                    Fzhuoshu.setText(String.valueOf(MIN_MARK));
+                                }
+                                if (charSequence.toString().isEmpty()==false){
+                                    int value= Integer.valueOf(charSequence.toString());
+                                    if (value<MIN_MARK){
+//                                        Toast.makeText(MyApplication.getContext(), "酒席宴席类最少十桌起订。", Toast.LENGTH_SHORT).show();
+                                        zhuoshu.setText(String.valueOf(MIN_MARK));
+                                        Fzhuoshu.setText(String.valueOf(MIN_MARK));
+                                    }
+//                                    else if (value>MAX_MARK) {
+//                                        people.setText(String.valueOf(MAX_MARK));
+//                                        renshu.setText(String.valueOf(MAX_MARK));
+//                                    }
+                                }
+                            }
+                        });
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+
+
+
                 Fzhuoshu.setText(editable);
             }
         });
-        people.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
+//        people.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(final CharSequence charSequence, int i, int i1, int i2) {
+//
+//                Observable.timer(2, TimeUnit.SECONDS)
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new Consumer<Long>() {
+//                            @Override
+//                            public void accept(Long aLong) throws Exception {
+//
+//                                String s=charSequence.toString().trim();
+//                                if (TextUtils.isEmpty(s)){
+//                                    people.setText(String.valueOf(MIN_MARK));
+//                                    renshu.setText(String.valueOf(MIN_MARK));
+//                                }else if (Integer.valueOf(s)<=MIN_MARK){
+//                                    people.setText(String.valueOf(MIN_MARK));
+//                                    renshu.setText(String.valueOf(MIN_MARK));
+//                                } else if (Integer.valueOf(s)>=MAX_MARK) {
+//                                    people.setText(String.valueOf(MAX_MARK));
+//                                    renshu.setText(String.valueOf(MAX_MARK));
+//                                }else if (Integer.valueOf(s)==11){
+//                                    people.setText(String.valueOf(s));
+//                                    renshu.setText(String.valueOf(s));
+//                                }
+//                                Log.e(TAG, "accept: "+s );
+////                        if (charSequence.toString().isEmpty() == false) {
+////                            int value = Integer.valueOf(charSequence.toString());
+////                            if (value < MIN_MARK) {
+//////                             Toast.makeText(MyApplication.getContext(), "每桌人数不能低于10人。", Toast.LENGTH_SHORT).show();
+////                                people.setText(String.valueOf(MIN_MARK));
+////                                renshu.setText(String.valueOf(MIN_MARK));
+////                            } else if (value > MAX_MARK) {
+//////                              Toast.makeText(MyApplication.getContext(), "每桌人数不能多于12人。", Toast.LENGTH_SHORT).show();
+////                                people.setText(String.valueOf(MAX_MARK));
+////                                renshu.setText(String.valueOf(MAX_MARK));
+////                            } else if (value == 11) {
+////                                people.setText(String.valueOf(value));
+////                                renshu.setText(String.valueOf(value));
+////                            }
+////                        } else {
+////                            people.setText(String.valueOf(MIN_MARK));
+////                            renshu.setText(String.valueOf(MIN_MARK));
+////                        }
+////                    }
+//                     }
+//                });
+//            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                renshu.setText(editable);
-            }
-        });
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+////                if (editable.toString().isEmpty()==false){
+////                    int value= Integer.valueOf(editable.toString());
+////                    if (value<MIN_MARK){
+////                        people.setText(String.valueOf(MIN_MARK));
+////                        renshu.setText(String.valueOf(MIN_MARK));
+////                    } else if (value>MAX_MARK) {
+////                        people.setText(String.valueOf(MAX_MARK));
+////                        renshu.setText(String.valueOf(MAX_MARK));
+////                    }
+////                }
+//
+//
+////                if (editable != null && !editable.equals(""))
+////                {
+////                    if (MIN_MARK != -1 && MAX_MARK != -1)
+////                    {
+////                        int markVal = 10;
+////                        try
+////                        {
+////                            markVal = Integer.parseInt(editable.toString());
+////                        }
+////                        catch (NumberFormatException e)
+////                        {
+////                            markVal = 10;
+////                        }
+////                        if (markVal > MAX_MARK)
+////                        {
+//////                            Toast.makeText(MyApplication.getContext(), "每桌人数不能超过12人", Toast.LENGTH_SHORT).show();
+//////                            Fzhuoshu.setText(String.valueOf(MAX_MARK));
+////                            people.setText(String.valueOf(MAX_MARK));
+////                            renshu.setText(String.valueOf(MAX_MARK));
+////                        }
+//////                        if (markVal <= MIN_MARK)
+//////                        {
+//////                            people.setText(String.valueOf(MIN_MARK));
+//////                            renshu.setText(String.valueOf(MIN_MARK));
+//////                        }
+////                        return;
+////                    }
+////                }
+////                renshu.setText(editable);
+////                Log.e(TAG, "afterTextChanged: "+editable.toString() );
+//            }
+//        });
     }
 
     /**
@@ -567,6 +777,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 加载出错
+     *
      * @param result
      */
     @Override
@@ -579,13 +790,14 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * i详细信息请求完成界面
+     *
      * @param banquetBean
      */
     @Override
     public void resultBanquetSuccess(BanquetBean banquetBean) {
         tip.setVisibility(View.GONE);
-        shareTitle=banquetBean.getData().get(0).getDinnername();
-        shareDescri="现价：¥ "+banquetBean.getData().get(0).getPrice();
+        shareTitle = banquetBean.getData().get(0).getDinnername();
+        shareDescri = "现价：¥ " + banquetBean.getData().get(0).getPrice();
         dinggou.setText(banquetBean.getData().get(0).getDinggou());
         baozhang.setText(banquetBean.getData().get(0).getFuwu());
         tuikuan.setText(banquetBean.getData().get(0).getTuikuan());
@@ -597,19 +809,32 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         dishesName.setText(banquetBean.getData().get(0).getDinnername());
         saclenum.setText("已销售：" + banquetBean.getData().get(0).getSalesum() + "笔");
         //轮播图
-        imageUrl= Constants.BaseUrl+banquetBean.getData().get(0).getOriginalimg();
+        imageUrl = Constants.BaseUrl + banquetBean.getData().get(0).getOriginalimg();
         listImage.add(imageUrl);
+        for (int i = 0; i < banquetBean.getImg().size(); i++) {
+            listImage.add(Constants.BaseUrl + banquetBean.getImg().get(i));
+        }
         banner.setImages(listImage)
                 .setImageLoader(new GlideImageLoader())
                 .setBannerStyle(BannerConfig.NUM_INDICATOR)
                 .isAutoPlay(false)
                 .start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("id", (ArrayList<String>) listImage);
+                BannerDetailFragment bannerDetailFragment = new BannerDetailFragment();
+                bannerDetailFragment.setArguments(bundle);
+                startFragment(bannerDetailFragment);
+            }
+        });
         mainFrag.setVisibility(View.VISIBLE);
         tipDialog.dismiss();
-        sizesList=banquetBean.getSize();
-        qmuiBottomSheet= new QMUIBottomSheet.BottomListSheetBuilder(getActivity());
-        for (int i = 0; i <banquetBean.getSize().size() ; i++) {
-           qmuiBottomSheet.addItem(banquetBean.getSize().get(i).getSname(), String.valueOf(banquetBean.getSize().get(i).getId()));
+        sizesList = banquetBean.getSize();
+        qmuiBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(getActivity());
+        for (int i = 0; i < banquetBean.getSize().size(); i++) {
+            qmuiBottomSheet.addItem(banquetBean.getSize().get(i).getSname(), String.valueOf(banquetBean.getSize().get(i).getId()));
         }
 
 
@@ -627,14 +852,15 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 添加到收藏
+     *
      * @param favoritrResultBean
      */
     @Override
     public void resultKeepFavoriteSuccess(FavoritrResultBean favoritrResultBean) {
-        if (favoritrResultBean.getCode()==200){
+        if (favoritrResultBean.getCode() == 200) {
             likeimg.setBackgroundResource(R.mipmap.banquet_islike);
         }
-        if (favoritrResultBean.getCode()==202){
+        if (favoritrResultBean.getCode() == 202) {
             likeimg.setBackgroundResource(R.mipmap.banquet_like);
         }
         Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
@@ -642,6 +868,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 检测是否收藏
+     *
      * @param checkFavoriteBean
      */
     @Override
@@ -655,6 +882,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * 添加到购物车成功
+     *
      * @param favoritrResultBean
      */
     @Override
@@ -664,6 +892,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 
     /**
      * EventBus获取到dinnerid
+     *
      * @return
      */
     @Override
@@ -675,4 +904,5 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     public void ononMoonStickyEvent(StartNewsEvent startNewsEvent) {
         dinnerid = startNewsEvent.getMessage();
     }
+
 }

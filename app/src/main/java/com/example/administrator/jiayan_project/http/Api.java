@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.http;
 
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetDetailBean;
 import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
@@ -13,6 +14,7 @@ import com.example.administrator.jiayan_project.enity.chef.CookRegesigtBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailBannerBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailCommentBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailMsgBean;
+import com.example.administrator.jiayan_project.enity.classify.ClassifyBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
@@ -147,7 +149,16 @@ public interface Api {
      */
     @GET("Details/message/id/{id}")
     Observable<BanquetBean>   getBanquet(@Path("id") String id);
-
+    /**
+     *  宴会详情第二个页面
+     */
+    @GET("Details/details/id/{id}")
+    Observable<BanquetDetailBean>   getBanquetDetail(@Path("id") String id);
+    /**
+     *  宴会详情第三个页面
+     */
+    @GET("Details/message/id/{id}")
+    Observable<BanquetBean>   getBanquetComment(@Path("id") String id);
     /**
      * 大型宴席
      */
@@ -274,4 +285,10 @@ public interface Api {
      */
     @POST("Search/searchadd")
     Observable<SearchResultBean>  getSearchResult(@Body SearchBodyBean searchBodyBean);
+
+    /**
+     * 底部栏第二个 分类
+     */
+    @GET("Cation/cationB")
+    Observable<ClassifyBean>  getClassify();
 }

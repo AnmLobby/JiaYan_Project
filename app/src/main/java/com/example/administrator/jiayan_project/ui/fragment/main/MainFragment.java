@@ -114,7 +114,8 @@ public class MainFragment extends BaseFragment {
                         return  new HomePageFragment();
 //                        return new MineFragment();
                     case 1:
-                        return new ClassifyFragment();
+                        return  new TypeFragment();
+//                        return new ClassifyFragment();
                     case 2:
                         return  new CartFragment();
 //                        return  new BlankOneFragment();

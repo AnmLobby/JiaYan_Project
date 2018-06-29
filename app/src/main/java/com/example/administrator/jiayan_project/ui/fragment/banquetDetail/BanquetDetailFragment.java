@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.ui.fragment.banquetDetail;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,13 @@ import android.widget.FrameLayout;
 
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetDetailBean;
+import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetDetailPresenter;
+import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetDetailView;
+import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
+import com.example.administrator.jiayan_project.utils.util.HtmlUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +26,7 @@ import butterknife.ButterKnife;
  * 高级宴会菜单详情
  *
  */
-public class BanquetDetailFragment extends BaseFragment {
+public class BanquetDetailFragment  extends AbstractMvpFragment<BanquetDetailView, BanquetDetailPresenter> implements BanquetDetailView {
 
 
     @BindView(R.id.webview)
@@ -31,6 +37,7 @@ public class BanquetDetailFragment extends BaseFragment {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_blank_detail, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
+        getPresenter().clickRequestBanquet(String.valueOf(19));
 //        mWebView.loadUrl("https://www.jianshu.com/p/6e5eda3a51af");
         initWebView();
         return layout;
@@ -59,8 +66,30 @@ public class BanquetDetailFragment extends BaseFragment {
         }
         super.onDestroy();
     }
+
+    @Override
+    public BanquetDetailPresenter createPresenter() {
+        return new BanquetDetailPresenter();
+    }
+
     @Override
     protected boolean canDragBack() {
         return false;
+    }
+
+    @Override
+    public void requestLoading() {
+
+    }
+
+    @Override
+    public void resultFailure(String result) {
+        Log.e("", "resultFailur顶顶顶顶顶顶顶顶顶顶e: "+result );
+    }
+
+    @Override
+    public void resultBanquetDetailSuccess(BanquetDetailBean banquetDetailBean) {
+
+        mWebView.loadData(banquetDetailBean.getData().get(0).getComment(), HtmlUtil.MIME_TYPE, HtmlUtil.ENCODING);
     }
 }
