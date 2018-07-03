@@ -82,9 +82,11 @@ public class ShangxueyuanFragment extends AbstractMvpFragment<NewsListView, News
     }
 
     @Override
-    public void resultVideoListSuccess(NewsVideoBean newsVideoBean) {
+    public void resultVideoListSuccess(NewsListBean newsVideoBean) {
 
     }
+
+
 
     @Override
     public NewsListPresenter createPresenter() {

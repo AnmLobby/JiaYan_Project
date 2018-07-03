@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project;
 
+import android.graphics.PixelFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);//（这个对宿主没什么影响，建议声明）,腾讯X5官网
         if (savedInstanceState == null) {
             BaseFragment fragment = new MainFragment();
             getSupportFragmentManager()

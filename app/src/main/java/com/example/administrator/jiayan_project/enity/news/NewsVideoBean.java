@@ -20,24 +20,18 @@ public class NewsVideoBean {
 
     public static class DataBean {
         /**
-         * id : 2
-         * newstitle : 我是宴快报视频
-         * newscontent : 阿斯加德弗兰克健身房
-         * newsauthor : 王尼美
-         * click : 101
-         * createtime : 1525770675
-         * newsimg : /uploads/banner3.png
-         * newsvideo : http://www.ipta.cn/video.mp4
+         * id : 11
+         * newstitle : 2018中国国际食品餐饮博览会新闻发布会在京召开
+         * newsauthor : 晏万家餐饮
+         * click : 44
+         * newsimg : /uploads/5b39c429f2332.jpg
          */
 
         private int id;
         private String newstitle;
-        private String newscontent;
         private String newsauthor;
         private int click;
-        private int createtime;
         private String newsimg;
-        private String newsvideo;
 
         public int getId() {
             return id;
@@ -53,14 +47,6 @@ public class NewsVideoBean {
 
         public void setNewstitle(String newstitle) {
             this.newstitle = newstitle;
-        }
-
-        public String getNewscontent() {
-            return newscontent;
-        }
-
-        public void setNewscontent(String newscontent) {
-            this.newscontent = newscontent;
         }
 
         public String getNewsauthor() {
@@ -79,28 +65,12 @@ public class NewsVideoBean {
             this.click = click;
         }
 
-        public int getCreatetime() {
-            return createtime;
-        }
-
-        public void setCreatetime(int createtime) {
-            this.createtime = createtime;
-        }
-
         public String getNewsimg() {
             return newsimg;
         }
 
         public void setNewsimg(String newsimg) {
             this.newsimg = newsimg;
-        }
-
-        public String getNewsvideo() {
-            return newsvideo;
-        }
-
-        public void setNewsvideo(String newsvideo) {
-            this.newsvideo = newsvideo;
         }
     }
 }

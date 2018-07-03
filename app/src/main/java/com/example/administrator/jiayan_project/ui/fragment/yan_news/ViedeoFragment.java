@@ -14,7 +14,8 @@ import android.widget.FrameLayout;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.NewsAdapter;
-import com.example.administrator.jiayan_project.adapter.adapter.NewsVideoAdapter;
+
+import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
 import com.example.administrator.jiayan_project.enity.news.NewsVideoBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
@@ -34,15 +35,15 @@ import butterknife.ButterKnife;
 public class ViedeoFragment  extends AbstractMvpFragment<NewsListView, NewsListPresenter> implements NewsListView {
     @BindView(R.id.easycyclerview)
     EasyRecyclerView easycyclerview;
-    private NewsVideoAdapter newsVideoAdapter;
+//    private NewsVideoAdapter newsVideoAdapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
-    private List<NewsVideoBean.DataBean> beanLis;
+    private List<NewsListBean.DataBean> beanLis;
     private static final String TAG = "ViedeoFragment";
-
+    private NewsAdapter newsVideoAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newsVideoAdapter=new NewsVideoAdapter(MyApplication.getContext());
+        newsVideoAdapter=new NewsAdapter(MyApplication.getContext());
     }
 
     @Override
@@ -58,7 +59,17 @@ public class ViedeoFragment  extends AbstractMvpFragment<NewsListView, NewsListP
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         easycyclerview.setLayoutManager(staggeredGridLayoutManager);
         easycyclerview.setAdapter(newsVideoAdapter);
-
+        newsVideoAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String id= String.valueOf(newsVideoAdapter.getItem(position).getId());
+                NewsDetailFragment newsDetailFragment=new NewsDetailFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("id",id);
+                newsDetailFragment.setArguments(bundle);
+                startFragment(newsDetailFragment);
+            }
+        });
         return layout;
     }
     @Override
@@ -82,7 +93,7 @@ public class ViedeoFragment  extends AbstractMvpFragment<NewsListView, NewsListP
     }
 
     @Override
-    public void resultVideoListSuccess(NewsVideoBean newsVideoBean) {
+    public void resultVideoListSuccess(NewsListBean newsVideoBean) {
 
         beanLis=newsVideoBean.getData();
         newsVideoAdapter.addAll(beanLis);

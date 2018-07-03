@@ -99,13 +99,13 @@ public class NewsModel extends BaseModel {
                     }
                 }));
     }
-    public void getNewsVideo(final IBaseRequestCallBack<NewsVideoBean> iBaseRequestCallBack){
+    public void getNewsVideo(final IBaseRequestCallBack<NewsListBean> iBaseRequestCallBack){
         mcompositeDisposable.add(api.getNeswVideo()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<NewsVideoBean>() {
+                .subscribe(new Consumer<NewsListBean>() {
                     @Override
-                    public void accept(NewsVideoBean newsVideoBean) throws Exception {
+                    public void accept(NewsListBean newsVideoBean) throws Exception {
                         iBaseRequestCallBack.requestSuccess(newsVideoBean);
                     }
                 }, new Consumer<Throwable>() {

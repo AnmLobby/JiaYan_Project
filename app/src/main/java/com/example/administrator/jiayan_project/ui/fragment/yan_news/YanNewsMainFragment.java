@@ -84,23 +84,23 @@ public class YanNewsMainFragment extends BaseFragment {
 
             @Override
             public int getCount() {
-                return 5;
+                return 4;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position) {
                     case 0:
-                        return "资讯";
+                        return "营养微课堂";
                     case 1:
-                        return "视频";
+                        return "企业新闻";
                     case 2:
-                        return "活动";
+                        return "参与活动";
                     case 3:
-                        return "商学院";
-                    case 4:
+//                        return "商学院";
+//                    case 4:
                     default:
-                        return "宴万家";
+                        return "合作案例";
                 }
             }
 
@@ -114,10 +114,11 @@ public class YanNewsMainFragment extends BaseFragment {
                     case 2:
                         return new YanActivityFragment();
                     case 3:
-                        return new ShangxueyuanFragment();
-                    case 4:
+
+//                    case 4:
                     default:
-                        return new YanWanJiaFragment();
+                        return new ShangxueyuanFragment();
+//                        return new YanWanJiaFragment();
                 }
             }
 

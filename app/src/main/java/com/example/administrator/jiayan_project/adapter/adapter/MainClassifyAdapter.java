@@ -40,7 +40,7 @@ public class MainClassifyAdapter extends BaseQuickAdapter<ClassifyBean.TypedataB
 
     @Override
     protected void convert(BaseViewHolder viewHolder,ClassifyBean.TypedataBean item) {
-            viewHolder.setText(R.id.title,item.getTypename());
+        viewHolder.setText(R.id.title,item.getTypename());
 
         RecyclerView recyclerView=viewHolder.getView(R.id.recyclerview);
         viewHolder.addOnClickListener(R.id.recyclerview);

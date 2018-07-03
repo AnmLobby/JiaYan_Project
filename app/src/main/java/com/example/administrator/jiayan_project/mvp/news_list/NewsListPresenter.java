@@ -130,7 +130,7 @@ public class NewsListPresenter extends AbstractMvpPersenter<NewsListView> {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                newsModel.getNewsVideo(new IBaseRequestCallBack<NewsVideoBean>() {
+                newsModel.getNewsVideo(new IBaseRequestCallBack<NewsListBean>() {
                     @Override
                     public void requestError(Throwable throwable) {
                         if (getmMvpView() != null) {
@@ -138,7 +138,7 @@ public class NewsListPresenter extends AbstractMvpPersenter<NewsListView> {
                         }
                     }
                     @Override
-                    public void requestSuccess(NewsVideoBean newsVideoBean) {
+                    public void requestSuccess(NewsListBean newsVideoBean) {
                         if (getmMvpView() != null) {
                             getmMvpView().resultVideoListSuccess(newsVideoBean);
                         }

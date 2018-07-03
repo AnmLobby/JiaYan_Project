@@ -33,6 +33,7 @@ import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BookSuccessFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
+import com.example.administrator.jiayan_project.ui.fragment.big.MoreYanFragment;
 import com.example.administrator.jiayan_project.ui.fragment.chef_service.ReceptionFragment;
 import com.example.administrator.jiayan_project.ui.fragment.chef_service.WZServiceFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
@@ -225,7 +226,12 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-
+                    Bundle bundle=new Bundle();
+                    bundle.putString("type","isnews");
+                    bundle.putString("title","新品推荐");
+                        MoreYanFragment moreYanFragment=new MoreYanFragment();
+                        moreYanFragment.setArguments(bundle);
+                        startFragment(moreYanFragment);
                     }
                 });
         tTwoadapter = new VlayoutBaseAdapter(mContext)
@@ -237,7 +243,12 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-
+                        Bundle bundle=new Bundle();
+                        bundle.putString("type","features");
+                        bundle.putString("title","特色美食");
+                        MoreYanFragment moreYanFragment=new MoreYanFragment();
+                        moreYanFragment.setArguments(bundle);
+                        startFragment(moreYanFragment);
                     }
                 });
         threeAdapter = new VlayoutBaseAdapter(mContext)
@@ -249,7 +260,12 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
                 .setListener(new ItemListener<BannerBean>() {
                     @Override
                     public void onItemClick(View view, int position, BannerBean mData) {
-
+                        Bundle bundle=new Bundle();
+                        bundle.putString("type","isfeasts");
+                        bundle.putString("title","节日盛宴");
+                        MoreYanFragment moreYanFragment=new MoreYanFragment();
+                        moreYanFragment.setArguments(bundle);
+                        startFragment(moreYanFragment);
                     }
                 });
         baonianAdapter = new VlayoutBaseAdapter(mContext)

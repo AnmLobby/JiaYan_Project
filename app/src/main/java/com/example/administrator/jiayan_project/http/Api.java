@@ -20,6 +20,7 @@ import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
 import com.example.administrator.jiayan_project.enity.homepage.FirstChooseBean;
 import com.example.administrator.jiayan_project.enity.homepage.HotBean;
+import com.example.administrator.jiayan_project.enity.homepage.MoreYanBean;
 import com.example.administrator.jiayan_project.enity.homepage.NewsBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
@@ -124,7 +125,7 @@ public interface Api {
      * 新闻列表视频
      */
     @GET("News/video")
-    Observable<NewsVideoBean>   getNeswVideo();
+    Observable<NewsListBean>   getNeswVideo();
 
     /**
      * 新闻列表活动
@@ -291,4 +292,10 @@ public interface Api {
      */
     @GET("Cation/cationB")
     Observable<ClassifyBean>  getClassify();
+
+    /**
+     * 查看更多
+     */
+    @GET("Index/{more}")
+    Observable<MoreYanBean>      getMore(@Path("more") String more);
 }

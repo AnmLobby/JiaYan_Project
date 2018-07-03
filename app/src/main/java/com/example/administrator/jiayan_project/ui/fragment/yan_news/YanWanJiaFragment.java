@@ -82,9 +82,10 @@ public class YanWanJiaFragment extends AbstractMvpFragment<NewsListView, NewsLis
     }
 
     @Override
-    public void resultVideoListSuccess(NewsVideoBean newsVideoBean) {
+    public void resultVideoListSuccess(NewsListBean newsVideoBean) {
 
     }
+
 
     @Override
     public NewsListPresenter createPresenter() {

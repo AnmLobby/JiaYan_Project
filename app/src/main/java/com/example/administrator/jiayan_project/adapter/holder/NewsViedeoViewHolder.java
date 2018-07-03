@@ -39,6 +39,6 @@ public NewsViedeoViewHolder(ViewGroup parent) {
                 .load(Constants.BaseUrl+data.getNewsimg())
                 .centerCrop()
                 .into(jzVideoPlayerStandard.thumbImageView);
-        jzVideoPlayerStandard.setUp(data.getNewsvideo(),jzVideoPlayerStandard.SCREEN_WINDOW_NORMAL,"");
+//        jzVideoPlayerStandard.setUp(data.getNewsvideo(),jzVideoPlayerStandard.SCREEN_WINDOW_NORMAL,"");
     }
 }

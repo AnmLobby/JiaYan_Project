@@ -34,5 +34,5 @@ public interface NewsListView  extends IMvpBaseView{
     /**
      * 新闻视频
      */
-    void resultVideoListSuccess(NewsVideoBean newsVideoBean);
+    void resultVideoListSuccess(NewsListBean newsVideoBean);
 }
