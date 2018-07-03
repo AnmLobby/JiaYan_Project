@@ -23,7 +23,7 @@ public class ClassifyBean {
         /**
          * id : 1
          * typename : 公司庆典
-         * detail : [{"id":1,"dinnername":"鸿门宴","categoryid":1,"originalimg":"/static/img/dinner_img/1c32385f012ab97b02f8a91ee7d3fddd.jpg"},{"id":7,"dinnername":"端风格鸡","categoryid":1,"originalimg":"/static/img/dinner_img/575bcd2f67486c17269b9d8440f30be3.jpg"},{"id":11,"dinnername":"美杜莎的","categoryid":1,"originalimg":"/static/img/dinner_img/aef90ffb9e8e9c4dbde4a65f38939326.jpg"},{"id":13,"dinnername":"阿斯纳税款","categoryid":1,"originalimg":"/static/img/dinner_img/e32bcd76ea90d1764d017718dcfb7c61.jpg"}]
+         * detail : [{"id":1,"dinnername":"鸿门宴","categoryid":1,"originalimg":"/static/img/dinner_img/1c32385f012ab97b02f8a91ee7d3fddd.jpg"},{"id":7,"dinnername":"端风格鸡","categoryid":1,"originalimg":"/static/img/dinner_img/575bcd2f67486c17269b9d8440f30be3.jpg"},{"id":11,"dinnername":"美杜莎的","categoryid":1,"originalimg":"/static/img/dinner_img/aef90ffb9e8e9c4dbde4a65f38939326.jpg"},{"id":13,"dinnername":"阿斯纳税款","categoryid":1,"originalimg":"/static/img/dinner_img/e32bcd76ea90d1764d017718dcfb7c61.jpg"},{"id":35,"dinnername":"萨德艾克","categoryid":1,"originalimg":"/static/img/dinner_img/5b35fdb7d144a.jpg"},{"id":36,"dinnername":"鼎折覆餗都符","categoryid":1,"originalimg":"/static/img/dinner_img/5b35fe3815294.jpg"}]
          */
 
         private int id;

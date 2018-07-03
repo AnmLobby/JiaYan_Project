@@ -7,10 +7,10 @@
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:id="@+id/image"
         app:qmui_border_width="0dp"
-        android:layout_marginLeft="15pt"
-        app:qmui_corner_radius="4dp"
+        android:layout_marginLeft="10pt"
+        android:layout_marginRight="10pt"
+        app:qmui_corner_radius="3dp"
         app:qmui_is_circle="false"
         android:layout_width="580pt"
-        android:layout_height="400pt"
-       />
+        android:layout_height="400pt" />
 </RelativeLayout>

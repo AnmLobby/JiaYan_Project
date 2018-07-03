@@ -29,7 +29,7 @@ public class HotViewHolder extends BaseViewHolder<HotBean.DataBean> {
     public void setData(HotBean.DataBean data) {
         super.setData(data);
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+data.getOriginalimg()).into(imageView);
-        name.setText(data.getPrice());
+        name.setText("¥"+data.getPrice());
     }
 
 

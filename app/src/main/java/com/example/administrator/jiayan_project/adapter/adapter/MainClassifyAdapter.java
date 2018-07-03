@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.adapter.adapter;
 
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 
 public class MainClassifyAdapter extends BaseQuickAdapter<ClassifyBean.TypedataBean, BaseViewHolder> {
-    private List<ClassifyBean.TypedataBean.DetailBean> mList;
+    private List<ClassifyBean.TypedataBean.DetailBean> mList=new ArrayList<>();
     private DetailClassifyAdapter detailClassifyAdapter;
     public MainClassifyAdapter(@Nullable List<ClassifyBean.TypedataBean> data) {
         super(R.layout.classify_item, data);
@@ -42,6 +43,7 @@ public class MainClassifyAdapter extends BaseQuickAdapter<ClassifyBean.TypedataB
             viewHolder.setText(R.id.title,item.getTypename());
 
         RecyclerView recyclerView=viewHolder.getView(R.id.recyclerview);
+        viewHolder.addOnClickListener(R.id.recyclerview);
         mList=item.getDetail();
         detailClassifyAdapter = new DetailClassifyAdapter(mList);
 
@@ -53,11 +55,10 @@ public class MainClassifyAdapter extends BaseQuickAdapter<ClassifyBean.TypedataB
 
 
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-
-
 
         recyclerView.setAdapter(detailClassifyAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(MyApplication.getContext(),3));
+        detailClassifyAdapter.notifyDataSetChanged();
         detailClassifyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

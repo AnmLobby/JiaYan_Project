@@ -27,6 +27,8 @@ import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.mvp.reception.ReceptionPresenter;
 import com.example.administrator.jiayan_project.mvp.reception.ReceptionView;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
+import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
 import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefBannerDetailHolder;
@@ -39,6 +41,8 @@ import com.example.administrator.jiayan_project.vlayout.reception.ReceptionChefH
 import com.example.administrator.jiayan_project.vlayout.reception.ReceptionDinnerHolder;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +118,9 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
                     @Override
                     public void onItemClick(View view, int position, ReceptionDinnerBean mData) {
 
+                        String id = String.valueOf(mData.getReception().get(position).getId());
+                        EventBus.getDefault().postSticky(new StartNewsEvent(id));
+                        startFragment(new BlankOneFragment());
                     }
                 });
 
@@ -126,6 +133,12 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
                 .setListener(new ItemListener<ReceptionDinnerBean>() {
                     @Override
                     public void onItemClick(View view, int position, ReceptionDinnerBean mData) {
+                        int id= mData.getCooko().get(position).getId();
+                        Bundle bundle=new Bundle();
+                        bundle.putInt("id",id);
+                        ChefDetailFragment chefDetailFragment=new ChefDetailFragment();
+                        chefDetailFragment.setArguments(bundle);
+                        startFragment(chefDetailFragment);
 
                     }
                 });

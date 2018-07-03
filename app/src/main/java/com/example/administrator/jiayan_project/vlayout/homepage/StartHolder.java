@@ -32,7 +32,7 @@ public class StartHolder  extends VlayoutBaseHolder<DataBean> {
         super.setData(ps, sData);
 //        for (int i = 0; i < sData.getData().size(); i++) {
             Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+sData.getOriginalimg()).into(imageView);
-            name.setText(sData.getPrice());
+            name.setText("¥"+sData.getPrice());
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -2,10 +2,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_color_blue"
     tools:context="com.example.administrator.jiayan_project.ui.fragment.main.TypeFragment">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height">
+        <LinearLayout
+            android:id="@+id/search"
+            android:layout_margin="20pt"
+            android:background="@mipmap/ed_background"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginLeft="20pt"
+                android:layout_gravity="center"
+                android:src="@mipmap/home_searck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginLeft="30pt"
+                android:textSize="@dimen/text_four"
+                android:textColor="@color/text_gray"
+                android:text="厨师名称  菜名"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!--<ImageView-->
+            <!--android:visibility="gone"-->
+            <!--android:id="@+id/erweima"-->
+            <!--android:layout_marginRight="15pt"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@mipmap/qr_card"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent" />-->
+    </LinearLayout>
 
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:background="#f2f2f2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@color/white"
+            android:paddingRight="5dp"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/jiuxi"
+                android:layout_marginTop="80pt"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:text="酒席宴席"
+                android:textColor="@color/app_color_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <View
+            android:layout_marginRight="20pt"
+            android:layout_marginLeft="20pt"
+            android:layout_marginTop="5pt"
+            android:layout_below="@+id/jiuxi"
+            android:background="@color/app_color_blue"
+            android:layout_width="match_parent"
+            android:layout_height="4px"/>
+            <TextView
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/jiuxi"
+                android:id="@+id/zhaowu"
+                android:layout_marginTop="70pt"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:text="厨务聘用"
+                android:textColor="#363636"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/zhaowu"
+                android:id="@+id/yanqing"
+                android:layout_marginTop="70pt"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:text="宴请接待"
+                android:textColor="#363636"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <View
+            android:background="#f2f2f2"
+            android:layout_width="5pt"
+            android:layout_height="match_parent"/>
 <android.support.v7.widget.RecyclerView
+    android:layout_weight="1"
+    android:background="@color/white"
     android:id="@+id/recyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+    </LinearLayout>
 </FrameLayout>

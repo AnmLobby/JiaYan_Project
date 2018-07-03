@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_left"
+    android:layout_marginLeft="20pt"
+    android:layout_marginRight="10pt"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         app:qmui_corner_radius="4dp"
@@ -12,13 +13,14 @@
         android:id="@+id/image"
         android:layout_width="530pt"
         android:layout_height="320pt" />
-
     <TextView
+        android:layout_below="@+id/image"
         android:id="@+id/name"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10pt"
-        android:textColor="#ffffff"
+        android:layout_marginLeft="20pt"
+        android:layout_marginTop="10pt"
+        android:textColor="#d2ae2a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

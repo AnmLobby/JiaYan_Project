@@ -185,7 +185,7 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         recommendAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<DataBean>())
                 .setLayout(R.layout.vlayout_home_recomment)
-                .setLayoutHelper(getGridLayoutHelper())
+                .setLayoutHelper(getGridTwoLayoutHelper())
                 .setHolder(RecommendHolder.class)
                 .setListener(new ItemListener<DataBean>() {
                     @Override
@@ -416,6 +416,22 @@ public class HomePageFragment extends AbstractMvpFragment<HomeView, HomePresente
         gridHelper.setAutoExpand(true);
         return gridHelper;
     }
+
+    private LayoutHelper getGridTwoLayoutHelper() {
+        GridLayoutHelper gridHelper = new GridLayoutHelper(2);
+        gridHelper.setMarginTop(20);
+        gridHelper.setWeights(new float[]{ 50f, 50f});
+        //设置垂直方向条目的间隔
+        gridHelper.setVGap(4);
+        //设置水平方向条目的间隔
+        gridHelper.setHGap(4);
+        gridHelper.setMarginLeft(5);
+        gridHelper.setMarginBottom(5);
+        //自动填充满布局，在设置完权重，若没有占满，自动填充满布局
+        gridHelper.setAutoExpand(true);
+        return gridHelper;
+    }
+
 
     @Override
     public HomePresenter createPresenter() {

@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.vlayout.homepage;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -10,6 +11,7 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.enity.homepage.DataBean;
 import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.http.Constants;
+import com.example.administrator.jiayan_project.utils.util.GlideRoundTransform;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseHolder;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
@@ -24,7 +26,7 @@ import butterknife.BindView;
 
 public class RecommendHolder extends VlayoutBaseHolder<DataBean>{
     @BindView(R.id.image)
-    QMUIRadiusImageView imageView;
+    ImageView imageView;
     @BindView(R.id.name)
     TextView   name;
     @BindView(R.id.liangdian)
@@ -44,6 +46,7 @@ public class RecommendHolder extends VlayoutBaseHolder<DataBean>{
 
             Glide.with(MyApplication.getContext())
                     .load(Constants.BaseUrl+rData.getOriginalimg())
+                    .bitmapTransform(new GlideRoundTransform(MyApplication.getContext(), 4))
                     .into(imageView);
             name.setText(rData.getDinnername());
             liangdian.setText(rData.getSubname());
