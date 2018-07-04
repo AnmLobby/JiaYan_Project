@@ -101,6 +101,7 @@ public class ReceptionDinnerBean {
          * certificates : 1
          * cookimg : /static/img/cook_img/5b1e1f7b6b6b2.jpg
          * cookname : 小王
+         *  pinfen: 3
          */
 
         private int id;
@@ -110,6 +111,15 @@ public class ReceptionDinnerBean {
         private String cookimg;
         private String cookname;
 
+        public int getPinfen() {
+            return pinfen;
+        }
+
+        public void setPinfen(int pinfen) {
+            this.pinfen = pinfen;
+        }
+
+        private int pinfen;
         public int getId() {
             return id;
         }

@@ -19,28 +19,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
-import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
-import com.example.administrator.jiayan_project.ui.fragment.chef_service.ReceptionFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
-import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
-import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.PostCommentFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine_payorder.OrderBlankFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
-import com.example.administrator.jiayan_project.utils.weight.WageDialog;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.vondear.rxtools.RxImageTool;
-import com.vondear.rxtools.module.wechat.pay.WechatPay;
 import com.vondear.rxtools.module.wechat.share.WechatShareModel;
 import com.vondear.rxtools.module.wechat.share.WechatShareTools;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
@@ -89,20 +84,29 @@ public class MineFragment extends BaseFragment {
     LinearLayout tuikuanLayout;
     @BindView(R.id.name)
     TextView name;
-    private  WechatShareModel mWechatShareModel;
+    @BindView(R.id.iv_head)
+    QMUIRadiusImageView ivHead;
+    private WechatShareModel mWechatShareModel;
     private List<KeepUserBean> list;
+
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
-                .offset(0)//偏移量，相当于 SQL 语句中的 skip
-                .limit(1)//只获取结果集的前 3 个数据
+                .offset(0)
+                .limit(1)
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        name.setText(list.get(0).getUsername());
+        Log.e(TAG, "onCreateView: "+list.get(0).getNickname() );
+        name.setText(list.get(0).getNickname());
+        if (list.get(0).getAvatar().equals("")) {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
+        }else {
+            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+list.get(0).getAvatar()).into(ivHead);
+        }
         return layout;
     }
 
@@ -115,14 +119,14 @@ public class MineFragment extends BaseFragment {
 //                startFragment(new ReceptionFragment());
                 break;
             case R.id.huiyuan_layout:
-
-                startFragment(new BigYanFragment());
-                Toast.makeText(MyApplication.getContext(), "会员", Toast.LENGTH_SHORT).show();
+//                startFragment(new BigYanFragment());
+//                Toast.makeText(MyApplication.getContext(), "会员", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.address_layout:
                 startFragment(new DeliveryFragment());
                 break;
             case R.id.pingjia_layout:
+                startFragment(new PostCommentFragment());
                 Toast.makeText(MyApplication.getContext(), "po", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fuwu_layout:
@@ -161,9 +165,6 @@ public class MineFragment extends BaseFragment {
 //                Toast.makeText(MyApplication.getContext(), "余额", Toast.LENGTH_SHORT).show();
 
 
-
-
-
                 break;
             case R.id.chongzhilayout:
                 Toast.makeText(MyApplication.getContext(), "充值", Toast.LENGTH_SHORT).show();
@@ -175,33 +176,33 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.daifukuan_layout:
 //                Toast.makeText(MyApplication.getContext(), "待付款", Toast.LENGTH_SHORT).show();
-                OrderBlankFragment orderBlankFragment=new OrderBlankFragment();
-                Bundle bundle=new Bundle();
-                bundle.putInt("index",0);
+                OrderBlankFragment orderBlankFragment = new OrderBlankFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("index", 0);
                 orderBlankFragment.setArguments(bundle);
                 startFragment(orderBlankFragment);
                 break;
             case R.id.yizhifu_layout:
 //                Toast.makeText(MyApplication.getContext(), "已支付", Toast.LENGTH_SHORT).show();
-                OrderBlankFragment orderBlankFragment1=new OrderBlankFragment();
-                Bundle bundle1=new Bundle();
-                bundle1.putInt("index",1);
+                OrderBlankFragment orderBlankFragment1 = new OrderBlankFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("index", 1);
                 orderBlankFragment1.setArguments(bundle1);
                 startFragment(orderBlankFragment1);
                 break;
             case R.id.daipingjia_layout:
 //                Toast.makeText(MyApplication.getContext(), "带评价", Toast.LENGTH_SHORT).show();
-                OrderBlankFragment orderBlankFragment2=new OrderBlankFragment();
-                Bundle bundle2=new Bundle();
-                bundle2.putInt("index",2);
+                OrderBlankFragment orderBlankFragment2 = new OrderBlankFragment();
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("index", 2);
                 orderBlankFragment2.setArguments(bundle2);
                 startFragment(orderBlankFragment2);
                 break;
             case R.id.tuikuan_layout:
 //                Toast.makeText(MyApplication.getContext(), "退款", Toast.LENGTH_SHORT).show();
-                OrderBlankFragment orderBlankFragment3=new OrderBlankFragment();
-                Bundle bundle3=new Bundle();
-                bundle3.putInt("index",3);
+                OrderBlankFragment orderBlankFragment3 = new OrderBlankFragment();
+                Bundle bundle3 = new Bundle();
+                bundle3.putInt("index", 3);
                 orderBlankFragment3.setArguments(bundle3);
                 startFragment(orderBlankFragment3);
                 break;
@@ -237,7 +238,7 @@ public class MineFragment extends BaseFragment {
                         int tag = (int) itemView.getTag();
                         switch (tag) {
                             case TAG_SHARE_WECHAT_FRIEND:
-                                Log.e(TAG, "onClick: " );
+                                Log.e(TAG, "onClick: ");
                                 WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Friend);//分享操作
                                 break;
                             case TAG_SHARE_WECHAT_MOMENT:

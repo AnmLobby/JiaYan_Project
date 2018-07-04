@@ -26,6 +26,7 @@ import com.example.administrator.jiayan_project.enity.homepage.RecommendBean;
 import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
+import com.example.administrator.jiayan_project.enity.mine.ChangeMsgBean;
 import com.example.administrator.jiayan_project.enity.mine.UpdateAppInfo;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
@@ -41,9 +42,13 @@ import com.example.administrator.jiayan_project.mvp.regesigt_list.RegListBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -294,7 +299,15 @@ public interface Api {
     Observable<ClassifyBean>  getClassify();
 
     /**
-     * 查看更多
+     * 修改头像
+     */
+//    @HTTP(method = "DELETE",path = "/user/delete",hasBody = true)\
+    @Multipart
+    @POST("Userpersonal/userext/userid/{userid}")
+    Observable<FavoritrResultBean>    postMineMsg(@Part MultipartBody.Part photo,@Path("userid") int userid);
+//    @Body ChangeMsgBean changeMsgBean
+    /**
+     *  查看更多
      */
     @GET("Index/{more}")
     Observable<MoreYanBean>      getMore(@Path("more") String more);

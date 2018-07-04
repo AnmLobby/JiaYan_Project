@@ -3,8 +3,13 @@ package com.example.administrator.jiayan_project.ui.activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +18,19 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
+import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
+import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.mvp.base.AbstractMvpActivity;
+import com.example.administrator.jiayan_project.mvp.base.ChangeMsgMvpActivity;
+import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgPresenter;
+import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgView;
+import com.example.administrator.jiayan_project.mvp.login.LoginPresenter;
+import com.example.administrator.jiayan_project.mvp.login.LoginView;
 import com.example.administrator.jiayan_project.ui.base.BaseActivity;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -26,16 +42,26 @@ import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.vondear.rxtools.view.dialog.RxDialogChooseImage.LayoutType.TITLE;
 
-public class ChangeMineMsgActivity extends ActivityBase {
+public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,ChangeMsgPresenter> implements ChangeMsgView {
 
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
@@ -43,13 +69,21 @@ public class ChangeMineMsgActivity extends ActivityBase {
     QMUIRadiusImageView image;
     private Uri resultUri;
     private static final String TAG = "ChangeMineMsgActivity";
-
+    private List<KeepUserBean> list;
+    private int UserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_mine_msg);
         ButterKnife.bind(this);
         initTopBar();
+        list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
+                .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                .limit(1)//只获取结果集的前 3 个数据
+                .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                .build()
+                .list();
+        UserId=list.get(0).getUserId();
         Resources r = mContext.getResources();
         resultUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
                 + r.getResourcePackageName(R.drawable.bg_people) + "/"
@@ -63,6 +97,12 @@ public class ChangeMineMsgActivity extends ActivityBase {
         });
         Glide.with(this).load(R.drawable.bg_people).into(image);
     }
+
+    @Override
+    protected ChangeMsgPresenter createPresenter() {
+        return new ChangeMsgPresenter();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -97,9 +137,35 @@ public class ChangeMineMsgActivity extends ActivityBase {
 
             case UCrop.REQUEST_CROP://UCrop裁剪之后的处理
                 if (resultCode == RESULT_OK) {
+
+
+//                    if (data != null) {
+//                        Bitmap bitmap = data.getParcelableExtra("data");
+//                        //将bitmap转换为Uri
+//                        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
+//                        //对非正确的Uri处理，这类Uri存在手机的external.db中，可以查询_data字段查出对应文件的uri
+//                        if (uri.getPath().contains("external")) {
+//                            Log.e(TAG, "是否存在" );
+//                            uri = external(uri.getPath());
+//                            File file = null;
+//                            try {
+//                                file = new File(new URI(uri.toString()));
+//                                Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
+//                            } catch (URISyntaxException e) {
+//                                e.printStackTrace();
+//                            }
+//                            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//                final MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+//                            getPresenter().postMineMsg(UserId,part);
+//                        }
+//                    }
+
+
+
                     resultUri = UCrop.getOutput(data);
                     roadImageView(resultUri, image);
                     RxSPTool.putContent(mContext, "AVATAR", resultUri.toString());
+                    Log.e(TAG, "onActivityResult:11111111111111111"+resultUri );
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(data);
                 }
@@ -113,12 +179,68 @@ public class ChangeMineMsgActivity extends ActivityBase {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+//网上
+    private Uri external(String external) {
+        String myImageUrl = "content://media" + external;
+        Uri uri = Uri.parse(myImageUrl);
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor actualimagecursor = this.managedQuery(uri, proj, null, null, null);
+        int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        actualimagecursor.moveToFirst();
+        String img_path = actualimagecursor.getString(actual_image_column_index);
+        File file = new File(img_path);
+        Uri fileUri = Uri.fromFile(file);
+        return fileUri;
+    }
     //从Uri中加载图片 并将其转化成File文件返回
     private File roadImageView(Uri uri, ImageView imageView) {
         Glide.with(mContext).
                 load(uri).
                 into(imageView);
+
+//        if (data != null) {
+//            Bitmap bitmap = data.getParcelableExtra("data");
+            //将bitmap转换为Uri
+//            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
+            //对非正确的Uri处理，这类Uri存在手机的external.db中，可以查询_data字段查出对应文件的uri
+//            if (uri.getPath().contains("external")) {
+//                Log.e(TAG, "是否存在" );
+//                uri = external(uri.getPath());
+                File file = null;
+                try {
+                    file = new File(new URI(uri.toString()));
+                    Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                final MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+                getPresenter().postMineMsg(UserId,part);
+//            }
+//        }
+
+
+
+
+
         Log.e(TAG, "roadImageView: "+uri );
+
+
+//        File file = new File(uri.toString());
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//        final MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+//
+//        Observable.timer(0, TimeUnit.SECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(Long aLong) throws Exception {
+//                      getPresenter().postMineMsg(UserId,part);
+//                    }
+//                });
+
+
         return (new File(RxPhotoTool.getImageAbsolutePath(this, uri)));
     }
 
@@ -184,5 +306,20 @@ public class ChangeMineMsgActivity extends ActivityBase {
                 Toast.makeText(MyApplication.getContext(), "55", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void requestLoading() {
+
+    }
+
+    @Override
+    public void resultFailure(String result) {
+        Log.e(TAG, "resultFailure: "+result );
+    }
+
+    @Override
+    public void resultPostSuccess(FavoritrResultBean favoritrResultBean) {
+        Log.e(TAG, "resultPostSuccess: "+favoritrResultBean.getCode()+"----"+favoritrResultBean.getMsg() );
     }
 }

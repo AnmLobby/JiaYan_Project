@@ -1,0 +1,267 @@
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_color_blue"
+
+    tools:context="com.example.administrator.jiayan_project.ui.fragment.mine.PostCommentFragment">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        app:qmui_topbar_title_color="@color/white"
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"/>
+
+<android.support.v4.widget.NestedScrollView
+    android:layout_marginTop="?attr/qmui_topbar_height"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        //宴会类型。价格
+    <LinearLayout
+        android:layout_marginTop="60pt"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/bg"
+            android:layout_weight="2"
+            android:layout_marginLeft="32pt"
+            android:layout_width="match_parent"
+            android:layout_height="250pt" />
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_marginLeft="40pt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="@dimen/text_six"
+                android:textColor="@color/app_color_blue"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/cuisine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text=" || "
+                android:textSize="@dimen/text_six"
+                android:textColor="#FF9547"
+                android:id="@+id/nolo"
+                android:layout_toRightOf="@+id/cuisine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_toRightOf="@+id/nolo"
+                android:textSize="@dimen/text_six"
+                android:textColor="@color/app_color_blue"
+                android:id="@+id/cuisine_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10pt"
+                android:id="@+id/xiangqing"
+                android:text=" 菜品详情："
+                android:drawableLeft="@mipmap/order_pg"
+                android:layout_below="@+id/cuisine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/people"
+                android:layout_marginTop="10pt"
+                android:layout_below="@id/xiangqing"
+                android:text="规格：10人/桌"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/bucaocolor"
+                android:layout_marginTop="10pt"
+                android:layout_below="@id/people"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_marginRight="15pt"
+        android:layout_marginLeft="20pt"
+        android:layout_marginTop="40pt"
+        android:background="#e6e6e6"
+        android:layout_width="match_parent"
+        android:layout_height="2pt"/>
+
+    <TextView
+        android:text="评价"
+        android:layout_marginLeft="80pt"
+        android:layout_marginTop="30pt"
+        android:textSize="@dimen/text_six"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--<View-->
+        <!--android:layout_marginRight="15pt"-->
+        <!--android:layout_marginLeft="20pt"-->
+        <!--android:layout_marginTop="30pt"-->
+        <!--android:background="#e6e6e6"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2pt"/>-->
+    <com.example.administrator.jiayan_project.utils.weight.TagCloudView
+        android:id="@+id/positionsTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20pt"
+        android:layout_marginLeft="50pt"
+        android:layout_marginRight="30pt"
+        app:tcvBackground="@drawable/edit_style_blue"
+        app:tcvBorder="6dp"
+        app:tcvCanTagClick="true"
+        app:tcvItemBorderHorizontal="6dp"
+        app:tcvItemBorderVertical="8dp"
+        app:tcvSingleLine="false"
+        app:tcvTextColor="@color/text_black"
+        app:tcvTextSize="14px" />
+
+    <com.example.administrator.jiayan_project.utils.weight.LinedEditText
+        android:id="@+id/edit_query"
+        app:ce_edit_text_color="#08090a"
+        android:layout_margin="30pt"
+        app:ce_edit_text_size="16px"
+        app:ce_count_text_size="16px"
+        app:ce_maxLength="150"
+        app:ce_countMode="Percentage"
+        app:ce_hint="写下您的是用感受来帮助其他小伙伴其他更好的选择吧"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="整体评价："
+        android:layout_marginLeft="80pt"
+        android:layout_marginTop="30pt"
+        android:textSize="@dimen/text_six"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_marginTop="50pt"
+        android:layout_marginLeft="80pt"
+        android:layout_width="match_parent"
+        android:layout_height="200pt">
+    <TextView
+        android:id="@+id/a"
+        android:layout_centerVertical="true"
+        android:text="菜品相符"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+        <com.hedgehog.ratingbar.RatingBar
+
+            android:layout_toLeftOf="@+id/a"
+            android:layout_marginLeft="30pt"
+            android:id="@+id/ratingbarba"
+            android:layout_marginTop="50pt"
+            android:layout_width="match_parent"
+            android:layout_height="100pt"
+            hedgehog:clickable="true"
+            hedgehog:halfstart="true"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/black"
+            hedgehog:starFill="@mipmap/yellow"
+            hedgehog:starImageHeight="50pt"
+            hedgehog:starImageWidth="50pt"
+            hedgehog:starImagePadding="5pt"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="50pt"
+        android:layout_marginLeft="80pt"
+        android:layout_width="match_parent"
+        android:layout_height="200pt">
+        <TextView
+            android:id="@+id/b"
+            android:layout_centerVertical="true"
+            android:text="服务态度"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.hedgehog.ratingbar.RatingBar
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/b"
+            android:layout_marginLeft="30pt"
+            android:id="@+id/ratingbarb"
+            android:layout_marginTop="50pt"
+            android:layout_width="match_parent"
+            android:layout_height="100pt"
+            hedgehog:clickable="true"
+            hedgehog:halfstart="true"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/black"
+            hedgehog:starFill="@mipmap/yellow"
+            hedgehog:starImageHeight="50pt"
+            hedgehog:starImageWidth="50pt"
+            hedgehog:starImagePadding="5pt"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="50pt"
+        android:layout_marginLeft="80pt"
+        android:layout_width="match_parent"
+        android:layout_height="200pt">
+        <TextView
+            android:id="@+id/c"
+            android:layout_centerVertical="true"
+            android:text="口味相符"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.hedgehog.ratingbar.RatingBar
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/c"
+            android:layout_marginLeft="30pt"
+            android:id="@+id/ratingbarc"
+            android:layout_marginTop="50pt"
+            android:layout_width="match_parent"
+            android:layout_height="100pt"
+            hedgehog:clickable="true"
+            hedgehog:halfstart="true"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/black"
+            hedgehog:starFill="@mipmap/yellow"
+            hedgehog:starImageHeight="50pt"
+            hedgehog:starImageWidth="50pt"
+            hedgehog:starImagePadding="5pt"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/bt_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20pt"
+        android:layout_marginRight="20pt"
+        android:layout_marginTop="60pt"
+        android:layout_marginBottom="40pt"
+        android:background="@color/app_color_blue"
+        android:text="提交评论"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+</FrameLayout>

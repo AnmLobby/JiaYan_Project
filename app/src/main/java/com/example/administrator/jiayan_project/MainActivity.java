@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project;
 
+import android.Manifest;
 import android.graphics.PixelFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import com.example.administrator.jiayan_project.ui.fragment.main.MainFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
+import com.vondear.rxtools.RxPermissionsTool;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,6 +38,14 @@ public class MainActivity extends BaseActivity{
                     .commit();
         }
         EventBus.getDefault().register(this);
+
+        RxPermissionsTool.
+                with(this).
+                addPermission(Manifest.permission.CAMERA).
+                addPermission(Manifest.permission.CALL_PHONE).
+                addPermission(Manifest.permission.READ_PHONE_STATE).
+                addPermission(Manifest.permission.READ_EXTERNAL_STORAGE).
+                initPermission();
     }
 
     @Override

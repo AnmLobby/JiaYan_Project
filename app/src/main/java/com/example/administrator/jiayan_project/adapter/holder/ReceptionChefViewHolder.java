@@ -47,7 +47,7 @@ public class ReceptionChefViewHolder   extends BaseViewHolder<ReceptionDinnerBea
     @Override
     public void setData(ReceptionDinnerBean.CookoBean data) {
         super.setData(data);
-        ratingBar.setStar(3);
+        ratingBar.setStar(data.getPinfen());
         name.setText(data.getCookname());
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+data.getCookimg()).into(imageView);
         initQmuiLayout();

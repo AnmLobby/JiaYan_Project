@@ -197,6 +197,7 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
         KeepUserBean addressBean=new KeepUserBean();
         addressBean.setUserId(loginBean.get(0).getId());
         addressBean.setAge(loginBean.get(0).getAge());
+        addressBean.setAvatar(loginBean.get(0).getAvatar());
         addressBean.setGender(loginBean.get(0).getGender());
         addressBean.setGroup_id(loginBean.get(0).getGroup_id());
         addressBean.setLevel(loginBean.get(0).getLevel());
@@ -205,12 +206,12 @@ public class LoginActivity extends AbstractMvpActivity<LoginView, LoginPresenter
 //        if (loginBean.get(0).getRealname().isEmpty()){
 //            addressBean.setNickname("null");
 //        }else {
-            addressBean.setNickname(loginBean.get(0).getRealname());
+//            addressBean.setNickname(loginBean.get(0).getRealname());
 //        }
 //        if (loginBean.get(0).getAvatar().isEmpty()){
 //            addressBean.setNickname("null");
 //        }else {
-            addressBean.setNickname(loginBean.get(0).getAvatar());
+//            addressBean.setNickname(loginBean.get(0).getAvatar());
 //        }
 
         addressBean.setUsername(loginBean.get(0).getUsername());
