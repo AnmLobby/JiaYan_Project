@@ -151,7 +151,7 @@ public class SetAddressFragment extends AddressBaseFragment {
                 popBackStack();
             }
         });
-        mTopBar.setTitle(ContantsName.NewLocation);
+
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,13 +172,16 @@ public class SetAddressFragment extends AddressBaseFragment {
         }
     }
     private void initAddressViews() {
+        Bundle bundle=getArguments();
 //        addressBean = getIntent().getParcelableExtra("address");
-
+        addressBean=bundle.getParcelable("address");
         if (addressBean != null) {
             //编辑状态
             state = STATE.STATE_EDIT;
+            mTopBar.setTitle("修改收货地址");
         } else {
             //添加状态
+            mTopBar.setTitle(ContantsName.NewLocation);
             state = STATE.STATE_ADD;
         }
 
@@ -189,6 +192,7 @@ public class SetAddressFragment extends AddressBaseFragment {
             et_address.setText(addressBean.address);
             et_area.setText(addressBean.area);
             cb_isdefault.setChecked(addressBean.isdefault);
+
             bt_save.setText("修改");
         }
     }

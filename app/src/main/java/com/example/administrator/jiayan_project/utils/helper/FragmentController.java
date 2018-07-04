@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.jiayan_project.MyApplication;
+import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
+import com.example.administrator.jiayan_project.ui.activity.AddressActivity;
+import com.example.administrator.jiayan_project.ui.activity.LoginActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SetAddressFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
@@ -35,13 +38,30 @@ public class FragmentController {
     }
     
     
-    public void startEditAddressActivityWithAddress(Context context, AddressBean address) {
-        SettingFragment settingFragment=new SettingFragment();
+    public void startDeliFragment(QMUIFragmentActivity context, AddressBean address) {
+
+        SetAddressFragment settingFragment=new SetAddressFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("address", address);
         settingFragment.setArguments(bundle);
-        startFragment(settingFragment);
+        context.startFragment(settingFragment);
     }
+
+    /**
+     * 打开编辑地址页面
+     *
+     * @param context
+
+     */
+    public void startEditAddressActivity(Context context, AddressBean address) {
+        Intent intent = new Intent(context, AddressActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("address", address);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
+    }
+
 
     protected void startFragment(BaseFragment fragment) {
         if (mHomeControlListener != null) {

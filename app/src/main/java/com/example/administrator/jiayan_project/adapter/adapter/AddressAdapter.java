@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.adapter.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import com.example.administrator.jiayan_project.ui.activity.TwoActivity;
 import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
 import com.example.administrator.jiayan_project.utils.helper.FragmentController;
 import com.example.administrator.jiayan_project.utils.util.AlertUtils;
+import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
@@ -40,16 +42,17 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
 
     private List<AddressBean> addressList;
     private LayoutInflater mInflater;
-
+    private Context context;
     private QMUIDialog qmuiDialog;
-    private Activity mainActivity;
+    private QMUIFragmentActivity mainActivity;
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
     //选中条目
     private int position;
 
-    public AddressAdapter(Activity mainActivity, List<AddressBean> addressList) {
+    public AddressAdapter(Context context,QMUIFragmentActivity mainActivity, List<AddressBean> addressList) {
         this.addressList = addressList;
         this.mainActivity = mainActivity;
+        this.context=context;
         mInflater = LayoutInflater.from(mainActivity);
         addressController = AddressController.getInstance();
         activityController = FragmentController.getInstance();
@@ -124,6 +127,10 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
                 break;
             case R.id.ly_edit:
                 position = (int) v.getTag();
+                Log.e("88", "onClick:999** " );
+//                activityController.startEditAddressActivityWithAddress(MyApplication.getContext(), addressList.get(position));
+//                activityController.startEditAddressActivity(mainActivity, addressList.get(position));
+                activityController.startDeliFragment(mainActivity,addressList.get(position));
 //                EventBus.getDefault().postSticky(new AddressEvent(addressList.get(position).getId(),addressList.get(position).getPhone(),addressList.get(position).getRealname(),addressList.get(position).getArea(),addressList.get(position).getAddress(),addressList.get(position).getIsdefault()));
 //                activityController.startEditAddressActivityWithAddress(mainActivity, addressList.get(position));
                 break;
@@ -150,7 +157,7 @@ public class AddressAdapter extends BaseAdapter implements View.OnClickListener 
             cb_isdefault = (CheckBox) view.findViewById(R.id.cb_isdefault);
             ly_edit = (LinearLayout) view.findViewById(R.id.ly_edit);
             ly_delete = (LinearLayout) view.findViewById(R.id.ly_delete);
-            ly_edit.setVisibility(View.GONE);
+//            ly_edit.setVisibility(View.GONE);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,9 +21,12 @@ import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.ui.activity.IntroActivityActivity;
+import com.example.administrator.jiayan_project.ui.activity.WelcomeActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.AddressEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
+import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,9 +35,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * 查看收货地址
@@ -50,11 +58,13 @@ public class DeliveryFragment extends BaseFragment {
     private List<AddressBean> addressBeans=new ArrayList<>();
     private static final String TAG = "ClassifyFragment";
     private  List<AddressBean> list;
+    private QMUIFragmentActivity qmuiFragmentActivity;
     @Override
     protected View onCreateView() {
         FrameLayout layout = ( FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_delivery, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
+        qmuiFragmentActivity=getBaseFragmentActivity();
         initTopBar();
 //        EventBus.getDefault().register(this);
 //        LinearLayoutManager layoutManager=new LinearLayoutManager(MyApplication.getContext());
@@ -74,7 +84,7 @@ public class DeliveryFragment extends BaseFragment {
 //        }
 //        Log.e(TAG, "onCreateView: "+list.size() +list.get(i));
         addressBeans.addAll(list);
-        addressListAdapter =new AddressAdapter(getActivity(),addressBeans);
+        addressListAdapter =new AddressAdapter(MyApplication.getContext(),qmuiFragmentActivity ,addressBeans);
 
         lv_address.setAdapter(addressListAdapter);
 //        addressListAdapter.setNewData(addressBeans);
@@ -111,26 +121,34 @@ public class DeliveryFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
             isPause = true; //记录页面已经被暂停
+        Log.e(TAG, "onPause: " );
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.e(TAG, "Resesu "+isPause);
         if (isPause){ //判断是否暂停
             isPause = false;
-            addressBeans.clear();
-            list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
-                    .offset(0)//偏移量，相当于 SQL 语句中的 skip
-                    .limit(300)//只获取结果集的前 3 个数据
-                    .orderDesc(AddressBeanDao.Properties.Isdefault)//通过 StudentNum 这个属性进行正序排序  Desc倒序
-                    .build()
-                    .list();
-            addressBeans.addAll(list);
-            addressListAdapter =new AddressAdapter(getActivity(),addressBeans);
-            addressListAdapter.notifyDataSetChanged();
-        }
 
+//            Observable.timer(2, TimeUnit.SECONDS)
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Consumer<Long>() {
+//                        @Override
+//                        public void accept(Long aLong) throws Exception {
+                            addressBeans.clear();
+                            list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
+                                    .offset(0)//偏移量，相当于 SQL 语句中的 skip
+                                    .limit(300)//只获取结果集的前 3 个数据
+                                    .orderDesc(AddressBeanDao.Properties.Isdefault)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                                    .build()
+                                    .list();
+                            addressBeans.addAll(list);
+                            addressListAdapter =new AddressAdapter(MyApplication.getContext(),qmuiFragmentActivity,addressBeans);
+                            addressListAdapter.notifyDataSetChanged();
+
+
+     }
     }
     @Override
     protected boolean canDragBack() {
@@ -150,8 +168,8 @@ public class DeliveryFragment extends BaseFragment {
             }
         });
         mTopBar.setTitle(ContantsName.ReceiveLocation);
-
     }
+
 //    @Subscribe(threadMode = ThreadMode.POSTING, sticky = false)
 //    public void ononMoonEvent(AddressEvent addressEvent) {
 ////        String phone=addressEvent.getPhone().toString().trim();

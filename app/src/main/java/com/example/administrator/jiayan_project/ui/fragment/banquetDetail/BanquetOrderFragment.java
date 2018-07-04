@@ -32,6 +32,8 @@ import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.example.administrator.jiayan_project.utils.weight.LinedEditText;
 import com.example.administrator.jiayan_project.utils.weight.TagCloudView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.vondear.rxtools.module.alipay.AliPayModel;
+import com.vondear.rxtools.module.alipay.AliPayTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -378,6 +380,7 @@ public class BanquetOrderFragment extends BaseFragment {
                 initEndTimeDialog(endDate, endTime);
                 break;
             case R.id.pay_money:
+
                 break;
         }
     }
