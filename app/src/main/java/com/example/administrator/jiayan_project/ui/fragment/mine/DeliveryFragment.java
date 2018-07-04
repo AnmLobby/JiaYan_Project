@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.ui.fragment.mine;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -158,7 +159,8 @@ public class DeliveryFragment extends BaseFragment {
         mTopBar.addRightImageButton(R.mipmap.add, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startFragment(new SetAddressFragment());
+                startFragment(new AddSetFragment());
+
             }
         });
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
