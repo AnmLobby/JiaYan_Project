@@ -25,18 +25,13 @@ import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
-import com.example.administrator.jiayan_project.mvp.base.AbstractMvpActivity;
 import com.example.administrator.jiayan_project.mvp.base.ChangeMsgMvpActivity;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgPresenter;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgView;
-import com.example.administrator.jiayan_project.mvp.login.LoginPresenter;
-import com.example.administrator.jiayan_project.mvp.login.LoginView;
-import com.example.administrator.jiayan_project.ui.base.BaseActivity;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.vondear.rxtools.RxPhotoTool;
 import com.vondear.rxtools.RxSPTool;
-import com.vondear.rxtools.activity.ActivityBase;
 import com.vondear.rxtools.view.dialog.RxDialogChooseImage;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
@@ -137,35 +132,21 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
 
             case UCrop.REQUEST_CROP://UCrop裁剪之后的处理
                 if (resultCode == RESULT_OK) {
-
-
-//                    if (data != null) {
-//                        Bitmap bitmap = data.getParcelableExtra("data");
-//                        //将bitmap转换为Uri
-//                        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
-//                        //对非正确的Uri处理，这类Uri存在手机的external.db中，可以查询_data字段查出对应文件的uri
-//                        if (uri.getPath().contains("external")) {
-//                            Log.e(TAG, "是否存在" );
-//                            uri = external(uri.getPath());
-//                            File file = null;
-//                            try {
-//                                file = new File(new URI(uri.toString()));
-//                                Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
-//                            } catch (URISyntaxException e) {
-//                                e.printStackTrace();
-//                            }
-//                            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                final MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
-//                            getPresenter().postMineMsg(UserId,part);
-//                        }
-//                    }
-
-
-
                     resultUri = UCrop.getOutput(data);
                     roadImageView(resultUri, image);
                     RxSPTool.putContent(mContext, "AVATAR", resultUri.toString());
-                    Log.e(TAG, "onActivityResult:11111111111111111"+resultUri );
+
+                 String   filePath = resultUri.getPath().toString().trim();
+                    File file = new File(filePath);
+                    filePath = file.getAbsolutePath();
+                    Log.e(TAG, "文件地址："+filePath+"-----"+file.getName());
+//                    File   file = new File(Environment.getExternalStorageDirectory(),uri.toString());
+//        Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
+                RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                getPresenter().postMineMsg(UserId,part);
+
+
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(data);
                 }
@@ -179,19 +160,7 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-//网上
-    private Uri external(String external) {
-        String myImageUrl = "content://media" + external;
-        Uri uri = Uri.parse(myImageUrl);
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor actualimagecursor = this.managedQuery(uri, proj, null, null, null);
-        int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        actualimagecursor.moveToFirst();
-        String img_path = actualimagecursor.getString(actual_image_column_index);
-        File file = new File(img_path);
-        Uri fileUri = Uri.fromFile(file);
-        return fileUri;
-    }
+
     //从Uri中加载图片 并将其转化成File文件返回
     private File roadImageView(Uri uri, ImageView imageView) {
         Glide.with(mContext).
@@ -206,41 +175,19 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
 //            if (uri.getPath().contains("external")) {
 //                Log.e(TAG, "是否存在" );
 //                uri = external(uri.getPath());
-                File file = null;
-                try {
-                    file = new File(new URI(uri.toString()));
-                    Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                final MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
-                getPresenter().postMineMsg(UserId,part);
+
+
+
+//        File   file = new File(Environment.getExternalStorageDirectory(),uri.toString());
+//        Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+//                final MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+//                getPresenter().postMineMsg(UserId,part);
+
+
 //            }
 //        }
-
-
-
-
-
         Log.e(TAG, "roadImageView: "+uri );
-
-
-//        File file = new File(uri.toString());
-//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        final MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
-
-//
-//        Observable.timer(0, TimeUnit.SECONDS)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Long>() {
-//                    @Override
-//                    public void accept(Long aLong) throws Exception {
-//                      getPresenter().postMineMsg(UserId,part);
-//                    }
-//                });
-
-
         return (new File(RxPhotoTool.getImageAbsolutePath(this, uri)));
     }
 
@@ -250,8 +197,10 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
         SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
         long time = System.currentTimeMillis();
         String imageName = timeFormatter.format(new Date(time));
-
-        Uri destinationUri = Uri.fromFile(new File(getCacheDir(), imageName + ".jpeg"));
+        /**
+         * 后台服务器无法识别jpeg的图片。设置jpg才上传成功，
+         */
+        Uri destinationUri = Uri.fromFile(new File(getCacheDir(), imageName + ".jpg"));
 
         UCrop.Options options = new UCrop.Options();
         //设置裁剪图片可操作的手势
@@ -287,6 +236,7 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
                 .withOptions(options)
                 .start(this);
     }
+
     private void initDialogChooseImage() {
         RxDialogChooseImage dialogChooseImage = new RxDialogChooseImage(mContext, TITLE);
         dialogChooseImage.show();
@@ -311,6 +261,20 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
     @Override
     public void requestLoading() {
 
+    }
+
+    //网上
+    private Uri external(String external) {
+        String myImageUrl = "content://media" + external;
+        Uri uri = Uri.parse(myImageUrl);
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor actualimagecursor = this.managedQuery(uri, proj, null, null, null);
+        int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        actualimagecursor.moveToFirst();
+        String img_path = actualimagecursor.getString(actual_image_column_index);
+        File file = new File(img_path);
+        Uri fileUri = Uri.fromFile(file);
+        return fileUri;
     }
 
     @Override

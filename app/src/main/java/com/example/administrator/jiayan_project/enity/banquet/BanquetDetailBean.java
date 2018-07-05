@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BanquetDetailBean {
 
+
     private List<DataBean> data;
 
     public List<DataBean> getData() {
@@ -20,8 +21,8 @@ public class BanquetDetailBean {
 
     public static class DataBean {
         /**
-         * id : 19
-         * comment : <p><img src="/ueditor/php/upload/image/20180627/1530082324.jpg" title="1530082324.jpg"/></p><p><img src="/ueditor/php/upload/image/20180627/1530082324.jpg" title="1530082324.jpg"/></p><p>						</p>
+         * id : 1
+         * comment : <p><img src="/ueditor/php/upload/image/20180705/1530754976274097.jpg" title="1530754976274097.jpg"/></p><p><img src="/ueditor/php/upload/image/20180705/1530754977688798.jpg" title="1530754977688798.jpg"/></p><p><img src="/ueditor/php/upload/image/20180705/1530754989123284.jpg" title="1530754989123284.jpg"/></p><p><img src="/ueditor/php/upload/image/20180705/1530754989222754.jpg" title="1530754989222754.jpg"/></p><p><img src="/ueditor/php/upload/image/20180705/1530754991111998.jpg" title="1530754991111998.jpg"/></p><p><br/></p>
          */
 
         private int id;

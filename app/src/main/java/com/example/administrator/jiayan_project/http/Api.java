@@ -299,15 +299,15 @@ public interface Api {
     Observable<ClassifyBean>  getClassify();
 
     /**
-     * 修改头像
+     * 修改头像,userid是用path或者part都行。path需要去掉post的userid
      */
 //    @HTTP(method = "DELETE",path = "/user/delete",hasBody = true)\
     @Multipart
     @POST("Userpersonal/userext/userid/{userid}")
-    Observable<FavoritrResultBean>    postMineMsg(@Part MultipartBody.Part photo,@Path("userid") int userid);
+    Observable<FavoritrResultBean>    postMineMsg(@Part MultipartBody.Part file,@Path("userid") int userid);
 //    @Body ChangeMsgBean changeMsgBean
     /**
-     *  查看更多
+     * 查看更多
      */
     @GET("Index/{more}")
     Observable<MoreYanBean>      getMore(@Path("more") String more);

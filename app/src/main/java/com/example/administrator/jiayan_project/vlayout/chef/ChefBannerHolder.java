@@ -33,8 +33,10 @@ public class ChefBannerHolder extends VlayoutBaseHolder<ChefBannerBean> {
         super.setData(ps, pData);
 
         List<String> listImage = new ArrayList<>();
-        listImage.add("http://bmob-cdn-18241.b0.upaiyun.com/2018/06/11/591738b640ac699080fc1d808960a55f.png");
-        listImage.add("http://bmob-cdn-18241.b0.upaiyun.com/2018/06/11/4e7dc4a840b92a6d8074914c45cea273.png");
+
+        listImage.add("https://s20.postimg.cc/i9h5raoyl/4e7dc4a840b92a6d8074914c45cea273.png");
+
+        listImage.add("https://s20.postimg.cc/qrqlvn371/591738b640ac699080fc1d808960a55f.png");
         banner.setImages((List<?>)listImage)
                 .setImageLoader(new GlideImageLoader())
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)

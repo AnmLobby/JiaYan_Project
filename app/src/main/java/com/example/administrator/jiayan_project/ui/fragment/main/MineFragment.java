@@ -26,6 +26,7 @@ import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
@@ -163,7 +164,7 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.yuelayout:
 //                Toast.makeText(MyApplication.getContext(), "余额", Toast.LENGTH_SHORT).show();
-
+                startFragment(new BanquetDetailFragment());
 
                 break;
             case R.id.chongzhilayout:

@@ -283,6 +283,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -309,7 +310,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                     return;
                 }
                 int numZhushu = Integer.parseInt(Fzhuoshu.getText().toString());
-                int numPeople = Integer.parseInt(renshu.getText().toString());
+                int numPeople = Integer.parseInt(renshu.getText().toString().trim());
                 getPresenter().AddToCart(userid, colorId, numZhushu, Integer.parseInt(dinnerid), numPeople);
                 break;
             case R.id.buy_soon:
