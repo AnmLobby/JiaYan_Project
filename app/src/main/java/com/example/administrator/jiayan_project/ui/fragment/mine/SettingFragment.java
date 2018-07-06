@@ -87,6 +87,11 @@ public class SettingFragment extends AbstractMvpFragment<SettingView, SettingPre
             public void onClick(View v) {
                 Intent intent=new Intent(MyApplication.getContext(), ChangeMineMsgActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
+//                Intent intentTranslucent = ChangeMineMsgActivity.createActivity(getContext(), true);
+//                startActivity(intentTranslucent);
+//                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_still);
+
 //                startFragment(new ChangeMsgFragment());
 //                startFragmentAndDestroyCurrent(new YanNewsMainFragment());
             }

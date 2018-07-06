@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.administrator.jiayan_project.ui.activity.ChangeMineMsgActivity">
     <com.qmuiteam.qmui.widget.QMUITopBar
         app:qmui_topbar_title_color="@color/white"
@@ -27,6 +28,7 @@
                 android:layout_height="250pt">
 
                 <TextView
+                    android:textColor="#aaa"
                     android:textSize="16sp"
                     android:text="头像："
                     android:layout_marginLeft="38pt"
@@ -50,26 +52,250 @@
                 android:layout_width="match_parent"
                 android:layout_height="1pt"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250pt">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="14dp">
 
                 <TextView
-                    android:textSize="16sp"
-                    android:text="用户名："
-                    android:layout_marginLeft="38pt"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
+
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="用户名："
+                    android:textColor="#aaa"
+                    android:textSize="14dp" />
 
+                <EditText
+                    android:maxLength="7"
+                    android:id="@+id/et_realnick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textColor="#000000"
+                    android:textColorHint="#aaa"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
-            </RelativeLayout>
             <include
                 layout="@layout/base_view"
                 android:layout_width="match_parent"
                 android:layout_height="1pt"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="14dp">
 
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="真实姓名："
+                    android:textColor="#aaa"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:maxLength="6"
+                    android:id="@+id/et_realname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textColor="#000000"
+                    android:textColorHint="#aaa"
+                    android:textSize="14dp" />
+            </LinearLayout>
+            <include
+                layout="@layout/base_view"
+                android:layout_width="match_parent"
+                android:layout_height="1pt"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="#fff"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="14dp">-->
+
+                <!--<TextView-->
+
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="年龄："-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+
+                <!--<EditText-->
+                    <!--android:maxLength="2"-->
+                    <!--android:id="@+id/et_realage"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="14dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@null"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:textColorHint="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+            <!--</LinearLayout>-->
+            <!--<include-->
+                <!--layout="@layout/base_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1pt"/>-->
+
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="#fff"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="14dp">-->
+
+                <!--<TextView-->
+
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="性别："-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+
+                <!--<RadioGroup-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_marginLeft="300pt"-->
+                    <!--android:id="@+id/radiogroup1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal" >-->
+
+                    <!--<RadioButton-->
+                        <!--android:layout_marginLeft="60pt"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="男" />-->
+
+                    <!--<RadioButton-->
+                        <!--android:layout_marginLeft="60pt"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="女" />-->
+                <!--</RadioGroup>-->
+            <!--</LinearLayout>-->
+            <!--<include-->
+                <!--layout="@layout/base_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1pt"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="#fff"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="14dp">-->
+
+                <!--<TextView-->
+
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="手机："-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+
+                <!--<EditText-->
+                    <!--android:inputType="phone"-->
+                    <!--android:maxLength="11"-->
+                    <!--android:id="@+id/et_realnumber"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="14dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@null"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:textColorHint="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+            <!--</LinearLayout>-->
+            <!--<include-->
+                <!--layout="@layout/base_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1pt"/>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="#fff"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="14dp">-->
+
+                <!--<TextView-->
+
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="QQ："-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+
+                <!--<EditText-->
+                    <!--android:maxLength="11"-->
+                    <!--android:id="@+id/et_realqq"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="14dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@null"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:textColorHint="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+            <!--</LinearLayout>-->
+            <!--<include-->
+                <!--layout="@layout/base_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1pt"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="#fff"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="14dp">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="邮箱："-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+
+                <!--<EditText-->
+                    <!--android:inputType="textEmailAddress"-->
+                    <!--android:id="@+id/et_realmsg"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="14dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@null"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:textColorHint="#aaa"-->
+                    <!--android:textSize="14dp" />-->
+            <!--</LinearLayout>-->
+            <!--<include-->
+                <!--layout="@layout/base_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1pt"/>-->
         </LinearLayout>
+
+
+
+
+
     </android.support.v4.widget.NestedScrollView>
 </FrameLayout>

@@ -31,4 +31,9 @@ public interface CartView extends IMvpBaseView {
      * 删除购物车的item
      */
     void resultDeleteSuccess(FavoritrResultBean favoritrResultBean);
+
+    /**
+     * 删减购物车
+     */
+    void resultChangeSuccess(FavoritrResultBean favoritrResultBean);
 }

@@ -65,8 +65,8 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
     private  VirtualLayoutManager virtualLayoutManager;
     private List<ChefBannerBean> chefBannerBeans=new ArrayList<>();
     private static final String TAG = "WZServiceFragment";
-    private ChefBannerBean[] bannerBean = new ChefBannerBean[]{new ChefBannerBean("http://bmob-cdn-18241.b0.upaiyun.com/2018/06/11/591738b640ac699080fc1d808960a55f.png"),
-            new ChefBannerBean("http://bmob-cdn-18241.b0.upaiyun.com/2018/06/11/591738b640ac699080fc1d808960a55f.png")};
+    private ChefBannerBean[] bannerBean = new ChefBannerBean[]{new ChefBannerBean("https://s20.postimg.cc/i9h5raoyl/4e7dc4a840b92a6d8074914c45cea273.png"),
+            new ChefBannerBean("https://s20.postimg.cc/qrqlvn371/591738b640ac699080fc1d808960a55f.png")};
     @Override
     protected View onCreateView() {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_wz_service, null);

@@ -52,6 +52,34 @@ public class ChangeMsgPresenter extends AbstractMvpPersenter<ChangeMsgView> {
             }
         }, 10);
     }
+    public void postMineMsgAll(final int id, final String nickname, final String realname) {
+        //获取View
+        if (getmMvpView() != null) {
+            getmMvpView().requestLoading();
+        }
+        //模拟网络延迟，可以显示出加载中
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myFavoriteModel.chageMsgAll(id,nickname,realname,new IBaseRequestCallBack<FavoritrResultBean>() {
+                    @Override
+                    public void requestError(Throwable throwable) {
+                        if (getmMvpView() != null) {
+                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                        }
+                    }
+                    @Override
+                    public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                        if (getmMvpView() != null) {
+                            getmMvpView().resultPostMsgSuccess(favoritrResultBean);
+                        }
+                    }
+                });
+            }
+        }, 10);
+    }
+
+
 
     public void interruptHttp() {
         myFavoriteModel.interruptHttp();

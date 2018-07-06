@@ -63,6 +63,25 @@ public class CartPresenter   extends AbstractMvpPersenter<CartView> {
             }
         });
     }
+
+    public void changeCart(int userid,int num) {
+        cartModel.changeCart(userid,num,new IBaseRequestCallBack<FavoritrResultBean>() {
+            @Override
+            public void requestError(Throwable throwable) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                }
+            }
+            @Override
+            public void requestSuccess(FavoritrResultBean favoritrResultBean) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultChangeSuccess(favoritrResultBean);
+                }
+            }
+        });
+    }
+
+
     public void interruptHttp(){
         cartModel.interruptHttp();
     }

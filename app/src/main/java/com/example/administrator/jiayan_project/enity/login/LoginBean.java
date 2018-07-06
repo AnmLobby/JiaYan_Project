@@ -8,16 +8,16 @@ public class LoginBean {
 
 
     /**
-     * id : 44
+     * id : 5
      * group_id : 0
-     * username : 17607556ss10254
-     * nickname : 17607556ss10254
-     * realname :
-     * age : 0
-     * mobile : 17607556ss1
-     * avatar :
+     * username : 13172218987
+     * nickname : 咖啡
+     * realname : 咖啡
+     * age : 44
+     * mobile : 13172218987
+     * avatar : /assets/Yii/5b3ee3b377c1b.jpg
      * level : 0
-     * gender : 0
+     * gender : 2
      */
 
     private int id;

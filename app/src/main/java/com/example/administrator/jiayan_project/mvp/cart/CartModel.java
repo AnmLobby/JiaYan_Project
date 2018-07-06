@@ -65,6 +65,25 @@ public class CartModel extends BaseModel{
                     }
                 }));
     }
+
+    public void changeCart(int id,int num, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getChangeMyCart(id,num)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
+
+                        iBaseRequestCallBack.requestSuccess(favoritrResultBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+
     public void interruptHttp(){
         if(cartBeanCall != null && !cartBeanCall.isCanceled()){
             cartBeanCall.cancel();

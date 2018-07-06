@@ -162,6 +162,11 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     }
 
     @Override
+    public void resultChangeSuccess(FavoritrResultBean favoritrResultBean) {
+
+    }
+
+    @Override
     public CartPresenter createPresenter() {
         return new CartPresenter();
     }
@@ -236,14 +241,17 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     public void doDecrease(int position, View showCountView, boolean isChecked) {
         CartBean.DataBean shoppingCartBean = shoppingCartBeanList.get(position);
         int currentCount = shoppingCartBean.getNum();
+        int currenId=shoppingCartBean.getId();
         if (currentCount == 1) {
             return;
         }
         currentCount--;
         shoppingCartBean.setNum(currentCount);
         ((TextView) showCountView).setText(currentCount + "");
+        getPresenter().changeCart(currenId,currentCount);//删减操作购物车
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
+
     }
 
     /**
@@ -255,7 +263,7 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     public void childDelete(int position) {
 //        删除条目在这里操作
 //        Log.e(TAG, "childDelete: 删除"+   shoppingCartBeanList.get(position).getId());
-        getPresenter().deleteToCart(userid, Integer.parseInt(shoppingCartBeanList.get(position).getDetail()),shoppingCartBeanList.get(position).getNum(),shoppingCartBeanList.get(position).getId(),shoppingCartBeanList.get(position).getRen());
+        getPresenter().deleteToCart(userid, Integer.parseInt(shoppingCartBeanList.get(position).getDetail()),shoppingCartBeanList.get(position).getNum(),shoppingCartBeanList.get(position).getFeastid(),shoppingCartBeanList.get(position).getRen());
         shoppingCartBeanList.remove(position);
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
@@ -267,7 +275,7 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
      */
     @Override
     public void onItemLayoutClick(int position) {
-        String id = String.valueOf(shoppingCartBeanList.get(position).getId());
+        String id = String.valueOf(shoppingCartBeanList.get(position).getFeastid());
         EventBus.getDefault().postSticky(new StartNewsEvent(id));
         startFragment(new BlankOneFragment());
     }
@@ -289,7 +297,7 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
                 order_color=shoppingCartBean.getSname();
                 order_people= String.valueOf(shoppingCartBean.getRen());
                 order_num= String.valueOf(shoppingCartBean.getNum());
-                order_dinnerid= String.valueOf(shoppingCartBean.getId());
+                order_dinnerid= String.valueOf(shoppingCartBean.getFeastid());
                 order_price= String.valueOf(shoppingCartBean.getPrice());
                 order_url= Constants.BaseUrl+shoppingCartBean.getOriginalimg();
                 order_name=shoppingCartBean.getDinnername();
@@ -325,9 +333,11 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
     public void doIncrease(int position, View showCountView, boolean isChecked) {
         CartBean.DataBean shoppingCartBean = shoppingCartBeanList.get(position);
         int currentCount = shoppingCartBean.getNum();
+        int  nuid=shoppingCartBean.getId();
         currentCount++;
         shoppingCartBean.setNum(currentCount);
         ((TextView) showCountView).setText(currentCount + "");
+        getPresenter().changeCart(nuid,currentCount);//删减操作购物车
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
     }

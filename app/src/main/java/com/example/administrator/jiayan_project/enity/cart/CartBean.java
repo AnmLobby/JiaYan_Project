@@ -64,6 +64,15 @@ public class CartBean {
         private String subname;
         private int price;
         private String originalimg;
+        private int feastid;
+        public int getFeastid() {
+            return feastid;
+        }
+
+        public void setFestid(int festid) {
+            this.feastid = festid;
+        }
+
 
         public String getDetail() {
             return sizeid;

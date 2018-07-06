@@ -36,7 +36,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected View onCreateView() {
-
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_main, null);
         RudenessScreenHelper.resetDensity(getContext(), 1080);
         ButterKnife.bind(this, layout);

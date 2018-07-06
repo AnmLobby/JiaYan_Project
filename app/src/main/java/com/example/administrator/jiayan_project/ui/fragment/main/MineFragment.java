@@ -24,7 +24,13 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.http.Constants;
+import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
+import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
+import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
+import com.example.administrator.jiayan_project.mvp.mine.MinePresenter;
+import com.example.administrator.jiayan_project.mvp.mine.MineView;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
@@ -50,46 +56,29 @@ import butterknife.OnClick;
 /**
  * 我的页面，底部栏第四个
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> implements MineView  {
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     private static final String TAG = "MineFragment";
-    @BindView(R.id.yuelayout)
-    LinearLayout yuelayout;
-    @BindView(R.id.chongzhilayout)
-    LinearLayout chongzhilayout;
-    @BindView(R.id.jifenlayout)
-    LinearLayout jifenlayout;
-    @BindView(R.id.shoucang_layout)
-    LinearLayout shoucangLayout;
-    @BindView(R.id.huiyuan_layout)
-    LinearLayout huiyuanLayout;
-    @BindView(R.id.address_layout)
-    LinearLayout addressLayout;
-    @BindView(R.id.pingjia_layout)
-    LinearLayout pingjiaLayout;
-    @BindView(R.id.fuwu_layout)
-    LinearLayout fuwuLayout;
-    @BindView(R.id.kefu_layout)
-    LinearLayout kefuLayout;
-    @BindView(R.id.kajuan_layout)
-    LinearLayout kajuanLayout;
-    @BindView(R.id.fenxiang_layout)
-    LinearLayout fenxiangLayout;
-    @BindView(R.id.daifukuan_layout)
-    LinearLayout daifukuanLayout;
-    @BindView(R.id.yizhifu_layout)
-    LinearLayout yizhifuLayout;
-    @BindView(R.id.daipingjia_layout)
-    LinearLayout daipingjiaLayout;
-    @BindView(R.id.tuikuan_layout)
-    LinearLayout tuikuanLayout;
-    @BindView(R.id.name)
-    TextView name;
-    @BindView(R.id.iv_head)
-    QMUIRadiusImageView ivHead;
+    @BindView(R.id.yuelayout) LinearLayout yuelayout;
+    @BindView(R.id.chongzhilayout) LinearLayout chongzhilayout;
+    @BindView(R.id.jifenlayout) LinearLayout jifenlayout;
+    @BindView(R.id.shoucang_layout) LinearLayout shoucangLayout;
+    @BindView(R.id.huiyuan_layout) LinearLayout huiyuanLayout;
+    @BindView(R.id.address_layout) LinearLayout addressLayout;
+    @BindView(R.id.pingjia_layout) LinearLayout pingjiaLayout;
+    @BindView(R.id.fuwu_layout) LinearLayout fuwuLayout;
+    @BindView(R.id.kefu_layout) LinearLayout kefuLayout;
+    @BindView(R.id.kajuan_layout) LinearLayout kajuanLayout;
+    @BindView(R.id.fenxiang_layout) LinearLayout fenxiangLayout;
+    @BindView(R.id.daifukuan_layout) LinearLayout daifukuanLayout;
+    @BindView(R.id.yizhifu_layout) LinearLayout yizhifuLayout;
+    @BindView(R.id.daipingjia_layout) LinearLayout daipingjiaLayout;
+    @BindView(R.id.tuikuan_layout) LinearLayout tuikuanLayout;
+    @BindView(R.id.name) TextView name;
+    @BindView(R.id.iv_head) QMUIRadiusImageView ivHead;
     private WechatShareModel mWechatShareModel;
     private List<KeepUserBean> list;
-
+    private String  userPhone;
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
@@ -101,13 +90,9 @@ public class MineFragment extends BaseFragment {
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        Log.e(TAG, "onCreateView: "+list.get(0).getNickname() );
-        name.setText(list.get(0).getNickname());
-        if (list.get(0).getAvatar().equals("")) {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
-        }else {
-            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+list.get(0).getAvatar()).into(ivHead);
-        }
+
+        userPhone=list.get(0).getUsername();
+        getPresenter().clickPostMessage(userPhone);
         return layout;
     }
 
@@ -131,18 +116,7 @@ public class MineFragment extends BaseFragment {
                 Toast.makeText(MyApplication.getContext(), "po", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fuwu_layout:
-//                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                View detailcontent = inflater.inflate(R.layout.dialog_detail, null);
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(detailcontent);
-//                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                builder.show();
                 final RxDialogSure rxDialogSure = new RxDialogSure(getActivity());//提示弹窗
-//                rxDialogSure.getLogoView().setImageResource(R.drawable.logo);
                 rxDialogSure.getSureView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -156,8 +130,6 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.kajuan_layout:
                 startFragment(new SettingFragment());
-//                startFragment(new SearchFragment());
-//                startFragment(new BanquetOrderFragment());
                 break;
             case R.id.fenxiang_layout:
                 showShareDialog();
@@ -255,18 +227,42 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.e(TAG, "onDestroyView: " );
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: " );
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG, "onStop: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy: ");
+    }
+
+    @Override
+    public MinePresenter createPresenter() {
+        return new MinePresenter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume: " );
     }
 
     @Override
     protected boolean canDragBack() {
         return false;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
 
     private void Call() {
         if (ContextCompat.checkSelfPermission(MyApplication.getContext(),
@@ -295,5 +291,27 @@ public class MineFragment extends BaseFragment {
             // 已经获得授权，可以打电话
             CallPhone();
         }
+    }
+
+    @Override
+    public void requestLoading() {
+
+    }
+
+    @Override
+    public void resultFailure(String result) {
+        Log.e(TAG, "resultFailure: "+result );
+    }
+
+    @Override
+    public void resultLoginSuccess(List<LoginBean> loginBean) {
+
+        name.setText(loginBean.get(0).getNickname());
+        if (loginBean.get(0).getAvatar().equals("")) {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
+        }else {
+            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+loginBean.get(0).getAvatar()).into(ivHead);
+        }
+//        Log.e(TAG, "resultLoginSuccess: "+loginBean );
     }
 }

@@ -108,6 +108,16 @@ public interface Api {
      */
     @GET("Login/login/username/{username}")
     Observable<List<LoginBean>>  postMessage(@Path("username") String username);
+
+
+//    /**
+//     * 获取个人信息
+//     * @param username
+//     * @return
+//     */
+//    @GET("Login/login/username/{username}")
+//    Observable<LoginBean>  getMineMessage(@Path("username") String username);
+
     /**
     * 购物车,没有用到，已经取消
     */
@@ -208,6 +218,12 @@ public interface Api {
     Observable<CartBean>  getMyCart(@Path("userid") int userid);
 
     /**
+     * 删减购物车
+     */
+    @POST("Shopcar/deletes/id/{id}/num/{num}")
+    Observable<FavoritrResultBean>  getChangeMyCart(@Path("id") int id,@Path("num") int num);
+
+    /**
      * 删除的购物车
      */
     @POST("Shopcar/delete")
@@ -305,6 +321,13 @@ public interface Api {
     @Multipart
     @POST("Userpersonal/userext/userid/{userid}")
     Observable<FavoritrResultBean>    postMineMsg(@Part MultipartBody.Part file,@Path("userid") int userid);
+
+
+    /**
+     * 修改个人信息
+     */
+    @POST("Userpersonal/userexto/")
+    Observable<FavoritrResultBean>    postMineMsgAll(@Body ChangeMsgBean changeMsgBean);
 //    @Body ChangeMsgBean changeMsgBean
     /**
      * 查看更多

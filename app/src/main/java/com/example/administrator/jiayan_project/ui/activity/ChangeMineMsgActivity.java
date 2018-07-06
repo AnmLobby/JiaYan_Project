@@ -4,21 +4,20 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.administrator.jiayan_project.MainActivity;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
@@ -28,6 +27,7 @@ import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean
 import com.example.administrator.jiayan_project.mvp.base.ChangeMsgMvpActivity;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgPresenter;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgView;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.vondear.rxtools.RxPhotoTool;
@@ -37,48 +37,61 @@ import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import static com.vondear.rxtools.view.dialog.RxDialogChooseImage.LayoutType.TITLE;
 
-public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,ChangeMsgPresenter> implements ChangeMsgView {
+public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, ChangeMsgPresenter> implements ChangeMsgView {
 
     @BindView(R.id.mtopbar)
     QMUITopBar mTopBar;
     @BindView(R.id.image)
     QMUIRadiusImageView image;
+    @BindView(R.id.et_realnick)
+    EditText etRealnick;
+    @BindView(R.id.et_realname)
+    EditText etRealname;
+//    @BindView(R.id.et_realage)
+//    EditText etRealage;
+//    @BindView(R.id.radiogroup1)
+//    RadioGroup radiogroup;
+//    @BindView(R.id.et_realnumber)
+//    EditText etRealnumber;
+//    @BindView(R.id.et_realqq)
+//    EditText etRealqq;
+//    @BindView(R.id.et_realmsg)
+//    EditText etRealmsg;
     private Uri resultUri;
     private static final String TAG = "ChangeMineMsgActivity";
     private List<KeepUserBean> list;
     private int UserId;
+    private String sexMsg;
+    private String a,b,c,d,e,f,g;
+    private int sex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_mine_msg);
         ButterKnife.bind(this);
         initTopBar();
+
+        QMUIStatusBarHelper.translucent(this); // 沉浸式状态栏
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
                 .limit(1)//只获取结果集的前 3 个数据
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        UserId=list.get(0).getUserId();
+        UserId = list.get(0).getUserId();
         Resources r = mContext.getResources();
         resultUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
                 + r.getResourcePackageName(R.drawable.bg_people) + "/"
@@ -90,6 +103,15 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
                 initDialogChooseImage();
             }
         });
+//        radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//
+//                RadioButton rb = findViewById(radiogroup.getCheckedRadioButtonId());
+//
+//                sexMsg = rb.getText().toString();
+//            }
+//        });
         Glide.with(this).load(R.drawable.bg_people).into(image);
     }
 
@@ -136,15 +158,15 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
                     roadImageView(resultUri, image);
                     RxSPTool.putContent(mContext, "AVATAR", resultUri.toString());
 
-                 String   filePath = resultUri.getPath().toString().trim();
+                    String filePath = resultUri.getPath().toString().trim();
                     File file = new File(filePath);
                     filePath = file.getAbsolutePath();
-                    Log.e(TAG, "文件地址："+filePath+"-----"+file.getName());
+                    Log.e(TAG, "文件地址：" + filePath + "-----" + file.getName());
 //                    File   file = new File(Environment.getExternalStorageDirectory(),uri.toString());
 //        Log.e(TAG, "onActivityResul水水水水水水水水水水水t: "+file );
-                RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
-                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
-                getPresenter().postMineMsg(UserId,part);
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+                    MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                    getPresenter().postMineMsg(UserId, part);
 
 
                 } else if (resultCode == UCrop.RESULT_ERROR) {
@@ -169,13 +191,12 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
 
 //        if (data != null) {
 //            Bitmap bitmap = data.getParcelableExtra("data");
-            //将bitmap转换为Uri
+        //将bitmap转换为Uri
 //            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
-            //对非正确的Uri处理，这类Uri存在手机的external.db中，可以查询_data字段查出对应文件的uri
+        //对非正确的Uri处理，这类Uri存在手机的external.db中，可以查询_data字段查出对应文件的uri
 //            if (uri.getPath().contains("external")) {
 //                Log.e(TAG, "是否存在" );
 //                uri = external(uri.getPath());
-
 
 
 //        File   file = new File(Environment.getExternalStorageDirectory(),uri.toString());
@@ -187,7 +208,7 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
 
 //            }
 //        }
-        Log.e(TAG, "roadImageView: "+uri );
+        Log.e(TAG, "roadImageView: " + uri);
         return (new File(RxPhotoTool.getImageAbsolutePath(this, uri)));
     }
 
@@ -241,6 +262,7 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
         RxDialogChooseImage dialogChooseImage = new RxDialogChooseImage(mContext, TITLE);
         dialogChooseImage.show();
     }
+
     private void initTopBar() {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,9 +275,51 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
         mTopBar.addRightTextButton("保存", R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MyApplication.getContext(), "55", Toast.LENGTH_SHORT).show();
+              checkMsg();
             }
         });
+    }
+
+    private void checkMsg() {
+
+     a=etRealnick.getText().toString();
+     b=etRealname.getText().toString();
+//     c=etRealage.getText().toString();
+//     d=sexMsg;
+//     e=etRealnumber.getText().toString();
+//     f=etRealqq.getText().toString();
+//     g=etRealmsg.getText().toString();
+        if (TextUtils.isEmpty(a)){
+            Toast.makeText(MyApplication.getContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(b)){
+            Toast.makeText(MyApplication.getContext(), "真实姓名名不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+//        if (TextUtils.isEmpty(c)){
+//            Toast.makeText(MyApplication.getContext(), "请选择你的性别信息。", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        if (TextUtils.isEmpty(d)){
+//            c="18";
+//        }
+//        if (TextUtils.isEmpty(e)){
+//            Toast.makeText(MyApplication.getContext(), "手机号码不能为空，否则我们不能与你取得联系。", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        if (TextUtils.isEmpty(f)){
+//            f="暂无";
+//        }
+//        if (TextUtils.isEmpty(g)){
+//           g="暂无";
+//        }
+//        if (c.equals("男")){
+//            sex=1;
+//        }else {
+//            sex=2;
+//        }
+        getPresenter().postMineMsgAll(UserId,a,b);
     }
 
     @Override
@@ -279,11 +343,19 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView,Ch
 
     @Override
     public void resultFailure(String result) {
-        Log.e(TAG, "resultFailure: "+result );
+        Log.e(TAG, "resultFailure: " + result);
     }
 
     @Override
     public void resultPostSuccess(FavoritrResultBean favoritrResultBean) {
-        Log.e(TAG, "resultPostSuccess: "+favoritrResultBean.getCode()+"----"+favoritrResultBean.getMsg() );
+        Log.e(TAG, "resultPostSuccess: " + favoritrResultBean.getCode() + "----" + favoritrResultBean.getMsg());
     }
+
+    @Override
+    public void resultPostMsgSuccess(FavoritrResultBean favoritrResultBean) {
+        Toast.makeText(this, favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
+        finish();
+        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
+    }
+
 }

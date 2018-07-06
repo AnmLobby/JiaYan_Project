@@ -7,14 +7,22 @@ import java.io.File;
  */
 
 public class ChangeMsgBean  {
-  
-  
 
-    public ChangeMsgBean(int userid, File file) {
-        this.userid = userid;
-        this.file = file;
-    }
     private int  userid;
+    private String nickname;
+    private String realname;
+
+    public ChangeMsgBean(int userid, String nickname, String realname) {
+        this.userid = userid;
+        this.nickname = nickname;
+        this.realname = realname;
+    }
+
+
+
+
+
+
 
     public int getUserid() {
         return userid;
@@ -24,13 +32,25 @@ public class ChangeMsgBean  {
         this.userid = userid;
     }
 
-    public File getFile() {
-        return file;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setFile(File file) {
-        this.file = file;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    private File file;
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+
+
+
+
+
 }
