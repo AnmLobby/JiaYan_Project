@@ -6,12 +6,15 @@ import android.util.Log;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpPersenter;
+import com.example.administrator.jiayan_project.mvp.base.IBaseListCallBack;
 import com.example.administrator.jiayan_project.mvp.base.IBaseRequestCallBack;
 import com.example.administrator.jiayan_project.mvp.myFavorite.MyFavoriteModel;
 import com.example.administrator.jiayan_project.mvp.myFavorite.MyFavoriteView;
 
 import java.io.File;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 
@@ -78,7 +81,34 @@ public class ChangeMsgPresenter extends AbstractMvpPersenter<ChangeMsgView> {
             }
         }, 10);
     }
+    public void clickupdateMessage(final String phone) {
+        //获取View
+        if (getmMvpView() != null) {
+            getmMvpView().requestLoading();
+        }
+        //模拟网络延迟，可以显示出加载中
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myFavoriteModel.loginUser(phone, new IBaseListCallBack<LoginBean>() {
+                    @Override
+                    public void requestError(Throwable throwable) {
+                        if (getmMvpView() != null) {
+                            getmMvpView().resultFailure(Log.getStackTraceString(throwable));
+                        }
+                    }
 
+                    @Override
+                    public void requestBannerSuccess(List<LoginBean> callBack) {
+                        if (getmMvpView() != null) {
+                            getmMvpView().resultLoginSuccess(callBack);
+                        }
+                    }
+                });
+
+            }
+        }, 10);
+    }
 
 
     public void interruptHttp() {

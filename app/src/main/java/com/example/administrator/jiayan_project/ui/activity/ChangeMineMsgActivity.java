@@ -24,6 +24,7 @@ import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.mvp.base.ChangeMsgMvpActivity;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgPresenter;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgView;
@@ -343,6 +344,8 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
 
     @Override
     public void resultFailure(String result) {
+        finish();
+        Toast.makeText(this, "发生未知错误", Toast.LENGTH_SHORT).show();
         Log.e(TAG, "resultFailure: " + result);
     }
 
@@ -354,7 +357,12 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
     @Override
     public void resultPostMsgSuccess(FavoritrResultBean favoritrResultBean) {
         Toast.makeText(this, favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void resultLoginSuccess(List<LoginBean> loginBean) {
         finish();
+
         overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
     }
 

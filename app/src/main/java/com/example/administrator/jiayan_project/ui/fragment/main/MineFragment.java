@@ -24,6 +24,7 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.db.greendao.UserController;
 import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
@@ -31,6 +32,7 @@ import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
 import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.mvp.mine.MinePresenter;
 import com.example.administrator.jiayan_project.mvp.mine.MineView;
+import com.example.administrator.jiayan_project.ui.activity.ChangeMineMsgActivity;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
@@ -48,10 +50,14 @@ import com.vondear.rxtools.module.wechat.share.WechatShareTools;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * 我的页面，底部栏第四个
@@ -79,6 +85,8 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     private WechatShareModel mWechatShareModel;
     private List<KeepUserBean> list;
     private String  userPhone;
+    private Boolean isPause = false;
+
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
@@ -90,13 +98,14 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-
         userPhone=list.get(0).getUsername();
         getPresenter().clickPostMessage(userPhone);
+        UserController userController=UserController.getInstance();
+        Log.e(TAG, "onCreateView: "+   userController.query(1));
         return layout;
     }
 
-    @OnClick({R.id.shoucang_layout, R.id.huiyuan_layout, R.id.address_layout, R.id.pingjia_layout, R.id.fuwu_layout, R.id.kefu_layout, R.id.kajuan_layout, R.id.fenxiang_layout, R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout, R.id.daifukuan_layout, R.id.yizhifu_layout, R.id.daipingjia_layout, R.id.tuikuan_layout})
+    @OnClick({R.id.shoucang_layout, R.id.huiyuan_layout, R.id.address_layout, R.id.pingjia_layout, R.id.fuwu_layout, R.id.kefu_layout, R.id.kajuan_layout, R.id.fenxiang_layout, R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout, R.id.daifukuan_layout, R.id.yizhifu_layout, R.id.daipingjia_layout, R.id.tuikuan_layout,R.id.iv_head})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shoucang_layout:
@@ -129,6 +138,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 Call();
                 break;
             case R.id.kajuan_layout:
+
                 startFragment(new SettingFragment());
                 break;
             case R.id.fenxiang_layout:
@@ -179,6 +189,13 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 orderBlankFragment3.setArguments(bundle3);
                 startFragment(orderBlankFragment3);
                 break;
+            case R.id.iv_head:
+
+                Intent intent=new Intent(MyApplication.getContext(), ChangeMineMsgActivity.class);
+                startActivity(intent);
+                isPause=true;
+                getActivity().overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
+                break;
         }
     }
 
@@ -224,29 +241,6 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.e(TAG, "onDestroyView: " );
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: " );
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.e(TAG, "onStop: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e(TAG, "onDestroy: ");
-    }
 
     @Override
     public MinePresenter createPresenter() {
@@ -256,7 +250,23 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume: " );
+        if (isPause) { //判断是否暂停
+            isPause = false;
+            Observable.timer(100, TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Long>() {
+                        @Override
+                        public void accept(Long aLong) throws Exception {
+                            name.setText(list.get(0).getNickname());
+                            Log.e(TAG, "accept: "+name );
+                            if (list.get(0).getAvatar().equals("")) {
+                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
+                            }else {
+                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+list.get(0).getAvatar()).into(ivHead);
+                            }
+                        }
+                    });
+        }
     }
 
     @Override

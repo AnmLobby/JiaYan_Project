@@ -36,8 +36,8 @@ public interface ChangeMsgView  extends IMvpBaseView {
     void  resultPostMsgSuccess(FavoritrResultBean favoritrResultBean);
 
 
-//    /**
-//     * 获取个人信息
-//     */
-//    void  resultLoginSuccess(LoginBean loginBean);
+    /**
+     * 获取个人信息
+     */
+    void  resultLoginSuccess(List<LoginBean> loginBean);
 }

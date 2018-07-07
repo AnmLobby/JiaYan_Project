@@ -45,6 +45,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 
 /**
+
  * 购物车fragment，底部栏第三个
  */
 public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> implements CartView, View.OnClickListener, ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface{

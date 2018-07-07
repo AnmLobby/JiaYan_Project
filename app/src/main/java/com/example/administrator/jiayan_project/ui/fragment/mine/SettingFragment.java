@@ -150,12 +150,12 @@ public class SettingFragment extends AbstractMvpFragment<SettingView, SettingPre
 
     }
         });
+//        QMUIGroupListView.newSection(getContext())
+//                .setTitle("")
+//                .addItemView(itemWithChevron, onClickListener)
+//                .addTo(mGroupListView);
         QMUIGroupListView.newSection(getContext())
-                .setTitle("")
-                .addItemView(itemWithChevron, onClickListener)
-                .addTo(mGroupListView);
-        QMUIGroupListView.newSection(getContext())
-                .addItemView(itemWithChevron1, onClickListener)
+//                .addItemView(itemWithChevron1, onClickListener)
                 .addItemView(itemWithChevron2, onClickListener)
                 .addItemView(itemWithChevron3, onClickListener)
                 .addItemView(itemWithChevron4, onClickListener)

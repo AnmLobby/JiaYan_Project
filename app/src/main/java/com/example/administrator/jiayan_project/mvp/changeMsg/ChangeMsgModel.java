@@ -55,6 +55,7 @@ public class ChangeMsgModel extends BaseModel {
                 }));
     }
 
+
     public void chageMsgAll (int userid ,String nickname, String realname,final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
         mcompositeDisposable.add(api.postMineMsgAll(new ChangeMsgBean(userid,nickname,realname))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -62,7 +63,6 @@ public class ChangeMsgModel extends BaseModel {
                 .subscribe(new Consumer<FavoritrResultBean>() {
                     @Override
                     public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
-
                         iBaseRequestCallBack.requestSuccess(favoritrResultBean);
                     }
                 }, new Consumer<Throwable>() {
@@ -72,23 +72,23 @@ public class ChangeMsgModel extends BaseModel {
                     }
                 }));
     }
-//    public void loginUser(int phone,final IBaseRequestCallBack<LoginBean> iBaseRequestCallBack){
-//        mcompositeDisposable.add(api.getMineMessage(phone)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(new Consumer<LoginBean>() {
-//                    @Override
-//                    public void accept(LoginBean loginBean) throws Exception {
-//
-//                        iBaseRequestCallBack.requestSuccess(loginBean);
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        iBaseRequestCallBack.requestError(throwable);
-//                    }
-//                }));
-//    }
+    public void loginUser(String phone,final IBaseListCallBack<LoginBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postMessage(phone)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<List<LoginBean>>() {
+                    @Override
+                    public void accept(List<LoginBean> loginBean) throws Exception {
+
+                        iBaseRequestCallBack.requestBannerSuccess(loginBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
     public void interruptHttp(){
         if(favouriteBeanCall!= null && !favouriteBeanCall.isCanceled()){
             favouriteBeanCall.cancel();
