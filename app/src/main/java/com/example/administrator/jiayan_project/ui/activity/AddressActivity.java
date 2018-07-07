@@ -146,8 +146,9 @@ public class AddressActivity extends AddressBaseActivity {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveAddress();
+
                 Log.e(TAG, "onClick: ***" );
+                saveAddress();
             }
         });
     }
@@ -208,9 +209,8 @@ public class AddressActivity extends AddressBaseActivity {
 //            //将已经设置为默认地址的选项取消掉
 //            addressController.updateAddressWithoutDefault(username);
 //        }
-
+        Log.e(TAG, "保存之前" );
         if (state == STATE.STATE_ADD) {
-
             List<AddressBean> list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
                     .offset(0)//偏移量，相当于 SQL 语句中的 skip
                     .limit(300)//只获取结果集的前 3 个数据
@@ -231,6 +231,7 @@ public class AddressActivity extends AddressBaseActivity {
 //            finish();
         } else if (state == STATE.STATE_EDIT) {
             //修改本地数据库
+            Log.e(TAG, "保存" );
             AddressBean userAddress = new AddressBean(addressBean.getId(), username, realname, phone, area, street, address, isdeafault);
             Log.e(TAG, "saveAddress:ssssssssssssss " );
             addressController.update(userAddress);

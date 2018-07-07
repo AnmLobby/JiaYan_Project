@@ -72,12 +72,13 @@ public class SetAddressFragment extends AddressBaseFragment {
     private RelativeLayout linearLayout;
     private AddressBean addressBean;
     private PickerView pickerView;
+    private boolean   isFirst;
     //编辑或添加地址
     private int state;
     private static final String TAG = "SetAddressFragment";
 
 
-    interface STATE {
+    interface STATEE {
         int STATE_ADD = 0x01;
         int STATE_EDIT = 0x02;
     }
@@ -177,22 +178,23 @@ public class SetAddressFragment extends AddressBaseFragment {
         addressBean=bundle.getParcelable("address");
         if (addressBean != null) {
             //编辑状态
-            state = STATE.STATE_EDIT;
+            state = STATEE.STATE_EDIT;
             mTopBar.setTitle("修改收货地址");
         } else {
             //添加状态
             mTopBar.setTitle(ContantsName.NewLocation);
-            state = STATE.STATE_ADD;
+            state = STATEE.STATE_ADD;
         }
 
-        if (state == STATE.STATE_EDIT) {
+        if (state == STATEE.STATE_EDIT) {
             et_realname.setText(addressBean.realname);
             et_phone.setText(addressBean.phone);
 //            et_street.setText(addressBean.street);
             et_address.setText(addressBean.address);
             et_area.setText(addressBean.area);
             cb_isdefault.setChecked(addressBean.isdefault);
-
+            isFirst=addressBean.isdefault;
+            Log.e(TAG, "initAddressViews: "+isFirst +addressBean.getId());
             bt_save.setText("修改");
         }
     }
@@ -217,12 +219,15 @@ public class SetAddressFragment extends AddressBaseFragment {
             Toast.makeText(MyApplication.getContext(), "请选择地区", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (isdeafault) {
-            //将已经设置为默认地址的选项取消掉
-            addressController.updateAddressWithoutDefault(username);
-        }
+        /**
+         * 注释地方导致默认地址编辑时候出现anr错误
+         */
+//        if (isdeafault) {
+//            //将已经设置为默认地址的选项取消掉
+//            addressController.updateAddressWithoutDefault(username);
+//        }
 
-        if (state == STATE.STATE_ADD) {
+        if (state == STATEE.STATE_ADD) {
 
             List<AddressBean>   list = GreenDaoManager.getInstance().getSession().getAddressBeanDao().queryBuilder()
                     .offset(0)//偏移量，相当于 SQL 语句中的 skip
@@ -242,9 +247,10 @@ public class SetAddressFragment extends AddressBaseFragment {
             Toast.makeText(MyApplication.getContext(), "保存成功", Toast.LENGTH_SHORT).show();
             popBackStack();
 //            finish();
-        } else if (state == STATE.STATE_EDIT) {
+        } else if (state == STATEE.STATE_EDIT) {
             //修改本地数据库
-            AddressBean userAddress = new AddressBean(addressBean.getId(), username, realname, phone, area, street, address, isdeafault);
+            Log.e(TAG, "saveAddress: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+            AddressBean userAddress = new AddressBean(addressBean.getId(), username, realname, phone, area, street, address, isFirst);
             addressController.update(userAddress);
 //            onChangeDataInUI(AddressActivity.class.getName());
             Toast.makeText(MyApplication.getContext(), "修改成功", Toast.LENGTH_SHORT).show();
@@ -259,7 +265,7 @@ public class SetAddressFragment extends AddressBaseFragment {
     }
 //    @Subscribe(threadMode = ThreadMode.POSTING, sticky = true)
 //    public void ononMoonStickyEvent(AddressEvent addressEvent) {
-//        state = STATE.STATE_EDIT;
+//        state = STATEE.STATE_EDIT;
 //        String phone=addressEvent.getPhone().toString().trim();
 //        Log.e(TAG, "ononMoonStickyEvent: "+phone );
 //    }
