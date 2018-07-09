@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
@@ -22,6 +23,8 @@ import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.utils.util.StringUtil;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.youth.banner.loader.ImageLoader;
@@ -40,6 +43,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
     private Context context;
     private Activity mainActivity;
     private LayoutInflater mInflater;
+    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
     public ShoppingCartAdapter(Context context) {
         this.context = context;
     }
@@ -120,6 +124,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         holder.tvCommodityPrice.setText("¥ "+shoppingCartBean.getPrice()+"");
         holder.tvCommodityNum.setText(" X"+shoppingCartBean.getNum()+"");
         holder.tvCommodityShowNum.setText(shoppingCartBean.getNum()+"");
+        holder.people.setText("规格："+shoppingCartBean.getRen()+"人/桌");
 //        Constants.BaseUrl+
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+shoppingCartBean.getOriginalimg()).into(holder.ivShowPic);
 //        ImageLoader.getInstance().displayImage(shoppingCartBean.getImageUrl(),holder.ivShowPic);
@@ -167,23 +172,45 @@ public class ShoppingCartAdapter extends BaseAdapter {
         holder.tvCommodityDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mainActivity);//提示弹窗
-                rxDialogSureCancel.getContentView().setText("确定要删除该商品吗？");
-                rxDialogSureCancel.getTitleView().setBackgroundResource(R.drawable.logoo);
-                rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
-                        rxDialogSureCancel.cancel();
-                    }
-                });
-                rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rxDialogSureCancel.cancel();
-                    }
-                });
-                rxDialogSureCancel.show();
+//                final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mainActivity);//提示弹窗
+//                rxDialogSureCancel.getContentView().setText("确定要删除该商品吗？");
+//                rxDialogSureCancel.getTitleView().setBackgroundResource(R.drawable.logoo);
+//                rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+//                        rxDialogSureCancel.cancel();
+//                    }
+//                });
+//                rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        rxDialogSureCancel.cancel();
+//                    }
+//                });
+//                rxDialogSureCancel.show();
+
+
+                new QMUIDialog.MessageDialogBuilder(mainActivity)
+                        .setTitle("提示：")
+                        .setMessage("确定要删除该宴席吗？")
+                        .addAction("取消", new QMUIDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+                                dialog.dismiss();
+                            }
+                        })
+                        .create(mCurrentDialogStyle).show();
+
+
+
 
 
 //                AlertDialog alert = new AlertDialog.Builder(mainActivity).create();
@@ -224,7 +251,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
     //初始化控件
     class ViewHolder {
         ImageView ivShowPic,tvCommodityDelete;
-        TextView tvCommodityName, tvCommodityAttr, tvCommodityPrice, tvCommodityNum, tvCommodityShowNum,ivSub, ivAdd;
+        TextView tvCommodityName, tvCommodityAttr, tvCommodityPrice, tvCommodityNum, tvCommodityShowNum,ivSub, ivAdd,people;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
         RelativeLayout relativeLayout;
@@ -241,6 +268,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             tvCommodityShowNum = (TextView) itemView.findViewById(R.id.tv_commodity_show_num);
             tvCommodityDelete = (ImageView) itemView.findViewById(R.id.tv_commodity_delete);
             rlEdit = (LinearLayout) itemView.findViewById(R.id.rl_edit);
+            people=(TextView) itemView.findViewById(R.id.people);
         }
     }
     /**

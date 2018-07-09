@@ -2,8 +2,7 @@ package com.example.administrator.jiayan_project.mvp.classify;
 
 import android.content.Context;
 
-import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
-import com.example.administrator.jiayan_project.enity.chef.CookRegesigtBean;
+import com.example.administrator.jiayan_project.enity.classify.MainChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.classify.ClassifyBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
@@ -22,6 +21,7 @@ import retrofit2.Call;
 public class MainClassifyModel extends BaseModel {
     private CompositeDisposable mcompositeDisposable;
     private Call<ClassifyBean> chefMsgBeanCall;
+    private Call<MainChefClassifyBean> chefClassifyBeanCall;
     private Context context;
     private Api api;
     public MainClassifyModel(Context mContext){
@@ -46,10 +46,31 @@ public class MainClassifyModel extends BaseModel {
                     }
                 }));
     }
+
+    public void getClassifyChef(final IBaseRequestCallBack<MainChefClassifyBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getClassifyChef()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<MainChefClassifyBean>() {
+                    @Override
+                    public void accept(MainChefClassifyBean classifyBean) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(classifyBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+
     public void interruptHttp(){
 
         if(chefMsgBeanCall != null && !chefMsgBeanCall.isCanceled()){
             chefMsgBeanCall.cancel();
+        }
+        if(chefClassifyBeanCall!= null && !chefClassifyBeanCall.isCanceled()){
+            chefClassifyBeanCall.cancel();
         }
     }
 }

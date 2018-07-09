@@ -2,6 +2,7 @@ package com.example.administrator.jiayan_project.mvp.cart;
 
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
+import com.example.administrator.jiayan_project.enity.cart.ShoppingChefBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.mvp.base.IMvpBaseView;
 
@@ -36,4 +37,14 @@ public interface CartView extends IMvpBaseView {
      * 删减购物车
      */
     void resultChangeSuccess(FavoritrResultBean favoritrResultBean);
+
+    /**
+     * 获取厨师购物车
+     */
+    void resultChefCartSuccess(ShoppingChefBean shoppingChefBean);
+
+    /**
+     * 删除购物车的chefitem
+     */
+    void resultDeleteChefSuccess(FavoritrResultBean favoritrResultBean);
 }

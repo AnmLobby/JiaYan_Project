@@ -8,6 +8,7 @@ import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.big.BigYanBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
+import com.example.administrator.jiayan_project.enity.cart.ShoppingChefBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefMsgBean;
 import com.example.administrator.jiayan_project.enity.chef.CookRegesigtBean;
@@ -15,6 +16,7 @@ import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailBanne
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailCommentBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailMsgBean;
 import com.example.administrator.jiayan_project.enity.classify.ClassifyBean;
+import com.example.administrator.jiayan_project.enity.classify.MainChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.favourite.FavouriteBean;
 import com.example.administrator.jiayan_project.enity.homepage.BannerBean;
 import com.example.administrator.jiayan_project.enity.homepage.FestivalBean;
@@ -175,6 +177,7 @@ public interface Api {
      */
     @GET("Details/message/id/{id}")
     Observable<BanquetBean>   getBanquetComment(@Path("id") String id);
+
     /**
      * 大型宴席
      */
@@ -217,11 +220,25 @@ public interface Api {
     @POST("Shopcar/shopcar/userid/{userid}")
     Observable<CartBean>  getMyCart(@Path("userid") int userid);
 
+
+    /**
+     *厨师购物车
+     *@time2018/7/7/007 18:07
+     */
+    @POST("Shopcar/cookershopcar/userid/{userid}")
+    Observable<ShoppingChefBean>  getMyChefCart(@Path("userid") int userid);
+
     /**
      * 删减购物车
      */
     @POST("Shopcar/deletes/id/{id}/num/{num}")
     Observable<FavoritrResultBean>  getChangeMyCart(@Path("id") int id,@Path("num") int num);
+
+    /**
+     * 删除chef购物车
+     */
+    @POST("Shopcar/deletecooker/id/{id}")
+    Observable<FavoritrResultBean>  postDeleteMyChefCart(@Path("id") int id);
 
     /**
      * 删除的购物车
@@ -309,10 +326,17 @@ public interface Api {
     Observable<SearchResultBean>  getSearchResult(@Body SearchBodyBean searchBodyBean);
 
     /**
-     * 底部栏第二个 分类
+     * 底部栏第二个 分类 ,获取宴席
      */
     @GET("Cation/cationB")
     Observable<ClassifyBean>  getClassify();
+
+    /**
+     * 底部栏第二个 分类 ,获取厨师
+     */
+    @GET("Cation/CationtwoB")
+    Observable<MainChefClassifyBean>  getClassifyChef();
+
 
     /**
      * 修改头像,userid是用path或者part都行。path需要去掉post的userid

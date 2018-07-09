@@ -1,6 +1,6 @@
 package com.example.administrator.jiayan_project.mvp.classify;
 
-import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
+import com.example.administrator.jiayan_project.enity.classify.MainChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.classify.ClassifyBean;
 import com.example.administrator.jiayan_project.mvp.base.IMvpBaseView;
 
@@ -23,8 +23,12 @@ public interface MainClassifyView extends IMvpBaseView {
     void resultFailure(String result);
 
     /**
-     * 分类
+     * 分类商品
      */
     void resultRegisterSuccess(ClassifyBean classifyBean);
 
+    /**
+     *分类厨师
+     */
+    void  resultChefClassifySuccess(MainChefClassifyBean mainChefClassifyBean);
 }

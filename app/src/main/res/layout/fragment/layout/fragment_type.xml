@@ -65,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         <View
+            android:id="@+id/jiuxiView"
             android:layout_marginRight="20pt"
             android:layout_marginLeft="20pt"
             android:layout_marginTop="5pt"
@@ -72,11 +73,35 @@
             android:background="@color/app_color_blue"
             android:layout_width="match_parent"
             android:layout_height="4px"/>
+
             <TextView
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:layout_below="@+id/jiuxi"
+                android:id="@+id/chef"
+                android:layout_marginTop="70pt"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:text="厨务聘用"
+                android:textColor="#363636"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:visibility="gone"
+                android:id="@+id/chefView"
+                android:layout_marginRight="20pt"
+                android:layout_marginLeft="20pt"
+                android:layout_marginTop="5pt"
+                android:layout_below="@+id/chef"
+                android:background="@color/app_color_blue"
+                android:layout_width="match_parent"
+                android:layout_height="4px"/>
+            <TextView
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/chef"
                 android:id="@+id/zhaowu"
                 android:layout_marginTop="70pt"
                 android:layout_centerHorizontal="true"
@@ -110,5 +135,13 @@
     android:id="@+id/recyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:id="@+id/recyclerviewchef"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.banquet.PostAddCartBean;
 import com.example.administrator.jiayan_project.enity.cart.CartBean;
+import com.example.administrator.jiayan_project.enity.cart.ShoppingChefBean;
 import com.example.administrator.jiayan_project.http.Api;
 import com.example.administrator.jiayan_project.http.BaseModel;
 import com.example.administrator.jiayan_project.mvp.base.IBaseListCallBack;
@@ -48,6 +49,25 @@ public class CartModel extends BaseModel{
                     }
                 }));
     }
+
+    public void CartAllChef(int userid,final IBaseRequestCallBack<ShoppingChefBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getMyChefCart(userid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<ShoppingChefBean>() {
+                    @Override
+                    public void accept(ShoppingChefBean cartBean) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(cartBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+
+
     public void postAddCart(int userid,int detail,int num,int dinnerid,int ren, final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
         mcompositeDisposable.add(api.postDeleteCart(new PostAddCartBean(userid,detail,num,dinnerid,ren))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -83,6 +103,26 @@ public class CartModel extends BaseModel{
                     }
                 }));
     }
+
+    public void deleteChefCart(int id,final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.postDeleteMyChefCart(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean favoritrResultBean) throws Exception {
+
+                        iBaseRequestCallBack.requestSuccess(favoritrResultBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
+
+
 
     public void interruptHttp(){
         if(cartBeanCall != null && !cartBeanCall.isCanceled()){
