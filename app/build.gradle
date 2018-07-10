@@ -122,7 +122,7 @@ dependencies {
     implementation 'com.sunfusheng:marqueeview:1.2.0'
     //地区选择
     implementation 'com.youth.picker:pickerview:0.1.4@aar'
-    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.yalantis:ucrop:2.2.0'
     //implementation 'com.github.vondear:RxTools:v1.7.7.3'

@@ -18,6 +18,7 @@ import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 public abstract class BaseActivity extends QMUIFragmentActivity {
     /**
+     * t通过QMUI能获取到。无需自己写
      * 获取状态栏的高度
      * @param fragment
      * @return
@@ -29,17 +30,18 @@ public abstract class BaseActivity extends QMUIFragmentActivity {
     }
 
     /**
+     * 7-10 注释掉 ，在低版本Android4.4 会出现EventBus报错  java.lang.NoClassDefFoundError: android/os/PersistableBundle
      * 处理后台返回应用为空
      * @param outState
      * @param outPersistentState
      */
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 
         //6-13重新修改
 //        if(outState!=null){
 //            FragmentManager manager = getSupportFragmentManager();
 //            manager.popBackStackImmediate(null, 1);
 //        }
-    }
+//    }
 }
