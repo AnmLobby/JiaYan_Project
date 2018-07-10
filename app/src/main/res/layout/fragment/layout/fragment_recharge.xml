@@ -23,7 +23,7 @@
         android:maxLength="6"
         android:layout_margin="40pt"
         android:inputType="number"
-        android:hint="请输入充值金额"
+        android:hint="  请输入充值金额"
         android:background="@drawable/edittext_style"
         android:maxLines="1"
         android:layout_width="match_parent"
@@ -41,21 +41,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:button="@android:color/transparent"
-
-            android:drawableRight="@drawable/checkbox_style"
-            android:text="离线"/>
-
         <!--<CheckBox-->
-    <!--android:button="@android:color/transparent"-->
-    <!--android:background="@drawable/checkbox_style"-->
-    <!--android:layout_width="23dp"-->
-    <!--android:layout_height="23dp" />-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:button="@android:color/transparent"-->
+
+            <!--android:drawableRight="@drawable/checkbox_style"-->
+            <!--android:text="离线"/>-->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:padding="5dp"
+                android:button="@drawable/radiobutton_shape"
+                android:text="微信支付"
+                android:textSize="16sp"
+                android:textColor="@drawable/color_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <RadioButton
+                android:padding="5dp"
+                android:button="@drawable/radiobutton_shape"
+                android:textColor="@drawable/color_radiobutton"
+                android:text="支付宝支付"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/app_color_blue"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
 </LinearLayout>
 </FrameLayout>

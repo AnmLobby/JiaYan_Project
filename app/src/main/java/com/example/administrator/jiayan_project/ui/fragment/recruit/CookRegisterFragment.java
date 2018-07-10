@@ -18,7 +18,6 @@ import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.app.ContantsName;
 import com.example.administrator.jiayan_project.enity.mine.IconBean;
-import com.example.administrator.jiayan_project.enity.mine.JifenBean;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.mvp.regesigt_list.ChefResignDataBean;
 import com.example.administrator.jiayan_project.mvp.regesigt_list.RegListBean;

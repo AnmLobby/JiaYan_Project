@@ -40,6 +40,7 @@ import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragmen
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.PostCommentFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine_payorder.OrderBlankFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
@@ -151,12 +152,12 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
 
                 break;
             case R.id.chongzhilayout:
-                Toast.makeText(MyApplication.getContext(), "充值", Toast.LENGTH_SHORT).show();
-//                startFragment(new RechargeFragment());
+//                Toast.makeText(MyApplication.getContext(), "充值", Toast.LENGTH_SHORT).show();
+                startFragment(new RechargeFragment());
                 break;
             case R.id.jifenlayout:
                 startFragment(new JifenFragment());
-                Toast.makeText(MyApplication.getContext(), "积分", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MyApplication.getContext(), "积分", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.daifukuan_layout:
 //                Toast.makeText(MyApplication.getContext(), "待付款", Toast.LENGTH_SHORT).show();

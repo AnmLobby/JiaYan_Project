@@ -29,6 +29,7 @@ import com.example.administrator.jiayan_project.enity.homepage.StarBean;
 import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.enity.mine.ChangeMsgBean;
+import com.example.administrator.jiayan_project.enity.mine.JifenMainBean;
 import com.example.administrator.jiayan_project.enity.mine.UpdateAppInfo;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
@@ -358,4 +359,12 @@ public interface Api {
      */
     @GET("Index/{more}")
     Observable<MoreYanBean>      getMore(@Path("more") String more);
+
+    /**
+     * 积分商城
+     * @param id
+     * @return
+     */
+    @GET("Userwallet/integral/id/{id}")
+    Observable<JifenMainBean>      getJifen(@Path("id") int id);
 }

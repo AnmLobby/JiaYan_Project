@@ -5,43 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <View
-    android:background="#e4e3e4"
+    android:background="#f1f0f0"
     android:layout_width="match_parent"
     android:layout_height="20pt"/>
     <ImageView
+        android:scaleType="fitXY"
         android:src="@drawable/jifne_shop"
         android:layout_width="match_parent"
         android:layout_height="400pt" />
     <View
-        android:background="#e4e3e4"
+        android:background="#f1f0f0"
         android:layout_width="match_parent"
         android:layout_height="20pt"/>
-    <RelativeLayout
+    <!--<RelativeLayout-->
 
-        android:layout_marginLeft="30pt"
-        android:layout_width="match_parent"
-        android:layout_height="150pt">
+        <!--android:layout_marginLeft="30pt"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150pt">-->
 
-        <View
-            android:id="@+id/v"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:background="#d79239"
-            android:layout_width="2pt"
-            android:layout_height="10pt"/>
-        <TextView
-            android:text="积分兑换"
-            android:layout_toRightOf="@+id/v"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_marginRight="25pt"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/banque_moret"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        <!--<View-->
+            <!--android:id="@+id/v"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:background="#d79239"-->
+            <!--android:layout_width="2pt"-->
+            <!--android:layout_height="10pt"/>-->
+        <!--<TextView-->
+            <!--android:layout_marginLeft="30pt"-->
+            <!--android:layout_marginTop="40pt"-->
+            <!--android:drawableLeft="@mipmap/jifenview"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="14sp"-->
+            <!--android:text="积分兑换"-->
+            <!--android:layout_toRightOf="@+id/v"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<ImageView-->
+            <!--android:layout_marginRight="25pt"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:src="@mipmap/banque_moret"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</RelativeLayout>-->
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/easycyclerview"
         android:layout_width="match_parent"
