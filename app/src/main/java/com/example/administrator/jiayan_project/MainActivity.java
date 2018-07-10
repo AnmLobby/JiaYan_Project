@@ -13,6 +13,7 @@ import com.example.administrator.jiayan_project.ui.fragment.main.MainFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.AboutFragment;
 import com.example.administrator.jiayan_project.ui.fragment.yan_news.YanNewsMainFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
+import com.tencent.bugly.beta.Beta;
 import com.vondear.rxtools.RxPermissionsTool;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +32,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);//（这个对宿主没什么影响，建议声明）,腾讯X5官网
+        Beta.checkUpgrade(false,true);  // 自动检测更新，详情操作可以参考bugly官网的升级高级设置
         if (savedInstanceState == null) {
         BaseFragment fragment = new MainFragment();
         getSupportFragmentManager()

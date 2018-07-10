@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 
 import com.example.administrator.jiayan_project.db.bean.DaoMaster;
 import com.example.administrator.jiayan_project.db.bean.DaoSession;
@@ -11,9 +12,15 @@ import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.AppContextUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.vondear.rxtools.RxTool;
 import com.vondear.rxtools.module.wechat.share.WechatShareTools;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 /**
@@ -42,7 +49,13 @@ public class MyApplication extends Application {
         GreenDaoManager.getInstance();
         RxTool.init(this);
         WechatShareTools.init(this, "wx4a05b523f7d9fcb6");//初始化
-
+        Bugly.init(getApplicationContext(), "066eb23e72", true);
+//        CrashReport.initCrashReport(getApplicationContext(), "066eb23e72", true);  // 测试为true 发布改为false
+        Context context = getApplicationContext();// 获取当前包名
+        String packageName = context.getPackageName();// 获取当前进程名
+        String processName = getProcessName(android.os.Process.myPid());// 设置是否为上报进程
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
+        strategy.setUploadProcess(processName == null || processName.equals(packageName));// 初始化Bugly
     }
 
     @Override
@@ -64,6 +77,28 @@ public class MyApplication extends Application {
         };
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);
+    }
+    private static String getProcessName(int pid) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+            String processName = reader.readLine();
+            if (!TextUtils.isEmpty(processName)) {
+                processName = processName.trim();
+            }
+            return processName;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+        return null;
     }
 }
 

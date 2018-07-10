@@ -83,7 +83,7 @@
                 android:layout_marginTop="70pt"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"
-                android:text="厨务聘用"
+                android:text="厨师分类"
                 android:textColor="#363636"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

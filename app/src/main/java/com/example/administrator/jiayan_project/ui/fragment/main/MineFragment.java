@@ -37,6 +37,7 @@ import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.PostCommentFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
@@ -154,7 +155,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
 //                startFragment(new RechargeFragment());
                 break;
             case R.id.jifenlayout:
-//                startFragment(new JifenFragment());
+                startFragment(new JifenFragment());
                 Toast.makeText(MyApplication.getContext(), "积分", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.daifukuan_layout:
