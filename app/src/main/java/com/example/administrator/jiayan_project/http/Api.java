@@ -1,6 +1,7 @@
 package com.example.administrator.jiayan_project.http;
 
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetComentBean;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetDetailBean;
 import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
@@ -369,4 +370,13 @@ public interface Api {
      */
     @GET("Userwallet/integral/id/{id}")
     Observable<JifenMainBean>      getJifen(@Path("id") int id);
+
+    /**
+     * 宴席详情评论
+     * @param id
+     * @return
+     */
+    @GET("Details/comment/id/{id}")
+    Observable<BanquetComentBean>      getBanquetComent(@Path("id") String id);
+
 }
