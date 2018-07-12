@@ -2,11 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_color_blue"
-
     tools:context="com.example.administrator.jiayan_project.ui.fragment.mine.PostCommentFragment">
 
     <com.qmuiteam.qmui.widget.QMUITopBar
@@ -25,6 +24,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
         //宴会类型。价格
     <LinearLayout
@@ -160,62 +160,92 @@
         android:layout_marginTop="50pt"
         android:layout_marginLeft="80pt"
         android:layout_width="match_parent"
-        android:layout_height="200pt">
+        android:layout_height="160pt">
     <TextView
         android:id="@+id/a"
         android:layout_centerVertical="true"
-        android:text="菜品相符"
+        android:text="菜品相符："
         android:textColor="@color/black"
         android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
         <com.hedgehog.ratingbar.RatingBar
-
-            android:layout_toLeftOf="@+id/a"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/a"
             android:layout_marginLeft="30pt"
             android:id="@+id/ratingbarba"
             android:layout_marginTop="50pt"
             android:layout_width="match_parent"
             android:layout_height="100pt"
             hedgehog:clickable="true"
-            hedgehog:halfstart="true"
+            hedgehog:halfstart="false"
             hedgehog:starCount="5"
             hedgehog:starEmpty="@mipmap/black"
             hedgehog:starFill="@mipmap/yellow"
-            hedgehog:starImageHeight="50pt"
-            hedgehog:starImageWidth="50pt"
+            hedgehog:starImageHeight="90pt"
+            hedgehog:starImageWidth="90pt"
             hedgehog:starImagePadding="5pt"/>
     </RelativeLayout>
+
+
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200pt">-->
+
+        <!--<TextView-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="菜品相符"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="14sp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<com.hedgehog.ratingbar.RatingBar-->
+            <!--android:layout_weight="2"-->
+            <!--android:layout_marginLeft="30pt"-->
+            <!--android:layout_marginTop="50pt"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100pt"-->
+            <!--hedgehog:clickable="true"-->
+            <!--hedgehog:halfstart="false"-->
+            <!--hedgehog:starCount="5"-->
+            <!--hedgehog:starEmpty="@mipmap/black"-->
+            <!--hedgehog:starFill="@mipmap/yellow"-->
+            <!--hedgehog:starImageHeight="80pt"-->
+            <!--hedgehog:starImageWidth="80pt"-->
+            <!--hedgehog:starImagePadding="5pt"/>-->
+    <!--</LinearLayout>-->
 
 
     <RelativeLayout
         android:layout_marginTop="50pt"
         android:layout_marginLeft="80pt"
         android:layout_width="match_parent"
-        android:layout_height="200pt">
+        android:layout_height="160pt">
         <TextView
             android:id="@+id/b"
             android:layout_centerVertical="true"
-            android:text="服务态度"
+            android:text="服务态度："
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.hedgehog.ratingbar.RatingBar
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/b"
+            android:layout_toRightOf="@+id/b"
             android:layout_marginLeft="30pt"
             android:id="@+id/ratingbarb"
             android:layout_marginTop="50pt"
             android:layout_width="match_parent"
             android:layout_height="100pt"
             hedgehog:clickable="true"
-            hedgehog:halfstart="true"
+            hedgehog:halfstart="false"
             hedgehog:starCount="5"
             hedgehog:starEmpty="@mipmap/black"
             hedgehog:starFill="@mipmap/yellow"
-            hedgehog:starImageHeight="50pt"
-            hedgehog:starImageWidth="50pt"
+            hedgehog:starImageHeight="90pt"
+            hedgehog:starImageWidth="90pt"
             hedgehog:starImagePadding="5pt"/>
     </RelativeLayout>
 
@@ -223,30 +253,30 @@
         android:layout_marginTop="50pt"
         android:layout_marginLeft="80pt"
         android:layout_width="match_parent"
-        android:layout_height="200pt">
+        android:layout_height="160pt">
         <TextView
             android:id="@+id/c"
             android:layout_centerVertical="true"
-            android:text="口味相符"
+            android:text="口味相符："
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.hedgehog.ratingbar.RatingBar
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/c"
+            android:layout_toRightOf="@+id/c"
             android:layout_marginLeft="30pt"
             android:id="@+id/ratingbarc"
             android:layout_marginTop="50pt"
             android:layout_width="match_parent"
             android:layout_height="100pt"
             hedgehog:clickable="true"
-            hedgehog:halfstart="true"
+            hedgehog:halfstart="false"
             hedgehog:starCount="5"
             hedgehog:starEmpty="@mipmap/black"
             hedgehog:starFill="@mipmap/yellow"
-            hedgehog:starImageHeight="50pt"
-            hedgehog:starImageWidth="50pt"
+            hedgehog:starImageHeight="90pt"
+            hedgehog:starImageWidth="90pt"
             hedgehog:starImagePadding="5pt"/>
     </RelativeLayout>
     <Button

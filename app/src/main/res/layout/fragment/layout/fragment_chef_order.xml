@@ -36,16 +36,15 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginLeft="90pt"
-                android:textColor="#3e3d3e"
-                android:id="@+id/order_name"
-                android:text=""
+                android:textColor="@color/black"
+                android:id="@+id/order_chefname"
                 android:textSize="@dimen/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:textColor="#3e3d3e"
                 android:layout_marginLeft="50pt"
-                android:layout_toRightOf="@+id/order_name"
+                android:layout_toRightOf="@+id/order_chefname"
                 android:id="@+id/order_phone"
                 android:textSize="@dimen/text_large"
                 android:layout_width="wrap_content"
@@ -55,7 +54,7 @@
                 android:layout_marginRight="30pt"
                 android:layout_marginLeft="90pt"
                 android:layout_marginTop="30pt"
-                android:layout_below="@+id/order_name"
+                android:layout_below="@+id/order_chefname"
                 android:id="@+id/order_address"
                 android:textSize="@dimen/text_six"
                 android:layout_width="wrap_content"
@@ -196,13 +195,12 @@
                     android:textStyle="bold" />
 
 
-
                 <TextView
                     android:id="@+id/caixi"
                     android:layout_marginTop="18pt"
                     android:layout_marginLeft="25pt"
                     android:textColor="#919091"
-                    android:layout_below="@+id/name"
+                    android:layout_centerInParent="true"
                     android:layout_toRightOf="@+id/headimage"
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
@@ -211,6 +209,7 @@
 
 
                 <ImageView
+                    android:layout_centerInParent="true"
                     android:layout_marginRight="13pt"
                     android:layout_toLeftOf="@+id/chef_level"
                     android:layout_marginTop="65pt"
@@ -218,6 +217,7 @@
                     android:layout_width="55pt"
                     android:layout_height="55pt" />
                 <TextView
+                    android:layout_centerInParent="true"
                     android:textSize="@dimen/text_four"
                     android:textColor="@color/black"
                     android:id="@+id/chef_level"
@@ -227,12 +227,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
-            <View
-                android:background="#d2d1d2"
-                android:layout_marginRight="25pt"
-                android:layout_marginLeft="25pt"
-                android:layout_width="match_parent"
-                android:layout_height="1px"/>
+            <!--<View-->
+                <!--android:background="#d2d1d2"-->
+                <!--android:layout_marginRight="25pt"-->
+                <!--android:layout_marginLeft="25pt"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1px"/>-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150pt">
@@ -242,7 +242,7 @@
                     android:layout_marginLeft="50pt"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
-                    android:text="所选服务"
+                    android:text="所选服务:"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -250,11 +250,12 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="300pt"
                     android:layout_toRightOf="@+id/txtser"
                     android:id="@+id/fuwutype"
                     android:textColor="@color/banquet_money"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -266,6 +267,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
+            <View
+                android:background="#d2d1d2"
+                android:layout_marginRight="25pt"
+                android:layout_marginLeft="25pt"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
             <TextView
                 android:layout_marginTop="50pt"
                 android:layout_marginLeft="30pt"

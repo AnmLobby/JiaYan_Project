@@ -147,9 +147,7 @@ public class DeliveryFragment extends BaseFragment {
                             addressBeans.addAll(list);
                             addressListAdapter =new AddressAdapter(MyApplication.getContext(),qmuiFragmentActivity,addressBeans);
                             addressListAdapter.notifyDataSetChanged();
-
-
-     }
+                }
     }
     @Override
     protected boolean canDragBack() {

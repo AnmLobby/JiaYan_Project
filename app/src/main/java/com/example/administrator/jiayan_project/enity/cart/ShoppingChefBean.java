@@ -11,7 +11,7 @@ public class ShoppingChefBean {
     /**
      * code : 200
      * msg : 感谢你添加购物车,期待亲的下单
-     * data : [{"id":37,"cookerid":5,"userid":5,"serve":1,"cookname":"小符","cuisine":"重庆菜系","cookimg":"/static/img/cook_img/5b21d68e67071.jpg","price":666,"banprice":66666,"nianprice":666666},{"id":38,"cookerid":6,"userid":5,"serve":2,"cookname":"小叫","cuisine":"广东菜系","cookimg":"/static/img/cook_img/5b21d6dd93828.jpg","price":666,"banprice":66666,"nianprice":666666}]
+     * data : [{"id":49,"cookerid":5,"userid":5,"serve":1,"cookname":"小符","cuisine":"重庆菜系","cookimg":"/static/img/cook_img/5b21d68e67071.jpg","price":666,"banprice":66666,"nianprice":666666,"cookerimg":"/assets/cook/5b20dce58ea95.png","titlename":"中式烹调师"}]
      */
 
     private int code;
@@ -44,7 +44,7 @@ public class ShoppingChefBean {
 
     public static class DataBean {
         /**
-         * id : 37
+         * id : 49
          * cookerid : 5
          * userid : 5
          * serve : 1
@@ -54,6 +54,8 @@ public class ShoppingChefBean {
          * price : 666
          * banprice : 66666
          * nianprice : 666666
+         * cookerimg : /assets/cook/5b20dce58ea95.png
+         * titlename : 中式烹调师
          */
         public boolean isChoosed;
         private int id;
@@ -66,6 +68,8 @@ public class ShoppingChefBean {
         private int price;
         private int banprice;
         private int nianprice;
+        private String cookerimg;
+        private String titlename;
         public boolean isChoosed() {
             return isChoosed;
         }
@@ -151,6 +155,22 @@ public class ShoppingChefBean {
 
         public void setNianprice(int nianprice) {
             this.nianprice = nianprice;
+        }
+
+        public String getCookerimg() {
+            return cookerimg;
+        }
+
+        public void setCookerimg(String cookerimg) {
+            this.cookerimg = cookerimg;
+        }
+
+        public String getTitlename() {
+            return titlename;
+        }
+
+        public void setTitlename(String titlename) {
+            this.titlename = titlename;
         }
     }
 }

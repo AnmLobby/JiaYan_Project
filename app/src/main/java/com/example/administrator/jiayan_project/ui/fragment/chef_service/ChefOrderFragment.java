@@ -1,7 +1,6 @@
 package com.example.administrator.jiayan_project.ui.fragment.chef_service;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +8,16 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.adapter.adapter.DateAdapter;
@@ -25,10 +25,12 @@ import com.example.administrator.jiayan_project.adapter.adapter.TimeAdapter;
 import com.example.administrator.jiayan_project.db.bean.AddressBean;
 import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.ChooseAddressFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.util.DateUtils;
+import com.example.administrator.jiayan_project.utils.weight.LinedEditText;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import java.util.ArrayList;
@@ -38,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,8 +52,8 @@ import io.reactivex.functions.Consumer;
  * @return
  */
 public class ChefOrderFragment extends BaseFragment {
-    @BindView(R.id.mtopbar) QMUITopBar  mTopBar;
-    @BindView(R.id.order_name) TextView orderName;
+    @BindView(R.id.mtopbar) QMUITopBar mTopBar;
+    @BindView(R.id.order_chefname) TextView orderName;
     @BindView(R.id.order_phone) TextView orderPhone;
     @BindView(R.id.order_address) TextView orderAddress;
     @BindView(R.id.choose_address) RelativeLayout chooseAddress;
@@ -71,14 +72,20 @@ public class ChefOrderFragment extends BaseFragment {
     @BindView(R.id.txtser) TextView txtser;
     @BindView(R.id.fuwutype) TextView fuwutype;
     @BindView(R.id.price) TextView price;
+    @BindView(R.id.edit_query) LinedEditText editQuery;
+    @BindView(R.id.youhuijiage) TextView youhuijiage;
+    @BindView(R.id.sure_money) TextView sureMoney;
+    @BindView(R.id.pay_money) Button payMoney;
+    @BindView(R.id.xianshilayout) RelativeLayout xianshilayout;
     private List<AddressBean> list;
     private String[] strList = new String[]{"10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00",
             "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"};
     private List<String> leftData;
     private List<String> rightData;
-    private int  totalPrice;
+    private int totalPrice;
     private DateAdapter mRVLeftAdapter;
     private TimeAdapter mRVRightAdapter;
+    private static final String TAG = "ChefOrderFragment";
 
     @Override
     protected View onCreateView() {
@@ -95,7 +102,7 @@ public class ChefOrderFragment extends BaseFragment {
         /**
          * 初始化时间选择数据列表信息
          */
-        Observable.timer(500, TimeUnit.MILLISECONDS)
+        Observable.timer(400, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
@@ -111,6 +118,21 @@ public class ChefOrderFragment extends BaseFragment {
                         }
                     }
                 });
+//        bundle.putString("name",chefAllBean.getCookname());
+//        bundle.putString("cookimg",chefAllBean.getCookimg());
+//        bundle.putString("caixi",chefAllBean.getCuisine());
+//        bundle.putInt("id",chefAllBean.getCookerid());
+//        bundle.putString("cookerimg",chefAllBean.getCookerimg());
+//        bundle.putString("level",chefAllBean.getTitlename());
+        Bundle bundle = getArguments();
+        name.setText(bundle.getString("name"));
+        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + bundle.getString("cookimg")).into(headimage);
+        caixi.setText(bundle.getString("caixi"));
+        int cookerid = bundle.getInt("id");
+        Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + bundle.getString("cookerimg")).into(chefImage);
+        fuwutype.setText(bundle.getString("service"));
+        chefLevel.setText(bundle.getString("level"));
+        sureMoney.setText("¥ "+bundle.getInt("price"));
         // 选择地址框，首页第一行
         chooseAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +163,7 @@ public class ChefOrderFragment extends BaseFragment {
         super.onResume();
         initOrdername();
     }
+
     /**
      * 检测且设置地址信息
      */
@@ -174,6 +197,7 @@ public class ChefOrderFragment extends BaseFragment {
                 break;
         }
     }
+
     /**
      * 选择结束时间dialog
      *

@@ -370,7 +370,7 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
             }
         }
         for (int i = 0; i <chefBeans.size() ; i++) {
-            ShoppingChefBean.DataBean chefAllBean=chefBeans.get(i);
+            final ShoppingChefBean.DataBean chefAllBean=chefBeans.get(i);
             if (chefAllBean.isChoosed()){
                 totalCount++;
                 switch (chefAllBean.getServe()){
@@ -387,7 +387,34 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
                 tvSettlement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                startFragment(new ChefOrderFragment());
+                        String lev = null;
+                        int price = 0;
+                        switch (chefAllBean.getServe()){
+                            case 1:
+                                lev= "包月服务：¥"+String.valueOf(chefAllBean.getPrice());
+                                price=chefAllBean.getPrice();
+                                break;
+                            case 2:
+                                lev= "半年服务：¥"+String.valueOf(chefAllBean.getBanprice());
+                                price=chefAllBean.getBanprice();
+                                break;
+                            case 3:
+                                lev= "包年服务：¥"+String.valueOf(chefAllBean.getNianprice());
+                                price=chefAllBean.getNianprice();
+                                break;
+                        }
+                        ChefOrderFragment chefOrderFragment=new ChefOrderFragment();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("name",chefAllBean.getCookname());
+                        bundle.putString("cookimg",chefAllBean.getCookimg());
+                        bundle.putString("caixi",chefAllBean.getCuisine());
+                        bundle.putInt("id",chefAllBean.getCookerid());
+                        bundle.putString("cookerimg",chefAllBean.getCookerimg());
+                        bundle.putString("level",chefAllBean.getTitlename());
+                        bundle.putString("service",lev);
+                        bundle.putInt("price",price);
+                        chefOrderFragment.setArguments(bundle);
+                        startFragment(chefOrderFragment);
 //                      Intent intent=new Intent(MyApplication.getContext(), LoginActivity.class);
 //                      startActivity(intent);
                     }

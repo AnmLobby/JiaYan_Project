@@ -57,7 +57,7 @@ public class PostCommentFragment extends BaseFragment {
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         initTopBar();
-        ratingbarb.setStar(3);
+
         return layout;
     }
 

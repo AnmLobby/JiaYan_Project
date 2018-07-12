@@ -37,7 +37,7 @@
         android:layout_marginLeft="90pt"
         android:textColor="#3e3d3e"
         android:id="@+id/order_name"
-        android:text=""
+
         android:textSize="@dimen/text_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
