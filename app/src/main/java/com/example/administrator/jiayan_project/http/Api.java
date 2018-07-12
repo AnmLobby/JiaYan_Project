@@ -49,6 +49,7 @@ import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -351,6 +352,7 @@ public interface Api {
     /**
      * 修改个人信息
      */
+//    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
     @POST("Userpersonal/userexto/")
     Observable<FavoritrResultBean>    postMineMsgAll(@Body ChangeMsgBean changeMsgBean);
 //    @Body ChangeMsgBean changeMsgBean

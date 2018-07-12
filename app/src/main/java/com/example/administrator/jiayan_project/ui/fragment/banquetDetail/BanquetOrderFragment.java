@@ -355,7 +355,7 @@ public class BanquetOrderFragment extends BaseFragment {
                 popBackStack();
             }
         });
-        mTopBar.setTitle("确认订单");
+        mTopBar.setTitle("确认宴席订单");
     }
 
 

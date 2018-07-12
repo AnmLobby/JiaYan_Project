@@ -86,6 +86,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     @BindView(R.id.iv_head) QMUIRadiusImageView ivHead;
     private WechatShareModel mWechatShareModel;
     private List<KeepUserBean> list;
+    private List<KeepUserBean> keepUserBeans;
     private String  userPhone;
     private Boolean isPause = false;
 
@@ -100,7 +101,13 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
+        if (list.get(0).getAvatar().equals("")) {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
+        }else {
+            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+list.get(0).getAvatar()).into(ivHead);
+        }
         userPhone=list.get(0).getUsername();
+        name.setText(list.get(0).getNickname());
         getPresenter().clickPostMessage(userPhone);
         UserController userController=UserController.getInstance();
         Log.e(TAG, "onCreateView: "+   userController.query(1));
@@ -259,12 +266,17 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                     .subscribe(new Consumer<Long>() {
                         @Override
                         public void accept(Long aLong) throws Exception {
-                            name.setText(list.get(0).getNickname());
-                            Log.e(TAG, "accept: "+name );
-                            if (list.get(0).getAvatar().equals("")) {
+                            keepUserBeans = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
+                                    .offset(0)
+                                    .limit(1)
+                                    .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
+                                    .build()
+                                    .list();
+                            name.setText(keepUserBeans.get(0).getNickname());
+                            if (keepUserBeans.get(0).getAvatar().equals("")) {
                                 Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
                             }else {
-                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+list.get(0).getAvatar()).into(ivHead);
+                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+keepUserBeans.get(0).getAvatar()).into(ivHead);
                             }
                         }
                     });
@@ -324,6 +336,5 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
         }else {
             Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+loginBean.get(0).getAvatar()).into(ivHead);
         }
-//        Log.e(TAG, "resultLoginSuccess: "+loginBean );
     }
 }

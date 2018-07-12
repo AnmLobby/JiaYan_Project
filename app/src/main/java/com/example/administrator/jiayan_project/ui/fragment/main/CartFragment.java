@@ -29,6 +29,7 @@ import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.Banque
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BlankOneFragment;
 import com.example.administrator.jiayan_project.ui.fragment.big.MoreYanFragment;
 import com.example.administrator.jiayan_project.ui.fragment.chef_service.ChefDetailFragment;
+import com.example.administrator.jiayan_project.ui.fragment.chef_service.ChefOrderFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.NoScrollListView;
@@ -386,9 +387,9 @@ public class CartFragment extends AbstractMvpFragment<CartView, CartPresenter> i
                 tvSettlement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                      Intent intent=new Intent(MyApplication.getContext(), LoginActivity.class);
-                      startActivity(intent);
+                startFragment(new ChefOrderFragment());
+//                      Intent intent=new Intent(MyApplication.getContext(), LoginActivity.class);
+//                      startActivity(intent);
                     }
                 });
             }

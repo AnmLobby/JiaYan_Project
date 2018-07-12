@@ -23,8 +23,10 @@ import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
+import com.example.administrator.jiayan_project.db.greendao.UserController;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.login.LoginBean;
+import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.mvp.base.ChangeMsgMvpActivity;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgPresenter;
 import com.example.administrator.jiayan_project.mvp.changeMsg.ChangeMsgView;
@@ -78,6 +80,8 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
     private String sexMsg;
     private String a,b,c,d,e,f,g;
     private int sex;
+    private String userPhone;
+    private UserController userController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +96,10 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
+
         UserId = list.get(0).getUserId();
+        userPhone=list.get(0).getUsername();
+        userController=UserController.getInstance();
         Resources r = mContext.getResources();
         resultUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
                 + r.getResourcePackageName(R.drawable.bg_people) + "/"
@@ -158,7 +165,6 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
                     resultUri = UCrop.getOutput(data);
                     roadImageView(resultUri, image);
                     RxSPTool.putContent(mContext, "AVATAR", resultUri.toString());
-
                     String filePath = resultUri.getPath().toString().trim();
                     File file = new File(filePath);
                     filePath = file.getAbsolutePath();
@@ -269,6 +275,7 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
             }
         });
         mTopBar.setBackgroundDividerEnabled(false);
@@ -351,19 +358,38 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
 
     @Override
     public void resultPostSuccess(FavoritrResultBean favoritrResultBean) {
-        Log.e(TAG, "resultPostSuccess: " + favoritrResultBean.getCode() + "----" + favoritrResultBean.getMsg());
+        if (favoritrResultBean.getCode()==200){
+            getPresenter().clickupdateMessage(userPhone);
+        }
+        Toast.makeText(this, favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void resultPostMsgSuccess(FavoritrResultBean favoritrResultBean) {
+        if (favoritrResultBean.getCode()==200){
+            getPresenter().clickupdateMessage(userPhone);
+        }
         Toast.makeText(this, favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void resultLoginSuccess(List<LoginBean> loginBean) {
-        finish();
 
-        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
+        KeepUserBean addressBean=new KeepUserBean();
+        addressBean.setId(list.get(0).getId());
+        addressBean.setUserId(loginBean.get(0).getId());
+        addressBean.setAge(loginBean.get(0).getAge());
+        addressBean.setAvatar(loginBean.get(0).getAvatar());
+        addressBean.setGender(loginBean.get(0).getGender());
+        addressBean.setGroup_id(loginBean.get(0).getGroup_id());
+        addressBean.setLevel(loginBean.get(0).getLevel());
+        addressBean.setMobile(loginBean.get(0).getMobile());
+        addressBean.setNickname(loginBean.get(0).getNickname());
+        addressBean.setUsername(loginBean.get(0).getUsername());
+        userController.update(addressBean);
+//        Log.e(TAG, "resultLoginSuccess:个人图片 "+ Constants.BaseUrl+list.get(0).getAvatar() );
+//        finish();
+//        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
     }
 
 }
