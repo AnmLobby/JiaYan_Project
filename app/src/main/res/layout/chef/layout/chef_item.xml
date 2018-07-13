@@ -50,7 +50,7 @@
                     android:background="@drawable/radiobutton_background"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="单日"
+                    android:text="单月"
                     android:textColor="@color/radiobutton_textcolor"
                     android:textSize="14sp" />
                 <RadioButton
@@ -62,7 +62,7 @@
                     android:background="@drawable/radiobutton_background"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="单月"
+                    android:text="半年"
                     android:textColor="@color/radiobutton_textcolor"
                     android:textSize="14sp" />
 
@@ -75,7 +75,7 @@
                     android:background="@drawable/radiobutton_background"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="包年"
+                    android:text="全年"
                     android:textColor="@color/radiobutton_textcolor"
                     android:textSize="14sp" />
             </RadioGroup>

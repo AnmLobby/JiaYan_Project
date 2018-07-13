@@ -1,5 +1,6 @@
 package com.example.administrator.jiayan_project.mvp.chefDetail;
 
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailBannerBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailCommentBean;
@@ -37,4 +38,9 @@ public interface ChefDetailView  extends IMvpBaseView {
      * 厨师评价信息
      */
     void resultChefCommentSuccess(ChefDetailCommentBean chefDetailCommentBean);
+
+    /**
+     * 添加chef到购物车
+     */
+    void resultAddChefSuccess(FavoritrResultBean favoritrResultBean);
 }

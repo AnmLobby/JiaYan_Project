@@ -18,6 +18,27 @@
         android:id="@+id/recycler"
         android:background="@color/white"
         android:overScrollMode="never"
+        android:layout_marginBottom="65dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+<LinearLayout
+    android:layout_gravity="bottom"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="65dp">
+    <Button
+        android:layout_marginBottom="8dp"
+        android:id="@+id/bt_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/app_color_blue"
+        android:text="现在预定"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+</LinearLayout>
 </FrameLayout>

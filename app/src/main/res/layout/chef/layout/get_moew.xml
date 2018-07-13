@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/more_text"
+        android:layout_marginTop="40pt"
+        android:layout_centerHorizontal="true"
+        android:text="查看更多评论"
+        android:textSize="12sp"
+        android:textColor="#1d1d1d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:background="#acabac"
+        android:layout_marginTop="65pt"
+        android:layout_marginRight="30pt"
+        android:layout_toLeftOf="@+id/more_text"
+        android:layout_width="80pt"
+        android:layout_height="1pt"/>
+    <View
+        android:background="#acabac"
+        android:layout_marginTop="65pt"
+        android:layout_marginLeft="30pt"
+        android:layout_toRightOf="@+id/more_text"
+        android:layout_width="80pt"
+        android:layout_height="1pt"/>
+    <View
+        android:layout_below="@+id/more_text"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="25pt"/>
+</RelativeLayout>

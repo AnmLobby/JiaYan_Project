@@ -147,7 +147,7 @@ public class TypeFragment extends AbstractMvpFragment<MainClassifyView, MainClas
         mainClassifChefAdapter.setOnLeftItemClickChefListener(new MainClassifChefAdapter.OnTypeItemClickChefListener() {
             @Override
             public void onLeftItemClick(int section, int position) {
-                int id = mainClassifChefAdapter.allTagList.get(position).getId();
+                int id = mainClassifChefAdapter.allTagList.get(section).getDetail().get(position).getId();
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", id);
                 ChefDetailFragment chefDetailFragment = new ChefDetailFragment();

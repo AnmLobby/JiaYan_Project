@@ -1,8 +1,11 @@
 package com.example.administrator.jiayan_project.vlayout.chefDetail;
 
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +50,10 @@ public class ChefMsgDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean> {
     ImageView yingyang;
     @BindView(R.id.qita)
     ImageView qita;
+    @BindView(R.id.btn1) RadioButton btnone;
+    @BindView(R.id.btn2) RadioButton btntwo;
+    @BindView(R.id.btn3) RadioButton btnthree;
+    @BindView(R.id.group) RadioGroup group;
     public ChefMsgDetailHolder(View itemView) {
         super(itemView);
     }
@@ -54,13 +61,25 @@ public class ChefMsgDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean> {
     @Override
     public void setData(int ps, ChefDetailMsgBean cData) {
         super.setData(ps, cData);
+
+        btnone.setText("包月服务"+"\n"+"¥ "+cData.getChefData().get(0).getPrice());
+        btntwo.setText("半年服务"+"\n"+"¥ "+cData.getChefData().get(0).getBanprice());
+        btnthree.setText("包年服务"+"\n"+"¥ "+cData.getChefData().get(0).getNianprice());
+        group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClick(mView, position, mData);
+
+            }
+        });
+
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getChefData().get(0).getCookimg()).into(headimage);
         name.setText(cData.getChefData().get(0).getCookname());
         caixi.setText("菜系："+cData.getChefData().get(0).getCuisine());
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getCook().get(0).getCookerimg()).into(chefImage);
         chefLevel.setText(cData.getCook().get(0).getTitlename());
         chefService.setText("已服务: "+cData.getChefData().get(0).getSalesum() +"家" );
-
+        ratingbar.setStar(cData.getChefData().get(0).getRank_id());
         if (cData.getChefData().get(0).getCertificates()==1){
             shenfen.setBackgroundResource(R.drawable.peoplepapers_chcek);
         }

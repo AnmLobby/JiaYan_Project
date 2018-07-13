@@ -38,7 +38,7 @@ public class ChefListAdapter extends BaseQuickAdapter<ChefClassifyBean.ChefDataB
                 .crossFade()
                 .into((ImageView) viewHolder.getView(R.id.image));
 
-        Log.e("靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠", "convert: "+Constants.BaseUrl+item.getCookimg() );
+
         viewHolder
                 .setText(R.id.name, item.getRankname())
                 .setText(R.id.buy_chefmoney,"¥ "+item.getPrice());
@@ -50,7 +50,6 @@ public class ChefListAdapter extends BaseQuickAdapter<ChefClassifyBean.ChefDataB
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
                     case  R.id.btn1:
-                        Log.e(TAG, "onClick: 顶顶顶顶顶顶顶" );
                         viewHolder.setText(R.id.buy_chefmoney,"¥ "+item.getPrice());
                         break;
                     case  R.id.btn2:

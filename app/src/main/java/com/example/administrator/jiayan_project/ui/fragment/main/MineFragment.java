@@ -89,12 +89,13 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     private List<KeepUserBean> keepUserBeans;
     private String  userPhone;
     private Boolean isPause = false;
-
+    private UserController userController;
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
+        userController=UserController.getInstance();
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)
                 .limit(1)
@@ -331,10 +332,22 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     public void resultLoginSuccess(List<LoginBean> loginBean) {
 
         name.setText(loginBean.get(0).getNickname());
-        if (loginBean.get(0).getAvatar().equals("")) {
+        if (loginBean.get(0).getAvatar()==null||loginBean.get(0).getAvatar().equals("")) {
             Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
         }else {
             Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+loginBean.get(0).getAvatar()).into(ivHead);
         }
+        KeepUserBean addressBean=new KeepUserBean();
+        addressBean.setId(list.get(0).getId());
+        addressBean.setUserId(loginBean.get(0).getId());
+        addressBean.setAge(loginBean.get(0).getAge());
+        addressBean.setAvatar(loginBean.get(0).getAvatar());
+        addressBean.setGender(loginBean.get(0).getGender());
+        addressBean.setGroup_id(loginBean.get(0).getGroup_id());
+        addressBean.setLevel(loginBean.get(0).getLevel());
+        addressBean.setMobile(loginBean.get(0).getMobile());
+        addressBean.setNickname(loginBean.get(0).getNickname());
+        addressBean.setUsername(loginBean.get(0).getUsername());
+        userController.update(addressBean);
     }
 }

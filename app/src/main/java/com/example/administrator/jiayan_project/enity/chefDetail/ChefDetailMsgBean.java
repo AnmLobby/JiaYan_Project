@@ -9,9 +9,37 @@ import java.util.List;
 public class ChefDetailMsgBean {
 
 
+    /**
+     * chefData : [{"id":2,"honor_id":5,"rank_id":4,"cookage":100,"salesum":5004,"subname":"做菜超好吃特别有营养很好","price":999,"cookimg":"/static/img/cook_img/5b1e38e030266.jpg","banprice":99999,"nianprice":999999,"certificates":1,"cookfront":1,"dietionfront":0,"other":1,"cuisine":"客家菜系","cookname":"小往"}]
+     * cook : [{"id":5,"titlename":"中式烹调师","cookerimg":"/assets/cook/5b20dce58ea95.png"}]
+     * yii : ["/static/img/cooker_imgs/5b31a54a7396f.png","/static/img/cooker_imgs/5b31a54a7421c.jpg","/static/img/cooker_imgs/5b31a54a7481b.jpg"]
+     * evaluate : [{"avatar":"/assets/Yii/Yii.jpg","nickname":"桐桐","createtime":1524457815,"content":"很好很好，味道好极了，味道好极了，味道好极了。","rank":3,"img":["/static/img/dinner_imgs/5b1dd3cd6b52e.jpg","/static/img/dinner_imgs/5b1dd3cd6bcd0.jpg","/static/img/dinner_imgs/5b1dd3cd6c33f.jpg"]},{"avatar":"/assets/Yii/Yii.jpg","nickname":"桐桐","createtime":1524457815,"content":"很好很好，味道好极了，味道好极了，味道好极了。","rank":5,"img":["/static/img/dinner_imgs/5b1dd3cd6b52e.jpg","/static/img/dinner_imgs/5b1dd3cd6bcd0.jpg","/static/img/dinner_imgs/5b1dd3cd6c33f.jpg"]}]
+     * tquan : 2
+     * count : 4
+     */
+
+    private int tquan;
+    private int count;
     private List<ChefDataBean> chefData;
     private List<CookBean> cook;
     private List<String> yii;
+    private List<EvaluateBean> evaluate;
+
+    public int getTquan() {
+        return tquan;
+    }
+
+    public void setTquan(int tquan) {
+        this.tquan = tquan;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public List<ChefDataBean> getChefData() {
         return chefData;
@@ -35,6 +63,14 @@ public class ChefDetailMsgBean {
 
     public void setYii(List<String> yii) {
         this.yii = yii;
+    }
+
+    public List<EvaluateBean> getEvaluate() {
+        return evaluate;
+    }
+
+    public void setEvaluate(List<EvaluateBean> evaluate) {
+        this.evaluate = evaluate;
     }
 
     public static class ChefDataBean {
@@ -236,6 +272,72 @@ public class ChefDetailMsgBean {
 
         public void setCookerimg(String cookerimg) {
             this.cookerimg = cookerimg;
+        }
+    }
+
+    public static class EvaluateBean {
+        /**
+         * avatar : /assets/Yii/Yii.jpg
+         * nickname : 桐桐
+         * createtime : 1524457815
+         * content : 很好很好，味道好极了，味道好极了，味道好极了。
+         * rank : 3
+         * img : ["/static/img/dinner_imgs/5b1dd3cd6b52e.jpg","/static/img/dinner_imgs/5b1dd3cd6bcd0.jpg","/static/img/dinner_imgs/5b1dd3cd6c33f.jpg"]
+         */
+
+        private String avatar;
+        private String nickname;
+        private int createtime;
+        private String content;
+        private int rank;
+        private List<String> img;
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+
+        public void setRank(int rank) {
+            this.rank = rank;
+        }
+
+        public List<String> getImg() {
+            return img;
+        }
+
+        public void setImg(List<String> img) {
+            this.img = img;
         }
     }
 }

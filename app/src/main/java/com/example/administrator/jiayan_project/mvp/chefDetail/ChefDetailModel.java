@@ -6,6 +6,7 @@ package com.example.administrator.jiayan_project.mvp.chefDetail;
 
 import android.content.Context;
 
+import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.chef.ChefClassifyBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailBannerBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailCommentBean;
@@ -28,6 +29,7 @@ public class ChefDetailModel extends BaseModel {
     private Call<ChefDetailBannerBean> chefClassifyBeanCall;
     private Call<ChefDetailMsgBean> chefDetailMsgBeanCall;
     private Call<ChefDetailCommentBean> chefDetailCommentBeanCall;
+    private Call<FavoritrResultBean> favoritrResultBeanCall;
     private Context context;
     private Api api;
     public ChefDetailModel(Context mContext){
@@ -84,6 +86,22 @@ public class ChefDetailModel extends BaseModel {
                     }
                 }));
     }
+    public void addChefCart(int userid,int cookerid,int serve,final IBaseRequestCallBack<FavoritrResultBean> iBaseRequestCallBack){
+        mcompositeDisposable.add(api.getAddChefCart(userid,cookerid,serve)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<FavoritrResultBean>() {
+                    @Override
+                    public void accept(FavoritrResultBean chefDetailBannerBean) throws Exception {
+                        iBaseRequestCallBack.requestSuccess(chefDetailBannerBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        iBaseRequestCallBack.requestError(throwable);
+                    }
+                }));
+    }
     public void interruptHttp(){
         if(chefClassifyBeanCall != null && !chefClassifyBeanCall.isCanceled()){
             chefClassifyBeanCall.cancel();
@@ -93,6 +111,9 @@ public class ChefDetailModel extends BaseModel {
         }
         if(chefDetailCommentBeanCall!= null && !chefDetailCommentBeanCall.isCanceled()){
             chefDetailCommentBeanCall.cancel();
+        }
+        if(favoritrResultBeanCall!= null && !favoritrResultBeanCall.isCanceled()){
+            favoritrResultBeanCall.cancel();
         }
     }
 }

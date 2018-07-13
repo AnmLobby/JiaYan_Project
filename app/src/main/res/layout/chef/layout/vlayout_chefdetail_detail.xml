@@ -209,4 +209,55 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
+
+    <RadioGroup
+        android:layout_marginTop="20pt"
+        android:id="@+id/group"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_marginLeft="30pt"
+            android:layout_marginRight="20pt"
+            android:id="@+id/btn1"
+            android:layout_width="0dp"
+            android:layout_height="125pt"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="单日"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="14sp" />
+        <RadioButton
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:id="@+id/btn2"
+            android:layout_width="0dp"
+            android:layout_height="125pt"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="单月"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:layout_marginRight="30pt"
+            android:layout_marginLeft="20pt"
+            android:id="@+id/btn3"
+            android:layout_width="0dp"
+            android:layout_height="125pt"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="包年"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="14sp" />
+    </RadioGroup>
 </LinearLayout>

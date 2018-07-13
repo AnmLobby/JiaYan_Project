@@ -98,13 +98,13 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
                 .list();
 
         UserId = list.get(0).getUserId();
-        userPhone=list.get(0).getUsername();
-        userController=UserController.getInstance();
+        userPhone = list.get(0).getUsername();
+        userController = UserController.getInstance();
         Resources r = mContext.getResources();
-        resultUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                + r.getResourcePackageName(R.drawable.bg_people) + "/"
-                + r.getResourceTypeName(R.drawable.bg_people) + "/"
-                + r.getResourceEntryName(R.drawable.bg_people));
+//        resultUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+//                + r.getResourcePackageName(R.drawable.bg_people) + "/"
+//                + r.getResourceTypeName(R.drawable.bg_people) + "/"
+//                + r.getResourceEntryName(R.drawable.bg_people));
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,9 +120,12 @@ public class ChangeMineMsgActivity extends ChangeMsgMvpActivity<ChangeMsgView, C
 //                sexMsg = rb.getText().toString();
 //            }
 //        });
-        Glide.with(this).load(R.drawable.bg_people).into(image);
+        if (list.get(0).getAvatar() == null || list.get(0).getAvatar().equals("")) {
+            Glide.with(this).load(R.drawable.bg_people).into(image);
+        } else {
+            Glide.with(this).load(Constants.BaseUrl + list.get(0).getAvatar()).into(image);
+        }
     }
-
     @Override
     protected ChangeMsgPresenter createPresenter() {
         return new ChangeMsgPresenter();

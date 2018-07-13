@@ -36,6 +36,7 @@
             android:layout_marginTop="170pt"
             android:clickable="false"
             android:id="@+id/iv_head"
+            android:src="@drawable/bg_people"
             app:qmui_border_color="#FFFFFF"
             app:qmui_border_width="3px"
             app:qmui_corner_radius="15dp"

@@ -42,7 +42,7 @@ public class ChefBannerDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean>
                 .setImageLoader(new GlideImageLoader())
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setBannerAnimation(Transformer.RotateDown)
-                .isAutoPlay(true);
+                .isAutoPlay(false);
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
