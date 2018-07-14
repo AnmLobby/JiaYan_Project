@@ -45,4 +45,8 @@
 
     <dimen name="margin_top">30pt</dimen>
     <dimen name="margin_left">30pt</dimen>
+
+    <dimen name="padding_small_5dp">5dp</dimen>
+    <dimen name="padding_small_10dp">10dp</dimen>
+    <dimen name="padding_normal">15dp</dimen>
 </resources>

@@ -32,6 +32,7 @@ import com.example.administrator.jiayan_project.mvp.chefDetail.ChefDetailPresent
 import com.example.administrator.jiayan_project.mvp.chefDetail.ChefDetailView;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.FatRecyclerview;
+import com.example.administrator.jiayan_project.utils.weight.image_detail.ShowImagesDialog;
 import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefBannerDetailHolder;
 import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefCommentDetailHolder;
 import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefMsgDetailHolder;
@@ -109,6 +110,11 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
                     @Override
                     public void onItemClick(View view, int position, ChefDetailMsgBean mData) {
 
+                        List<String> listImage=new ArrayList<>();
+                        for (int i = 0; i <mData.getYii().size() ; i++) {
+                            listImage.add(Constants.BaseUrl+mData.getYii().get(i));
+                        }
+                        new ShowImagesDialog(getActivity(),position,listImage).show();
                     }
                 });
         chefmsgAdapter = new VlayoutBaseAdapter(mContext)
@@ -136,7 +142,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
                     }
                 });
         /**
-         *  评论布局还没写
+         *  评论布局
          */
         commentAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<ChefDetailCommentBean>())
@@ -312,7 +318,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
             moreCommentAdpater.setData(msgBeans);
             moreCommentAdpater.notifyDataSetChanged();
         }
-
+        tipDialog.dismiss();
 
 //        bottonAdapter.setData(msgBeans);
 //        bottonAdapter.notifyDataSetChanged();

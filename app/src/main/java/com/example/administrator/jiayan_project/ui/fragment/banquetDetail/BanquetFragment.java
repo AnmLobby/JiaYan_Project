@@ -53,6 +53,7 @@ import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.GlideImageLoader;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.example.administrator.jiayan_project.utils.weight.RegionNumberEditText;
+import com.example.administrator.jiayan_project.utils.weight.image_detail.ShowImagesDialog;
 import com.qmuiteam.qmui.layout.QMUILayoutHelper;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -207,12 +208,14 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private int MIN_MARK = 10;
     private int MAX_MARK = 12;
     private   QMUIRoundButton people;
+
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
         EventBus.getDefault().register(this);
+        getDeviceDensity();
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)//偏移量，相当于 SQL 语句中的 skip
                 .limit(1)//只获取结果集的前 1 个数据
@@ -813,22 +816,30 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         //轮播图
         imageUrl = Constants.BaseUrl + banquetBean.getData().get(0).getOriginalimg();
         listImage.add(imageUrl);
-        for (int i = 0; i < banquetBean.getImg().size(); i++) {
-            listImage.add(Constants.BaseUrl + banquetBean.getImg().get(i));
+
+        if (null==banquetBean.getImg()|| banquetBean.getImg().size()==0){
+
+        }else {
+            for (int i = 0; i < banquetBean.getImg().size(); i++) {
+                listImage.add(Constants.BaseUrl + banquetBean.getImg().get(i));
+            }
         }
+
         banner.setImages(listImage)
                 .setImageLoader(new GlideImageLoader())
                 .setBannerStyle(BannerConfig.NUM_INDICATOR)
                 .isAutoPlay(false)
                 .start();
+
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("id", (ArrayList<String>) listImage);
-                BannerDetailFragment bannerDetailFragment = new BannerDetailFragment();
-                bannerDetailFragment.setArguments(bundle);
-                startFragment(bannerDetailFragment);
+//                Bundle bundle = new Bundle();
+//                bundle.putStringArrayList("id", (ArrayList<String>) listImage);
+//                BannerDetailFragment bannerDetailFragment = new BannerDetailFragment();
+//                bannerDetailFragment.setArguments(bundle);
+//                startFragment(bannerDetailFragment);
+                new ShowImagesDialog(getActivity(),position,listImage).show();
             }
         });
         mainFrag.setVisibility(View.VISIBLE);

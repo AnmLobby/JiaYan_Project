@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.administrator.jiayan_project.utils.weight.CustomDialog;
+import com.example.administrator.jiayan_project.utils.weight.image_detail.Config;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
@@ -66,6 +68,18 @@ public  abstract class BaseFragment extends QMUIFragment {
         });
         selfDialog.show();
     }
+
+    /**
+     * 获取当前设备的屏幕密度等基本参数
+     */
+    protected void getDeviceDensity() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Config.EXACT_SCREEN_HEIGHT = metrics.heightPixels;
+        Config.EXACT_SCREEN_WIDTH = metrics.widthPixels;
+    }
+
+
     public static void  HideSoftKeyBoardDialog(Activity activity){
         try{
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);

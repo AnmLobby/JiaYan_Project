@@ -14,16 +14,19 @@ import com.example.administrator.jiayan_project.adapter.news.HotelEntityAdapter;
 import com.example.administrator.jiayan_project.adapter.news.SectionedSpanSizeLookup;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetComentBean;
 import com.example.administrator.jiayan_project.enity.classify.ClassifyBean;
+import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetCommentPresenter;
 import com.example.administrator.jiayan_project.mvp.banquetDetail.BanquetCommentView;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
 import com.example.administrator.jiayan_project.utils.eventbus.StartNewsEvent;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
+import com.example.administrator.jiayan_project.utils.weight.image_detail.ShowImagesDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,7 +96,11 @@ public class BanquetCommentFragment extends AbstractMvpFragment<BanquetCommentVi
         banquetCommentAdapter.setOnCommentItemClickListener(new BanquetCommentAdapter.OnCommentItemClickChefListener() {
             @Override
             public void onLeftItemClick(int section, int position) {
-                
+                List<String> listImage=new ArrayList<>();
+                for (int i = 0; i <banquetCommentAdapter.allTagList.get(section).getImg().size() ; i++) {
+                    listImage.add(Constants.BaseUrl+banquetCommentAdapter.allTagList.get(section).getImg().get(i));
+                }
+                new ShowImagesDialog(getActivity(),position,listImage).show();
             }
         });
 

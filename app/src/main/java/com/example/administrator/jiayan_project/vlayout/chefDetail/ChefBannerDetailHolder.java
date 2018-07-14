@@ -34,9 +34,14 @@ public class ChefBannerDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean>
     public void setData(int ps, ChefDetailMsgBean bData) {
         super.setData(ps, bData);
         List<String> list=new ArrayList<>();
-        for (int i = 0; i <bData.getYii().size() ; i++) {
-            list.add(Constants.BaseUrl+bData.getYii().get(i));
+        if (null==bData.getYii()||bData.getYii().size()==0){
+
+        }else {
+            for (int i = 0; i <bData.getYii().size() ; i++) {
+                list.add(Constants.BaseUrl+bData.getYii().get(i));
+            }
         }
+
         Log.e("88", "setData: "+list.size() );
         banner.setImages(list)
                 .setImageLoader(new GlideImageLoader())
