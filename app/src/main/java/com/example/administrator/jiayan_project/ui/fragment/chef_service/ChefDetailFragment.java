@@ -37,6 +37,8 @@ import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefBannerDet
 import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefCommentDetailHolder;
 import com.example.administrator.jiayan_project.vlayout.chefDetail.ChefMsgDetailHolder;
 import com.example.administrator.jiayan_project.vlayout.chefDetail.MoreHolder;
+import com.example.administrator.jiayan_project.vlayout.helper.SectionItemListener;
+import com.example.administrator.jiayan_project.vlayout.helper.SectionVlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapter;
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -68,7 +70,8 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
     private Context mContext;
     private DelegateAdapter delegateAdapter;
     private VirtualLayoutManager virtualLayoutManager;
-    private VlayoutBaseAdapter banneradapter, chefmsgAdapter, commentAdapter, moreCommentAdpater, bottonAdapter;
+    private VlayoutBaseAdapter banneradapter, chefmsgAdapter, moreCommentAdpater, bottonAdapter;
+    private SectionVlayoutBaseAdapter commentAdapter;
     private List<ChefDetailMsgBean> msgBeans = new ArrayList<>();
     private int id, userid;
     private String imageUrl;
@@ -97,6 +100,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
         initTopBar();
         initRecycler();
         initDele();
+        getDeviceDensity();
         return layout;
     }
 
@@ -144,17 +148,25 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
         /**
          *  评论布局
          */
-        commentAdapter = new VlayoutBaseAdapter(mContext)
-                .setData(new ArrayList<ChefDetailCommentBean>())
-                .setLayout(R.layout.vlayout_chef_grid)
-                .setLayoutHelper(new LinearLayoutHelper())
-                .setHolder(ChefCommentDetailHolder.class)
-                .setListener(new ItemListener<ChefDetailMsgBean>() {
+        commentAdapter = new SectionVlayoutBaseAdapter(mContext)
+                .setSectionData(new ArrayList<ChefDetailCommentBean>())
+                .setSectionLayout(R.layout.vlayout_chef_grid)
+                .setSectionLayoutHelper(new LinearLayoutHelper())
+                .setSectionHolder(ChefCommentDetailHolder.class)
+                .setSectionListener(new SectionItemListener<ChefDetailMsgBean>() {
                     @Override
-                    public void onItemClick(View view, int position, ChefDetailMsgBean mData) {
-                        Log.e("888", "onItemClick: " + position);
+                    public void onSectionItemClick(View view, int section, int position, ChefDetailMsgBean mSectionData) {
+                        List<String>  listSectionImage=new ArrayList<>();
+                        for (int i = 0; i <mSectionData.getEvaluate().get(section).getImg().size() ; i++) {
+                            listSectionImage.add(Constants.BaseUrl+mSectionData.getEvaluate().get(section).getImg().get(i));
+                        }
+                        new ShowImagesDialog(getActivity(),position,listSectionImage).show();
+                        Log.e("888", "onSectionItemClick: "+section+position );
                     }
                 });
+
+
+
 
         moreCommentAdpater = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<ChefDetailCommentBean>())
@@ -280,6 +292,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
     public void resultFailure(String result) {
         Toast.makeText(MyApplication.getContext(), "后台发生未知错误", Toast.LENGTH_SHORT).show();
         popBackStack();
+        tipDialog.show();
     }
 
     @Override
@@ -309,7 +322,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
         banneradapter.setData(msgBeans);
         banneradapter.notifyDataSetChanged();
 
-        commentAdapter.setData(msgBeans);
+        commentAdapter.setSectionData(msgBeans);
         commentAdapter.notifyDataSetChanged();
 
         if (chefDetailMsgBean.getEvaluate().isEmpty()) {
@@ -331,6 +344,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
 
     @Override
     public void resultAddChefSuccess(FavoritrResultBean favoritrResultBean) {
+        tipDialog.dismiss();
         Toast.makeText(MyApplication.getContext(), favoritrResultBean.getMsg(), Toast.LENGTH_SHORT).show();
     }
 

@@ -15,6 +15,7 @@ import com.example.administrator.jiayan_project.enity.chef.ChefMsgBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailBannerBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailCommentBean;
 import com.example.administrator.jiayan_project.enity.chefDetail.ChefDetailMsgBean;
+import com.example.administrator.jiayan_project.vlayout.helper.SectionVlayoutBaseHolder;
 import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseHolder;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import butterknife.BindView;
  * Created by Administrator on 2018/6/15/015.
  */
 
-public class ChefCommentDetailHolder  extends VlayoutBaseHolder<ChefDetailMsgBean> {
+public class ChefCommentDetailHolder  extends SectionVlayoutBaseHolder<ChefDetailMsgBean> {
     private ChefCommentAdapter chefCommentAdapter;
     private List<ChefDetailMsgBean.EvaluateBean> classBeans;
     @BindView(R.id.recyclerview) RecyclerView recyclerview;
@@ -34,8 +35,8 @@ public class ChefCommentDetailHolder  extends VlayoutBaseHolder<ChefDetailMsgBea
     }
 
     @Override
-    public void setData(int ps, ChefDetailMsgBean lData) {
-        super.setData(ps, lData);
+    public void setSectionData(int ps, ChefDetailMsgBean lData) {
+        super.setSectionData(ps, lData);
         classBeans=lData.getEvaluate();
 //        for (int i = 0; i <classifyBean.getTypedata().size() ; i++) {
 //            detailBeans=classifyBean.getTypedata().get(1).getDetail();
@@ -51,7 +52,8 @@ public class ChefCommentDetailHolder  extends VlayoutBaseHolder<ChefDetailMsgBea
         chefCommentAdapter.setOnChefCommentItemClickListener(new ChefCommentAdapter.OnChefCommentItemClickChefListener() {
             @Override
             public void onLeftItemClick(int section, int position) {
-                mListener.onItemClick(mView, position, mData);
+//                mListener.onItemClick(mView, position, mData);
+                mListener.onSectionItemClick(mView,section,position,mSectionData);
             }
         });
 
