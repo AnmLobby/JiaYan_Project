@@ -130,6 +130,7 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        tipDialog.dismiss();
     }
     @Override
     protected boolean canDragBack() {

@@ -69,6 +69,12 @@ public class JifenFragment extends AbstractMvpFragment<JifenView, JifenPresenter
         return false;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        tipDialog.dismiss();
+    }
+
     private void initVlayout() {
         gridAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<IconBean>())

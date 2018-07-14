@@ -220,9 +220,10 @@
         android:gravity="center"
         android:orientation="horizontal">
         <RadioButton
+            android:checked="true"
             android:layout_marginLeft="30pt"
             android:layout_marginRight="20pt"
-            android:id="@+id/btn1"
+            android:id="@+id/btnone"
             android:layout_width="0dp"
             android:layout_height="125pt"
             android:layout_weight="1"
@@ -235,7 +236,7 @@
         <RadioButton
             android:layout_marginLeft="20pt"
             android:layout_marginRight="20pt"
-            android:id="@+id/btn2"
+            android:id="@+id/btntwo"
             android:layout_width="0dp"
             android:layout_height="125pt"
             android:layout_weight="1"
@@ -249,7 +250,7 @@
         <RadioButton
             android:layout_marginRight="30pt"
             android:layout_marginLeft="20pt"
-            android:id="@+id/btn3"
+            android:id="@+id/btnthree"
             android:layout_width="0dp"
             android:layout_height="125pt"
             android:layout_weight="1"

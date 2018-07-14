@@ -116,7 +116,7 @@ public class WZServiceFragment extends AbstractMvpFragment<ChefView, ChefPresent
                 });
        chefAdapter = new VlayoutBaseAdapter(mContext)
                 .setData(new ArrayList<ChefDataBean>())
-                .setLayout(R.layout.vlayout_chef_grid)
+                .setLayout(R.layout.vlayout_home_grid)
                 .setLayoutHelper(getGridLayoutHelper())
                 .setHolder(ChefMsgHolder.class)
                 .setListener(new ItemListener<ChefDataBean>() {

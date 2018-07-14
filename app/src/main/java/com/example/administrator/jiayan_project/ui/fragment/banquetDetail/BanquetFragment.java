@@ -283,6 +283,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        tipDialog.dismiss();
 //        EventBus.getDefault().unregister(this);
     }
 

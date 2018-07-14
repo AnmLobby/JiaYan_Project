@@ -50,6 +50,7 @@ public class ChefListAdapter extends BaseQuickAdapter<ChefClassifyBean.ChefDataB
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
                     case  R.id.btn1:
+                        Log.e(TAG, "onCheckedChanged: "+i );
                         viewHolder.setText(R.id.buy_chefmoney,"¥ "+item.getPrice());
                         break;
                     case  R.id.btn2:

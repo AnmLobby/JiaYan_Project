@@ -50,9 +50,9 @@ public class ChefMsgDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean> {
     ImageView yingyang;
     @BindView(R.id.qita)
     ImageView qita;
-    @BindView(R.id.btn1) RadioButton btnone;
-    @BindView(R.id.btn2) RadioButton btntwo;
-    @BindView(R.id.btn3) RadioButton btnthree;
+    @BindView(R.id.btnone) RadioButton btnone;
+    @BindView(R.id.btntwo) RadioButton btntwo;
+    @BindView(R.id.btnthree) RadioButton btnthree;
     @BindView(R.id.group) RadioGroup group;
     public ChefMsgDetailHolder(View itemView) {
         super(itemView);
@@ -65,14 +65,20 @@ public class ChefMsgDetailHolder extends VlayoutBaseHolder<ChefDetailMsgBean> {
         btnone.setText("包月服务"+"\n"+"¥ "+cData.getChefData().get(0).getPrice());
         btntwo.setText("半年服务"+"\n"+"¥ "+cData.getChefData().get(0).getBanprice());
         btnthree.setText("包年服务"+"\n"+"¥ "+cData.getChefData().get(0).getNianprice());
-        group.setOnClickListener(new View.OnClickListener() {
+//        group.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mListener.onItemClick(mView, position, mData);
+//
+//            }
+//        });
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                mListener.onItemClick(mView, position, mData);
-
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                Log.e("打印看看", "输出： "+i+radioGroup. );
+                mListener.onItemClick(mView, i, mData);
             }
         });
-
         Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+cData.getChefData().get(0).getCookimg()).into(headimage);
         name.setText(cData.getChefData().get(0).getCookname());
         caixi.setText("菜系："+cData.getChefData().get(0).getCuisine());

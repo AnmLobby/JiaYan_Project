@@ -231,7 +231,7 @@ public interface Api {
     @POST("Shopcar/cookershopcar/userid/{userid}")
     Observable<ShoppingChefBean>  getMyChefCart(@Path("userid") int userid);
 
-    @POST("Shopcar/editcookershopcar/userid/{userid}")
+    @POST("Shopcar/editcookershopcar/userid/{userid}/cookerid/{cookerid}/serve/{serve}")
     Observable<FavoritrResultBean>  getAddChefCart(@Path("userid") int userid,
                                                  @Path("cookerid") int cookerid,
                                                  @Path("serve")  int serve);

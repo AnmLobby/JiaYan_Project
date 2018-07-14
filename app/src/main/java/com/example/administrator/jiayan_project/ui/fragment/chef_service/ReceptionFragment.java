@@ -215,4 +215,10 @@ public class ReceptionFragment extends AbstractMvpFragment<ReceptionView, Recept
     public ReceptionPresenter createPresenter() {
         return new ReceptionPresenter();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        tipDialog.dismiss();
+    }
 }

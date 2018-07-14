@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
@@ -42,6 +40,7 @@ import com.example.administrator.jiayan_project.vlayout.helper.VlayoutBaseAdapte
 import com.example.administrator.jiayan_project.vlayout.homepage.ItemListener;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.vondear.rxtools.RxImageTool;
 import com.vondear.rxtools.module.wechat.share.WechatShareModel;
 import com.vondear.rxtools.module.wechat.share.WechatShareTools;
@@ -51,6 +50,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 选菜预定界面，具有banner 。已验证信息，厨师详情
@@ -63,6 +63,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
 
     @BindView(R.id.bt_service) Button btService;
 
+    private QMUITipDialog tipDialog;
     private Context mContext;
     private DelegateAdapter delegateAdapter;
     private VirtualLayoutManager virtualLayoutManager;
@@ -73,7 +74,10 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
     private WechatShareModel mWechatShareModel;
     private String shareTitle, shareDescri;
     private List<KeepUserBean> list;
-
+    private int checkid = 1;
+    private int price,banNianPrice,quanNianPrice;
+    private String lev;
+    private String cookname,cookCusine,cookImg,titleName,cookChefImg;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_chef_detail, null);
@@ -115,7 +119,20 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
                 .setListener(new ItemListener<ChefDetailMsgBean>() {
                     @Override
                     public void onItemClick(View view, int position, ChefDetailMsgBean mData) {
-                        Log.e("888", "onItemClick: "+position );
+                        switch (position) {
+                            case R.id.btnone:
+                                checkid = 1;
+                                lev= "包月服务：¥"+price;
+                                break;
+                            case R.id.btntwo:
+                                checkid = 2;
+                                lev= "半年服务：¥"+banNianPrice;
+                                break;
+                            case R.id.btnthree:
+                                checkid = 3;
+                                lev= "包年服务：¥"+quanNianPrice;
+                                break;
+                        }
                     }
                 });
         /**
@@ -129,7 +146,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
                 .setListener(new ItemListener<ChefDetailMsgBean>() {
                     @Override
                     public void onItemClick(View view, int position, ChefDetailMsgBean mData) {
-                        Log.e("888", "onItemClick: "+position );
+                        Log.e("888", "onItemClick: " + position);
                     }
                 });
 
@@ -196,7 +213,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
      */
     private void showShareChefDialog() {
 
-        final String url = "http://jiayan.didi0769.com/mobile/Cook/cookdetails/id/" + id;//网页链接
+//        final String url = "http://jiayan.didi0769.com/mobile/Cook/cookdetails/id/" + id;//网页链接
 
 //        String description = "工欲善其事必先利其器！";//描述
 //
@@ -205,8 +222,9 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
         Glide.with(MyApplication.getContext()).load(imageUrl).asBitmap().override(60, 40).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                 String urll = "http://jiayan.didi0769.com/mobile/Cook/cookdetails/id/" + id;//网页链接
                 byte[] bitmapByte = RxImageTool.bitmap2Bytes(resource, Bitmap.CompressFormat.PNG);//将 Bitmap 转换成 byte[]
-                mWechatShareModel = new WechatShareModel(url, shareTitle, shareDescri, bitmapByte);
+                mWechatShareModel = new WechatShareModel(urll, shareTitle, shareDescri, bitmapByte);
             }
         });
         //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
@@ -230,7 +248,7 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
                                 WechatShareTools.shareURL(mWechatShareModel, WechatShareTools.SharePlace.Zone);//分享操作
                                 break;
                             case TAG_ADD_CART:
-//                                getPresenter().addToMyCart(userid,id,);
+                                getPresenter().addToMyCart(userid,id,checkid);
                                 break;
                         }
                     }
@@ -245,7 +263,11 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
 
     @Override
     public void requestLoading() {
-
+        tipDialog = new QMUITipDialog.Builder(getActivity())
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+        tipDialog.show();
     }
 
     @Override
@@ -261,9 +283,19 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
 
     @Override
     public void resultChefMsgSuccess(ChefDetailMsgBean chefDetailMsgBean) {
+
         imageUrl = Constants.BaseUrl + chefDetailMsgBean.getChefData().get(0).getCookimg();
         shareTitle = chefDetailMsgBean.getChefData().get(0).getCookname();
         shareDescri = chefDetailMsgBean.getChefData().get(0).getCuisine();
+        price=chefDetailMsgBean.getChefData().get(0).getPrice();
+        banNianPrice=chefDetailMsgBean.getChefData().get(0).getBanprice();
+        quanNianPrice=chefDetailMsgBean.getChefData().get(0).getNianprice();
+        cookname=chefDetailMsgBean.getChefData().get(0).getCookname();
+        cookCusine=chefDetailMsgBean.getChefData().get(0).getCuisine();
+        cookImg=chefDetailMsgBean.getCook().get(0).getCookerimg();
+        titleName=chefDetailMsgBean.getCook().get(0).getTitlename();
+        cookChefImg=chefDetailMsgBean.getChefData().get(0).getCookimg();
+        lev= "包月服务：¥"+price;
         msgBeans.add(chefDetailMsgBean);
         chefmsgAdapter.setData(msgBeans);
         chefmsgAdapter.notifyDataSetChanged();
@@ -304,5 +336,22 @@ public class ChefDetailFragment extends AbstractMvpFragment<ChefDetailView, Chef
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        tipDialog.dismiss();
+    }
+
+    @OnClick(R.id.bt_service)
+    public void onViewClicked() {
+        ChefOrderFragment chefOrderFragment=new ChefOrderFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("name",cookname);
+        bundle.putString("cookimg",cookChefImg);
+        bundle.putString("caixi",cookCusine);
+        bundle.putInt("id",id);
+        bundle.putString("cookerimg",cookImg);
+        bundle.putString("level",titleName);
+        bundle.putString("service",lev);
+        bundle.putInt("price",price);
+        chefOrderFragment.setArguments(bundle);
+        startFragment(chefOrderFragment);
     }
 }
