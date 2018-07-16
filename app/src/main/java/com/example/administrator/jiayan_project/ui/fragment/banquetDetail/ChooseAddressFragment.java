@@ -16,6 +16,7 @@ import com.example.administrator.jiayan_project.db.bean.AddressBeanDao;
 import com.example.administrator.jiayan_project.db.greendao.AddressController;
 import com.example.administrator.jiayan_project.db.greendao.GreenDaoManager;
 import com.example.administrator.jiayan_project.ui.base.BaseFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.AddSetFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SetAddressFragment;
 import com.example.administrator.jiayan_project.utils.helper.RudenessScreenHelper;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -89,7 +90,8 @@ public class ChooseAddressFragment extends BaseFragment {
         mTopBar.addRightImageButton(R.mipmap.add, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startFragment(new SetAddressFragment());
+//                startFragment(new SetAddressFragment());
+                startFragment(new AddSetFragment());
             }
         });
     }

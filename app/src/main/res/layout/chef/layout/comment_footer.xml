@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="#f6f7f7"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<ImageView
+    android:id="@+id/footimage"
+    android:layout_margin="30pt"
+    android:layout_width="380pt"
+    android:layout_height="200pt" />
+    <TextView
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="35pt"
+        android:layout_marginLeft="15pt"
+        android:layout_toRightOf="@+id/footimage"
+        android:id="@+id/comment_name"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="#5b5b5b"
+        android:layout_marginTop="65pt"
+        android:layout_marginLeft="15pt"
+        android:layout_toRightOf="@+id/footimage"
+        android:layout_below="@+id/comment_name"
+        android:id="@+id/comment_price"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -5,7 +5,72 @@
     android:layout_height="match_parent"
     tools:context="com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetCommentFragment">
 
+  <RadioGroup
+      android:layout_marginTop="20pt"
+      android:id="@+id/group"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="35pt"
+      android:layout_width="match_parent"
+      android:layout_height="130pt"
+      android:gravity="center"
+      android:orientation="horizontal">
+    <RadioButton
+        android:checked="true"
+        android:layout_marginLeft="30pt"
+        android:layout_marginRight="20pt"
+        android:id="@+id/btnAll"
+        android:layout_width="0dp"
+        android:layout_height="105pt"
+        android:layout_weight="1"
+        android:background="@drawable/radiobutton_background"
+        android:button="@null"
+        android:gravity="center"
+        android:text="全部"
+        android:textColor="@color/radiobutton_textcolor"
+        android:textSize="14sp" />
+    <RadioButton
+        android:layout_marginLeft="20pt"
+        android:layout_marginRight="20pt"
+        android:id="@+id/btnHao"
+        android:layout_width="0dp"
+        android:layout_height="105pt"
+        android:layout_weight="1"
+        android:background="@drawable/radiobutton_background"
+        android:button="@null"
+        android:gravity="center"
+        android:text="好评"
+        android:textColor="@color/radiobutton_textcolor"
+        android:textSize="14sp" />
+
+    <RadioButton
+        android:layout_marginRight="30pt"
+        android:layout_marginLeft="20pt"
+        android:id="@+id/btnZhong"
+        android:layout_width="0dp"
+        android:layout_height="105pt"
+        android:layout_weight="1"
+        android:background="@drawable/radiobutton_background"
+        android:button="@null"
+        android:gravity="center"
+        android:text="中评"
+        android:textColor="@color/radiobutton_textcolor"
+        android:textSize="14sp" />
+    <RadioButton
+        android:layout_marginRight="30pt"
+        android:layout_marginLeft="20pt"
+        android:id="@+id/btnCha"
+        android:layout_width="0dp"
+        android:layout_height="105pt"
+        android:layout_weight="1"
+        android:background="@drawable/radiobutton_background"
+        android:button="@null"
+        android:gravity="center"
+        android:text="差评"
+        android:textColor="@color/radiobutton_textcolor"
+        android:textSize="14sp" />
+  </RadioGroup>
   <android.support.v7.widget.RecyclerView
+      android:layout_marginTop="150pt"
       android:background="@color/white"
       android:id="@+id/recyclerview"
       android:layout_width="match_parent"

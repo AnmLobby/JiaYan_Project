@@ -125,6 +125,7 @@ public class BanquetOrderFragment extends BaseFragment {
     private List<String> leftData;
     private List<String> rightData;
     private int  totalPrice;
+    private String  orderStartData,orderStartTime,orderEndData,orderEndTime;
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
@@ -137,6 +138,10 @@ public class BanquetOrderFragment extends BaseFragment {
         String strAA = DateUtils.get7date().get(1) + DateUtils.get7week().get(1);
         startDate.setText(strAA.substring(5, 10));
         endDate.setText(strAA.substring(5, 10));
+        orderStartData=strAA.substring(5, 10);
+        orderEndData=strAA.substring(5, 10);
+        orderStartTime="11:00";
+        orderEndTime="12:00";
         /**
          * 初始化时间选择数据列表信息
          */
@@ -256,10 +261,9 @@ public class BanquetOrderFragment extends BaseFragment {
         mRVLeftAdapter.setOnLeftItemClickListener(new DateAdapter.OnLeftItemClickListener() {
             @Override
             public void onLeftItemClick(int position) {
-
                 String d_time = mRVLeftAdapter.getData().get(position);
                 enate.setText(d_time.substring(0, 5));
-
+                orderEndData=d_time.substring(0, 5);
             }
         });
         //右边的recycleview
@@ -271,9 +275,71 @@ public class BanquetOrderFragment extends BaseFragment {
                 String o_time = mRVRightAdapter.getData().get(position);
                 enime.setText(o_time);
                 dialog.dismiss();
+                orderEndTime=o_time;
             }
         });
     }
+    private void initEndTimeDialogg(final TextView enate, final TextView enime) {
+//        HideSoftKeyBoardDialog(getActivity());
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppTheme).create();
+        View view = View.inflate(getActivity(), R.layout.endtime_dialog, null);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //window.setWindowAnimations(R.style.dialogStyle);
+//        window.getDecorView().setPadding(0, 0, 0, 0);
+        //设置dialog弹出后会点击屏幕或物理返回键，dialog不消失
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        window.setContentView(view);
+        //获得window窗口的属性
+        WindowManager.LayoutParams params = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
+        //设置窗口高度为包裹内容
+        DisplayMetrics d = MyApplication.getContext().getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        params.height = (int) (d.heightPixels * 0.65);
+//        params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
+        params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致window后所有的东西都成暗淡
+        params.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
+        window.setAttributes(params);
+        RecyclerView mRvLeft = view.findViewById(R.id.rv_left);
+        RecyclerView mRvRight = view.findViewById(R.id.rv_right);
+        QMUITopBar mTopBar = view.findViewById(R.id.mtopbar);
+        mTopBar.setTitle("选择服务时间");
+        mTopBar.addRightImageButton(R.mipmap.dialog_close, R.id.topbar_right_about_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        mTopBar.setBackgroundDividerEnabled(false);//取消设置分割线
+
+        mRvLeft.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
+
+        mRvLeft.setAdapter(mRVLeftAdapter = new DateAdapter(leftData));
+        mRVLeftAdapter.setOnLeftItemClickListener(new DateAdapter.OnLeftItemClickListener() {
+            @Override
+            public void onLeftItemClick(int position) {
+                String d_time = mRVLeftAdapter.getData().get(position);
+                enate.setText(d_time.substring(0, 5));
+                orderStartData=d_time.substring(0, 5);
+            }
+        });
+        //右边的recycleview
+        mRvRight.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
+        mRvRight.setAdapter(mRVRightAdapter = new TimeAdapter(rightData));
+        mRVRightAdapter.setOnLeftItemClickListener(new TimeAdapter.OnLeftItemClickListener() {
+            @Override
+            public void onLeftItemClick(int position) {
+                String o_time = mRVRightAdapter.getData().get(position);
+                enime.setText(o_time);
+                dialog.dismiss();
+                orderStartTime=o_time;
+            }
+        });
+    }
+
 
     /**
      * 标签
@@ -374,7 +440,7 @@ public class BanquetOrderFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.layout_start:
-                initEndTimeDialog(startDate, startTime);
+                initEndTimeDialogg(startDate, startTime);
                 break;
             case R.id.layout_end:
                 initEndTimeDialog(endDate, endTime);

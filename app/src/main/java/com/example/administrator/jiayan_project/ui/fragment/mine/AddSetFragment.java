@@ -143,7 +143,6 @@ public class AddSetFragment extends AddressBaseFragment {
             @Override
             public void onClick(View view) {
                 saveAddress();
-                Log.e(TAG, "onClick: ***" );
             }
         });
         addressController = AddressController.getInstance();

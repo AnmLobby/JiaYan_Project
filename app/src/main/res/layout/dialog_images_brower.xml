@@ -11,9 +11,10 @@
         android:layout_height="match_parent"
         android:paddingTop="@dimen/padding_small_10dp"/>
     <TextView
+        android:layout_marginBottom="70pt"
+        android:layout_gravity="bottom|center_horizontal"
         android:id="@+id/tv_image_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:textColor="@color/white"/>
 </FrameLayout>

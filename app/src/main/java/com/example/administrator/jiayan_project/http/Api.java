@@ -3,6 +3,7 @@ package com.example.administrator.jiayan_project.http;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetBean;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetComentBean;
 import com.example.administrator.jiayan_project.enity.banquet.BanquetDetailBean;
+import com.example.administrator.jiayan_project.enity.banquet.BanquetNumBean;
 import com.example.administrator.jiayan_project.enity.banquet.CheckFavoriteBean;
 import com.example.administrator.jiayan_project.enity.banquet.FavoritrResultBean;
 import com.example.administrator.jiayan_project.enity.banquet.KeepFavoriteBean;
@@ -31,6 +32,8 @@ import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.enity.login.UserBean;
 import com.example.administrator.jiayan_project.enity.mine.ChangeMsgBean;
 import com.example.administrator.jiayan_project.enity.mine.JifenMainBean;
+import com.example.administrator.jiayan_project.enity.mine.MyChefCommentBean;
+import com.example.administrator.jiayan_project.enity.mine.MyCommentBean;
 import com.example.administrator.jiayan_project.enity.mine.UpdateAppInfo;
 import com.example.administrator.jiayan_project.enity.news.NewsDetailBean;
 import com.example.administrator.jiayan_project.enity.news.NewsListBean;
@@ -290,10 +293,11 @@ public interface Api {
     @GET("Cook/cookdetails/id/{id}")
     Observable<ChefDetailMsgBean>      getChefDetailMsg(@Path("id") int id);
     /**
-     * 厨师详情评论
+     * 厨师详情评论全部
      */
     @GET("Cook/cooko/id/{id}")
     Observable<ChefDetailCommentBean>  getChefDetailComment(@Path("id") int id);
+
 
 
 
@@ -384,4 +388,27 @@ public interface Api {
     @GET("Details/comment/id/{id}")
     Observable<BanquetComentBean>      getBanquetComent(@Path("id") String id);
 
+    @GET("Details/commenthao/id/{id}")
+    Observable<BanquetComentBean>      getBanquetComentGood(@Path("id") String id);
+
+    @GET("Details/commentzhong/id/{id}")
+    Observable<BanquetComentBean>      getBanquetComentMid(@Path("id") String id);
+
+    @GET("Details/commentcha/id/{id}")
+    Observable<BanquetComentBean>      getBanquetComentWor(@Path("id") String id);
+
+    @GET("Details/commenttong/id/{id}")
+    Observable<BanquetNumBean>      getBanquetComentNum(@Path("id") String id);
+
+    /**
+     * 我的评价宴席
+     */
+    @GET("Comment/comment/userid/{userid}")
+    Observable<MyCommentBean>      getMyBanquetComment(@Path("userid") int userid);
+
+    /**
+     * 我的评价厨师
+     */
+    @GET("Comment/cookcomment/userid/{userid}")
+    Observable<MyChefCommentBean>      getMyComment(@Path("userid") int userid);
 }

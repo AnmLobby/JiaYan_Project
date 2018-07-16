@@ -31,17 +31,19 @@ public abstract class BaseActivity extends QMUIFragmentActivity {
 
     /**
      * 7-10 注释掉 ，在低版本Android4.4 会出现EventBus报错  java.lang.NoClassDefFoundError: android/os/PersistableBundle
-     * 处理后台返回应用为空
+     * 处理后台返回应用为空，有下图标
+     *
+     * 7-16导致界面全部为空，无下图标
      * @param outState
      * @param outPersistentState
      */
-//    @Override
-//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 
-        //6-13重新修改
-//        if(outState!=null){
-//            FragmentManager manager = getSupportFragmentManager();
-//            manager.popBackStackImmediate(null, 1);
-//        }
-//    }
+//        6-13重新修改
+        if(outState!=null){
+            FragmentManager manager = getSupportFragmentManager();
+            manager.popBackStackImmediate(null, 1);
+        }
+    }
 }

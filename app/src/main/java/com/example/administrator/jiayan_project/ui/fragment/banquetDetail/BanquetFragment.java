@@ -840,6 +840,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
 //                bannerDetailFragment.setArguments(bundle);
 //                startFragment(bannerDetailFragment);
                 new ShowImagesDialog(getActivity(),position,listImage).show();
+
             }
         });
         mainFrag.setVisibility(View.VISIBLE);

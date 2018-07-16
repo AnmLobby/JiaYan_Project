@@ -76,6 +76,7 @@ public class BigYanFragment extends AbstractMvpFragment<BigYanView, BigYanPresen
 
     @Override
     public void resultFailure(String result) {
+        Log.e(TAG, "resultFailure: "+result );
       popBackStack();
     }
 

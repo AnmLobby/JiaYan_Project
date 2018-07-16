@@ -28,18 +28,15 @@ import com.example.administrator.jiayan_project.db.greendao.UserController;
 import com.example.administrator.jiayan_project.enity.login.LoginBean;
 import com.example.administrator.jiayan_project.http.Constants;
 import com.example.administrator.jiayan_project.mvp.base.AbstractMvpFragment;
-import com.example.administrator.jiayan_project.mvp.homepage.HomePresenter;
-import com.example.administrator.jiayan_project.mvp.homepage.HomeView;
 import com.example.administrator.jiayan_project.mvp.mine.MinePresenter;
 import com.example.administrator.jiayan_project.mvp.mine.MineView;
 import com.example.administrator.jiayan_project.ui.activity.ChangeMineMsgActivity;
-import com.example.administrator.jiayan_project.ui.base.BaseFragment;
 import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.BanquetDetailFragment;
-import com.example.administrator.jiayan_project.ui.fragment.big.BigYanFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.CommentViewPagerFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
+import com.example.administrator.jiayan_project.ui.fragment.mine.MyCommentDinnerFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
-import com.example.administrator.jiayan_project.ui.fragment.mine.PostCommentFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine_payorder.OrderBlankFragment;
@@ -131,8 +128,10 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 startFragment(new DeliveryFragment());
                 break;
             case R.id.pingjia_layout:
-                startFragment(new PostCommentFragment());
-                Toast.makeText(MyApplication.getContext(), "po", Toast.LENGTH_SHORT).show();
+                startFragment(new CommentViewPagerFragment());
+//                startFragment(new MyCommentDinnerFragment());
+//                startFragment(new PostCommentFragment());
+                Toast.makeText(MyApplication.getContext(), "评价", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fuwu_layout:
                 final RxDialogSure rxDialogSure = new RxDialogSure(getActivity());//提示弹窗
