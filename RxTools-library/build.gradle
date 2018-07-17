@@ -56,7 +56,7 @@ dependencies {
     //微信登录，支付，分享包
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
     //支付宝 支付包
-    implementation files('libs/alipaySdk-20170309.jar')
+    implementation files('libs/alipaySdk-20180403.jar')
     //压缩与加密
     implementation files('libs/zip4j_1.3.2.jar')
     //Zxing核心包

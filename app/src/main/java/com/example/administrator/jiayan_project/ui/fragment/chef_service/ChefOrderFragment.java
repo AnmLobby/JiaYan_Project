@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
@@ -160,8 +161,7 @@ public class ChefOrderFragment extends BaseFragment {
             }
         });
         mTopBar.setTitle("确认厨师订单");
-//        String startSureTime=getCurrentYear()+"-"+orderEndData+" "+orderEndTime+":00";
-//        String endSureTime=getCurrentYear()+"-"+orderStartData+" "+orderStartTime+":00";
+
     }
 
     /**
@@ -230,9 +230,22 @@ public class ChefOrderFragment extends BaseFragment {
                 initEndTimeDialog(endDate, endTime);
                 break;
             case R.id.pay_money:
+        String endSureTime=getCurrentYear()+"-"+orderEndData+" "+orderEndTime+":00";
+        String startSureTime=getCurrentYear()+"-"+orderStartData+" "+orderStartTime+":00";
+        Long sTime=getTimeOut(startSureTime);
+        Long eTime=getTimeOut(endSureTime);
+         if(orderName.getText().toString().isEmpty()){
+            Toast.makeText(MyApplication.getContext(), "请添加个人收货地址。", Toast.LENGTH_SHORT).show();
+            return;
+         }
+        if (sTime>eTime){
+            Toast.makeText(MyApplication.getContext(), "你所选择的服务开始时间不能大于结束时间。请检查服务时间是否正确。", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
                 break;
         }
+
     }
 
     /**

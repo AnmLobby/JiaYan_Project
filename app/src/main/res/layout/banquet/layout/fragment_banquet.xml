@@ -136,7 +136,6 @@
             android:layout_toRightOf="@+id/bucao_color"
             android:layout_centerInParent="true"
             android:layout_marginLeft="42pt"
-            android:text="注：豪华摆设比普通摆设贵¥250"
             android:textSize="8sp"
             android:textColor="@color/text_gray"
             android:layout_width="wrap_content"

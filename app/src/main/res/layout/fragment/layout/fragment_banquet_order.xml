@@ -248,7 +248,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/text_gray"
-            android:text="预定桌数"
+            android:text="预定桌数："
             android:textSize="@dimen/text_four"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -263,6 +263,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/money_layout"
+
+                android:layout_marginTop="50pt"
+                android:layout_marginLeft="60pt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_gray"
+                    android:text="豪华布草的额外费用："
+                    android:textSize="@dimen/text_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/bucaoneedmoney"
+                    android:layout_marginRight="80pt"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
     <TextView
         android:layout_marginTop="50pt"
         android:layout_marginLeft="30pt"

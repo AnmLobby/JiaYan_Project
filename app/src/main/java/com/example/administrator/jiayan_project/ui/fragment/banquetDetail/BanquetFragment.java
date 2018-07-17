@@ -208,6 +208,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
     private int MIN_MARK = 10;
     private int MAX_MARK = 12;
     private   QMUIRoundButton people;
+    private int bucaoMoney;
 
     @Override
     protected View onCreateView() {
@@ -329,7 +330,9 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 bundle.putString("people", renshu.getText().toString());
                 bundle.putString("price", buyMoney.getText().toString());
                 bundle.putString("name", dishesName.getText().toString());
+                bundle.putInt("colorId",colorId);
                 bundle.putString("imageurl", imageUrl);
+                bundle.putInt("bucaoMoney",bucaoMoney);
                 orderFragment.setArguments(bundle);
                 startFragment(orderFragment);
                 break;
@@ -495,6 +498,8 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
                 Log.e(TAG, "onClick: " + colorId);
                 dialog.dismiss();
                 bucaoColor.setText(sizesList.get(Integer.parseInt(tag) - 1).getSname());
+                tip.setText("注：豪华摆设比普通摆设贵 ¥ "+sizesList.get(Integer.parseInt(tag)-1).getPrice());
+                bucaoMoney=sizesList.get(Integer.parseInt(tag)-1).getPrice();
                 String str = bucaoColor.getText().toString();
                 if (str.contains("豪华")) {
                     tip.setVisibility(View.VISIBLE);

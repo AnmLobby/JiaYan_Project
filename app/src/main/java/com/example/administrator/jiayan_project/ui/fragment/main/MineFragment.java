@@ -116,7 +116,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shoucang_layout:
-                Toast.makeText(MyApplication.getContext(), "收藏", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MyApplication.getContext(), "收藏", Toast.LENGTH_SHORT).show();
                 startFragment(new MyFavoriteFragment());
 //                startFragment(new ReceptionFragment());
                 break;
@@ -131,7 +131,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 startFragment(new CommentViewPagerFragment());
 //                startFragment(new MyCommentDinnerFragment());
 //                startFragment(new PostCommentFragment());
-                Toast.makeText(MyApplication.getContext(), "评价", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MyApplication.getContext(), "评价", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fuwu_layout:
                 final RxDialogSure rxDialogSure = new RxDialogSure(getActivity());//提示弹窗

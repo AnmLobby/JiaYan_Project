@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jiayan_project.MyApplication;
@@ -32,10 +33,12 @@ import com.example.administrator.jiayan_project.utils.util.DateUtils;
 import com.example.administrator.jiayan_project.utils.weight.LinedEditText;
 import com.example.administrator.jiayan_project.utils.weight.TagCloudView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
-import com.vondear.rxtools.module.alipay.AliPayModel;
 import com.vondear.rxtools.module.alipay.AliPayTools;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +49,6 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 高级接待
@@ -111,6 +113,8 @@ public class BanquetOrderFragment extends BaseFragment {
     RelativeLayout chooseAddress;
     @BindView(R.id.pay_money)
     Button payMoney;
+    @BindView(R.id.bucaoneedmoney) TextView bucaoneedmoney;
+    @BindView(R.id.money_layout) RelativeLayout moneyLayout;
     private DateAdapter mRVLeftAdapter;
     private TimeAdapter mRVRightAdapter;
     private HashMap<Integer, Boolean> map = new HashMap<>(0);//记录选择的位置
@@ -124,8 +128,9 @@ public class BanquetOrderFragment extends BaseFragment {
             "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"};
     private List<String> leftData;
     private List<String> rightData;
-    private int  totalPrice;
-    private String  orderStartData,orderStartTime,orderEndData,orderEndTime;
+    private int totalPrice, bucaomoney,colorId;
+    private String orderStartData, orderStartTime, orderEndData, orderEndTime;
+
     @Override
     protected View onCreateView() {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_banquet_order, null);
@@ -138,10 +143,10 @@ public class BanquetOrderFragment extends BaseFragment {
         String strAA = DateUtils.get7date().get(1) + DateUtils.get7week().get(1);
         startDate.setText(strAA.substring(5, 10));
         endDate.setText(strAA.substring(5, 10));
-        orderStartData=strAA.substring(5, 10);
-        orderEndData=strAA.substring(5, 10);
-        orderStartTime="11:00";
-        orderEndTime="12:00";
+        orderStartData = strAA.substring(5, 10);
+        orderEndData = strAA.substring(5, 10);
+        orderStartTime = "11:00";
+        orderEndTime = "12:00";
         /**
          * 初始化时间选择数据列表信息
          */
@@ -171,20 +176,22 @@ public class BanquetOrderFragment extends BaseFragment {
         num = bundle.getString("num");
         name = bundle.getString("name");
         peoplenum = bundle.getString("people");
+        bucaomoney = bundle.getInt("bucaoMoney");
+        colorId=bundle.getInt("colorId");
         Glide.with(MyApplication.getContext())
                 .load(imageurl)
                 .centerCrop()
                 .into(bg);
-        Log.e(TAG, "onCreateView: 图片"+imageurl );
         cuisineName.setText(name);
         cuisine_price.setText("¥ " + price);
         people.setText("规格：" + peoplenum + "人/桌");
         allnum.setText("×" + num);
         bucaocolor.setText("布草摆设：" + color);
+        bucaoneedmoney.setText("¥ " + String.valueOf(Integer.parseInt(num) *bucaomoney));
         initPoView();
         initOrdername();
-         totalPrice +=  Integer.parseInt(num) *  Integer.parseInt(price);
-         sureMoney.setText("¥ " +totalPrice+"");
+        totalPrice += Integer.parseInt(num) * Integer.parseInt(price)+Integer.parseInt(num) *bucaomoney;
+        sureMoney.setText("¥ " + totalPrice + "");
         chooseAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -263,7 +270,7 @@ public class BanquetOrderFragment extends BaseFragment {
             public void onLeftItemClick(int position) {
                 String d_time = mRVLeftAdapter.getData().get(position);
                 enate.setText(d_time.substring(0, 5));
-                orderEndData=d_time.substring(0, 5);
+                orderEndData = d_time.substring(0, 5);
             }
         });
         //右边的recycleview
@@ -275,10 +282,11 @@ public class BanquetOrderFragment extends BaseFragment {
                 String o_time = mRVRightAdapter.getData().get(position);
                 enime.setText(o_time);
                 dialog.dismiss();
-                orderEndTime=o_time;
+                orderEndTime = o_time;
             }
         });
     }
+
     private void initEndTimeDialogg(final TextView enate, final TextView enime) {
 //        HideSoftKeyBoardDialog(getActivity());
         final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppTheme).create();
@@ -323,7 +331,7 @@ public class BanquetOrderFragment extends BaseFragment {
             public void onLeftItemClick(int position) {
                 String d_time = mRVLeftAdapter.getData().get(position);
                 enate.setText(d_time.substring(0, 5));
-                orderStartData=d_time.substring(0, 5);
+                orderStartData = d_time.substring(0, 5);
             }
         });
         //右边的recycleview
@@ -335,7 +343,7 @@ public class BanquetOrderFragment extends BaseFragment {
                 String o_time = mRVRightAdapter.getData().get(position);
                 enime.setText(o_time);
                 dialog.dismiss();
-                orderStartTime=o_time;
+                orderStartTime = o_time;
             }
         });
     }
@@ -446,10 +454,50 @@ public class BanquetOrderFragment extends BaseFragment {
                 initEndTimeDialog(endDate, endTime);
                 break;
             case R.id.pay_money:
-
+                String endSureTime = getCurrentYear() + "-" + orderEndData + " " + orderEndTime + ":00";
+                String startSureTime = getCurrentYear() + "-" + orderStartData + " " + orderStartTime + ":00";
+                Long sTime = getTimeOut(startSureTime);
+                Long eTime = getTimeOut(endSureTime);
+                if (orderName.getText().toString().isEmpty()) {
+                    Toast.makeText(MyApplication.getContext(), "请添加个人收货地址。", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (sTime > eTime) {
+                    Toast.makeText(MyApplication.getContext(), "你所选择的服务开始时间不能大于结束时间。请检查服务时间是否正确。", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 break;
         }
     }
+
+    /**
+     * 日期转换时间戳
+     *
+     * @param longtime
+     * @return
+     */
+    public static long getTimeOut(String longtime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = format.parse(longtime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date.getTime() / 1000;
+    }
+
+    /**
+     * 获取当前年份
+     *
+     * @return
+     */
+    public static String getCurrentYear() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        return sdf.format(date);
+    }
+
     @Override
     protected boolean canDragBack() {
         return false;
