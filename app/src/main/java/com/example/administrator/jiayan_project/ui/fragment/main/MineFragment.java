@@ -12,8 +12,10 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +37,6 @@ import com.example.administrator.jiayan_project.ui.fragment.banquetDetail.Banque
 import com.example.administrator.jiayan_project.ui.fragment.mine.CommentViewPagerFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.DeliveryFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.JifenFragment;
-import com.example.administrator.jiayan_project.ui.fragment.mine.MyCommentDinnerFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.MyFavoriteFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.RechargeFragment;
 import com.example.administrator.jiayan_project.ui.fragment.mine.SettingFragment;
@@ -57,11 +58,12 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * 我的页面，底部栏第四个
  */
-public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> implements MineView  {
+public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> implements MineView {
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     private static final String TAG = "MineFragment";
     @BindView(R.id.yuelayout) LinearLayout yuelayout;
@@ -81,38 +83,74 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     @BindView(R.id.tuikuan_layout) LinearLayout tuikuanLayout;
     @BindView(R.id.name) TextView name;
     @BindView(R.id.iv_head) QMUIRadiusImageView ivHead;
+    @BindView(R.id.daifukuantext) TextView daifukuantext;
+    @BindView(R.id.yizhifutext) TextView yizhifutext;
+    @BindView(R.id.daipingjiatext) TextView daipingjiatext;
+    @BindView(R.id.shouhoutext) TextView shouhoutext;
+    @BindView(R.id.daifukuan) ImageView daifukuan;
+    @BindView(R.id.yizhifu) ImageView yizhifu;
+    @BindView(R.id.daipingjia) ImageView daipingjia;
+    @BindView(R.id.shouhou) ImageView shouhou;
     private WechatShareModel mWechatShareModel;
     private List<KeepUserBean> list;
     private List<KeepUserBean> keepUserBeans;
-    private String  userPhone;
+    private String userPhone;
     private Boolean isPause = false;
     private UserController userController;
+
     @Override
     protected View onCreateView() {
         CoordinatorLayout layout = (CoordinatorLayout) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mine, null);
         RudenessScreenHelper.resetDensity(MyApplication.getContext(), 1080);
         ButterKnife.bind(this, layout);
-        userController=UserController.getInstance();
+        userController = UserController.getInstance();
         list = GreenDaoManager.getInstance().getSession().getKeepUserBeanDao().queryBuilder()
                 .offset(0)
                 .limit(1)
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        if (list.get(0).getAvatar().equals("")) {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
-        }else {
-            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+list.get(0).getAvatar()).into(ivHead);
+        if (list.get(0).getAvatar().isEmpty()) {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+        } else {
+            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + list.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
         }
-        userPhone=list.get(0).getUsername();
+        userPhone = list.get(0).getUsername();
         name.setText(list.get(0).getNickname());
         getPresenter().clickPostMessage(userPhone);
-        UserController userController=UserController.getInstance();
-        Log.e(TAG, "onCreateView: "+   userController.query(1));
+        UserController userController = UserController.getInstance();
+        new QBadgeView(MyApplication.getContext())
+                .bindTarget(daifukuanLayout)
+                .setBadgeGravity(Gravity.END | Gravity.TOP)
+                .setBadgePadding(0, true)
+                .setExactMode(true)
+                .setGravityOffset(65, 0, false)
+                .setBadgeNumber(5);
+        new QBadgeView(MyApplication.getContext())
+                .bindTarget(yizhifuLayout)
+                .setBadgeGravity(Gravity.END | Gravity.TOP)
+                .setBadgePadding(0, true)
+                .setExactMode(true)
+                .setGravityOffset(65, 0, false)
+                .setBadgeNumber(1);
+        new QBadgeView(MyApplication.getContext())
+                .bindTarget(daipingjiaLayout)
+                .setBadgeGravity(Gravity.END | Gravity.TOP)
+                .setBadgePadding(0, true)
+                .setExactMode(true)
+                .setGravityOffset(65, 0, false)
+                .setBadgeNumber(1);
+        new QBadgeView(MyApplication.getContext())
+                .bindTarget(tuikuanLayout)
+                .setBadgeGravity(Gravity.END | Gravity.TOP)
+                .setBadgePadding(0, true)
+                .setExactMode(true)
+                .setGravityOffset(75, 0, false)
+                .setBadgeNumber(0);
         return layout;
     }
 
-    @OnClick({R.id.shoucang_layout, R.id.huiyuan_layout, R.id.address_layout, R.id.pingjia_layout, R.id.fuwu_layout, R.id.kefu_layout, R.id.kajuan_layout, R.id.fenxiang_layout, R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout, R.id.daifukuan_layout, R.id.yizhifu_layout, R.id.daipingjia_layout, R.id.tuikuan_layout,R.id.iv_head})
+    @OnClick({R.id.shoucang_layout, R.id.huiyuan_layout, R.id.address_layout, R.id.pingjia_layout, R.id.fuwu_layout, R.id.kefu_layout, R.id.kajuan_layout, R.id.fenxiang_layout, R.id.yuelayout, R.id.chongzhilayout, R.id.jifenlayout, R.id.daifukuan_layout, R.id.yizhifu_layout, R.id.daipingjia_layout, R.id.tuikuan_layout, R.id.iv_head})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shoucang_layout:
@@ -200,9 +238,9 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 break;
             case R.id.iv_head:
 
-                Intent intent=new Intent(MyApplication.getContext(), ChangeMineMsgActivity.class);
+                Intent intent = new Intent(MyApplication.getContext(), ChangeMineMsgActivity.class);
                 startActivity(intent);
-                isPause=true;
+                isPause = true;
                 getActivity().overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
                 break;
         }
@@ -250,7 +288,6 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     }
 
 
-
     @Override
     public MinePresenter createPresenter() {
         return new MinePresenter();
@@ -273,10 +310,10 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                                     .build()
                                     .list();
                             name.setText(keepUserBeans.get(0).getNickname());
-                            if (keepUserBeans.get(0).getAvatar().equals("")) {
-                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
-                            }else {
-                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+keepUserBeans.get(0).getAvatar()).into(ivHead);
+                            if (keepUserBeans.get(0).getAvatar().isEmpty()) {
+                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+                            } else {
+                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + keepUserBeans.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
                             }
                         }
                     });
@@ -324,19 +361,19 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
 
     @Override
     public void resultFailure(String result) {
-        Log.e(TAG, "resultFailure: "+result );
+        Log.e(TAG, "resultFailure: " + result);
     }
 
     @Override
     public void resultLoginSuccess(List<LoginBean> loginBean) {
 
         name.setText(loginBean.get(0).getNickname());
-        if (loginBean.get(0).getAvatar()==null||loginBean.get(0).getAvatar().equals("")) {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).into(ivHead);
-        }else {
-            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+loginBean.get(0).getAvatar()).into(ivHead);
+        if (loginBean.get(0).getAvatar() == null || loginBean.get(0).getAvatar().isEmpty()) {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+        } else {
+            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + loginBean.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
         }
-        KeepUserBean addressBean=new KeepUserBean();
+        KeepUserBean addressBean = new KeepUserBean();
         addressBean.setId(list.get(0).getId());
         addressBean.setUserId(loginBean.get(0).getId());
         addressBean.setAge(loginBean.get(0).getAge());
@@ -348,5 +385,10 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
         addressBean.setNickname(loginBean.get(0).getNickname());
         addressBean.setUsername(loginBean.get(0).getUsername());
         userController.update(addressBean);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

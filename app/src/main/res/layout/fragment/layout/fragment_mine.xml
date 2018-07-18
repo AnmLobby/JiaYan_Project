@@ -147,9 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
+
                 android:id="@+id/daifukuan_layout"
                 android:orientation="vertical"
                 android:layout_weight="1"
@@ -162,6 +160,7 @@
                     android:layout_height="65pt"
                     android:layout_gravity="center" />
                 <TextView
+                    android:id="@+id/daifukuantext"
                     android:text="待付款"
                     android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
@@ -170,9 +169,7 @@
                     android:layout_marginTop="10pt"/>
             </LinearLayout>
             <LinearLayout
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
+
                 android:id="@+id/yizhifu_layout"
                 android:orientation="vertical"
                 android:layout_weight="1"
@@ -185,6 +182,7 @@
                     android:layout_height="65pt"
                     android:layout_gravity="center" />
                 <TextView
+                    android:id="@+id/yizhifutext"
                     android:text="已支付"
                     android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
@@ -193,9 +191,7 @@
                     android:layout_marginTop="10pt"/>
             </LinearLayout>
             <LinearLayout
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
+
                 android:id="@+id/daipingjia_layout"
                 android:orientation="vertical"
                 android:layout_weight="1"
@@ -208,6 +204,7 @@
                     android:layout_height="65pt"
                     android:layout_gravity="center" />
                 <TextView
+                    android:id="@+id/daipingjiatext"
                     android:text="待评价"
                     android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
@@ -216,9 +213,7 @@
                     android:layout_marginTop="10pt"/>
             </LinearLayout>
             <LinearLayout
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
+
                 android:id="@+id/tuikuan_layout"
                 android:orientation="vertical"
                 android:layout_weight="1"
@@ -231,6 +226,7 @@
                     android:layout_height="65pt"
                     android:layout_gravity="center" />
                 <TextView
+                    android:id="@+id/shouhoutext"
                     android:text="售后/退款"
                     android:textSize="@dimen/text_small"
                     android:layout_width="wrap_content"
