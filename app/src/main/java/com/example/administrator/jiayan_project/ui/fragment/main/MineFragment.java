@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.jiayan_project.MyApplication;
 import com.example.administrator.jiayan_project.R;
 import com.example.administrator.jiayan_project.db.bean.KeepUserBean;
@@ -110,16 +111,15 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        Log.e(TAG, "onCreateView: 888888888888888888888888888888888888" );
-        if (list.get(0).getAvatar() != null && list.get(0).getAvatar().length() != 0) {
-            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + list.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+        String strImag=list.get(0).getAvatar().toString().trim();
+        if (strImag!=null&&strImag.length()!= 0) {
+            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl+strImag).dontAnimate().placeholder(R.drawable.timg).into(ivHead);
         } else {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).dontAnimate().placeholder(R.drawable.timg).into(ivHead);
         }
         userPhone = list.get(0).getUsername();
         name.setText(list.get(0).getNickname());
         getPresenter().clickPostMessage(userPhone);
-        UserController userController = UserController.getInstance();
         new QBadgeView(MyApplication.getContext())
                 .bindTarget(daifukuanLayout)
                 .setBadgeGravity(Gravity.END | Gravity.TOP)
@@ -145,8 +145,8 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 .bindTarget(tuikuanLayout)
                 .setBadgeGravity(Gravity.END | Gravity.TOP)
                 .setBadgePadding(0, true)
-                .setExactMode(true)
-                .setGravityOffset(75, 0, false)
+                .setExactMode(false)
+                .setGravityOffset(65, 0, false)
                 .setBadgeNumber(999);
         return layout;
     }
@@ -313,9 +313,9 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                             name.setText(keepUserBeans.get(0).getNickname());
 //                            if (keepUserBeans.get(0).getAvatar().equals("")) {
                             if (keepUserBeans.get(0).getAvatar()!=null&&keepUserBeans.get(0).getAvatar().length()!=0) {
-                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + keepUserBeans.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+                                Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + keepUserBeans.get(0).getAvatar()).dontAnimate().placeholder(R.drawable.timg).into(ivHead);
                             } else {
-                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).dontAnimate().placeholder(R.drawable.timg).into(ivHead);
                             }
                         }
                     });
@@ -367,20 +367,28 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     }
 
     @Override
-    public void resultLoginSuccess(List<LoginBean> loginBean) {
+    public void resultLoginSuccess(final List<LoginBean> loginBean) {
+        Log.e(TAG, "resultLoginSuccess: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
 
-        name.setText(loginBean.get(0).getNickname());
 //        if (loginBean.get(0).getAvatar() == null || loginBean.get(0).getAvatar().isEmpty()) {
 //            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
 //        } else {
 //            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + loginBean.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
 //        }
+        Observable.timer(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        name.setText(loginBean.get(0).getNickname());
+                        if (loginBean.get(0).getAvatar()!= null&&loginBean.get(0).getAvatar().length()!= 0) {
+                            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + loginBean.get(0).getAvatar()).dontAnimate().placeholder(R.drawable.timg).into(ivHead);
+                        } else {
+                            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).dontAnimate().placeholder(R.drawable.timg).into(ivHead);
+                        }
+                    }
+                });
 
-        if (loginBean.get(0).getAvatar() != null && loginBean.get(0).getAvatar().length() != 0) {
-            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + loginBean.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
-        } else {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
-        }
         KeepUserBean addressBean = new KeepUserBean();
         addressBean.setId(list.get(0).getId());
         addressBean.setUserId(loginBean.get(0).getId());
@@ -393,6 +401,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
         addressBean.setNickname(loginBean.get(0).getNickname());
         addressBean.setUsername(loginBean.get(0).getUsername());
         userController.update(addressBean);
+
     }
 
     @Override
