@@ -110,10 +110,11 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 .orderDesc(KeepUserBeanDao.Properties.Id)//通过 StudentNum 这个属性进行正序排序  Desc倒序
                 .build()
                 .list();
-        if (list.get(0).getAvatar().isEmpty()) {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
-        } else {
+        Log.e(TAG, "onCreateView: 888888888888888888888888888888888888" );
+        if (list.get(0).getAvatar() != null && list.get(0).getAvatar().length() != 0) {
             Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + list.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+        } else {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
         }
         userPhone = list.get(0).getUsername();
         name.setText(list.get(0).getNickname());
@@ -146,7 +147,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                 .setBadgePadding(0, true)
                 .setExactMode(true)
                 .setGravityOffset(75, 0, false)
-                .setBadgeNumber(0);
+                .setBadgeNumber(999);
         return layout;
     }
 
@@ -298,7 +299,7 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
         super.onResume();
         if (isPause) { //判断是否暂停
             isPause = false;
-            Observable.timer(100, TimeUnit.MILLISECONDS)
+            Observable.timer(0, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<Long>() {
                         @Override
@@ -310,10 +311,11 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
                                     .build()
                                     .list();
                             name.setText(keepUserBeans.get(0).getNickname());
-                            if (keepUserBeans.get(0).getAvatar().isEmpty()) {
-                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
-                            } else {
+//                            if (keepUserBeans.get(0).getAvatar().equals("")) {
+                            if (keepUserBeans.get(0).getAvatar()!=null&&keepUserBeans.get(0).getAvatar().length()!=0) {
                                 Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + keepUserBeans.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+                            } else {
+                                Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
                             }
                         }
                     });
@@ -368,10 +370,16 @@ public class MineFragment extends AbstractMvpFragment<MineView, MinePresenter> i
     public void resultLoginSuccess(List<LoginBean> loginBean) {
 
         name.setText(loginBean.get(0).getNickname());
-        if (loginBean.get(0).getAvatar() == null || loginBean.get(0).getAvatar().isEmpty()) {
-            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
-        } else {
+//        if (loginBean.get(0).getAvatar() == null || loginBean.get(0).getAvatar().isEmpty()) {
+//            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+//        } else {
+//            Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + loginBean.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+//        }
+
+        if (loginBean.get(0).getAvatar() != null && loginBean.get(0).getAvatar().length() != 0) {
             Glide.with(MyApplication.getContext()).load(Constants.BaseUrl + loginBean.get(0).getAvatar()).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
+        } else {
+            Glide.with(MyApplication.getContext()).load(R.drawable.bg_people).placeholder(R.drawable.bg_people).error(R.drawable.bg_people).into(ivHead);
         }
         KeepUserBean addressBean = new KeepUserBean();
         addressBean.setId(list.get(0).getId());

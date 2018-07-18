@@ -366,7 +366,7 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
      */
     private void showShareDialog() {
 
-        final String url = "http://jiayan.didi0769.com/mobile/Details/details/id/" + dinnerid;//网页链接
+//        final String url = "http://jiayan.didi0769.com/mobile/Details/details/id/" + dinnerid;//网页链接
 
 //        String description = "工欲善其事必先利其器！";//描述
 //
@@ -375,8 +375,9 @@ public class BanquetFragment extends AbstractMvpFragment<BanquetView, BanquetPre
         Glide.with(MyApplication.getContext()).load(imageUrl).asBitmap().override(60, 40).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                String urll = "http://jiayan.didi0769.com/mobile/Details/details/id/" + dinnerid;//网页链接
                 byte[] bitmapByte = RxImageTool.bitmap2Bytes(resource, Bitmap.CompressFormat.PNG);//将 Bitmap 转换成 byte[]
-                mWechatShareModel = new WechatShareModel(url, shareTitle, shareDescri, bitmapByte);
+                mWechatShareModel = new WechatShareModel(urll, shareTitle, shareDescri, bitmapByte);
             }
         });
         //Friend 分享微信好友,Zone 分享微信朋友圈,Favorites 分享微信收藏
